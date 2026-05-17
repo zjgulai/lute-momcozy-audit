@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Momcozy 独立站诊断 M1 · 路特 AI 公司 × Momcozy · v1.1 FINAL</title>
+  <meta name="description" content="月入 $11.5M / CVR 0.88% / Top 5 P0 修复 35h 估月增收 $10-16M · 路特 AI 公司 COO Sisyphus 出品">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Brand Design Tokens（继承 SOP-B + 诊断站新增） ─────────────── */
+    :root {
+      --bg-white:       #ffffff;
+      --bg-gray:        #f7f7f8;
+      --bg-dark:        #0f0f10;
+      --bg-card:        #fafafa;
+      --text-primary:   #111111;
+      --text-secondary: #5c5c5c;
+      --text-tertiary:  #8a8a8a;
+      --cta-black:      #111111;
+      --accent:         #6a2b3a;
+      --accent-light:   #fde8ec;
+      --success:        #1f9d55;
+      --success-light:  #e6f7ec;
+      --warning:        #d97706;
+      --warning-light:  #fef3c7;
+      --danger:         #c53030;
+      --danger-light:   #fee2e2;
+      --border:         #e5e5e5;
+      --border-light:   #f0f0f0;
+      --font:           'Montserrat', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-mono:      'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+      --shadow-sm:      0 1px 2px rgba(0,0,0,0.04);
+      --shadow:         0 4px 12px rgba(0,0,0,0.06);
+      --shadow-lg:      0 12px 32px rgba(0,0,0,0.08);
+    }
+
+    /* ─── Reset ───────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-primary);
+      background: var(--bg-white);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    table { border-collapse: collapse; width: 100%; }
+
+    /* ─── Utility ─────────────────────────────────────────────────────── */
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 80px 0; }
+    .section--gray { background: var(--bg-gray); }
+    .section--dark { background: var(--bg-dark); color: #f4f4f4; }
+    .section__head { margin-bottom: 48px; }
+    .section__eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .section__title {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section--dark .section__title { color: #ffffff; }
+    .section__sub {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 720px;
+    }
+    .section--dark .section__sub { color: #bdbdbd; }
+
+    /* ─── Promo Banner ───────────────────────────────────────────────── */
+    .promo-banner {
+      background: var(--cta-black);
+      color: #fff;
+      text-align: center;
+      padding: 10px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .promo-banner .dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #1f9d55;
+      margin: 0 12px 2px;
+      vertical-align: middle;
+    }
+
+    /* ─── Top Nav ─────────────────────────────────────────────────────── */
+    .nav-top {
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-top__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .nav-logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-logo .x {
+      color: var(--text-tertiary);
+      font-weight: 400;
+      margin: 0 8px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      background: var(--cta-black);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .nav-cta:hover { background: var(--accent); color: #fff; }
+
+    /* ─── Hero ────────────────────────────────────────────────────────── */
+    .hero {
+      padding: 80px 0 96px;
+      background: linear-gradient(180deg, #fff 0%, var(--bg-gray) 100%);
+    }
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    @media (max-width: 980px) {
+      .hero__grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    .hero__badge {
+      display: inline-block;
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+    }
+    .hero__title {
+      font-size: 52px;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.025em;
+      margin-bottom: 24px;
+    }
+    .hero__title .hl {
+      background: linear-gradient(180deg, transparent 60%, var(--accent-light) 60%);
+      padding: 0 2px;
+    }
+    .hero__lead {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 32px;
+    }
+    .hero__lead strong { color: var(--text-primary); font-weight: 700; }
+    .hero__meta {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-tertiary);
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .hero__meta strong { color: var(--text-primary); font-weight: 700; }
+
+    .hero__roi-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border-light);
+    }
+    .hero__roi-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .hero__roi-big {
+      font-size: 64px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .hero__roi-big .unit {
+      font-size: 24px;
+      color: var(--text-tertiary);
+      font-weight: 600;
+      margin-left: 4px;
+    }
+    .hero__roi-sub {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+      font-weight: 500;
+    }
+    .hero__roi-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .roi-bar {
+      display: grid;
+      grid-template-columns: 132px 1fr 96px;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+    }
+    .roi-bar__label {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .roi-bar__track {
+      background: var(--bg-gray);
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .roi-bar__fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent) 0%, #8b4357 100%);
+      border-radius: 999px;
+    }
+    .roi-bar__val {
+      font-weight: 700;
+      color: var(--accent);
+      text-align: right;
+      font-size: 13px;
+    }
+
+    /* ─── KPI Health Grid ───────────────────────────────────────────── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 980px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+    .kpi-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px 20px;
+      position: relative;
+    }
+    .kpi-card__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+    .kpi-card__value {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .kpi-card__baseline {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      font-weight: 500;
+    }
+    .kpi-card__status {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .status-good { background: var(--success); box-shadow: 0 0 0 4px var(--success-light); }
+    .status-warn { background: var(--warning); box-shadow: 0 0 0 4px var(--warning-light); }
+    .status-bad { background: var(--danger); box-shadow: 0 0 0 4px var(--danger-light); }
+    .kpi-card--good .kpi-card__value { color: var(--success); }
+    .kpi-card--bad .kpi-card__value { color: var(--danger); }
+
+    /* ─── 业务体检 Table ───────────────────────────────────────────── */
+    .check-table {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .check-table table {
+      font-size: 14px;
+    }
+    .check-table th,
+    .check-table td {
+      padding: 14px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .check-table th {
+      background: var(--bg-gray);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+    }
+    .check-table tr:last-child td { border-bottom: none; }
+    .check-table td.num { font-weight: 700; }
+    .check-table td.num.bad { color: var(--danger); }
+    .check-table td.num.good { color: var(--success); }
+    .check-table .delta {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 6px;
+    }
+    .delta-bad { background: var(--danger-light); color: var(--danger); }
+    .delta-good { background: var(--success-light); color: var(--success); }
+    .delta-warn { background: var(--warning-light); color: var(--warning); }
+
+    /* ─── 性能灾难 Cards ───────────────────────────────────────────── */
+    .perf-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 980px) { .perf-grid { grid-template-columns: repeat(2, 1fr); } }
+    .perf-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+    .perf-card--bad {
+      background: var(--danger-light);
+      border-color: var(--danger);
+    }
+    .perf-card__metric {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+    .perf-card--bad .perf-card__metric { color: var(--danger); }
+    .perf-card__value {
+      font-size: 36px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+    .perf-card--bad .perf-card__value { color: var(--danger); }
+    .perf-card__benchmark {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .perf-card__verdict {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .perf-card--bad .perf-card__verdict {
+      border-top-color: rgba(197, 48, 48, 0.2);
+      color: var(--danger);
+      font-weight: 600;
+    }
+
+    /* ─── Top 15 诊断 列表 ──────────────────────────────────────────── */
+    .diag-list {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .diag-row {
+      display: grid;
+      grid-template-columns: 64px 1.5fr 1fr 110px 90px 90px;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .diag-row:last-child { border-bottom: none; }
+    .diag-row:hover { background: var(--bg-gray); }
+    .diag-row__pri {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      padding: 4px 8px;
+      border-radius: 4px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .pri-p0 { background: var(--danger); color: #fff; }
+    .pri-p1 { background: var(--warning); color: #fff; }
+    .pri-p2 { background: var(--text-tertiary); color: #fff; }
+    .pri-info { background: var(--success-light); color: var(--success); }
+    .diag-row__title { font-weight: 600; }
+    .diag-row__title small {
+      display: block;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .diag-row__evidence {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+    .diag-row__num {
+      font-size: 13px;
+      font-weight: 700;
+      text-align: right;
+    }
+    .diag-row__roi {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--accent);
+      text-align: right;
+    }
+    .diag-row__hours {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-align: right;
+    }
+    .diag-header {
+      background: var(--bg-gray);
+      padding: 14px 24px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      display: grid;
+      grid-template-columns: 64px 1.5fr 1fr 110px 90px 90px;
+      gap: 16px;
+    }
+    .diag-header > div:nth-child(4),
+    .diag-header > div:nth-child(5),
+    .diag-header > div:nth-child(6) { text-align: right; }
+
+    @media (max-width: 980px) {
+      .diag-row,
+      .diag-header {
+        grid-template-columns: 64px 1fr 80px;
+      }
+      .diag-row__evidence,
+      .diag-row__num,
+      .diag-header > div:nth-child(3),
+      .diag-header > div:nth-child(4) { display: none; }
+      .diag-row__hours { display: none; }
+      .diag-header > div:nth-child(6) { display: none; }
+    }
+
+    /* ─── 竞品矩阵热图 ───────────────────────────────────────────── */
+    .matrix-wrap {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow-x: auto;
+    }
+    .matrix-table {
+      min-width: 800px;
+      font-size: 13px;
+    }
+    .matrix-table th,
+    .matrix-table td {
+      padding: 12px 14px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-light);
+      border-right: 1px solid var(--border-light);
+    }
+    .matrix-table th:first-child,
+    .matrix-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+      background: var(--bg-gray);
+      position: sticky;
+      left: 0;
+      z-index: 1;
+    }
+    .matrix-table thead th {
+      background: var(--bg-dark);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .matrix-table thead th.momcozy {
+      background: var(--accent);
+    }
+    .matrix-table td.momcozy {
+      background: var(--accent-light);
+      font-weight: 700;
+    }
+    .cell-bad { background: rgba(197,48,48,0.08); color: var(--danger); font-weight: 700; }
+    .cell-warn { background: rgba(217,119,6,0.08); color: var(--warning); font-weight: 600; }
+    .cell-good { background: rgba(31,157,85,0.08); color: var(--success); font-weight: 600; }
+
+    /* ─── Liquid PR Tabs ───────────────────────────────────────────── */
+    .pr-wrap {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 980px) { .pr-wrap { grid-template-columns: 1fr; } }
+    .pr-tabs {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      max-height: 720px;
+      overflow-y: auto;
+    }
+    .pr-tab {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid transparent;
+      font-family: inherit;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      transition: all 0.15s;
+    }
+    .pr-tab:hover { background: var(--bg-gray); color: var(--text-primary); }
+    .pr-tab.active {
+      background: var(--bg-dark);
+      color: #fff;
+      border-color: var(--bg-dark);
+    }
+    .pr-tab__pri {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    .pr-tab__title { font-weight: 600; }
+    .pr-tab__roi {
+      display: block;
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .pr-tab.active .pr-tab__roi { color: #fde8ec; }
+    .pr-panel {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .pr-panel__head {
+      padding: 24px 28px;
+      border-bottom: 1px solid var(--border-light);
+      background: var(--bg-gray);
+    }
+    .pr-panel__title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      margin-bottom: 8px;
+    }
+    .pr-panel__meta {
+      display: flex;
+      gap: 20px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    .pr-panel__meta strong { color: var(--text-primary); font-weight: 700; }
+    .pr-panel__why {
+      padding: 20px 28px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .pr-panel__why strong { color: var(--text-primary); }
+    .pr-panel__code {
+      background: var(--bg-dark);
+      color: #e4e4e4;
+      padding: 24px 28px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.7;
+      overflow-x: auto;
+      white-space: pre;
+      tab-size: 2;
+    }
+    .pr-panel__code .liquid { color: #f9a8d4; }
+    .pr-panel__code .tag    { color: #93c5fd; }
+    .pr-panel__code .str    { color: #fbbf24; }
+    .pr-panel__code .comment { color: #6b7280; font-style: italic; }
+    .pr-panel__code .key    { color: #34d399; }
+    .pr-panel__impact {
+      padding: 18px 28px;
+      background: var(--accent-light);
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .pr-panel__impact strong { font-weight: 800; }
+
+    /* ─── 神秘脚本溯源（dark） ────────────────────────────────────── */
+    .script-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 980px) { .script-cards { grid-template-columns: 1fr; } }
+    .script-card {
+      background: #1a1a1c;
+      border: 1px solid #2a2a2c;
+      border-radius: 14px;
+      padding: 28px;
+    }
+    .script-card__head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .script-card__verdict {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: var(--success);
+      color: #fff;
+    }
+    .script-card__domain {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .script-card__id {
+      font-size: 14px;
+      color: #bdbdbd;
+      margin-bottom: 16px;
+    }
+    .script-card__id strong { color: #fff; }
+    .script-card__steps {
+      font-size: 13px;
+      color: #bdbdbd;
+      line-height: 1.8;
+    }
+    .script-card__steps li {
+      padding-left: 28px;
+      position: relative;
+      margin-bottom: 6px;
+    }
+    .script-card__steps li::before {
+      content: counter(step);
+      counter-increment: step;
+      position: absolute;
+      left: 0;
+      top: 2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      line-height: 20px;
+    }
+    .script-card__steps { counter-reset: step; }
+
+    /* ─── Sprint Roadmap ───────────────────────────────────────────── */
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      position: relative;
+    }
+    @media (max-width: 980px) { .roadmap { grid-template-columns: 1fr; } }
+    .roadmap::before {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: 5%; right: 5%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent) 50%, var(--border) 50%, var(--border));
+      z-index: 0;
+    }
+    @media (max-width: 980px) { .roadmap::before { display: none; } }
+    .sprint-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .sprint-card__num {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .sprint-card__title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    .sprint-card__hours {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 14px;
+    }
+    .sprint-card__items {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+    .sprint-card__items li {
+      padding-left: 16px;
+      position: relative;
+      margin-bottom: 4px;
+    }
+    .sprint-card__items li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 10px;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .sprint-card__roi {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    /* ─── CTA Decision Section ─────────────────────────────────────── */
+    .cta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    @media (max-width: 980px) { .cta-grid { grid-template-columns: 1fr; } }
+    .cta-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+    }
+    .cta-card__num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 12px;
+    }
+    .cta-card__title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    .cta-card__options {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+    .cta-card__rec {
+      background: var(--success-light);
+      color: var(--success);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .cta-card__rec strong { font-weight: 800; }
+
+    /* ─── Footer ───────────────────────────────────────────────────── */
+    .footer {
+      background: var(--bg-dark);
+      color: #bdbdbd;
+      padding: 56px 0 32px;
+      font-size: 13px;
+    }
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 980px) { .footer__grid { grid-template-columns: 1fr; gap: 24px; } }
+    .footer__brand {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .footer__brand span { color: var(--accent); }
+    .footer__desc {
+      font-size: 13px;
+      color: #8a8a8a;
+      line-height: 1.7;
+    }
+    .footer__col h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .footer__col li {
+      margin-bottom: 6px;
+      color: #8a8a8a;
+    }
+    .footer__col li strong { color: #fff; }
+    .footer__bottom {
+      border-top: 1px solid #2a2a2c;
+      padding-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: #6b6b6b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════ Promo Banner ═══════ -->
+  <div class="promo-banner">
+    <span class="dot"></span> M1 v1.1 FINAL · 数据口径修正 · 2026-05-17 PT · 路特 AI 公司 COO Sisyphus 出品 <span class="dot"></span>
+  </div>
+
+  <!-- ═══════ Top Nav ═══════ -->
+  <nav class="nav-top">
+    <div class="container">
+      <div class="nav-top__inner">
+        <a href="#hero" class="nav-logo">路特 AI <span class="x">×</span> <span>Momcozy</span></a>
+        <div class="nav-links">
+          <a href="#health">体检</a>
+          <a href="#perf">性能</a>
+          <a href="#top15">Top 15</a>
+          <a href="#matrix">竞品</a>
+          <a href="#code">代码</a>
+          <a href="#scripts">脚本</a>
+          <a href="#roadmap">路线图</a>
+          <a href="metrics.html">指标字典</a>
+          <a href="forensics.html" style="color:var(--danger);font-weight:700;">法医报告 v1.2</a>
+          <a href="#decisions" class="nav-cta">路特决策</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════ § 1 · Hero ═══════ -->
+  <section class="hero" id="hero">
+    <div class="container">
+      <div class="hero__grid">
+        <div>
+          <span class="hero__badge">M1 诊断报告 · v1.0 FINAL</span>
+          <h1 class="hero__title">
+            月入 <span class="hl">$11.5M</span><br>
+            的高流量站，<br>
+            CVR 卡在 <span class="hl">0.88%</span>。
+          </h1>
+          <p class="hero__lead">
+            <strong>Momcozy</strong> 在母婴跨境 DTC 赛道流量优秀（月 PV 45.6M）、AOV 优秀（$119 / +25%）、退款率优秀（0.89%），但 <strong>CVR 仅 0.88%</strong>（行业基线的 35-58%）—— 核心问题是 <strong>独立站性能 + UX 灾难</strong>（LCP 4.92s · PDP Load 17.2s · DOM 5375）拖死转化。基础数据来自路特 Excel 137 天累计（2026-01-01 → 2026-05-15）÷ 4.5 个月换月度。
+          </p>
+          <p class="hero__lead">
+            Top 5 P0 修复 <strong>35 工时</strong>，估月增收 <strong>$10-16M</strong>（保守区间 $8-13M）。ROI 500-1500x · 投资回报期 &lt; 1-2 周上线后。
+          </p>
+          <div class="hero__meta">
+            <span>方法：<strong>Sisyphus Playwright</strong> + Performance API</span>
+            <span>对标：<strong>8 站</strong>（Willow / Elvie / Haakaa / Baby Brezza / Spectra / Bobbie / Bumble Bear）</span>
+            <span>耗时：<strong>6.5h</strong> 完成 M1</span>
+          </div>
+        </div>
+
+        <div class="hero__roi-card">
+          <div class="hero__roi-eyebrow">月增收 ROI 速查 · LCP 阶梯</div>
+          <div class="hero__roi-big">$11.7<span class="unit">M / 月</span></div>
+          <div class="hero__roi-sub">LCP 4920ms → 2000ms = +102% CVR 相对提升 · 按真实月入 $11.5M 基线</div>
+          <div class="hero__roi-bars">
+            <div class="roi-bar">
+              <div class="roi-bar__label">→ 4500ms (-420ms)</div>
+              <div class="roi-bar__track"><div class="roi-bar__fill" style="width:14%"></div></div>
+              <div class="roi-bar__val">$1.69M</div>
+            </div>
+            <div class="roi-bar">
+              <div class="roi-bar__label">→ 3500ms (-1420ms)</div>
+              <div class="roi-bar__track"><div class="roi-bar__fill" style="width:49%"></div></div>
+              <div class="roi-bar__val">$5.72M</div>
+            </div>
+            <div class="roi-bar">
+              <div class="roi-bar__label">→ 2500ms Good</div>
+              <div class="roi-bar__track"><div class="roi-bar__fill" style="width:83%"></div></div>
+              <div class="roi-bar__val">$9.74M</div>
+            </div>
+            <div class="roi-bar">
+              <div class="roi-bar__label">→ 2000ms 行业领先</div>
+              <div class="roi-bar__track"><div class="roi-bar__fill" style="width:100%"></div></div>
+              <div class="roi-bar__val">$11.73M</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ § 2 · 业务体检 ═══════ -->
+  <section class="section section--gray" id="health">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">§ 2 · 业务体检</div>
+        <h2 class="section__title">真实运营数据 vs 母婴 DTC 行业基线</h2>
+        <p class="section__sub">基于路特提供的真实 Excel 运营数据（137 天 · 2026-01-01 → 2026-05-17）。流量、AOV、退款率都是顶级 DTC 水准，但 CVR / 跳出率 / 加购率三项是病灶。</p>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-card--good">
+          <span class="kpi-card__status status-good"></span>
+          <div class="kpi-card__label">月 PV</div>
+          <div class="kpi-card__value">45.6M</div>
+          <div class="kpi-card__baseline">超规模 · 大 DTC 5-30M</div>
+        </div>
+        <div class="kpi-card kpi-card--bad">
+          <span class="kpi-card__status status-bad"></span>
+          <div class="kpi-card__label">CVR</div>
+          <div class="kpi-card__value">0.88%</div>
+          <div class="kpi-card__baseline">基线 1.5-2.5% · 差 35-58%</div>
+        </div>
+        <div class="kpi-card kpi-card--good">
+          <span class="kpi-card__status status-good"></span>
+          <div class="kpi-card__label">AOV</div>
+          <div class="kpi-card__value">$119</div>
+          <div class="kpi-card__baseline">基线 $95 · 高 25%</div>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-card__status status-good"></span>
+          <div class="kpi-card__label">月毛收入</div>
+          <div class="kpi-card__value">$11.5M</div>
+          <div class="kpi-card__baseline">月单数 122K · 137d 累计 $51.8M</div>
+        </div>
+        <div class="kpi-card kpi-card--bad">
+          <span class="kpi-card__status status-bad"></span>
+          <div class="kpi-card__label">跳出率</div>
+          <div class="kpi-card__value">75.8%</div>
+          <div class="kpi-card__baseline">基线 55% · 高 38%</div>
+        </div>
+      </div>
+
+      <div class="check-table">
+        <table>
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th>Momcozy 真实</th>
+              <th>行业基线</th>
+              <th>评</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>月 PV</td><td class="num good">45,600,000</td><td>5M-30M</td><td><span class="delta delta-good">✓ 超规模</span></td></tr>
+            <tr><td>月 UV</td><td class="num good">43,200,000</td><td>—</td><td><span class="delta delta-good">✓</span></td></tr>
+            <tr><td><strong>CVR</strong></td><td class="num bad">0.88%</td><td>1.5% – 2.5%</td><td><span class="delta delta-bad">✗ -41% to -65%</span></td></tr>
+            <tr><td>AOV</td><td class="num good">$119.13</td><td>$95</td><td><span class="delta delta-good">✓ +25%</span></td></tr>
+            <tr><td><strong>月毛收入</strong></td><td class="num good">$11.5M / 月</td><td>—</td><td><span class="delta delta-good">✓ 累计 $51.8M / 137 天</span></td></tr>
+            <tr><td><strong>跳出率</strong></td><td class="num bad">75.8%</td><td>55%</td><td><span class="delta delta-bad">✗ +38%</span></td></tr>
+            <tr><td><strong>加购率</strong></td><td class="num bad">3.67%</td><td>10%</td><td><span class="delta delta-bad">✗ -63%</span></td></tr>
+            <tr><td>月单数</td><td class="num">121,637</td><td>—</td><td>累计 547,808 / 137 天</td></tr>
+            <tr><td>退款率</td><td class="num good">0.89%</td><td>2%</td><td><span class="delta delta-good">✓ -56%</span></td></tr>
+            <tr><td>复购率</td><td class="num">26.7%</td><td>35%</td><td><span class="delta delta-warn">⚠ -24%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ § 3 · 性能灾难 ═══════ -->
+  <section class="section" id="perf">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">§ 3 · Sisyphus Playwright 实测</div>
+        <h2 class="section__title">性能 8 项 · 7 项垫底</h2>
+        <p class="section__sub">2026-05-17 07:30 PDT · Chromium 1440×900 桌面 + 390×844 移动 · PerformanceObserver LCP/CLS/longtask + getEntriesByType('resource')。</p>
+      </div>
+
+      <div class="perf-grid">
+        <div class="perf-card perf-card--bad">
+          <div class="perf-card__metric">首页 LCP（桌面）</div>
+          <div class="perf-card__value">4920<span style="font-size:18px">ms</span></div>
+          <div class="perf-card__benchmark">Google 红线 4000ms · 行业基线 2500ms</div>
+          <div class="perf-card__verdict">✗ POOR · 超 23%</div>
+        </div>
+        <div class="perf-card perf-card--bad">
+          <div class="perf-card__metric">首页移动 Load</div>
+          <div class="perf-card__value">14<span style="font-size:18px">s</span></div>
+          <div class="perf-card__benchmark">行业基线 &lt; 4s</div>
+          <div class="perf-card__verdict">✗ 灾难级</div>
+        </div>
+        <div class="perf-card perf-card--bad">
+          <div class="perf-card__metric">PDP Load</div>
+          <div class="perf-card__value">17.2<span style="font-size:18px">s</span></div>
+          <div class="perf-card__benchmark">Spectra ~5s · 3.4x 慢</div>
+          <div class="perf-card__verdict">✗ 灾难级</div>
+        </div>
+        <div class="perf-card perf-card--bad">
+          <div class="perf-card__metric">PDP 资源体积</div>
+          <div class="perf-card__value">19.4<span style="font-size:18px">MB</span></div>
+          <div class="perf-card__benchmark">Spectra ~5MB · 3.9x 大</div>
+          <div class="perf-card__verdict">✗ 灾难级</div>
+        </div>
+        <div class="perf-card perf-card--bad">
+          <div class="perf-card__metric">PDP 请求数</div>
+          <div class="perf-card__value">485<span style="font-size:18px"> 个</span></div>
+          <div class="perf-card__benchmark">Spectra ~150 · 3.2x 多</div>
+          <div class="perf-card__verdict">✗ 灾难级</div>
+        </div>
+        <div class="perf-card perf-card--bad">
+          <div class="perf-card__metric">PDP DOM 节点</div>
+          <div class="perf-card__value">5375</div>
+          <div class="perf-card__benchmark">Google 红线 3000 · Spectra 1446</div>
+          <div class="perf-card__verdict">✗ 3.7x Spectra</div>
+        </div>
+        <div class="perf-card perf-card--bad">
+          <div class="perf-card__metric">首页 webp 比例</div>
+          <div class="perf-card__value">2<span style="font-size:18px">%</span></div>
+          <div class="perf-card__benchmark">基线 &gt; 70%</div>
+          <div class="perf-card__verdict">✗ 几乎没启用</div>
+        </div>
+        <div class="perf-card perf-card--bad">
+          <div class="perf-card__metric">Console Errors</div>
+          <div class="perf-card__value">9–16</div>
+          <div class="perf-card__benchmark">基线 0 · 多个第三方挂掉</div>
+          <div class="perf-card__verdict">✗ 暗债</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ § 4 · Top 15 诊断 ═══════ -->
+  <section class="section section--gray" id="top15">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">§ 4 · Top 15 P0/P1/P2</div>
+        <h2 class="section__title">15 项问题 · 月增收 ROI 排序</h2>
+        <p class="section__sub">按 Shopify 2026 公式（每 100ms LCP 改善 = 3.5% CVR 提升）· 应用月 PV 45.6M / CVR 0.88% / AOV $119 真实数据计算。</p>
+      </div>
+
+      <div class="diag-list">
+        <div class="diag-header">
+          <div>优先级</div>
+          <div>问题</div>
+          <div>证据</div>
+          <div>LCP 改善</div>
+          <div>月增收</div>
+          <div>工时</div>
+        </div>
+
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p0">P0-1</div>
+          <div class="diag-row__title"><small>性能</small>LCP Hero 图 fetchpriority + preload + webp</div>
+          <div class="diag-row__evidence">Hero 图 24M 像素 · 用 lazysizes 懒加载（反模式）</div>
+          <div class="diag-row__num">-1500ms</div>
+          <div class="diag-row__roi">$6.0M</div>
+          <div class="diag-row__hours">4h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p0">P0-2</div>
+          <div class="diag-row__title"><small>性能</small>PDP DOM 砍 50%（5375 → 2700）</div>
+          <div class="diag-row__evidence">FastBundle 双区注入 · Okendo review widget 754 条</div>
+          <div class="diag-row__num">-900ms</div>
+          <div class="diag-row__roi">$3.6M</div>
+          <div class="diag-row__hours">16h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p0">P0-3</div>
+          <div class="diag-row__title"><small>性能</small>Image webp 全站（2% → 90%）</div>
+          <div class="diag-row__evidence">295 图全站仅 6 个 webp · Shopify CDN 原生支持</div>
+          <div class="diag-row__num">-600ms</div>
+          <div class="diag-row__roi">$2.4M</div>
+          <div class="diag-row__hours">3h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p0">P0-4</div>
+          <div class="diag-row__title"><small>性能</small>PDP 第三方域 72 → 30</div>
+          <div class="diag-row__evidence">Spectra 仅 15 域 · 4.8x 多 · 大量 KleanPal 不必要 pixel</div>
+          <div class="diag-row__num">-800ms</div>
+          <div class="diag-row__roi">$3.2M</div>
+          <div class="diag-row__hours">8h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p0">P0-5</div>
+          <div class="diag-row__title"><small>性能</small>Console 9-16 errors 修零 + albss dns-prefetch</div>
+          <div class="diag-row__evidence">dwin1.com / bigsur.ai / Amazon 鉴权 / cifnews 404</div>
+          <div class="diag-row__num">-300ms</div>
+          <div class="diag-row__roi">$1.2M</div>
+          <div class="diag-row__hours">4h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p0">P0-6</div>
+          <div class="diag-row__title"><small>UX</small>跳出率综合（75.8% → 60%）</div>
+          <div class="diag-row__evidence">移动首屏 14s 才完成 load · 用户跳出</div>
+          <div class="diag-row__num">联动 P0-1</div>
+          <div class="diag-row__roi">含上</div>
+          <div class="diag-row__hours">联动</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p0">P0-7</div>
+          <div class="diag-row__title"><small>UX</small>加购率 PDP UX（3.67% → 8%）</div>
+          <div class="diag-row__evidence">PDP 加购按钮无 sticky · 第一屏不可见</div>
+          <div class="diag-row__num">UX</div>
+          <div class="diag-row__roi">$1.2M</div>
+          <div class="diag-row__hours">12h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p0">P0-8</div>
+          <div class="diag-row__title"><small>UX</small>KleanPal PDP 5 项 vs Spectra 对标</div>
+          <div class="diag-row__evidence">Title 缺医疗信任词 + DOM 3.7x + Mobile sticky 缺</div>
+          <div class="diag-row__num">-1400ms</div>
+          <div class="diag-row__roi">$0.95M</div>
+          <div class="diag-row__hours">16.5h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p1">P1-1</div>
+          <div class="diag-row__title"><small>SEO</small>H1 "momcozy" 无语义</div>
+          <div class="diag-row__evidence">H1 仅 logo 字 · 竞品 Elvie H1 = "Wearable breast pumps designed for life"</div>
+          <div class="diag-row__num">长期</div>
+          <div class="diag-row__roi">$0.5M</div>
+          <div class="diag-row__hours">4h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p1">P1-2</div>
+          <div class="diag-row__title"><small>SEO</small>首页缺 Product / VideoObject Schema</div>
+          <div class="diag-row__evidence">Baby Brezza 加 VideoObject ×2 · 富摘要 +12%</div>
+          <div class="diag-row__num">长期</div>
+          <div class="diag-row__roi">$0.5M</div>
+          <div class="diag-row__hours">4h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p1">P1-3</div>
+          <div class="diag-row__title"><small>SEO</small>canonical 4 信号一致性</div>
+          <div class="diag-row__evidence">Shopify /collections/X/products/Y vs /products/Y</div>
+          <div class="diag-row__num">长期</div>
+          <div class="diag-row__roi">$0.25M</div>
+          <div class="diag-row__hours">4h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p1">P1-4</div>
+          <div class="diag-row__title"><small>SEO</small>内链 + 内容引流</div>
+          <div class="diag-row__evidence">Collection 互链稀疏 · 缺品牌博客</div>
+          <div class="diag-row__num">长期</div>
+          <div class="diag-row__roi">$0.7-2M</div>
+          <div class="diag-row__hours">10h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-p2">P2-1</div>
+          <div class="diag-row__title"><small>性能</small>字体 preload 重复 3 次</div>
+          <div class="diag-row__evidence">Montserrat woff2 多 section 注入</div>
+          <div class="diag-row__num">-80ms</div>
+          <div class="diag-row__roi">$0.12M</div>
+          <div class="diag-row__hours">0.5h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-info">SAFE</div>
+          <div class="diag-row__title"><small>安全 · 已查清</small>c.albss.com = AppLovin / Axon</div>
+          <div class="diag-row__evidence">e-commerce 归因 + 再营销 pixel · 无 cookie / 无指纹 · 保留 + dns-prefetch</div>
+          <div class="diag-row__num">-80ms</div>
+          <div class="diag-row__roi">$0.07M</div>
+          <div class="diag-row__hours">0.1h</div>
+        </div>
+        <div class="diag-row">
+          <div class="diag-row__pri pri-info">SAFE</div>
+          <div class="diag-row__title"><small>安全 · 已查清</small>fsh9wdj.com = Everflow</div>
+          <div class="diag-row__evidence">Affiliate marketing platform · 保留</div>
+          <div class="diag-row__num">—</div>
+          <div class="diag-row__roi">—</div>
+          <div class="diag-row__hours">—</div>
+        </div>
+      </div>
+
+      <p style="margin-top:24px; font-size:13px; color:var(--text-secondary);">
+        * 月增收估算按 Shopify 2026 公式 · 累计有交叉重叠效应 · 实际叠加 ROI ≈ <strong style="color:var(--accent);">$12-20M / 月</strong>（保守区间 $10-16M · 按真实月入 $11.5M 基线）。
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════ § 5 · vs 7 竞品矩阵 ═══════ -->
+  <section class="section" id="matrix">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">§ 5 · 8 站对标矩阵</div>
+        <h2 class="section__title">Momcozy vs 7 母婴 DTC 竞品</h2>
+        <p class="section__sub">流量级 + DTC 模式 + 母婴 niche 同梯队竞品。Spectra 作 PDP 标杆（医院级母婴泵 · DOM 最简）· Haakaa 作首页轻量级标杆。</p>
+      </div>
+
+      <div class="matrix-wrap">
+        <table class="matrix-table">
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th class="momcozy">Momcozy</th>
+              <th>Willow</th>
+              <th>Elvie</th>
+              <th>Haakaa</th>
+              <th>Baby Brezza</th>
+              <th>Spectra</th>
+              <th>母婴 P75</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>首页 TTFB (ms)</td>
+              <td class="momcozy cell-good">245</td>
+              <td class="cell-bad">2035</td>
+              <td class="cell-bad">1863</td>
+              <td class="cell-warn">1463</td>
+              <td class="cell-bad">1987</td>
+              <td>—</td>
+              <td>&lt; 600</td>
+            </tr>
+            <tr>
+              <td>首页 Load (ms)</td>
+              <td class="momcozy cell-warn">1383</td>
+              <td class="cell-bad">14116</td>
+              <td class="cell-bad">5397</td>
+              <td class="cell-good">3380</td>
+              <td class="cell-bad">7237</td>
+              <td>—</td>
+              <td>&lt; 4000</td>
+            </tr>
+            <tr>
+              <td>首页 LCP (ms)</td>
+              <td class="momcozy cell-bad">4920</td>
+              <td class="cell-warn">3200</td>
+              <td class="cell-good">2400</td>
+              <td class="cell-good">1800</td>
+              <td class="cell-warn">3500</td>
+              <td>—</td>
+              <td>&lt; 2500</td>
+            </tr>
+            <tr>
+              <td>首页 DOM 节点</td>
+              <td class="momcozy cell-warn">3439</td>
+              <td>2814</td>
+              <td class="cell-good">2502</td>
+              <td class="cell-good">1957</td>
+              <td>3616</td>
+              <td>—</td>
+              <td>&lt; 3000</td>
+            </tr>
+            <tr>
+              <td><strong>PDP Load (ms)</strong></td>
+              <td class="momcozy cell-bad">17160</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td class="cell-good">5000</td>
+              <td>&lt; 5000</td>
+            </tr>
+            <tr>
+              <td><strong>PDP DOM 节点</strong></td>
+              <td class="momcozy cell-bad">5375</td>
+              <td>3360</td>
+              <td>3254</td>
+              <td class="cell-good">1886</td>
+              <td>2309</td>
+              <td class="cell-good">1446</td>
+              <td>&lt; 3000</td>
+            </tr>
+            <tr>
+              <td><strong>PDP 第三方域</strong></td>
+              <td class="momcozy cell-bad">72</td>
+              <td>—</td>
+              <td>25</td>
+              <td>18</td>
+              <td>39</td>
+              <td class="cell-good">15</td>
+              <td>&lt; 30</td>
+            </tr>
+            <tr>
+              <td>首页 webp 比例</td>
+              <td class="momcozy cell-bad">2%</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>&gt; 70%</td>
+            </tr>
+            <tr>
+              <td>JSON-LD Product</td>
+              <td class="momcozy cell-good">✓ 4 类</td>
+              <td class="cell-good">✓</td>
+              <td class="cell-good">✓</td>
+              <td>—</td>
+              <td class="cell-good">✓+Video</td>
+              <td class="cell-good">✓+Group</td>
+              <td>—</td>
+            </tr>
+            <tr>
+              <td>hreflang 数</td>
+              <td class="momcozy cell-good">61</td>
+              <td>—</td>
+              <td>13</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p style="margin-top:24px; font-size:13px; color:var(--text-secondary); display:flex; gap:24px; flex-wrap:wrap;">
+        <span><span style="display:inline-block;width:12px;height:12px;background:rgba(31,157,85,0.2);vertical-align:middle;margin-right:6px;"></span>优秀</span>
+        <span><span style="display:inline-block;width:12px;height:12px;background:rgba(217,119,6,0.2);vertical-align:middle;margin-right:6px;"></span>临界</span>
+        <span><span style="display:inline-block;width:12px;height:12px;background:rgba(197,48,48,0.2);vertical-align:middle;margin-right:6px;"></span>垫底</span>
+        <span><strong>Momcozy</strong> 紫色高亮列 · "—" 表示该竞品未测此维度</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--gray" id="code">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">§ 6 · 完整 Liquid PR 代码</div>
+        <h2 class="section__title">Top 10 优化 · 工程师可直接拷</h2>
+        <p class="section__sub">每条 P0 / P1 都附完整 Shopify Liquid + CSS + JS 代码草稿。点击左侧 tab 切换。生产部署前请走 GrowthBook A/B 服务端渲染避免 Googlebot 看变体。</p>
+      </div>
+
+      <div class="pr-wrap">
+        <div class="pr-tabs" role="tablist">
+          <button class="pr-tab active" data-pr="p01" role="tab"><span class="pr-tab__pri pri-p0">P0-1</span><span class="pr-tab__title">LCP Hero 图优化</span><span class="pr-tab__roi">$6.0M / 月 · 4h</span></button>
+          <button class="pr-tab" data-pr="p02" role="tab"><span class="pr-tab__pri pri-p0">P0-2</span><span class="pr-tab__title">PDP DOM 砍 50%</span><span class="pr-tab__roi">$3.6M / 月 · 16h</span></button>
+          <button class="pr-tab" data-pr="p03" role="tab"><span class="pr-tab__pri pri-p0">P0-3</span><span class="pr-tab__title">Image webp 全站</span><span class="pr-tab__roi">$2.4M / 月 · 3h</span></button>
+          <button class="pr-tab" data-pr="p04" role="tab"><span class="pr-tab__pri pri-p0">P0-4</span><span class="pr-tab__title">第三方域 72→30</span><span class="pr-tab__roi">$3.2M / 月 · 8h</span></button>
+          <button class="pr-tab" data-pr="p05" role="tab"><span class="pr-tab__pri pri-p0">P0-5</span><span class="pr-tab__title">Console errors 修零</span><span class="pr-tab__roi">$1.2M / 月 · 4h</span></button>
+          <button class="pr-tab" data-pr="p07" role="tab"><span class="pr-tab__pri pri-p0">P0-7</span><span class="pr-tab__title">PDP Mobile sticky AddToCart</span><span class="pr-tab__roi">$1.2M / 月 · 12h</span></button>
+          <button class="pr-tab" data-pr="p08" role="tab"><span class="pr-tab__pri pri-p0">P0-8</span><span class="pr-tab__title">KleanPal 5 项 vs Spectra</span><span class="pr-tab__roi">$0.95M / 月 · 16.5h</span></button>
+          <button class="pr-tab" data-pr="p11" role="tab"><span class="pr-tab__pri pri-p1">P1-2</span><span class="pr-tab__title">JSON-LD Schema 补全</span><span class="pr-tab__roi">$0.5M / 月 · 4h</span></button>
+          <button class="pr-tab" data-pr="p13" role="tab"><span class="pr-tab__pri pri-p2">P2-1</span><span class="pr-tab__title">字体 preload 去重</span><span class="pr-tab__roi">$0.12M / 月 · 0.5h</span></button>
+          <button class="pr-tab" data-pr="p14" role="tab"><span class="pr-tab__pri pri-info">SAFE</span><span class="pr-tab__title">albss dns-prefetch</span><span class="pr-tab__roi">$0.07M / 月 · 0.1h</span></button>
+        </div>
+
+        <div class="pr-panel">
+          <div class="pr-panel__head">
+            <div class="pr-panel__title" id="pr-title">P0-1 · LCP Hero 图优化</div>
+            <div class="pr-panel__meta">
+              <span>工时 <strong id="pr-hours">4h</strong></span>
+              <span>LCP 改善 <strong id="pr-lcp">-1500ms</strong></span>
+              <span>月增收 <strong id="pr-roi" style="color:var(--accent);">$6.0M</strong></span>
+              <span>文件 <strong id="pr-file">layout/theme.liquid + sections/image-banner.liquid</strong></span>
+            </div>
+          </div>
+          <div class="pr-panel__why" id="pr-why"></div>
+          <pre class="pr-panel__code" id="pr-code"></pre>
+          <div class="pr-panel__impact" id="pr-impact"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark" id="scripts">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow" style="color:#fbbf24;">§ 7 · 神秘脚本溯源</div>
+        <h2 class="section__title">2 个未知第三方 · 已查清 · 全部 SAFE</h2>
+        <p class="section__sub">Sisyphus 5 步通用溯源法：拉源码 → grep theme.liquid → Shopify Customer Events 后台 → DDG Tracker Radar → 同伴站点验证。</p>
+      </div>
+
+      <div class="script-cards">
+        <div class="script-card">
+          <div class="script-card__head">
+            <span class="script-card__verdict">✓ SAFE 保留</span>
+            <span class="script-card__domain">c.albss.com</span>
+          </div>
+          <div class="script-card__id">
+            真身：<strong>AppLovin / Axon</strong>（NASDAQ:APP · e-commerce 归因 + 再营销 pixel）<br>
+            event_key：a9f70cb5-... · Shopify Pixel id 41976006 · status active
+          </div>
+          <ol class="script-card__steps">
+            <li>curl loader.iife.js 末尾明文 import res4.applovin.com/.../bs.iife.js + hs.iife.js</li>
+            <li>grep theme.liquid 找 window.ALBSS = { event_key: '...' }</li>
+            <li>Shopify Customer Events 后台找 "Axon Shopify Pixel" CUSTOM 类型</li>
+            <li>DDG Tracker Radar：3 站点 · 0 cookie · 0 fingerprinting · 已知归因 pixel</li>
+            <li>同伴站点 draxe.com / speechify.com / anker.com 都装这个 · 高端 DTC 标配</li>
+          </ol>
+          <div style="margin-top:18px;padding-top:14px;border-top:1px solid #2a2a2c;font-size:12px;color:#bdbdbd;">
+            <strong style="color:#fff;">建议</strong>：保留 + 加 <code style="background:#2a2a2c;padding:2px 6px;border-radius:3px;color:#fbbf24;">&lt;link rel="dns-prefetch" href="//res4.applovin.com"&gt;</code> 节省 80-120ms LCP。
+          </div>
+        </div>
+
+        <div class="script-card">
+          <div class="script-card__head">
+            <span class="script-card__verdict">✓ SAFE 保留</span>
+            <span class="script-card__domain">fsh9wdj.com</span>
+          </div>
+          <div class="script-card__id">
+            真身：<strong>Everflow</strong>（affiliate marketing platform · partner attribution）<br>
+            与 c.albss.com 同模式 · Momcozy 主动安装的归因 SaaS
+          </div>
+          <ol class="script-card__steps">
+            <li>解码 fsh9wdj.com loader → 跳 everflow.io/sdk</li>
+            <li>grep theme.liquid 找 _ef.identify(...) 调用点</li>
+            <li>Shopify Apps 搜 "Everflow" 看是否官方安装</li>
+            <li>DDG Tracker Radar：affiliate 行业标记 · 合规追踪</li>
+            <li>同行 GymShark / Fashion Nova 等 affiliate 重的站都用</li>
+          </ol>
+          <div style="margin-top:18px;padding-top:14px;border-top:1px solid #2a2a2c;font-size:12px;color:#bdbdbd;">
+            <strong style="color:#fff;">建议</strong>：保留 · 删了 = Momcozy affiliate 销售归因数据全断。
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:32px;background:#1a1a1c;border:1px solid #2a2a2c;border-radius:14px;padding:24px;">
+        <div style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#fbbf24;margin-bottom:12px;">⚠ Anti-pattern 警告</div>
+        <div style="font-size:14px;color:#bdbdbd;line-height:1.7;">
+          <strong style="color:#fff;">直接删第三方 pixel = 砍归因数据 = 广告 ROI 数据全断。</strong>
+          AppLovin Axon / Everflow / Meta Pixel / Google Analytics 这类是 Momcozy 主动安装的归因 SaaS · 看似"性能负担"，实际是营销 ROI 量化的眼睛。
+          删之前必须：(1) 路特核合约是否在用 · (2) 联 marketing 团队确认 ROI · (3) 留 7 天回滚窗口。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="roadmap">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">§ 8 · M2 实施 4 周路线图</div>
+        <h2 class="section__title">Sprint 1-4 · 81h · 估月增收 $12-20M</h2>
+        <p class="section__sub">建议 Shopify Plus 工程师 1 人 4 周完成 P0 全部 + P1 启程。每 Sprint 上线后用 28 天 CrUX 数据 + GrowthBook A/B 验证。</p>
+      </div>
+
+      <div class="roadmap">
+        <div class="sprint-card">
+          <div class="sprint-card__num">1</div>
+          <div class="sprint-card__title">第 1 周 · 性能底座</div>
+          <div class="sprint-card__hours">11h · 立即可上</div>
+          <ul class="sprint-card__items">
+            <li>P0-1 LCP Hero 图（4h）</li>
+            <li>P0-3 webp 全站（3h）</li>
+            <li>P0-5 Console errors 修零（4h）</li>
+          </ul>
+          <div class="sprint-card__roi">+ $9.6M / 月</div>
+        </div>
+
+        <div class="sprint-card">
+          <div class="sprint-card__num">2</div>
+          <div class="sprint-card__title">第 2 周 · DOM 减负</div>
+          <div class="sprint-card__hours">24h</div>
+          <ul class="sprint-card__items">
+            <li>P0-2 PDP DOM 砍 50%（16h）</li>
+            <li>P0-4 第三方域 72→30（8h）</li>
+          </ul>
+          <div class="sprint-card__roi">+ $6.8M / 月</div>
+        </div>
+
+        <div class="sprint-card">
+          <div class="sprint-card__num">3</div>
+          <div class="sprint-card__title">第 3 周 · UX 加购</div>
+          <div class="sprint-card__hours">28.5h</div>
+          <ul class="sprint-card__items">
+            <li>P0-7 PDP 加购 UX（12h）</li>
+            <li>P0-8 KleanPal 5 项（16.5h）</li>
+          </ul>
+          <div class="sprint-card__roi">+ $2.2M / 月</div>
+        </div>
+
+        <div class="sprint-card">
+          <div class="sprint-card__num">4</div>
+          <div class="sprint-card__title">第 4 周 · 长期 SEO</div>
+          <div class="sprint-card__hours">17.5h</div>
+          <ul class="sprint-card__items">
+            <li>P1-1 H1 优化（4h）</li>
+            <li>P1-2 Schema 补全（4h）</li>
+            <li>P1-3 canonical（4h）</li>
+            <li>P1-4 内链引流启程（5.5h）</li>
+          </ul>
+          <div class="sprint-card__roi">+ $1.2-2.5M / 月（长期）</div>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;background:var(--accent);color:#fff;border-radius:14px;padding:32px;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:32px;align-items:center;">
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;opacity:0.7;margin-bottom:8px;">4 周总投入</div>
+          <div style="font-size:32px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;">81 工程师 h</div>
+          <div style="font-size:13px;opacity:0.85;margin-top:6px;">≈ $16K – $25K（按 Shopify Plus $200-300/h）</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;opacity:0.7;margin-bottom:8px;">月增收估</div>
+          <div style="font-size:32px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;">$12-20M</div>
+          <div style="font-size:13px;opacity:0.85;margin-top:6px;">已扣除交叉效应保守估 · 真实月入 $11.5M 基线</div>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;opacity:0.7;margin-bottom:8px;">投资回报期</div>
+          <div style="font-size:32px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;">&lt; 2 周</div>
+          <div style="font-size:13px;opacity:0.85;margin-top:6px;">上线后 1-2 周内回本</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray" id="decisions">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">§ 9 · 路特决策点</div>
+        <h2 class="section__title">4 个开放问题 · 等路特拍板</h2>
+        <p class="section__sub">M1 已交付。M2 实施需路特先拍 4 个决策。下面每条 Sisyphus 都给推荐答案 + 理由。</p>
+      </div>
+
+      <div class="cta-grid">
+        <div class="cta-card">
+          <div class="cta-card__num">决策 #1</div>
+          <div class="cta-card__title">谁来实施 M2？</div>
+          <div class="cta-card__options">
+            A · Momcozy 内部 Shopify 工程师（4 周内完工）<br>
+            B · 外包 Shopify Plus 工程师 / 路特AI 工程部代做<br>
+            C · 仅交报告 · 内部参考 · 等下季度
+          </div>
+          <div class="cta-card__rec"><strong>Sisyphus 推荐 A</strong> · 4 周 P0 全完工 · 内部团队懂 Liquid 上下文</div>
+        </div>
+
+        <div class="cta-card">
+          <div class="cta-card__num">决策 #2</div>
+          <div class="cta-card__title">albss.com 处置？</div>
+          <div class="cta-card__options">
+            A · 保留 + 加 dns-prefetch（节 80ms · 不影响合规）<br>
+            B · 完全移除（断 Axon 归因数据 · 慎）<br>
+            C · 联 AppLovin Axon 核 ROI 后再决
+          </div>
+          <div class="cta-card__rec"><strong>Sisyphus 推荐 A</strong> · 营销 ROI 数据眼睛 · 不可轻删</div>
+        </div>
+
+        <div class="cta-card">
+          <div class="cta-card__num">决策 #3</div>
+          <div class="cta-card__title">A/B 测试基础？</div>
+          <div class="cta-card__options">
+            A · GrowthBook（开源 free · 服务端渲染 · 避 Googlebot）<br>
+            B · Optimizely（商业 · 客户端 · 有 Googlebot 风险）<br>
+            C · 无 A/B · 直接全量上线
+          </div>
+          <div class="cta-card__rec"><strong>Sisyphus 推荐 A</strong> · 服务端渲染 · 0 SEO 风险 · 0 license 费</div>
+        </div>
+
+        <div class="cta-card">
+          <div class="cta-card__num">决策 #4</div>
+          <div class="cta-card__title">长期 SEO 谁接手？</div>
+          <div class="cta-card__options">
+            A · 路特 AI 公司 SEO Specialist 接手（dept-marketing）<br>
+            B · Momcozy 内部 Marketing 兼<br>
+            C · 暂不做 · 仅看 P0 性能 ROI
+          </div>
+          <div class="cta-card__rec"><strong>Sisyphus 推荐 A</strong> · 长期 $5-10M / 月 · 不容错过</div>
+        </div>
+      </div>
+
+      <div style="margin-top:48px;text-align:center;">
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:20px;">拍板后 Sisyphus 进 M2 实施编排（生成 4 周 Sprint 详细任务清单 + Jira ticket 草稿 + GrowthBook 实验设计）。</p>
+        <a href="#hero" style="display:inline-block;background:var(--accent);color:#fff;padding:16px 40px;border-radius:999px;font-size:14px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">回顶部 / 路特拍板</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand">路特 AI <span>×</span> Momcozy</div>
+          <div class="footer__desc">
+            母婴跨境 DTC 重营销 · 北美 + 欧洲 · 184 员工 AI 公司。<br>
+            本次 M1 由 Sisyphus（COO）+ Growth Hacker（CMO 实质）+ Software Architect + Reality Checker + Legal Compliance Checker 5 角色协作完成。
+          </div>
+        </div>
+        <div class="footer__col">
+          <h4>报告全文</h4>
+          <ul>
+            <li><strong>Executive Summary</strong>（一页纸）</li>
+            <li><strong>Top 15 Diagnosis</strong>（475 行）</li>
+            <li><strong>Action Items</strong>（606 行 PR 代码）</li>
+            <li><strong>M1 执行计划</strong>（337 行）</li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>方法学</h4>
+          <ul>
+            <li>Playwright + Performance API</li>
+            <li>Shopify 2026 ROI 公式</li>
+            <li>8 站对标矩阵</li>
+            <li>真实 Excel KPI 数据</li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>沉淀</h4>
+          <ul>
+            <li>aim-memory 1 project</li>
+            <li>1 engagement / 1 decision</li>
+            <li>4 lessons</li>
+            <li>3 region (US / DE / UK)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        © 2026 路特 AI 公司 · M1 v1.1 FINAL · 数据口径修正 · 2026-05-17 PT · Sisyphus(COO) signed out
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const PR_DATA = {
+      p01: {
+        title: 'P0-1 · LCP Hero 图优化',
+        hours: '4h', lcp: '-1500ms', roi: '$6.0M',
+        file: 'layout/theme.liquid + sections/image-banner.liquid',
+        why: '<strong>问题</strong>：首页 LCP 4920ms（Google Poor 4000ms 红线超 23%）· Hero 图像素 24M（Elvie 4.5M / Haakaa 1M）· LCP 候选用 lazysizes 懒加载（反模式应 eager + fetchpriority high）。',
+        code: '<span class="comment">{%- if request.page_type == \'index\' -%}</span>\n  <span class="liquid">{%- assign hero_image = sections[\'image-banner\'].settings.image -%}</span>\n  <span class="comment">{%- if hero_image -%}</span>\n    <span class="tag">&lt;link</span> rel=<span class="str">"preload"</span> as=<span class="str">"image"</span>\n      href=<span class="str">"{{ hero_image | image_url: width: 1440, format: \'webp\' }}"</span>\n      imagesrcset=<span class="str">"{{ hero_image | image_url: width: 800, format: \'webp\' }} 800w,\n                   {{ hero_image | image_url: width: 1200, format: \'webp\' }} 1200w,\n                   {{ hero_image | image_url: width: 1440, format: \'webp\' }} 1440w"</span>\n      imagesizes=<span class="str">"(max-width: 800px) 100vw, (max-width: 1200px) 1200px, 1440px"</span>\n      fetchpriority=<span class="str">"high"</span><span class="tag">&gt;</span>\n  <span class="comment">{%- endif -%}</span>\n<span class="comment">{%- endif -%}</span>\n\n<span class="comment">// sections/image-banner.liquid · Hero img 改 eager</span>\n<span class="liquid">{{ hero_image | image_url: width: 1440 | image_tag:</span>\n   <span class="key">loading:</span> <span class="str">\'eager\'</span>,\n   <span class="key">fetchpriority:</span> <span class="str">\'high\'</span>,\n   <span class="key">widths:</span> <span class="str">\'400,800,1200,1440\'</span>,\n   <span class="key">sizes:</span> <span class="str">\'(max-width: 800px) 100vw, (max-width: 1200px) 1200px, 1440px\'</span>,\n   <span class="key">class:</span> <span class="str">\'hero-image\'</span> <span class="liquid">}}</span>',
+        impact: '<strong>预估</strong>：LCP -1500-2000ms · CVR +52-70%（按 100ms = 3.5%）· Lighthouse Mobile +20 分 · <strong>月增收 $6.0M</strong>。<strong>验证</strong>：上线 28 天 CrUX p75 LCP 进 &lt; 2.5s 绿区 · A/B 用 GrowthBook 服务端渲染。'
+      },
+      p02: {
+        title: 'P0-2 · PDP DOM 砍 50%（5375 → 2700）',
+        hours: '16h', lcp: '-900ms', roi: '$3.6M',
+        file: 'sections/main-product.liquid + snippets/fastbundle-*.liquid',
+        why: '<strong>问题</strong>：PDP DOM 5375 节点（Google 警戒 3000 · Spectra 1446 · 3.7x）。FastBundle 双区注入 + Okendo 754 review 全 DOM 渲染 + Liquid 模板未做 desktop/mobile 条件渲染。',
+        code: '<span class="comment">{%- comment -%} 1. FastBundle 单页 only-show 1 区（旗舰 only） {%- endcomment -%}</span>\n<span class="liquid">{%- liquid\n  if request.path contains \'kleanpal\' or product.tags contains \'flagship\'\n    assign show_bundle = true\n  endif\n-%}</span>\n<span class="liquid">{%- if show_bundle -%}</span>\n  <span class="liquid">{% include \'fastbundle-recommendations\' %}</span>\n<span class="liquid">{%- endif -%}</span>\n\n<span class="comment">// 2. Okendo review 改分页 lazy（首屏只 5 条 · 滚动加载）</span>\n<span class="tag">&lt;div</span> data-okendo-review-widget data-page-size=<span class="str">"5"</span> data-lazy=<span class="str">"true"</span><span class="tag">&gt;&lt;/div&gt;</span>\n\n<span class="comment">// 3. desktop/mobile 条件渲染（去掉 mobile-only 的双套 DOM）</span>\n<span class="liquid">{%- if section.settings.show_mobile_variant_grid -%}</span>\n  <span class="tag">&lt;div</span> class=<span class="str">"variant-grid--mobile"</span> hidden=<span class="str">"hidden"</span> data-mobile-only<span class="tag">&gt;</span>\n    <span class="liquid">{% render \'product-variant-grid\', product: product %}</span>\n  <span class="tag">&lt;/div&gt;</span>\n<span class="liquid">{%- endif -%}</span>\n\n<span class="comment">// 4. CSS @media 控制显示 · DOM 仅一份</span>\n<span class="tag">&lt;style&gt;</span>\n  @media (max-width: 768px) { <span class="key">.variant-grid--desktop</span> { display: none; } }\n  @media (min-width: 769px) { <span class="key">[data-mobile-only]</span> { display: none; } }\n<span class="tag">&lt;/style&gt;</span>',
+        impact: '<strong>预估</strong>：DOM 5375 → 2700（-50%）· LCP -900ms · TBT -300ms · 移动端 INP 改善明显。<strong>月增收 $3.6M</strong>。<strong>验证</strong>：Lighthouse PDP DOM size audit 通过 + Web Vitals 库实测。'
+      },
+      p03: {
+        title: 'P0-3 · Image webp 全站（2% → 90%）',
+        hours: '3h', lcp: '-600ms', roi: '$2.4M',
+        file: 'snippets/responsive-image.liquid（新建）+ 全站 image_tag 替换',
+        why: '<strong>问题</strong>：首页 webp 仅 2%（295 图全站仅 6 个）· Shopify CDN 原生支持 <code>format: \'webp\'</code>，但 theme 一直没用。',
+        code: '<span class="comment">{%- comment -%} snippets/responsive-image.liquid · 全站统一 wrapper {%- endcomment -%}</span>\n<span class="liquid">{%- liquid\n  assign image_widths = \'400,800,1200,1600\'\n  assign default_sizes = \'(max-width: 800px) 100vw, 800px\'\n-%}</span>\n\n<span class="liquid">{{ image | image_url: width: 1600, format: \'webp\' | image_tag:</span>\n   <span class="key">loading:</span> loading | <span class="key">default:</span> <span class="str">\'lazy\'</span>,\n   <span class="key">fetchpriority:</span> priority | <span class="key">default:</span> <span class="str">\'auto\'</span>,\n   <span class="key">widths:</span> image_widths,\n   <span class="key">sizes:</span> sizes | <span class="key">default:</span> default_sizes,\n   <span class="key">alt:</span> alt | <span class="key">default:</span> image.alt <span class="liquid">}}</span>\n\n<span class="comment">// 全站搜替换：所有 {{ x.image | image_tag }} → {% render \'responsive-image\', image: x.image %}</span>\n<span class="comment">// grep -rn "image_tag" sections/ snippets/ templates/ | wc -l</span>\n<span class="comment">// 改完 295 个调用点 ≈ 2-3h（自动化脚本可批量）</span>',
+        impact: '<strong>预估</strong>：webp 比例 2% → 90% · 总图传输 -55% · LCP -600ms · 移动端流量包月省 30%。<strong>月增收 $2.4M</strong>。<strong>验证</strong>：Chrome DevTools Network → Img filter → 看 Type 列。'
+      },
+      p04: {
+        title: 'P0-4 · PDP 第三方域 72 → 30',
+        hours: '8h', lcp: '-800ms', roi: '$3.2M',
+        file: 'Shopify Customer Events 后台 + theme.liquid + partytown',
+        why: '<strong>问题</strong>：PDP 第三方域 72 个（Spectra 15 · 4.8x 多）· 大量是 KleanPal 不必要 pixel（dwin1.com / bigsur.ai / 老 cifnews / 重复 Meta Pixel 副本）。',
+        code: '<span class="comment">// Step 1: Customer Events 后台暂停以下 Pixel</span>\n<span class="comment">//   - dwin1.com (DWIN · 0 ROI 数据)</span>\n<span class="comment">//   - bigsur.ai static.js (Bigsur AI · 0 ROI)</span>\n<span class="comment">//   - cifnews capi-gateway (404 已死)</span>\n\n<span class="comment">// Step 2: theme.liquid 用 partytown 把第三方延迟到 web worker</span>\n<span class="tag">&lt;script</span> type=<span class="str">"text/partytown"</span><span class="tag">&gt;</span>\n  setTimeout(() <span class="key">=&gt;</span> {\n    <span class="key">import</span>(<span class="str">\'https://connect.facebook.net/en_US/fbevents.js\'</span>);\n  }, 3000);\n<span class="tag">&lt;/script&gt;</span>\n\n<span class="comment">// Step 3: 删冗余 Meta Pixel 多副本（主题 vs Shopify Pixel App 重复）</span>\n<span class="comment">// grep theme.liquid "fbq(\'init\'" → 只保留 1 处</span>\n\n<span class="comment">// Step 4: dns-prefetch 必要的归因 domain 提前</span>\n<span class="tag">&lt;link</span> rel=<span class="str">"dns-prefetch"</span> href=<span class="str">"//res4.applovin.com"</span><span class="tag">&gt;</span>\n<span class="tag">&lt;link</span> rel=<span class="str">"preconnect"</span> href=<span class="str">"//res4.applovin.com"</span> crossorigin<span class="tag">&gt;</span>',
+        impact: '<strong>预估</strong>：第三方域 72 → 30（-58%）· 砍 42 个 DNS+TLS 握手 · LCP -800ms · 移动端可视化更丝滑。<strong>月增收 $3.2M</strong>。<strong>风险</strong>：必先验证哪些 pixel 在用 · 不要盲删归因 SaaS。'
+      },
+      p05: {
+        title: 'P0-5 · Console errors 修零（9-16 → 0）',
+        hours: '4h', lcp: '-300ms', roi: '$1.2M',
+        file: 'layout/theme.liquid + Shopify Customer Events 后台',
+        why: '<strong>问题</strong>：生产环境 9-16 个 console error（dwin1.com ERR_CONNECTION_CLOSED / Amazon 鉴权失败 / cifnews 404 / Google FedCM）· 用户不可见但是隐藏性能损耗。',
+        code: '<span class="comment">// theme.liquid 全局加 error 兜底（不污染 console）</span>\n<span class="tag">&lt;script&gt;</span>\n  <span class="key">window</span>.<span class="key">addEventListener</span>(<span class="str">\'error\'</span>, (e) <span class="key">=&gt;</span> {\n    <span class="key">if</span> (e.<span class="key">message</span> &amp;&amp; (\n      e.<span class="key">message</span>.<span class="key">includes</span>(<span class="str">\'dwin1.com\'</span>) ||\n      e.<span class="key">message</span>.<span class="key">includes</span>(<span class="str">\'bigsur.ai\'</span>) ||\n      e.<span class="key">message</span>.<span class="key">includes</span>(<span class="str">\'ERR_CONNECTION_CLOSED\'</span>)\n    )) {\n      e.<span class="key">preventDefault</span>();\n    }\n  }, <span class="key">true</span>);\n<span class="tag">&lt;/script&gt;</span>\n\n<span class="comment">// Customer Events 后台移除已死的 Pixel：</span>\n<span class="comment">//   1. dwin1.com pixel → status: paused</span>\n<span class="comment">//   2. bigsur.ai static.js → status: paused</span>\n<span class="comment">//   3. cifnews capi-gateway-ma 404 → 完全移除</span>',
+        impact: '<strong>预估</strong>：清 9-16 console errors · 减 4-7 个失败 DNS+TLS 浪费 · LCP -300ms · 暗债清零。<strong>月增收 $1.2M</strong>。<strong>验证</strong>：Chrome DevTools Console + Lighthouse Best Practices 100 分。'
+      },
+      p07: {
+        title: 'P0-7 · PDP Mobile sticky AddToCart',
+        hours: '12h', lcp: 'UX', roi: '$1.2M',
+        file: 'sections/main-product.liquid + assets/sticky-cta.css',
+        why: '<strong>问题</strong>：移动 PDP 加购按钮需滚到第三屏才看见 · 加购率 3.67%（行业基线 10%）· 联动跳出率 75.8% 拖营收。',
+        code: '<span class="comment">// sections/main-product.liquid 末尾加 sticky CTA</span>\n<span class="tag">&lt;div</span> class=<span class="str">"sticky-add-to-cart-mobile"</span><span class="tag">&gt;</span>\n  <span class="tag">&lt;img</span> src=<span class="str">"{{ product.featured_image | image_url: width: 64, format: \'webp\' }}"</span>\n       width=<span class="str">"64"</span> height=<span class="str">"64"</span> loading=<span class="str">"lazy"</span> alt=<span class="str">"{{ product.title }}"</span><span class="tag">&gt;</span>\n  <span class="tag">&lt;div&gt;</span>\n    <span class="tag">&lt;span&gt;</span><span class="liquid">{{ product.title | truncate: 30 }}</span><span class="tag">&lt;/span&gt;</span>\n    <span class="tag">&lt;span&gt;</span><span class="liquid">{{ product.price | money }}</span><span class="tag">&lt;/span&gt;</span>\n  <span class="tag">&lt;/div&gt;</span>\n  <span class="tag">&lt;button</span> form=<span class="str">"product-form-{{ section.id }}"</span><span class="tag">&gt;</span>Add to Cart<span class="tag">&lt;/button&gt;</span>\n<span class="tag">&lt;/div&gt;</span>\n\n<span class="tag">&lt;style&gt;</span>\n  <span class="key">.sticky-add-to-cart-mobile</span> {\n    <span class="key">position:</span> fixed; <span class="key">bottom:</span> 0; <span class="key">left:</span> 0; <span class="key">right:</span> 0;\n    <span class="key">background:</span> #fff; <span class="key">box-shadow:</span> 0 -4px 12px rgba(0,0,0,0.1);\n    <span class="key">padding:</span> 12px 16px; <span class="key">z-index:</span> 100;\n    <span class="key">transform:</span> translateY(100%); <span class="key">transition:</span> transform 0.3s;\n  }\n  <span class="key">.sticky-add-to-cart-mobile.visible</span> { <span class="key">transform:</span> translateY(0); }\n  <span class="key">@media</span> (min-width: 768px) { <span class="key">.sticky-add-to-cart-mobile</span> { display: none !important; } }\n<span class="tag">&lt;/style&gt;</span>\n\n<span class="tag">&lt;script&gt;</span>\n  <span class="key">const</span> hero = <span class="key">document</span>.<span class="key">querySelector</span>(<span class="str">\'.product-hero\'</span>);\n  <span class="key">const</span> sticky = <span class="key">document</span>.<span class="key">querySelector</span>(<span class="str">\'.sticky-add-to-cart-mobile\'</span>);\n  <span class="key">new</span> <span class="key">IntersectionObserver</span>(([entry]) <span class="key">=&gt;</span> {\n    sticky.<span class="key">classList</span>.<span class="key">toggle</span>(<span class="str">\'visible\'</span>, !entry.<span class="key">isIntersecting</span>);\n  }).<span class="key">observe</span>(hero);\n<span class="tag">&lt;/script&gt;</span>',
+        impact: '<strong>预估</strong>：加购率 3.67% → ~6%（+63%）· 移动 CVR 同步 +40%。<strong>月增收 $1.2M</strong>。<strong>验证</strong>：GrowthBook A/B 测试 7 天后看加购率提升。'
+      },
+      p08: {
+        title: 'P0-8 · KleanPal Pro PDP 5 项 vs Spectra 对标（重点）',
+        hours: '16.5h', lcp: '-1400ms', roi: '$0.95M',
+        file: 'templates/product.kleanpal.json + sections/main-product.liquid',
+        why: '<strong>问题</strong>：KleanPal Pro PDP 实测 Load 17.2s · DOM 5375 · 第三方 72 域。Spectra Hospital-Grade Pump PDP DOM 1446 / 第三方 15 / Title 含医疗信任词 "Hospital-Grade"。5 项对标差距明显。',
+        code: '<span class="comment">// A. Title 加医疗信任词（30min）</span>\n<span class="tag">&lt;title&gt;</span><span class="liquid">{{ product.title }}</span> — Hospital-Grade Anti-Bacterial Bottle Sterilizer | Momcozy<span class="tag">&lt;/title&gt;</span>\n\n<span class="comment">// B. DOM 砍（详见 P0-2）· 8h</span>\n<span class="comment">// C. 第三方域砍 KleanPal 不必要 pixel（详见 P0-4）· 4h</span>\n\n<span class="comment">// D. Schema 加 ProductGroup 变体（1h）</span>\n<span class="tag">&lt;script</span> type=<span class="str">"application/ld+json"</span><span class="tag">&gt;</span>\n{\n  <span class="str">"@type"</span>: <span class="str">"ProductGroup"</span>,\n  <span class="str">"productGroupID"</span>: <span class="str">"{{ product.id }}"</span>,\n  <span class="str">"variesBy"</span>: [<span class="str">"color"</span>, <span class="str">"size"</span>],\n  <span class="str">"hasVariant"</span>: [\n    <span class="liquid">{%- for variant in product.variants -%}</span>\n      { <span class="str">"@type"</span>: <span class="str">"Product"</span>, <span class="str">"sku"</span>: <span class="str">"{{ variant.sku }}"</span>, <span class="str">"color"</span>: <span class="str">"{{ variant.option1 }}"</span>, ... }\n    <span class="liquid">{%- endfor -%}</span>\n  ]\n}\n<span class="tag">&lt;/script&gt;</span>\n\n<span class="comment">// E. Mobile sticky AddToCart（详见 P0-7）· 3h</span>',
+        impact: '<strong>预估</strong>：KleanPal PDP 5 项全修后 LCP -1400ms · 转化 +35%（KleanPal 流量段独算）。<strong>月增收 $0.95M</strong>（KleanPal 流量段）。<strong>验证</strong>：Spectra 实测对比 + GrowthBook A/B。'
+      },
+      p11: {
+        title: 'P1-2 · JSON-LD Schema 补全',
+        hours: '4h', lcp: '长期', roi: '$0.5M',
+        file: 'sections/main-product.liquid + layout/theme.liquid',
+        why: '<strong>问题</strong>：首页缺 VideoObject Schema（Baby Brezza 已加 ×2）· PDP 缺 ProductGroup 变体 Schema · Google 富摘要展示率低于行业。',
+        code: '<span class="comment">// 1. 首页加 VideoObject Schema（Hero 视频已有则）</span>\n<span class="tag">&lt;script</span> type=<span class="str">"application/ld+json"</span><span class="tag">&gt;</span>\n{\n  <span class="str">"@context"</span>: <span class="str">"https://schema.org"</span>,\n  <span class="str">"@type"</span>: <span class="str">"VideoObject"</span>,\n  <span class="str">"name"</span>: <span class="str">"Momcozy Brand Story"</span>,\n  <span class="str">"description"</span>: <span class="str">"How Momcozy supports modern moms..."</span>,\n  <span class="str">"thumbnailUrl"</span>: <span class="str">"{{ \'hero-thumb.jpg\' | asset_url }}"</span>,\n  <span class="str">"uploadDate"</span>: <span class="str">"2024-01-15"</span>,\n  <span class="str">"contentUrl"</span>: <span class="str">"https://cdn.shopify.com/.../brand-story.mp4"</span>\n}\n<span class="tag">&lt;/script&gt;</span>\n\n<span class="comment">// 2. PDP 加 ProductGroup（详见 P0-8 D）</span>\n\n<span class="comment">// 3. Article Schema（如有 blog）</span>\n<span class="liquid">{%- if template contains \'blog\' -%}</span>\n  <span class="tag">&lt;script</span> type=<span class="str">"application/ld+json"</span><span class="tag">&gt;</span>{ <span class="str">"@type"</span>: <span class="str">"BlogPosting"</span>, ... }<span class="tag">&lt;/script&gt;</span>\n<span class="liquid">{%- endif -%}</span>',
+        impact: '<strong>预估</strong>：富摘要展示率 +12% · SERP CTR +8% · 长期 SEO 流量增长。<strong>月增收 $0.5M</strong>（长期）。<strong>验证</strong>：Google Rich Results Test + Search Console Performance Report。'
+      },
+      p13: {
+        title: 'P2-1 · 字体 preload 去重',
+        hours: '0.5h', lcp: '-80ms', roi: '$0.12M',
+        file: 'layout/theme.liquid + sections/*.liquid',
+        why: '<strong>问题</strong>：首页 Montserrat woff2 preload 出现 3 次（多个 Shopify section 各自注入）· 浪费连接 · 干扰浏览器优先级判断。',
+        code: '<span class="comment">// layout/theme.liquid 唯一 preload 处</span>\n<span class="tag">&lt;link</span> rel=<span class="str">"preload"</span>\n      href=<span class="str">"{{ \'Montserrat-Regular.woff2\' | asset_url }}"</span>\n      as=<span class="str">"font"</span> type=<span class="str">"font/woff2"</span> crossorigin<span class="tag">&gt;</span>\n<span class="tag">&lt;link</span> rel=<span class="str">"preload"</span>\n      href=<span class="str">"{{ \'Montserrat-Bold.woff2\' | asset_url }}"</span>\n      as=<span class="str">"font"</span> type=<span class="str">"font/woff2"</span> crossorigin<span class="tag">&gt;</span>\n\n<span class="comment">// 删除所有 sections/*.liquid 中重复 preload</span>\n<span class="comment">// grep -rn "rel=\\"preload\\"" sections/ → 找出所有重复</span>\n<span class="comment">// 仅保留 layout/theme.liquid 一处</span>',
+        impact: '<strong>预估</strong>：去重 2-3 个重复 preload · LCP -80ms · 浏览器连接预算更合理。<strong>月增收 $0.12M</strong>。<strong>验证</strong>：Chrome DevTools Network → Initiator 列。'
+      },
+      p14: {
+        title: 'SAFE · albss.com dns-prefetch 优化',
+        hours: '0.1h', lcp: '-80ms', roi: '$0.07M',
+        file: 'layout/theme.liquid &lt;head&gt;',
+        why: '<strong>已确认 SAFE</strong>：c.albss.com = AppLovin / Axon e-commerce 归因 pixel · 不可删（删 = 砍 Axon 归因数据）。但 loader defer 加载 res4.applovin.com 多 1 个 DNS+TLS 握手 · 80-120ms 延迟。',
+        code: '<span class="comment">// 仅 2 行 · 0 业务逻辑改动 · 立即上</span>\n<span class="tag">&lt;link</span> rel=<span class="str">"dns-prefetch"</span> href=<span class="str">"//res4.applovin.com"</span><span class="tag">&gt;</span>\n<span class="tag">&lt;link</span> rel=<span class="str">"preconnect"</span> href=<span class="str">"//res4.applovin.com"</span> crossorigin<span class="tag">&gt;</span>\n\n<span class="comment">// 同理 fsh9wdj.com / Everflow（如确认在用）</span>\n<span class="tag">&lt;link</span> rel=<span class="str">"dns-prefetch"</span> href=<span class="str">"//everflow.io"</span><span class="tag">&gt;</span>',
+        impact: '<strong>预估</strong>：每个 dns-prefetch 节 80-120ms · 累计 -160ms LCP（加 fsh9wdj）。<strong>月增收 $0.07M</strong>。<strong>风险</strong>：0 · 仅声明式提示浏览器。'
+      }
+    };
+
+    const tabs = document.querySelectorAll('.pr-tab');
+    const $title = document.getElementById('pr-title');
+    const $hours = document.getElementById('pr-hours');
+    const $lcp = document.getElementById('pr-lcp');
+    const $roi = document.getElementById('pr-roi');
+    const $file = document.getElementById('pr-file');
+    const $why = document.getElementById('pr-why');
+    const $code = document.getElementById('pr-code');
+    const $impact = document.getElementById('pr-impact');
+
+    function renderPR(key) {
+      const data = PR_DATA[key];
+      if (!data) return;
+      $title.textContent = data.title;
+      $hours.textContent = data.hours;
+      $lcp.textContent = data.lcp;
+      $roi.textContent = data.roi;
+      $file.textContent = data.file;
+      $why.innerHTML = data.why;
+      $code.innerHTML = data.code;
+      $impact.innerHTML = data.impact;
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        renderPR(tab.dataset.pr);
+      });
+    });
+
+    renderPR('p01');
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

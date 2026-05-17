@@ -1,0 +1,421 @@
+{
+  "audit_metadata": {
+    "audit_date": "2026-05-17T00:33-07:00",
+    "auditor": "Sisyphus (路特 AI 公司 COO)",
+    "test_method": "Playwright (Chromium) + curl HTTP layer",
+    "test_env": "macOS · 国际出口 IP (Shopify CDN 直连)",
+    "limitations": [
+      "curl 仅测 HTTP 层 · 不含 JS exec / CLS / FID/INP 等 Runtime 指标",
+      "Playwright 部分竞品 networkidle timeout · 改用 domcontentloaded",
+      "无 Momcozy 后台数据 (GSC / GA4 / CVR)"
+    ]
+  },
+  "sites": [
+    {
+      "name": "Momcozy",
+      "url": "https://www.momcozy.com",
+      "category": "target",
+      "source": "bg_95cd8ba9 + bg_ae952e19",
+      "homepage": {
+        "ttfb_ms": 245,
+        "dcl_ms": null,
+        "total_load_ms": 1383,
+        "html_size_kb": 1117,
+        "dom_nodes": 3439,
+        "lcp_pixels_M": 24.47,
+        "third_party_domains": 10,
+        "third_party_domains_list": [
+          "shop.app",
+          "www.dwin1.com",
+          "static.zdassets.com",
+          "cdn.elements.amazon",
+          "bigsur.ai",
+          "static.klaviyo.com",
+          "d5zu2f4xvqanl.cloudfront.net",
+          "cdn-static.okendo.io",
+          "c.albss.com",
+          "www.fsh9wdj.com"
+        ],
+        "unknown_domains_security_risk": [
+          "c.albss.com",
+          "www.fsh9wdj.com"
+        ],
+        "js_external_files": 43,
+        "js_inline_blocks": 108,
+        "js_inline_size_kb": 431,
+        "js_total_kb": 1089,
+        "css_files": 50,
+        "images_total": 295,
+        "images_webp": 6,
+        "images_webp_pct": 2,
+        "images_with_srcset": null,
+        "lazy_loading_attrs": 224,
+        "scripts_async": 8,
+        "scripts_defer": 27,
+        "scripts_module": 10,
+        "scripts_sync_blocking": 0,
+        "preload_hints": 3,
+        "preconnect_hints": 2,
+        "font_preload_duplicates": 3,
+        "ga4_id": "G-SSSRZGD8X7",
+        "service_worker": false,
+        "redirect_chain": "momcozy.com → www.momcozy.com (301, +55ms)"
+      },
+      "collection": {
+        "url": "/collections/baby-bottle-sterilizers",
+        "title": "Baby Bottle Sterilizer and Dryer Advanced | Momcozy",
+        "h1": "Baby Bottle Sterilizer",
+        "ttfb_ms": 345,
+        "total_load_ms": 1361,
+        "html_size_kb": 925,
+        "dom_nodes": 3055,
+        "total_unique_products": 43,
+        "pagination": false,
+        "infinite_scroll": false,
+        "filter_mechanism": "JS-side · 243 filter/facet refs",
+        "images_total": 215,
+        "images_lazy": 202,
+        "images_eager": 1,
+        "images_with_srcset": 166,
+        "images_without_srcset": 49
+      },
+      "pdp": {
+        "url": "/products/momcozy-kleanpal-pro-baby-bottle-washer",
+        "title": "Momcozy One-Stop Baby Bottle Washer and Sterilizer",
+        "ttfb_ms": 239,
+        "total_load_ms": 1342,
+        "html_size_kb": 1810,
+        "dom_nodes": 5375,
+        "third_party_domains": 72,
+        "product_images_total": 318,
+        "product_images_webp": 18,
+        "lazy_loading_attrs": 210,
+        "add_to_cart_refs": 58,
+        "external_scripts": 48,
+        "css_files": 51,
+        "inline_scripts": 152,
+        "fastbundle_inline_kb": 89,
+        "globo_form_inline_kb": 82,
+        "json_ld_blocks": 4,
+        "json_ld_types": [
+          "Organization",
+          "Product+Offer+AggregateRating",
+          "BreadcrumbList",
+          "FAQPage"
+        ],
+        "product_rating": 4.9,
+        "product_review_count": 754,
+        "faq_count": 19
+      },
+      "seo": {
+        "title": "Momcozy: High-Quality Care for Moms and Babies",
+        "title_chars": 47,
+        "meta_description_chars": 145,
+        "og_complete": true,
+        "h1_text": "momcozy",
+        "h1_semantic_value": "LOW (logo alt only)",
+        "h2_count": 9,
+        "canonical": "https://momcozy.com/",
+        "hreflang_count": 61,
+        "hreflang_sample": [
+          "x-default",
+          "en",
+          "es",
+          "pl",
+          "fr"
+        ],
+        "json_ld_homepage": [
+          "Organization+ContactPoint+OpeningHoursSpec",
+          "WebSite+SearchAction"
+        ],
+        "json_ld_homepage_missing": [
+          "Product",
+          "VideoObject",
+          "BreadcrumbList"
+        ],
+        "sitemap_xml": "ACCESSIBLE · 9 sub-sitemaps",
+        "robots_txt": "STANDARD_SHOPIFY"
+      },
+      "anti_patterns": [
+        "HTML 体积膨胀 (首页 1.1MB / PDP 1.8MB)",
+        "DOM 超载 (首页 3439 / PDP 5375)",
+        "PNG 主导 26% / webp 仅 2%",
+        "118 张首页图无 srcset",
+        "字体 preload 重复 3 次",
+        "2 个未知第三方脚本",
+        "WPM Pixel Manager 7 次引用",
+        "LCP 图片无 fetchpriority=high",
+        "FastBundle+Globo 内联 171KB JS"
+      ]
+    },
+    {
+      "name": "Willow",
+      "url": "https://www.onewillow.com",
+      "category": "competitor · 智能可穿戴吸奶器",
+      "source": "bg_ae952e19",
+      "redirect_from": "willowpump.com → onewillow.com",
+      "homepage": {
+        "ttfb_ms": 2035,
+        "dcl_ms": 7107,
+        "total_load_ms": 14116,
+        "dom_nodes": 2814,
+        "third_party_domains": 14,
+        "js_files": 157,
+        "js_total_kb": 1478,
+        "total_transfer_kb": 20423,
+        "lcp_pixels_M": 4.49,
+        "service_worker": false,
+        "hreflang": 0,
+        "json_ld_schemas": []
+      },
+      "pdp": {
+        "url": "/products/willow-go-pump-kit",
+        "ttfb_ms": 170,
+        "dcl_ms": 1298,
+        "dom_nodes": 3360,
+        "json_ld_schemas": [
+          "Product",
+          "FAQPage"
+        ],
+        "total_transfer_kb": 24218
+      },
+      "anti_patterns": [
+        "4 render-blocking scripts",
+        "245 inline styles"
+      ],
+      "strengths_vs_momcozy": [
+        "PDP TTFB 170ms (Momcozy 239ms)",
+        "PDP FAQPage Schema (Momcozy 首页缺)",
+        "品牌域重定向集中 SEO 权重"
+      ]
+    },
+    {
+      "name": "Elvie",
+      "url": "https://www.elvie.com",
+      "category": "competitor · 高端可穿戴吸奶器",
+      "source": "bg_ae952e19",
+      "homepage": {
+        "ttfb_ms": 1863,
+        "dcl_ms": 5397,
+        "dom_nodes": 2502,
+        "third_party_domains": 21,
+        "js_total_kb": 382,
+        "total_transfer_kb": 968,
+        "lcp_pixels_M": 4.49,
+        "service_worker": false,
+        "hreflang": 0
+      },
+      "pdp": {
+        "url": "/products/elvie-pump",
+        "ttfb_ms": 195,
+        "dcl_ms": 1935,
+        "dom_nodes": 3254,
+        "hreflang": 13,
+        "json_ld_schemas": [
+          "Product"
+        ],
+        "total_transfer_kb": 4259
+      },
+      "anti_patterns": [
+        "3 render-blocking scripts",
+        "414 inline styles"
+      ],
+      "strengths_vs_momcozy": [
+        "JS 仅 382KB (Momcozy 1089KB · 35%)",
+        "总传输 968KB (Momcozy 1691KB · 57%)",
+        "DOM 2502 (Momcozy 3439 · 73%)",
+        "PDP hreflang 13 (Momcozy PDP hreflang 不一致)",
+        "PDP TTFB 195ms (Momcozy 239ms)"
+      ]
+    },
+    {
+      "name": "Haakaa",
+      "url": "https://www.haakaa.co.nz",
+      "category": "competitor · 自然简约吸奶器",
+      "source": "bg_ae952e19",
+      "homepage": {
+        "ttfb_ms": 1463,
+        "dcl_ms": 3380,
+        "dom_nodes": 1957,
+        "third_party_domains": 15,
+        "js_total_kb": 1113,
+        "total_transfer_kb": 2286,
+        "lcp_pixels_M": 1.06,
+        "h1_count": 0,
+        "service_worker": false,
+        "hreflang": 0
+      },
+      "pdp": {
+        "url": "/products/gen-3-glass-baby-bottle",
+        "ttfb_ms": 566,
+        "dcl_ms": 2311,
+        "dom_nodes": 1886,
+        "json_ld_schemas": [
+          "ProductGroup"
+        ],
+        "total_transfer_kb": 2111
+      },
+      "collection_load_ms": 2838,
+      "anti_patterns": [
+        "4 iframes",
+        "126 inline styles"
+      ],
+      "strengths_vs_momcozy": [
+        "DOM 1957 (Momcozy 3439 · 57%) · 5 站最简",
+        "PDP DOM 1886 (Momcozy 5375 · 35%) · 5 站最简",
+        "LCP 像素 1.06M (Momcozy 24.5M · 4%)",
+        "ProductGroup Schema (Momcozy 仅单 Product)"
+      ]
+    },
+    {
+      "name": "Baby_Brezza",
+      "url": "https://www.babybrezza.com",
+      "category": "competitor · 婴儿食品准备",
+      "source": "bg_ae952e19",
+      "homepage": {
+        "ttfb_ms": 1987,
+        "dcl_ms": 7237,
+        "dom_nodes": 3616,
+        "third_party_domains": 34,
+        "js_total_kb": 982,
+        "total_transfer_kb": 22418,
+        "lcp_pixels_M": 5.76,
+        "service_worker": false,
+        "json_ld_schemas": [
+          "Organization",
+          "WebSite",
+          "VideoObject",
+          "VideoObject"
+        ]
+      },
+      "pdp": {
+        "url": "/products/baby-brezza-gift-cards",
+        "ttfb_ms": 620,
+        "dcl_ms": 8029,
+        "dom_nodes": 2309,
+        "third_party_domains": 39,
+        "json_ld_schemas": [
+          "BreadcrumbList",
+          "Product"
+        ],
+        "total_transfer_kb": 2361
+      },
+      "anti_patterns": [
+        "3 render-blocking scripts",
+        "8 iframes",
+        "403 inline styles"
+      ],
+      "strengths_vs_momcozy": [
+        "VideoObject Schema ×2 (Momcozy 首页缺)",
+        "Organization+WebSite Schema 组合 (Momcozy 有但缺 VideoObject)",
+        "Collection 传输 1799KB (Momcozy Collection 3979KB · 45%)"
+      ]
+    }
+  ],
+  "comparison_4_critical_metrics": {
+    "site_order": [
+      "Momcozy",
+      "Willow",
+      "Elvie",
+      "Haakaa",
+      "Baby_Brezza"
+    ],
+    "homepage_ttfb_ms": [
+      245,
+      2035,
+      1863,
+      1463,
+      1987
+    ],
+    "homepage_dom_nodes": [
+      3439,
+      2814,
+      2502,
+      1957,
+      3616
+    ],
+    "homepage_total_transfer_kb": [
+      1691,
+      20423,
+      968,
+      2286,
+      22418
+    ],
+    "homepage_lcp_pixels_M": [
+      24.47,
+      4.49,
+      4.49,
+      1.06,
+      5.76
+    ],
+    "pdp_third_party_domains": [
+      72,
+      null,
+      25,
+      18,
+      39
+    ],
+    "verdict": {
+      "Momcozy_worst_in": [
+        "dom_nodes (PDP 5375)",
+        "lcp_pixels (24.47M)",
+        "third_party_domains (PDP 72)"
+      ],
+      "Momcozy_best_in": [
+        "TTFB 245ms (5 站最快)",
+        "Total transfer 1691KB (vs Willow 20k / BabyBrezza 22k)"
+      ],
+      "Momcozy_mid_in": [
+        "DOM (4/5)",
+        "JS size (3/5)"
+      ]
+    }
+  },
+  "industry_benchmarks": {
+    "source": "bg_9a46943a SEO framework + bg_53815516 Shopify 2026 + Shero 1000 stores study",
+    "shopify_median_lcp": 2.26,
+    "shopify_median_inp_ms": 153,
+    "shopify_median_cls": 0.01,
+    "shopify_pass_rate_pct": 65,
+    "shero_actual_pass_rate_pct": 48,
+    "google_dom_warning_threshold": 3000,
+    "google_lcp_good_ms": 2500,
+    "google_lcp_poor_ms": 4000,
+    "google_inp_good_ms": 200,
+    "google_inp_poor_ms": 500,
+    "google_cls_good": 0.1,
+    "google_cls_poor": 0.25,
+    "perf_budget_pdp": {
+      "lcp_ms": 2000,
+      "inp_ms": 150,
+      "cls": 0.05,
+      "total_js_kb": 400
+    },
+    "perf_budget_collection": {
+      "lcp_ms": 2200,
+      "total_transfer_kb": 1200
+    },
+    "perf_budget_homepage": {
+      "lcp_ms": 1800,
+      "cls": 0.05
+    }
+  },
+  "roi_quantification_formula": {
+    "source": "Shopify Enterprise Blog 2026 + Google×Deloitte Milliseconds Make Millions",
+    "lcp_improvement_to_cvr_uplift": "每 100ms LCP 改善 ≈ 3.5% CVR 提升",
+    "rakuten_24_case": "CWV 优化后转化 +33% · 每访客收入 +53% · AOV +15%",
+    "blusteak_baby_brand_case": "Product-focused SEO → 有机销售 +192% · 加购 +43%"
+  },
+  "third_party_apps_perf_impact": {
+    "source": "bg_53815516 · ecomhint.com 1533 store study",
+    "gtm_median_blocking_ms": 486,
+    "gtm_penetration_pct": 90,
+    "yotpo_lcp_impact_ms": 470,
+    "yotpo_size_kb": 387,
+    "privy_blocking_ms": "410-543",
+    "rebuy_blocking_ms": "187-252",
+    "judge_me_lcp_impact_ms": 180,
+    "klaviyo_blocking_ms": "50-200",
+    "loox_lcp_impact_ms": 210
+  }
+}

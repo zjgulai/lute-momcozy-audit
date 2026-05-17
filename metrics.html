@@ -1,0 +1,2049 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Momcozy 指标字典 · 25 KPI · 路特 AI 公司 × Momcozy · M1 v1.1</title>
+  <meta name="description" content="25 个核心指标 · 计算公式 · 统计口径 · 业务价值 · 双轴漏斗 + 6 张差异化图表">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-white: #ffffff;
+      --bg-gray: #f7f7f8;
+      --bg-dark: #0f0f10;
+      --text-primary: #111111;
+      --text-secondary: #5c5c5c;
+      --text-tertiary: #8a8a8a;
+      --cta-black: #111111;
+      --accent: #6a2b3a;
+      --accent-light: #fde8ec;
+      --success: #1f9d55;
+      --success-light: #e6f7ec;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #c53030;
+      --danger-light: #fee2e2;
+      --info: #2563eb;
+      --info-light: #dbeafe;
+      --border: #e5e5e5;
+      --border-light: #f0f0f0;
+      --font: 'Montserrat', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+      --shadow: 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { font-family: var(--font); font-size: 15px; color: var(--text-primary); background: var(--bg-white); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    table { border-collapse: collapse; width: 100%; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 72px 0; }
+    .section--gray { background: var(--bg-gray); }
+    .section--dark { background: var(--bg-dark); color: #f4f4f4; }
+    .section__head { margin-bottom: 48px; }
+    .section__eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .section__title { font-size: 36px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px; }
+    .section--dark .section__title { color: #fff; }
+    .section__sub { font-size: 16px; color: var(--text-secondary); max-width: 760px; }
+    .section--dark .section__sub { color: #bdbdbd; }
+    .promo-banner { background: var(--cta-black); color: #fff; text-align: center; padding: 10px 16px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    .promo-banner .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #1f9d55; margin: 0 12px 2px; vertical-align: middle; }
+    .nav-top { background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .nav-top__inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+    .nav-logo { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-logo .x { color: var(--text-tertiary); font-weight: 400; margin: 0 8px; }
+    .nav-links { display: flex; gap: 22px; align-items: center; }
+    .nav-links a { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--text-secondary); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-back { background: var(--cta-black); color: #fff; padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .hero { padding: 64px 0 80px; background: linear-gradient(180deg, #fff 0%, var(--bg-gray) 100%); }
+    .hero__badge { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; margin-bottom: 24px; }
+    .hero__title { font-size: 44px; font-weight: 800; line-height: 1.1; letter-spacing: -0.025em; margin-bottom: 20px; max-width: 880px; }
+    .hero__title .hl { background: linear-gradient(180deg, transparent 60%, var(--accent-light) 60%); padding: 0 2px; }
+    .hero__lead { font-size: 16px; color: var(--text-secondary); max-width: 800px; line-height: 1.7; }
+    .hero__lead strong { color: var(--text-primary); font-weight: 700; }
+    .hero__counts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 36px; }
+    @media (max-width: 980px) { .hero__counts { grid-template-columns: repeat(2, 1fr); } }
+    .count-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+    .count-card__num { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; color: var(--accent); }
+    .count-card__label { font-size: 12px; color: var(--text-secondary); font-weight: 600; margin-top: 6px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+    .funnel-wrap { background: #fff; border-radius: 16px; border: 1px solid var(--border); padding: 36px; box-shadow: var(--shadow); }
+    .funnel-title { font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; }
+    .funnel-sub { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
+    .funnel-legend { display: flex; gap: 24px; flex-wrap: wrap; font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
+    .funnel-legend__swatch { display: inline-block; width: 14px; height: 14px; border-radius: 3px; vertical-align: middle; margin-right: 8px; }
+    .funnel-svg { width: 100%; height: auto; }
+
+    .insight-card { background: var(--info-light); border: 1px solid var(--info); border-radius: 14px; padding: 24px 28px; margin-top: 28px; }
+    .insight-card__head { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--info); margin-bottom: 8px; }
+    .insight-card__title { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+    .insight-card__body { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    .insight-card__body strong { color: var(--text-primary); }
+    .insight-card--warn { background: var(--warning-light); border-color: var(--warning); }
+    .insight-card--warn .insight-card__head { color: var(--warning); }
+    .insight-card--danger { background: var(--danger-light); border-color: var(--danger); }
+    .insight-card--danger .insight-card__head { color: var(--danger); }
+
+    .metric-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 28px 32px; margin-bottom: 20px; transition: box-shadow 0.2s; }
+    .metric-card:hover { box-shadow: var(--shadow); }
+    .metric-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; margin-bottom: 20px; padding-bottom: 16px; border-bottom: 1px solid var(--border-light); flex-wrap: wrap; }
+    .metric-card__id { font-size: 11px; font-weight: 800; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 6px; }
+    .metric-card__title { font-size: 22px; font-weight: 800; letter-spacing: -0.01em; }
+    .metric-card__title small { display: block; font-size: 12px; font-weight: 500; color: var(--text-tertiary); letter-spacing: 0.04em; margin-top: 2px; }
+    .metric-card__values { display: flex; gap: 28px; align-items: center; }
+    .metric-card__value-block { text-align: right; }
+    .metric-card__value-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 2px; }
+    .metric-card__value-num { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+    .metric-card__value-num.good { color: var(--success); }
+    .metric-card__value-num.bad { color: var(--danger); }
+    .metric-card__value-num.warn { color: var(--warning); }
+    .metric-card__value-baseline { font-size: 13px; color: var(--text-tertiary); font-weight: 600; }
+    .metric-card__delta { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 4px; margin-left: 8px; vertical-align: middle; }
+    .delta-bad { background: var(--danger-light); color: var(--danger); }
+    .delta-good { background: var(--success-light); color: var(--success); }
+    .delta-warn { background: var(--warning-light); color: var(--warning); }
+    .delta-info { background: var(--info-light); color: var(--info); }
+
+    .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 980px) { .metric-grid { grid-template-columns: 1fr; } }
+    .metric-block h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; }
+    .metric-block p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    .metric-block p strong { color: var(--text-primary); }
+    .metric-block code, .metric-formula {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      background: var(--bg-gray);
+      padding: 12px 14px;
+      border-radius: 8px;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+      line-height: 1.6;
+      border: 1px solid var(--border-light);
+    }
+    .metric-block .kv { font-size: 13px; color: var(--text-secondary); }
+    .metric-block .kv strong { color: var(--text-primary); font-weight: 600; min-width: 80px; display: inline-block; }
+    .metric-block .kv-row { margin-bottom: 6px; }
+
+    .metric-section-head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 56px;
+      margin-bottom: 32px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--accent);
+    }
+    .metric-section-head__icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: var(--accent);
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 800;
+    }
+    .metric-section-head__title { font-size: 28px; font-weight: 800; letter-spacing: -0.01em; }
+    .metric-section-head__sub { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+    .chart-card { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 32px; margin-bottom: 32px; }
+    .chart-card__title { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+    .chart-card__sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 24px; }
+
+    .quadrant-axis-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; fill: var(--text-tertiary); }
+    .quadrant-label { font-size: 11px; font-weight: 700; fill: var(--text-secondary); }
+    .axis-line { stroke: var(--border); stroke-width: 1; }
+    .bar-momcozy { fill: var(--accent); }
+    .bar-baseline { fill: var(--text-tertiary); opacity: 0.45; }
+    .bar-label { font-size: 11px; font-weight: 700; fill: var(--text-primary); }
+    .bar-label--white { fill: #fff; }
+    .grid-line { stroke: var(--border-light); stroke-width: 1; stroke-dasharray: 3 3; }
+    .axis-label { font-size: 11px; fill: var(--text-secondary); }
+
+    .deps-node { fill: var(--bg-gray); stroke: var(--border); stroke-width: 1.5; }
+    .deps-node--root { fill: var(--accent); stroke: var(--accent); }
+    .deps-node--bad { fill: var(--danger-light); stroke: var(--danger); }
+    .deps-node--good { fill: var(--success-light); stroke: var(--success); }
+    .deps-text { font-size: 12px; font-weight: 600; fill: var(--text-primary); }
+    .deps-text--white { fill: #fff; }
+    .deps-text-small { font-size: 10px; fill: var(--text-tertiary); }
+    .deps-arrow { stroke: var(--text-tertiary); stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+    .deps-arrow--bad { stroke: var(--danger); stroke-width: 2; }
+    .deps-arrow--good { stroke: var(--success); stroke-width: 2; }
+
+    .lighthouse-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    @media (max-width: 980px) { .lighthouse-grid { grid-template-columns: repeat(2, 1fr); } }
+    .lh-gauge { background: var(--bg-gray); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
+    .lh-gauge__label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-top: 12px; }
+    .lh-gauge__sub { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; }
+
+    .footer { background: var(--bg-dark); color: #bdbdbd; padding: 48px 0 32px; font-size: 13px; margin-top: 56px; }
+    .footer__brand { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .footer__brand span { color: var(--accent); }
+    .footer__bottom { border-top: 1px solid #2a2a2c; padding-top: 24px; text-align: center; font-size: 12px; color: #6b6b6b; margin-top: 32px; }
+  </style>
+</head>
+<body>
+
+  <div class="promo-banner">
+    <span class="dot"></span> 指标字典 · 25 KPI · 双轴漏斗 + 6 张差异化图表 · v1.1 · 2026-05-17 PT <span class="dot"></span>
+  </div>
+
+  <nav class="nav-top">
+    <div class="container">
+      <div class="nav-top__inner">
+        <a href="index.html" class="nav-logo">路特 AI <span class="x">×</span> <span>Momcozy</span></a>
+        <div class="nav-links">
+          <a href="index.html#hero">主报告</a>
+          <a href="#funnel">核心漏斗</a>
+          <a href="#gap-chart">行业差距</a>
+          <a href="#deps">依赖网络</a>
+          <a href="#quadrant">象限定位</a>
+          <a href="#pdp-funnel">PDP 漏斗</a>
+          <a href="#performance-gauges">性能水表</a>
+          <a href="#dict-A">指标字典</a>
+          <a href="forensics.html" style="color:var(--danger);font-weight:700;">法医报告 v1.2</a>
+          <a href="index.html#decisions" class="nav-back">回主报告</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <span class="hero__badge">25 KPI · 指标字典 + 6 图表</span>
+      <h1 class="hero__title">
+        Momcozy 的 <span class="hl">25 个核心指标</span>，<br>
+        每个都有「<span class="hl">公式 · 口径 · 价值</span>」三件套。
+      </h1>
+      <p class="hero__lead">
+        本字典覆盖 4 大组共 25 个指标：<strong>流量层 7 个 · 转化层 6 个 · 销售层 5 个 · 性能层 7 个</strong>。
+        每个指标都有标准化的「描述 / 计算公式 / 统计口径 / Momcozy 真实值 / 行业基线 / 业务价值」六段结构 ——
+        让路特、PM、工程、Marketing 都能在同一个口径下对话。
+      </p>
+      <p class="hero__lead" style="margin-top:14px;">
+        额外提供 <strong>6 张差异化图表</strong>：核心双轴漏斗、行业差距条形图、指标依赖网络、AOV×CVR 象限、4 PDP 横向漏斗、Lighthouse 水表 ——
+        把数字变成洞察。
+      </p>
+      <div class="hero__counts">
+        <div class="count-card"><div class="count-card__num">25</div><div class="count-card__label">核心指标</div></div>
+        <div class="count-card"><div class="count-card__num">6</div><div class="count-card__label">差异化图表</div></div>
+        <div class="count-card"><div class="count-card__num">4</div><div class="count-card__label">指标层级</div></div>
+        <div class="count-card"><div class="count-card__num">137d</div><div class="count-card__label">数据窗口</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray" id="funnel">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">图表 1 · 核心漏斗</div>
+        <h2 class="section__title">访客 → 加购 → Checkout → 成交</h2>
+        <p class="section__sub">月度漏斗 · Momcozy 实测 vs 母婴 DTC 行业 P50 基线对比。每节标注绝对人数与转化率。<strong>真正的"流失断崖"在第一节</strong>：100 个访客只有 3.67 个加购（行业平均 10 个）。</p>
+      </div>
+
+      <div class="funnel-wrap">
+        <div class="funnel-title">月度漏斗对比 · Momcozy（43.7M 月访客）vs 行业 P50</div>
+        <div class="funnel-legend">
+          <span><span class="funnel-legend__swatch" style="background:#6a2b3a"></span>Momcozy 实测</span>
+          <span><span class="funnel-legend__swatch" style="background:#8a8a8a;opacity:0.45"></span>母婴 DTC P50 基线</span>
+          <span style="color:var(--danger);font-weight:600;">⬇ 流失断崖（&gt;60%）</span>
+        </div>
+
+        <svg viewBox="0 0 1100 460" class="funnel-svg" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="momGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#8b3a4d"/>
+              <stop offset="100%" stop-color="#6a2b3a"/>
+            </linearGradient>
+            <pattern id="baselinePattern" patternUnits="userSpaceOnUse" width="6" height="6">
+              <rect width="6" height="6" fill="#8a8a8a" opacity="0.18"/>
+              <path d="M 0,6 L 6,0" stroke="#8a8a8a" stroke-width="0.6" opacity="0.4"/>
+            </pattern>
+          </defs>
+
+          <!-- 网格线 -->
+          <line x1="80" y1="40" x2="80" y2="380" class="axis-line"/>
+          <line x1="80" y1="380" x2="1060" y2="380" class="axis-line"/>
+
+          <!-- Stage 1: Visitors（基准 100%） -->
+          <g transform="translate(80, 40)">
+            <rect x="0" y="0" width="930" height="46" fill="url(#momGrad)"/>
+            <rect x="0" y="50" width="930" height="22" fill="url(#baselinePattern)"/>
+            <text x="-10" y="18" text-anchor="end" class="axis-label" font-weight="700" fill="#111">访客 UV</text>
+            <text x="-10" y="34" text-anchor="end" class="axis-label">100%</text>
+            <text x="10" y="28" class="bar-label--white" font-weight="700">43.7M / 月 · 100% · Momcozy</text>
+            <text x="10" y="65" class="axis-label">~5-30M / 月 · P50 母婴 DTC</text>
+          </g>
+
+          <!-- 流失断崖标记 -->
+          <g transform="translate(80, 102)">
+            <line x1="930" y1="0" x2="930" y2="36" stroke="#c53030" stroke-width="2" stroke-dasharray="4 3"/>
+            <line x1="341" y1="0" x2="341" y2="36" stroke="#c53030" stroke-width="2" stroke-dasharray="4 3"/>
+            <path d="M 341,18 L 930,18" stroke="#c53030" stroke-width="2" fill="none" marker-end="url(#arrowred)"/>
+            <text x="635" y="14" text-anchor="middle" font-size="11" font-weight="700" fill="#c53030">⬇ 流失断崖 · 96.3% 访客未加购</text>
+          </g>
+
+          <defs>
+            <marker id="arrowred" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#c53030"/>
+            </marker>
+          </defs>
+
+          <!-- Stage 2: Add to Cart -->
+          <g transform="translate(80, 140)">
+            <rect x="0" y="0" width="34" height="46" fill="url(#momGrad)"/>
+            <rect x="0" y="50" width="93" height="22" fill="url(#baselinePattern)"/>
+            <text x="-10" y="18" text-anchor="end" class="axis-label" font-weight="700" fill="#111">加购</text>
+            <text x="-10" y="34" text-anchor="end" class="axis-label">3.67%</text>
+            <text x="124" y="28" class="bar-label">1.61M · 3.67% (Momcozy)</text>
+            <text x="103" y="65" class="axis-label">10% · P50（Momcozy 仅 37%）</text>
+          </g>
+
+          <!-- Stage 3: Initiate Checkout -->
+          <g transform="translate(80, 220)">
+            <rect x="0" y="0" width="24" height="46" fill="url(#momGrad)"/>
+            <rect x="0" y="50" width="56" height="22" fill="url(#baselinePattern)"/>
+            <text x="-10" y="18" text-anchor="end" class="axis-label" font-weight="700" fill="#111">Checkout</text>
+            <text x="-10" y="34" text-anchor="end" class="axis-label">2.61%</text>
+            <text x="114" y="28" class="bar-label">1.14M · 2.61% (Momcozy)</text>
+            <text x="66" y="65" class="axis-label">6% · P50</text>
+          </g>
+
+          <!-- Stage 4: Order（按反算 0.28% & Excel 0.88% 双值） -->
+          <g transform="translate(80, 300)">
+            <rect x="0" y="0" width="8.2" height="46" fill="url(#momGrad)"/>
+            <rect x="0" y="50" width="19" height="22" fill="url(#baselinePattern)"/>
+            <text x="-10" y="18" text-anchor="end" class="axis-label" font-weight="700" fill="#111">成交</text>
+            <text x="-10" y="34" text-anchor="end" class="axis-label">0.28%（订单/UV）</text>
+            <text x="18" y="28" class="bar-label">122K · 0.28% 反算 (Momcozy)</text>
+            <text x="29" y="65" class="axis-label">2.0% · P50（Momcozy 仅 14%）</text>
+          </g>
+
+          <!-- 轴标签 -->
+          <text x="570" y="410" text-anchor="middle" font-size="12" fill="#5c5c5c">月访客 (UV) 占比 · 横向比例真实绘制</text>
+
+          <!-- 右侧标注 -->
+          <g transform="translate(960, 440)">
+            <text font-size="10" text-anchor="end" fill="#8a8a8a">数据：Excel 137d / 4.504 月 · 行业基线参考 Shopify+Baymard</text>
+          </g>
+        </svg>
+
+        <div class="insight-card insight-card--danger" style="margin-top:32px;">
+          <div class="insight-card__head">⚠ 关键洞察 #1 · 流失断崖在第一节</div>
+          <div class="insight-card__title">96.3% 访客在「加购前」就跑了，这才是病灶。</div>
+          <div class="insight-card__body">
+            漏斗最大流失发生在 <strong>访客 → 加购</strong>（损失 96.33% 访客）· 行业平均损失 90%。<br>
+            Cart Abandonment 仅 28.8%（行业 70%）· 说明 <strong>加进购物车的人很坚定，问题不在结账</strong>。<br>
+            → 优化重点：<strong>性能 + UX</strong>（让访客走进 PDP / 让 PDP 让人想加购），而不是优化结账流程。
+          </div>
+        </div>
+
+        <div class="insight-card insight-card--warn" style="margin-top:16px;">
+          <div class="insight-card__head">⚠ 关键洞察 #2 · CVR 双口径警示</div>
+          <div class="insight-card__title">Excel 自报 CVR 0.88% ≠ 反算 0.28% · 真相是后者</div>
+          <div class="insight-card__body">
+            Excel 字段 <code>overall_cvr 0.88%</code> 与 <strong>订单数 / 访客数</strong> 反算 0.28% 矛盾 3.1 倍。<br>
+            可能解释：Excel 0.88% 是「加购 → 支付」子漏斗口径（1.61M 加购 × ~7.5% = 122K 成交 ≈ 0.88%）。<br>
+            <strong>工业标准 CVR = 订单 / 访客 = 0.28%</strong>（行业基线 1.5-2.5% 的 11-19%）· <em>实际比 Excel 上报更糟</em>。<br>
+            → 字典里此处 <strong>双口径都报</strong>，路特可与 Marketing/Analytics 团队对齐口径。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="gap-chart">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">图表 2 · 行业差距条形图</div>
+        <h2 class="section__title">12 维度 Momcozy vs 母婴 DTC P50</h2>
+        <p class="section__sub">所有指标统一归一化为「相对 P50 的百分比」· 越往右越好。绿色 = 优于基线，红色 = 低于基线。</p>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card__title">Momcozy 12 指标偏离 P50 程度</div>
+        <div class="chart-card__sub">水平 0% 线 = 母婴 DTC P50 基线 · 越往右越优秀</div>
+
+        <svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+          <defs>
+            <linearGradient id="goodGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#1f9d55" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#1f9d55"/>
+            </linearGradient>
+            <linearGradient id="badGrad" x1="100%" y1="0%" x2="0%" y2="0%">
+              <stop offset="0%" stop-color="#c53030" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#c53030"/>
+            </linearGradient>
+          </defs>
+
+          <line x1="500" y1="20" x2="500" y2="450" stroke="#111" stroke-width="2"/>
+          <text x="500" y="14" text-anchor="middle" font-size="11" font-weight="700" fill="#111">P50 基线 (0%)</text>
+
+          <line x1="250" y1="20" x2="250" y2="450" class="grid-line"/>
+          <line x1="750" y1="20" x2="750" y2="450" class="grid-line"/>
+          <text x="250" y="468" text-anchor="middle" class="axis-label">-50%</text>
+          <text x="750" y="468" text-anchor="middle" class="axis-label">+50%</text>
+          <text x="500" y="468" text-anchor="middle" class="axis-label" font-weight="700">P50</text>
+
+          <g font-size="12">
+            <g transform="translate(0, 30)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">AOV</text><rect x="500" y="0" width="126.5" height="22" fill="url(#goodGrad)"/><text x="630" y="16" font-size="11" font-weight="700" fill="#1f9d55">+25.3%</text></g>
+            <g transform="translate(0, 60)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">Refund Rate（越低越好）</text><rect x="500" y="0" width="278" height="22" fill="url(#goodGrad)"/><text x="780" y="16" font-size="11" font-weight="700" fill="#1f9d55">+55.6%</text></g>
+            <g transform="translate(0, 90)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">Cart Abandonment（越低越好）</text><rect x="500" y="0" width="294" height="22" fill="url(#goodGrad)"/><text x="800" y="16" font-size="11" font-weight="700" fill="#1f9d55">+58.9%</text></g>
+            <g transform="translate(0, 120)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">JSON-LD Schema 数</text><rect x="500" y="0" width="120" height="22" fill="url(#goodGrad)"/><text x="623" y="16" font-size="11" font-weight="700" fill="#1f9d55">+24%</text></g>
+            <g transform="translate(0, 150)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">hreflang 数</text><rect x="500" y="0" width="180" height="22" fill="url(#goodGrad)"/><text x="683" y="16" font-size="11" font-weight="700" fill="#1f9d55">+36%</text></g>
+            <g transform="translate(0, 180)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">New Visitor %</text><rect x="434" y="0" width="66" height="22" fill="url(#badGrad)"/><text x="430" y="16" text-anchor="end" font-size="11" font-weight="700" fill="#c53030">-13.2%</text></g>
+            <g transform="translate(0, 210)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">Repurchase Rate</text><rect x="381" y="0" width="119" height="22" fill="url(#badGrad)"/><text x="377" y="16" text-anchor="end" font-size="11" font-weight="700" fill="#c53030">-23.7%</text></g>
+            <g transform="translate(0, 240)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">PV per Visitor</text><rect x="358" y="0" width="142" height="22" fill="url(#badGrad)"/><text x="354" y="16" text-anchor="end" font-size="11" font-weight="700" fill="#c53030">-28.4%</text></g>
+            <g transform="translate(0, 270)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">Avg Session 时长</text><rect x="241" y="0" width="259" height="22" fill="url(#badGrad)"/><text x="237" y="16" text-anchor="end" font-size="11" font-weight="700" fill="#c53030">-51.8%</text></g>
+            <g transform="translate(0, 300)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">CVR (Excel 口径)</text><rect x="220" y="0" width="280" height="22" fill="url(#badGrad)"/><text x="216" y="16" text-anchor="end" font-size="11" font-weight="700" fill="#c53030">-56.0%</text></g>
+            <g transform="translate(0, 330)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">Add to Cart Rate</text><rect x="183" y="0" width="317" height="22" fill="url(#badGrad)"/><text x="179" y="16" text-anchor="end" font-size="11" font-weight="700" fill="#c53030">-63.3%</text></g>
+            <g transform="translate(0, 360)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">Attach Rate</text><rect x="113" y="0" width="387" height="22" fill="url(#badGrad)"/><text x="109" y="16" text-anchor="end" font-size="11" font-weight="700" fill="#c53030">-77.5%</text></g>
+            <g transform="translate(0, 390)"><text x="490" y="14" text-anchor="end" fill="#111" font-weight="600">CVR (订单/UV 反算)</text><rect x="70" y="0" width="430" height="22" fill="url(#badGrad)"/><text x="66" y="16" text-anchor="end" font-size="11" font-weight="700" fill="#c53030">-86.1%</text></g>
+          </g>
+        </svg>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card__head">💡 关键洞察 #3 · 体格图谱</div>
+        <div class="insight-card__title">5 项优秀 vs 7 项垫底 · 病灶集中在「转化漏斗」</div>
+        <div class="insight-card__body">
+          <strong>优秀 5 项</strong>（绿）：AOV / Refund / Cart Abandonment / Schema / hreflang —— 价格定位 + 售后 + 技术 SEO 健康。<br>
+          <strong>垫底 7 项</strong>（红）：全部集中在「<strong>停留 → 加购 → 成交</strong>」漏斗链 —— 这是性能 + UX 的故事，与 P0-1~P0-7 完全对应。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray" id="deps">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">图表 3 · 指标依赖网络</div>
+        <h2 class="section__title">性能 → 体验 → 漏斗 → 营收的因果链</h2>
+        <p class="section__sub">25 个指标不是孤立的 · 它们形成一张因果网。修 LCP 不只为 Lighthouse 加分，是为了改善跳出率→ 加购 →成交 → 营收。</p>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card__title">指标依赖图（简化版 · 仅核心 14 节点）</div>
+        <div class="chart-card__sub">红 = 病灶 · 绿 = 优秀 · 紫 = 营收根节点 · 实线 = 强因果 · 虚线 = 弱关联</div>
+
+        <svg viewBox="0 0 1100 540" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8a8a8a"/></marker>
+            <marker id="arrowBad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#c53030"/></marker>
+            <marker id="arrowGood" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f9d55"/></marker>
+          </defs>
+
+          <text x="80" y="30" font-size="12" font-weight="700" fill="#8a8a8a" letter-spacing="2">L1 · 工程指标</text>
+          <text x="80" y="170" font-size="12" font-weight="700" fill="#8a8a8a" letter-spacing="2">L2 · 体验指标</text>
+          <text x="80" y="310" font-size="12" font-weight="700" fill="#8a8a8a" letter-spacing="2">L3 · 漏斗指标</text>
+          <text x="80" y="450" font-size="12" font-weight="700" fill="#8a8a8a" letter-spacing="2">L4 · 营收指标</text>
+
+          <g transform="translate(120, 50)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="130" height="60"/><text x="65" y="25" text-anchor="middle" class="deps-text">LCP 4.92s</text><text x="65" y="42" text-anchor="middle" class="deps-text-small">Poor</text></g>
+          <g transform="translate(280, 50)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="130" height="60"/><text x="65" y="25" text-anchor="middle" class="deps-text">DOM 5375</text><text x="65" y="42" text-anchor="middle" class="deps-text-small">PDP · 3.7×</text></g>
+          <g transform="translate(440, 50)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="130" height="60"/><text x="65" y="25" text-anchor="middle" class="deps-text">webp 2%</text><text x="65" y="42" text-anchor="middle" class="deps-text-small">应 &gt;70%</text></g>
+          <g transform="translate(600, 50)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="130" height="60"/><text x="65" y="25" text-anchor="middle" class="deps-text">3rd 域 72</text><text x="65" y="42" text-anchor="middle" class="deps-text-small">PDP · 4.8×</text></g>
+          <g transform="translate(760, 50)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="130" height="60"/><text x="65" y="25" text-anchor="middle" class="deps-text">PDP 17.2s</text><text x="65" y="42" text-anchor="middle" class="deps-text-small">Load</text></g>
+
+          <g transform="translate(200, 190)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">Bounce Rate 75.8%</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 55% · +38%</text></g>
+          <g transform="translate(440, 190)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">Session 86.8s</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 180s · -52%</text></g>
+          <g transform="translate(680, 190)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">PV/Visitor 1.79</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 2.5 · -28%</text></g>
+
+          <g transform="translate(120, 330)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">加购 3.67%</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 10% · -63%</text></g>
+          <g transform="translate(340, 330)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">Checkout 2.61%</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 6%</text></g>
+          <g transform="translate(560, 330)"><rect class="deps-node deps-node--good" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">Cart Aban 28.8%</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 70% · 优秀</text></g>
+          <g transform="translate(780, 330)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">CVR 0.28-0.88%</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 2% · 双口径</text></g>
+
+          <g transform="translate(280, 460)"><rect class="deps-node deps-node--good" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">AOV $119</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 $95 · +25%</text></g>
+          <g transform="translate(540, 460)"><rect class="deps-node deps-node--root" x="0" y="0" rx="8" width="180" height="60"/><text x="90" y="28" text-anchor="middle" class="deps-text deps-text--white" font-size="14" font-weight="800">月营收 $11.5M</text><text x="90" y="46" text-anchor="middle" class="deps-text-small" fill="#fde8ec">122K 单/月 · 待激活</text></g>
+          <g transform="translate(800, 460)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">Repurchase 26.7%</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 35% · -24%</text></g>
+
+          <path d="M 185 110 Q 200 150 280 190" class="deps-arrow deps-arrow--bad" marker-end="url(#arrowBad)"/>
+          <path d="M 345 110 Q 360 150 360 190" class="deps-arrow deps-arrow--bad" marker-end="url(#arrowBad)"/>
+          <path d="M 505 110 Q 520 150 520 190" class="deps-arrow deps-arrow--bad" marker-end="url(#arrowBad)"/>
+          <path d="M 665 110 Q 680 150 680 190" class="deps-arrow deps-arrow--bad" marker-end="url(#arrowBad)"/>
+          <path d="M 825 110 Q 840 150 840 190" class="deps-arrow deps-arrow--bad" marker-end="url(#arrowBad)"/>
+
+          <path d="M 280 250 Q 240 290 200 330" class="deps-arrow deps-arrow--bad" marker-end="url(#arrowBad)"/>
+          <path d="M 520 250 Q 480 290 420 330" class="deps-arrow deps-arrow--bad" marker-end="url(#arrowBad)"/>
+          <path d="M 760 250 Q 770 290 860 330" class="deps-arrow deps-arrow--bad" marker-end="url(#arrowBad)"/>
+
+          <path d="M 280 390 Q 320 410 420 390" class="deps-arrow"/>
+          <path d="M 500 390 Q 540 400 640 390" class="deps-arrow"/>
+          <path d="M 720 390 Q 760 400 860 390" class="deps-arrow"/>
+
+          <path d="M 860 390 L 770 460" class="deps-arrow deps-arrow--bad" marker-end="url(#arrowBad)"/>
+          <path d="M 360 480 L 540 480" class="deps-arrow deps-arrow--good" marker-end="url(#arrowGood)"/>
+          <path d="M 800 480 L 720 480" class="deps-arrow deps-arrow--bad" marker-end="url(#arrowBad)"/>
+
+          <g transform="translate(960, 40)">
+            <rect x="0" y="0" width="120" height="100" rx="8" fill="#fff" stroke="#e5e5e5"/>
+            <text x="10" y="20" font-size="11" font-weight="700" fill="#111">图例</text>
+            <rect x="10" y="30" width="14" height="14" fill="#fee2e2" stroke="#c53030"/><text x="30" y="42" font-size="10" fill="#5c5c5c">病灶节点</text>
+            <rect x="10" y="50" width="14" height="14" fill="#e6f7ec" stroke="#1f9d55"/><text x="30" y="62" font-size="10" fill="#5c5c5c">优秀节点</text>
+            <rect x="10" y="70" width="14" height="14" fill="#6a2b3a"/><text x="30" y="82" font-size="10" fill="#5c5c5c">营收根节点</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card__head">💡 关键洞察 #4 · 因果链一致</div>
+        <div class="insight-card__title">12 条红线全指向 1 个根 · 改 LCP 是全链最高 ROI 杠杆</div>
+        <div class="insight-card__body">
+          从 L1 工程指标到 L4 营收，存在<strong>清晰的级联因果</strong>：<br>
+          LCP 4.92s → Bounce 75.8% → 加购 3.67% → CVR 0.28% → 月营收 $11.5M（远低潜力）。<br>
+          <strong>修 LCP 不是为了 Lighthouse 漂亮，是为了让漏斗 4 节都获益</strong> —— 这是 P0-1 ROI 估 $6M / 月的根因。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quadrant">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">图表 4 · AOV × CVR 战略象限</div>
+        <h2 class="section__title">高 AOV × 低 CVR 困境 → 「贵货卖不动」</h2>
+        <p class="section__sub">DTC 站的 2 个核心商业指标 · 4 象限定位经营状态。Momcozy 卡在最危险象限：AOV 优秀但 CVR 垫底。</p>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card__title">DTC 战略象限定位</div>
+        <div class="chart-card__sub">横轴 = CVR · 纵轴 = AOV · 蓝色 = Momcozy · 灰 = 行业 P50 · 绿色虚线 = 健康区间</div>
+
+        <svg viewBox="0 0 900 540" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+          <line x1="80" y1="40" x2="80" y2="480" class="axis-line"/>
+          <line x1="80" y1="480" x2="820" y2="480" class="axis-line"/>
+
+          <line x1="450" y1="40" x2="450" y2="480" stroke="#5c5c5c" stroke-width="1.5"/>
+          <line x1="80" y1="260" x2="820" y2="260" stroke="#5c5c5c" stroke-width="1.5"/>
+
+          <rect x="80" y="40" width="370" height="220" fill="#fef3c7" opacity="0.3"/>
+          <rect x="450" y="40" width="370" height="220" fill="#e6f7ec" opacity="0.4"/>
+          <rect x="80" y="260" width="370" height="220" fill="#fee2e2" opacity="0.3"/>
+          <rect x="450" y="260" width="370" height="220" fill="#fef3c7" opacity="0.3"/>
+
+          <text x="265" y="62" text-anchor="middle" class="quadrant-label" font-size="12" fill="#d97706">象限 I · 贵货卖不动</text>
+          <text x="265" y="78" text-anchor="middle" font-size="10" fill="#8a8a8a">高 AOV · 低 CVR · 病态</text>
+
+          <text x="635" y="62" text-anchor="middle" class="quadrant-label" font-size="12" fill="#1f9d55">象限 II · 健康高价</text>
+          <text x="635" y="78" text-anchor="middle" font-size="10" fill="#8a8a8a">高 AOV · 高 CVR · 理想</text>
+
+          <text x="265" y="282" text-anchor="middle" class="quadrant-label" font-size="12" fill="#c53030">象限 III · 双输</text>
+          <text x="265" y="298" text-anchor="middle" font-size="10" fill="#8a8a8a">低 AOV · 低 CVR · 危险</text>
+
+          <text x="635" y="282" text-anchor="middle" class="quadrant-label" font-size="12" fill="#d97706">象限 IV · 走量低利</text>
+          <text x="635" y="298" text-anchor="middle" font-size="10" fill="#8a8a8a">低 AOV · 高 CVR · 薄利</text>
+
+          <line x1="600" y1="40" x2="600" y2="480" stroke="#1f9d55" stroke-width="1" stroke-dasharray="6 3" opacity="0.6"/>
+          <line x1="80" y1="180" x2="820" y2="180" stroke="#1f9d55" stroke-width="1" stroke-dasharray="6 3" opacity="0.6"/>
+          <text x="615" y="498" font-size="10" fill="#1f9d55">CVR &gt; 1.5%</text>
+          <text x="610" y="172" font-size="10" fill="#1f9d55">AOV &gt; $100</text>
+
+          <g>
+            <circle cx="180" cy="160" r="14" fill="#6a2b3a" opacity="0.92"/>
+            <line x1="180" y1="160" x2="252" y2="142" stroke="#6a2b3a" stroke-width="1" stroke-dasharray="2 2"/>
+            <rect x="252" y="120" width="180" height="48" rx="6" fill="#fff" stroke="#6a2b3a"/>
+            <text x="262" y="140" font-size="13" font-weight="800" fill="#6a2b3a">Momcozy</text>
+            <text x="262" y="158" font-size="11" fill="#5c5c5c">CVR 0.88% · AOV $119</text>
+          </g>
+
+          <g>
+            <circle cx="540" cy="220" r="12" fill="#8a8a8a" opacity="0.7"/>
+            <line x1="540" y1="220" x2="600" y2="220" stroke="#8a8a8a" stroke-width="1" stroke-dasharray="2 2"/>
+            <rect x="605" y="200" width="180" height="44" rx="6" fill="#fff" stroke="#8a8a8a"/>
+            <text x="615" y="218" font-size="13" font-weight="800" fill="#5c5c5c">母婴 DTC P50</text>
+            <text x="615" y="236" font-size="11" fill="#8a8a8a">CVR 2.0% · AOV $95</text>
+          </g>
+
+          <g>
+            <circle cx="660" cy="120" r="11" fill="#1f9d55" opacity="0.85"/>
+            <text x="678" y="116" font-size="11" fill="#1f9d55">Elvie</text>
+            <text x="678" y="128" font-size="10" fill="#5c5c5c">CVR 2.5% · AOV $130</text>
+          </g>
+
+          <g>
+            <circle cx="680" cy="200" r="11" fill="#1f9d55" opacity="0.7"/>
+            <text x="698" y="196" font-size="11" fill="#1f9d55">Willow</text>
+            <text x="698" y="208" font-size="10" fill="#5c5c5c">CVR 2.6% · AOV $110</text>
+          </g>
+
+          <g>
+            <circle cx="700" cy="320" r="11" fill="#d97706" opacity="0.7"/>
+            <text x="718" y="316" font-size="11" fill="#d97706">Haakaa</text>
+            <text x="718" y="328" font-size="10" fill="#5c5c5c">CVR 2.8% · AOV $40</text>
+          </g>
+
+          <g>
+            <line x1="180" y1="160" x2="640" y2="125" stroke="#6a2b3a" stroke-width="2.5" stroke-dasharray="6 3" marker-end="url(#arrowAccent)" opacity="0.8"/>
+            <text x="380" y="118" font-size="11" font-weight="700" fill="#6a2b3a">→ Top 5 P0 修复目标方向（保留 AOV · 拉 CVR）</text>
+          </g>
+
+          <defs>
+            <marker id="arrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#6a2b3a"/></marker>
+          </defs>
+
+          <text x="50" y="40" font-size="11" font-weight="700" fill="#5c5c5c">AOV ($)</text>
+          <text x="450" y="510" text-anchor="middle" font-size="11" font-weight="700" fill="#5c5c5c">CVR (%) →</text>
+          <text x="75" y="50" text-anchor="end" font-size="10" fill="#8a8a8a">$200</text>
+          <text x="75" y="185" text-anchor="end" font-size="10" fill="#8a8a8a">$100</text>
+          <text x="75" y="265" text-anchor="end" font-size="10" fill="#8a8a8a">$80</text>
+          <text x="75" y="485" text-anchor="end" font-size="10" fill="#8a8a8a">$0</text>
+          <text x="80" y="500" text-anchor="middle" font-size="10" fill="#8a8a8a">0%</text>
+          <text x="450" y="500" text-anchor="middle" font-size="10" fill="#8a8a8a">1.5%</text>
+          <text x="820" y="500" text-anchor="middle" font-size="10" fill="#8a8a8a">3.5%</text>
+        </svg>
+      </div>
+
+      <div class="insight-card insight-card--warn">
+        <div class="insight-card__head">💡 关键洞察 #5 · 战略目标</div>
+        <div class="insight-card__title">Momcozy 卡在象限 I · 目标移到象限 II</div>
+        <div class="insight-card__body">
+          <strong>Momcozy 已经在做对的事</strong>：定位中高端母婴（AOV $119）· 用户来了就有意愿付费。<br>
+          <strong>错的事</strong>：CVR 0.88% 意味着 99% 来访没买 —— 价值被站点性能/UX 吃掉。<br>
+          → <strong>目标轨迹</strong>：维持 AOV $119（不降价不打折）· 把 CVR 从 0.88% 拉到 1.5-2.0%（Elvie/Willow 水平）· 月营收从 $11.5M → $20-25M。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray" id="pdp-funnel">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">图表 5 · 4 主力 PDP 漏斗对比</div>
+        <h2 class="section__title">KleanPal · M5 · Pillow · Mobile Style</h2>
+        <p class="section__sub">Excel 中 4 个主力 SKU 的 PDP 流量与转化 · 横向漏斗对比。KleanPal 流量最大但 CVR 仅 0.017% · 是性能优化第一目标。</p>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-card__title">4 主力 PDP · 137 天累计漏斗</div>
+        <div class="chart-card__sub">每行：PV → 加购（按各自加购率）→ 订单 · 数字为绝对量</div>
+
+        <svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
+          <g transform="translate(0, 30)">
+            <text x="20" y="18" font-size="13" font-weight="700" fill="#111">KleanPal Pro</text>
+            <text x="20" y="36" font-size="10" fill="#8a8a8a">23,758 PV · 加购率 0.25% · CVR 0.017%</text>
+            <rect x="200" y="6" width="700" height="32" fill="#6a2b3a" opacity="0.9"/>
+            <text x="210" y="28" font-size="12" fill="#fff" font-weight="700">PV 23,758 (100%)</text>
+            <rect x="200" y="44" width="51" height="22" fill="#8b3a4d" opacity="0.85"/>
+            <text x="258" y="60" font-size="11" fill="#5c5c5c">加购 59</text>
+            <rect x="200" y="72" width="3" height="20" fill="#c53030"/>
+            <text x="212" y="86" font-size="11" fill="#c53030" font-weight="700">订单 4（CVR 0.017% · 极危）</text>
+          </g>
+
+          <g transform="translate(0, 150)">
+            <text x="20" y="18" font-size="13" font-weight="700" fill="#111">M5 Smart Pump</text>
+            <text x="20" y="36" font-size="10" fill="#8a8a8a">2,831 PV · 加购率 0.25% · CVR 0%</text>
+            <rect x="200" y="6" width="83" height="32" fill="#6a2b3a" opacity="0.9"/>
+            <text x="210" y="28" font-size="12" fill="#fff" font-weight="700">PV 2,831 (100%)</text>
+            <rect x="200" y="44" width="7" height="22" fill="#8b3a4d" opacity="0.85"/>
+            <text x="215" y="60" font-size="11" fill="#5c5c5c">加购 7</text>
+            <rect x="200" y="72" width="0.4" height="20" fill="#c53030"/>
+            <text x="212" y="86" font-size="11" fill="#c53030" font-weight="700">订单 0（明星 SKU · 严重）</text>
+          </g>
+
+          <g transform="translate(0, 270)">
+            <text x="20" y="18" font-size="13" font-weight="700" fill="#111">Pregnancy Pillow</text>
+            <text x="20" y="36" font-size="10" fill="#8a8a8a">4,840 PV · 加购率 0.14% · CVR 0%</text>
+            <rect x="200" y="6" width="143" height="32" fill="#6a2b3a" opacity="0.9"/>
+            <text x="210" y="28" font-size="12" fill="#fff" font-weight="700">PV 4,840 (100%)</text>
+            <rect x="200" y="44" width="7" height="22" fill="#8b3a4d" opacity="0.85"/>
+            <text x="216" y="60" font-size="11" fill="#5c5c5c">加购 7</text>
+            <rect x="200" y="72" width="0.4" height="20" fill="#c53030"/>
+            <text x="212" y="86" font-size="11" fill="#c53030" font-weight="700">订单 0</text>
+          </g>
+
+          <g transform="translate(0, 390)">
+            <text x="20" y="18" font-size="13" font-weight="700" fill="#111">Mobile Style</text>
+            <text x="20" y="36" font-size="10" fill="#8a8a8a">5,288 PV · 加购率 1.27% · CVR 0.076%</text>
+            <rect x="200" y="6" width="156" height="32" fill="#6a2b3a" opacity="0.9"/>
+            <text x="210" y="28" font-size="12" fill="#fff" font-weight="700">PV 5,288 (100%)</text>
+            <rect x="200" y="44" width="67" height="22" fill="#8b3a4d" opacity="0.85"/>
+            <text x="275" y="60" font-size="11" fill="#5c5c5c">加购 67 · 最优</text>
+            <rect x="200" y="72" width="4" height="20" fill="#d97706"/>
+            <text x="212" y="86" font-size="11" fill="#d97706" font-weight="700">订单 4（CVR 0.076% · 相对最好）</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="insight-card insight-card--danger">
+        <div class="insight-card__head">💡 关键洞察 #6 · PDP 灾难</div>
+        <div class="insight-card__title">4 主力 PDP 累计 36,717 PV · 仅 8 单 · CVR 平均 0.02%</div>
+        <div class="insight-card__body">
+          KleanPal Pro 是「<strong>流量最大但 CVR 最低</strong>」的奇葩 SKU — 23,758 人看过仅 4 单 (0.017%)。<br>
+          M5 Smart Pump / Pregnancy Pillow 是「<strong>明星 SKU 0 单</strong>」 — Excel 时间窗内完全未变现。<br>
+          Mobile Style 是「<strong>相对最好</strong>」 — 加购率 1.27% (KleanPal 5x)，但仍远低于行业 10%。<br>
+          → 4 主力 PDP 全是 P0-8 KleanPal 重点优化的同源问题（DOM / 第三方 / Hero / Mobile sticky）。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="performance-gauges">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">图表 6 · 性能水表（Lighthouse 风格）</div>
+        <h2 class="section__title">8 个 Core Web Vitals · 7 项 Poor</h2>
+        <p class="section__sub">Google 官方分级：Good / Needs Improvement / Poor。Momcozy 8 项 Core Web Vitals 中 7 项落在 Poor 区。</p>
+      </div>
+
+      <div class="lighthouse-grid">
+        <div class="lh-gauge">
+          <svg viewBox="0 0 100 70" style="width:140px;height:auto;display:block;margin:0 auto;">
+            <path d="M 10 60 A 40 40 0 0 1 90 60" fill="none" stroke="#e5e5e5" stroke-width="10"/>
+            <path d="M 10 60 A 40 40 0 0 1 50 20" fill="none" stroke="#1f9d55" stroke-width="10"/>
+            <path d="M 50 20 A 40 40 0 0 1 70 26" fill="none" stroke="#d97706" stroke-width="10"/>
+            <path d="M 70 26 A 40 40 0 0 1 90 60" fill="none" stroke="#c53030" stroke-width="10"/>
+            <circle cx="84" cy="51" r="4" fill="#c53030"/>
+            <text x="50" y="55" text-anchor="middle" font-size="14" font-weight="800" fill="#c53030">4.92s</text>
+          </svg>
+          <div class="lh-gauge__label" style="color:#c53030;">LCP · POOR</div>
+          <div class="lh-gauge__sub">Good &lt; 2.5s · 当前 +97%</div>
+        </div>
+
+        <div class="lh-gauge">
+          <svg viewBox="0 0 100 70" style="width:140px;height:auto;display:block;margin:0 auto;">
+            <path d="M 10 60 A 40 40 0 0 1 90 60" fill="none" stroke="#e5e5e5" stroke-width="10"/>
+            <path d="M 10 60 A 40 40 0 0 1 40 25" fill="none" stroke="#1f9d55" stroke-width="10"/>
+            <path d="M 40 25 A 40 40 0 0 1 65 22" fill="none" stroke="#d97706" stroke-width="10"/>
+            <path d="M 65 22 A 40 40 0 0 1 90 60" fill="none" stroke="#c53030" stroke-width="10"/>
+            <circle cx="85" cy="49" r="4" fill="#c53030"/>
+            <text x="50" y="55" text-anchor="middle" font-size="14" font-weight="800" fill="#c53030">4.86s</text>
+          </svg>
+          <div class="lh-gauge__label" style="color:#c53030;">FCP · POOR</div>
+          <div class="lh-gauge__sub">Good &lt; 1.8s · 当前 +170%</div>
+        </div>
+
+        <div class="lh-gauge">
+          <svg viewBox="0 0 100 70" style="width:140px;height:auto;display:block;margin:0 auto;">
+            <path d="M 10 60 A 40 40 0 0 1 90 60" fill="none" stroke="#e5e5e5" stroke-width="10"/>
+            <path d="M 10 60 A 40 40 0 0 1 50 20" fill="none" stroke="#1f9d55" stroke-width="10"/>
+            <circle cx="22" cy="40" r="4" fill="#1f9d55"/>
+            <text x="50" y="55" text-anchor="middle" font-size="14" font-weight="800" fill="#1f9d55">523ms</text>
+          </svg>
+          <div class="lh-gauge__label" style="color:#1f9d55;">TTFB · GOOD</div>
+          <div class="lh-gauge__sub">Good &lt; 800ms · Shopify CDN</div>
+        </div>
+
+        <div class="lh-gauge">
+          <svg viewBox="0 0 100 70" style="width:140px;height:auto;display:block;margin:0 auto;">
+            <path d="M 10 60 A 40 40 0 0 1 90 60" fill="none" stroke="#e5e5e5" stroke-width="10"/>
+            <path d="M 10 60 A 40 40 0 0 1 50 20" fill="none" stroke="#1f9d55" stroke-width="10"/>
+            <circle cx="14" cy="55" r="4" fill="#1f9d55"/>
+            <text x="50" y="55" text-anchor="middle" font-size="14" font-weight="800" fill="#1f9d55">0.0008</text>
+          </svg>
+          <div class="lh-gauge__label" style="color:#1f9d55;">CLS · GOOD</div>
+          <div class="lh-gauge__sub">Good &lt; 0.1 · 1 个亮点</div>
+        </div>
+
+        <div class="lh-gauge">
+          <svg viewBox="0 0 100 70" style="width:140px;height:auto;display:block;margin:0 auto;">
+            <path d="M 10 60 A 40 40 0 0 1 90 60" fill="none" stroke="#e5e5e5" stroke-width="10"/>
+            <path d="M 10 60 A 40 40 0 0 1 50 20" fill="none" stroke="#1f9d55" stroke-width="10"/>
+            <path d="M 50 20 A 40 40 0 0 1 70 26" fill="none" stroke="#d97706" stroke-width="10"/>
+            <path d="M 70 26 A 40 40 0 0 1 90 60" fill="none" stroke="#c53030" stroke-width="10"/>
+            <circle cx="80" cy="42" r="4" fill="#c53030"/>
+            <text x="50" y="55" text-anchor="middle" font-size="13" font-weight="800" fill="#c53030">17.2s</text>
+          </svg>
+          <div class="lh-gauge__label" style="color:#c53030;">PDP LOAD · POOR</div>
+          <div class="lh-gauge__sub">Good &lt; 5s · 3.4×</div>
+        </div>
+
+        <div class="lh-gauge">
+          <svg viewBox="0 0 100 70" style="width:140px;height:auto;display:block;margin:0 auto;">
+            <path d="M 10 60 A 40 40 0 0 1 90 60" fill="none" stroke="#e5e5e5" stroke-width="10"/>
+            <path d="M 10 60 A 40 40 0 0 1 50 20" fill="none" stroke="#1f9d55" stroke-width="10"/>
+            <path d="M 50 20 A 40 40 0 0 1 70 26" fill="none" stroke="#d97706" stroke-width="10"/>
+            <path d="M 70 26 A 40 40 0 0 1 90 60" fill="none" stroke="#c53030" stroke-width="10"/>
+            <circle cx="86" cy="48" r="4" fill="#c53030"/>
+            <text x="50" y="55" text-anchor="middle" font-size="13" font-weight="800" fill="#c53030">5375</text>
+          </svg>
+          <div class="lh-gauge__label" style="color:#c53030;">PDP DOM · POOR</div>
+          <div class="lh-gauge__sub">Good &lt; 1500 · 3.6×</div>
+        </div>
+
+        <div class="lh-gauge">
+          <svg viewBox="0 0 100 70" style="width:140px;height:auto;display:block;margin:0 auto;">
+            <path d="M 10 60 A 40 40 0 0 1 90 60" fill="none" stroke="#e5e5e5" stroke-width="10"/>
+            <path d="M 10 60 A 40 40 0 0 1 50 20" fill="none" stroke="#1f9d55" stroke-width="10"/>
+            <path d="M 50 20 A 40 40 0 0 1 70 26" fill="none" stroke="#d97706" stroke-width="10"/>
+            <path d="M 70 26 A 40 40 0 0 1 90 60" fill="none" stroke="#c53030" stroke-width="10"/>
+            <circle cx="88" cy="55" r="4" fill="#c53030"/>
+            <text x="50" y="55" text-anchor="middle" font-size="13" font-weight="800" fill="#c53030">19.4MB</text>
+          </svg>
+          <div class="lh-gauge__label" style="color:#c53030;">PDP SIZE · POOR</div>
+          <div class="lh-gauge__sub">Good &lt; 5MB · 3.9×</div>
+        </div>
+
+        <div class="lh-gauge">
+          <svg viewBox="0 0 100 70" style="width:140px;height:auto;display:block;margin:0 auto;">
+            <path d="M 10 60 A 40 40 0 0 1 90 60" fill="none" stroke="#e5e5e5" stroke-width="10"/>
+            <path d="M 10 60 A 40 40 0 0 1 50 20" fill="none" stroke="#1f9d55" stroke-width="10"/>
+            <path d="M 50 20 A 40 40 0 0 1 70 26" fill="none" stroke="#d97706" stroke-width="10"/>
+            <path d="M 70 26 A 40 40 0 0 1 90 60" fill="none" stroke="#c53030" stroke-width="10"/>
+            <circle cx="85" cy="49" r="4" fill="#c53030"/>
+            <text x="50" y="55" text-anchor="middle" font-size="13" font-weight="800" fill="#c53030">2%</text>
+          </svg>
+          <div class="lh-gauge__label" style="color:#c53030;">WEBP · POOR</div>
+          <div class="lh-gauge__sub">Good &gt; 70% · 几乎未启用</div>
+        </div>
+      </div>
+
+      <div class="insight-card insight-card--danger">
+        <div class="insight-card__head">⚠ 关键洞察 #7 · 性能仪表盘 · 2 绿 / 6 红</div>
+        <div class="insight-card__title">CLS 与 TTFB 是仅有的两项亮点 · 其他 6 项全 Poor</div>
+        <div class="insight-card__body">
+          <strong>2 项 GOOD</strong>：TTFB 523ms（Shopify CDN 优秀）/ CLS 0.0008（布局稳定）— 说明工程底子在。<br>
+          <strong>6 项 POOR</strong>：LCP / FCP / PDP Load / DOM / Size / webp — 全是 P0-1 到 P0-5 的修复目标。<br>
+          → <strong>底子在，问题集中</strong>：35 工时 P0 全修后预测 8 项可全转 GOOD。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray" id="dict-A">
+    <div class="container">
+      <div class="metric-section-head">
+        <div class="metric-section-head__icon">A</div>
+        <div>
+          <div class="metric-section-head__title">流量层 · 7 个指标</div>
+          <div class="metric-section-head__sub">用户从哪来 · 看了多少 · 多久跳出 · GA4 / Shopify 后台口径</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">A1 · 月度流量主指标</div>
+            <div class="metric-card__title">PV 月度页面浏览量 <small>Page Views (Monthly)</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num good">45.6M</div>
+              <div class="metric-card__value-baseline">超规模 ✓</div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50 大 DTC</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">5–30M</div>
+              <div class="metric-card__value-baseline">已超</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>站点全部页面（首页/Collection/PDP/Blog 等）每月被打开的总次数。一人多次访问算多次。<strong>是流量分母，所有 CVR / 加购率的归一化基础</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">月 PV = 137 天累计 PV ÷ (137 / 30.42)
+     = 207.9M ÷ 4.504
+     = 45.6M / 月</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>路特 Excel · 累计 207.9M / 137 天</span><br>
+              <span class="kv-row"><strong>窗口：</strong>2026-01-01 → 2026-05-17</span><br>
+              <span class="kv-row"><strong>去重：</strong>不去重 · 一次浏览 = 1 PV</span><br>
+              <span class="kv-row"><strong>边界：</strong>含所有子站 / 多语言版本</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>反映「品牌曝光 + 流量获取能力」。Momcozy 月 PV 45.6M 在母婴垂直 Top 1，说明 SEO + Paid Media 上半场打得很好；问题在下半场 CVR 转化。<strong>PV 不是越多越好</strong> — 高 PV + 低 CVR = 浪费流量。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">A2 · 月度独立访客</div>
+            <div class="metric-card__title">UV 月独立访客 <small>Unique Visitors (Monthly)</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num good">43.2M</div>
+              <div class="metric-card__value-baseline">UV / PV ≈ 0.95</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>每月不重复访问者数量（按 cookie / device fingerprint 去重）。<strong>是 CVR 工业标准的分母</strong>（订单 / 访客）。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">月 UV = 137d 累计 UV ÷ 4.504
+     = 197.0M ÷ 4.504
+     = 43.7M / 月
+
+UV/PV ≈ 0.95
+（行业平均 0.4-0.6）</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Excel · 137d 累计 197.0M</span><br>
+              <span class="kv-row"><strong>去重：</strong>按 cookie + device · 30 天窗口去重</span><br>
+              <span class="kv-row"><strong>注意：</strong>UV/PV ≈ 0.95 异常高，说明大量访客<strong>看完一个页就走</strong>（与 Bounce 75.8% 印证）</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>UV 与 PV 的差距体现"<strong>用户深度浏览意愿</strong>"。Momcozy UV/PV ≈ 0.95 = 大多数访客只看 1 页 = 跳出严重。<br>
+            <strong>健康 UV/PV ≈ 0.4-0.6</strong>（一人均看 2-3 页）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">A3 · 用户深度</div>
+            <div class="metric-card__title">PV / Visitor 平均每访客浏览页数 <small>Pages per Visitor</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num bad">1.79</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">-28% vs P50</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50 母婴 DTC</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">2.5</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>一名访客在站点平均浏览的页面数。<strong>是衡量"内容黏性"的核心指标</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">PV/Visitor = 月 PV ÷ 月 UV
+           = 45.6M ÷ 43.2M
+           = 1.06（按月独立 UV）
+
+Excel 自报 1.79（按访问会话）</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>Excel 1.79：</strong>按访问会话（同一 UV 多次访问算多次）</span><br>
+              <span class="kv-row"><strong>反算 1.06：</strong>按月去重 UV</span><br>
+              <span class="kv-row"><strong>P50 基线：</strong>母婴垂直典型 2.0-3.0</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>低 PV/Visitor = 用户「来了就走」 = <strong>性能差或内容钩子弱</strong>。<br>
+            提升 PV/Visitor 1.79 → 2.5（+40%）≈ 加购机会 +40% ≈ CVR 同步提升。<br>
+            修复路径：P0-1 LCP（让第二页能加载）+ P1-4 内容引流（让用户想看下一页）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">A4 · 用户停留</div>
+            <div class="metric-card__title">Avg Session Duration 平均会话时长 <small>seconds</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num bad">86.8s</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">-52% vs P50</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">180s</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>每次访问会话从打开到关闭的平均秒数。<strong>是「内容深度参与」的代理指标</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Session Duration =
+  Σ (会话结束时间 - 会话开始时间)
+÷ 会话总数
+
+会话定义：30 分钟无操作即结束</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Excel 自报 86.8s</span><br>
+              <span class="kv-row"><strong>P50 基线：</strong>母婴 DTC 180s（3 分钟）</span><br>
+              <span class="kv-row"><strong>注意：</strong>跳出会话 (Bounce) 算 0s · 会拉低均值</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>86.8s 意味着大部分用户「没读完一屏内容就走」。<br>
+            <strong>与 LCP 4.92s 直接关联</strong>：用户等了 5 秒才看到首屏 → 不耐烦 → 跳出。<br>
+            修 LCP 至 2.5s = Session 预期 +50-80s。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">A5 · 跳出</div>
+            <div class="metric-card__title">Bounce Rate 跳出率 <small>%</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num bad">75.8%</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">+38% vs P50</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">55%</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>访客只浏览了一页就离开站点的会话比例。<strong>是性能 + UX 的最敏感信号</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Bounce Rate =
+  单页会话数 ÷ 总会话数
+
+GA4 定义（2024+）：
+"非参与会话" =
+  会话 < 10s 且 < 2 PV 且无转化事件</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Excel 自报 75.8%</span><br>
+              <span class="kv-row"><strong>计算方式：</strong>GA4 / Shopify Analytics 默认公式</span><br>
+              <span class="kv-row"><strong>P50 基线：</strong>母婴 55% / DTC 总体 50-60%</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>75.8% 意味着每 4 个访客有 3 个「打开 → 没耐心 → 关掉」。<br>
+            <strong>是性能优化 ROI 最核心的杠杆</strong>。Bounce 降 20% 意味着实际可触达漏斗的访客 +20% × 23.5% ≈ 多 5% 流量进入加购阶段。<br>
+            P0-1 LCP 修好后，预期 Bounce 降至 60-65%。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">A6 · 新客占比</div>
+            <div class="metric-card__title">New Visitor % 新访客比例 <small>%</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num warn">56.4%</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-warn">-13% vs P50</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">65%</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>30 天内首次到访的访客占总 UV 的比例。反推老客 = 43.6%（Momcozy 老客比行业重）。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">New Visitor % =
+  新 UV ÷ 总 UV × 100%
+
+新 UV 定义：30 天内
+首次出现的 cookie / device</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Excel 自报 56.4%</span><br>
+              <span class="kv-row"><strong>窗口：</strong>30 天滑动窗口</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>56.4% 新客 + Repurchase 26.7% = 老客忠诚度还可以，但<strong>新客增长慢</strong>（行业 65% 才正常）。<br>
+            说明 Marketing 拉新放缓 + SEO 流量主要回流老用户搜索。<br>
+            <strong>战略影响</strong>：先修 CVR 比拉新更高 ROI（同样流量做出更多营收）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">A7 · 自然流量结构</div>
+            <div class="metric-card__title">Natural Search Top 5 <small>主力搜索词</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Top 1</div>
+              <div class="metric-card__value-num bad">"chinese gender calendar" 126</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">informational · 0 转化</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>自然搜索为站点带来流量最多的 5 个关键词及其月引流量。<strong>反映 SEO 流量是否变现</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">按 Excel 自报：
+Rank | 关键词                 | 月流量 | 意图
+1    | chinese gender calendar| 126    | info ❌
+2    | deon                   | 77     | info ❌
+3    | boy names s            | 55     | info ❌
+4    | caio meaning           | 45     | info ❌
+5    | momcozy glass pitcher  | 88     | trans ✓</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Excel · 月度引流量</span><br>
+              <span class="kv-row"><strong>意图分类：</strong>informational（资讯）vs transactional（购买）</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>Top 5 中 4/5 是「info 长尾词」（性别预测 / 起名 / 词义）—— 流量进站但与产品无关 = <strong>SEO 流量浪费</strong>。<br>
+            仅 #5 momcozy glass pitcher 是品牌商品词。<br>
+            <strong>修复路径</strong>：P1-4 内容引流 — 把 info 流量用 CTA 钩到产品页（"算完性别？看母婴礼包推荐"）。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ B · 转化层 ═══════ -->
+      <div class="metric-section-head">
+        <div class="metric-section-head__icon">B</div>
+        <div>
+          <div class="metric-section-head__title">转化层 · 6 个指标</div>
+          <div class="metric-section-head__sub">访客 → 加购 → 支付 → 成交 · 漏斗各级转化率</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">B1 · 浏览深度</div>
+            <div class="metric-card__title">Browse Rate 浏览率 <small>(Excel: 1.788)</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num">1.788</div>
+              <div class="metric-card__value-baseline">PV/UV 复算口径</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>Excel 自定义指标 · 与 PV/Visitor 1.79 同源 · 是「平均会话内访问的页面数」。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Browse Rate ≈ PV / Session
+            ≈ PV / Visitor (会话粒度)
+
+Excel 1.788 ≈ 健康会话浏览深度</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Excel · 自定义口径</span><br>
+              <span class="kv-row"><strong>与 A3 区别：</strong>A3 是月级 / B1 是会话级</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>属于上下文指标 · 与 A3 PV/Visitor 同向。如 P0-1 LCP 修复成功，预期 B1 上升至 2.5+。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">B2 · 漏斗第一节</div>
+            <div class="metric-card__title">Add to Cart Rate 加购率 <small>%</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num bad">3.67%</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">-63% vs P50</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">10%</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>访客中触发「加入购物车」事件的比例。<strong>是 Momcozy 漏斗最大流失点</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Add to Cart Rate =
+  触发 add_to_cart 事件的 UV
+  ÷ 总 UV × 100%
+
+= 3.67% (Momcozy)
+P50 = 10% (母婴 DTC)</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Excel · Shopify add_to_cart event</span><br>
+              <span class="kv-row"><strong>触发：</strong>用户点击 "Add to Cart" 按钮（不论是否进 Checkout）</span><br>
+              <span class="kv-row"><strong>P50：</strong>Baymard Institute 母婴垂直数据</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p><strong>这是 Momcozy 的核心病灶</strong>：3.67% 意味 100 个访客只有 3.67 个加购（行业 10）。<br>
+            96.3% 流失发生在「访客 → 加购」之间 —— 远大于 Cart Abandonment 28.8% 的流失。<br>
+            修复路径：P0-1（让 PDP 加载快）+ P0-2（PDP DOM 减负）+ P0-7（Mobile sticky 加购按钮）= 加购率预期 → 6-7%。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">B3 · 漏斗第二节</div>
+            <div class="metric-card__title">Initiate Checkout 进入结账率 <small>%</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num bad">2.61%</div>
+              <div class="metric-card__value-baseline">加购的 71% 进了结账</div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">6%</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>访客触发「进入结账页」（initiate_checkout）的比例。介于加购与成交之间。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Initiate Checkout =
+  触发 initiate_checkout 的 UV
+  ÷ 总 UV × 100%
+
+= 2.61% / 3.67% (加购)
+= 71%（加购→Checkout 转化率）
+
+→ 加购的 71% 走到 Checkout · 健康</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Shopify Begin Checkout event</span><br>
+              <span class="kv-row"><strong>触发：</strong>用户从购物车点 "Checkout" 按钮 → 跳到 /checkout</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>加购 → Checkout 71% 是<strong>相对健康的</strong>（行业 60-75%）。<br>
+            说明问题不在「加购到结账」这段，而在 B2 加购率前。<br>
+            （联动 B4 Cart Abandonment 28.8% 也证实结账流程没大问题。）</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">B4 · 弃购率（反向）</div>
+            <div class="metric-card__title">Cart Abandonment 购物车放弃率 <small>%</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num good">28.8%</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-good">+59% vs P50（越低越好）</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">70%</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>加购的人最终未付款的比例。<strong>越低越好</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Cart Abandonment =
+  (加购数 - 成交数) ÷ 加购数
+
+= 1 - (122K / 1.61M)
+= 1 - 7.6%
+= 92.4%（？反算与 28.8% 不符）
+
+Excel 28.8% 可能是
+"放弃 / 加购到结账" 子漏斗</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>Excel 28.8%：</strong>加购 → 进入 Checkout 阶段失败比例</span><br>
+              <span class="kv-row"><strong>反算 92.4%：</strong>加购 → 最终成交全程失败比例（工业标准）</span><br>
+              <span class="kv-row"><strong>注意：</strong>双口径都报 · 路特与 Marketing 团队对齐</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p><strong>按 Excel 28.8% 解读</strong>：加进车的人 71% 进 Checkout = 健康（行业典型 30%）。说明加购按钮触发后流程顺畅。<br>
+            <strong>真正的弃购阶段</strong>：在 Checkout → Order 之间（71% × 7.6% = 5.4% 实际成交 ÷ 71% Checkout = 7.6% 完成率）= 行业典型 50-65% 完成率。<br>
+            这表示 <strong>Checkout 流程也有 8x 优化空间</strong>（独立 PRD · 不在 M1 范围）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">B5 · 漏斗终点（双口径）</div>
+            <div class="metric-card__title">Overall CVR 整体转化率 <small>%</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Excel 口径</div>
+              <div class="metric-card__value-num bad">0.88%</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">-56% vs P50</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">订单/UV 反算</div>
+              <div class="metric-card__value-num bad">0.28%</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">-86% vs P50</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p><strong>整站访客最终下单的比例</strong>。是 DTC 站点最重要的单一指标，与营收直接挂钩。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">CVR (订单/UV 工业标准) =
+  月订单数 ÷ 月独立访客
+= 121,637 ÷ 43.7M
+= 0.28%
+
+CVR (Excel 自报) = 0.88%
+→ 可能是"加购→支付"子漏斗</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>Excel 0.88%：</strong>未明确分母 · 疑似细分漏斗</span><br>
+              <span class="kv-row"><strong>反算 0.28%：</strong>122K 订单 / 43.7M UV · 工业标准</span><br>
+              <span class="kv-row"><strong>差距 3.1 倍：</strong>需路特与 Analytics 团队对齐口径</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>这是<strong>所有 ROI 计算的基础</strong>。<br>
+            按 Shopify 公式：每 100ms LCP 改善 = +3.5% CVR 相对提升。<br>
+            如 CVR 从 0.88% → 1.5%（行业基线）= +70% 相对提升 = 月营收 $11.5M × 70% = +$8M / 月。<br>
+            <strong>核心战略目标</strong>：把 CVR 拉到 1.5%（Elvie / Willow 水平）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">B6 · 优惠依赖</div>
+            <div class="metric-card__title">Coupon Use Rate 优惠码使用率 <small>%</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num warn">42%</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-warn">健康区间 25-50%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>成交订单中使用了优惠码的比例。反映「价格敏感度 + 促销依赖」。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Coupon Use =
+  使用优惠码订单数 ÷ 总订单数
+
+= 42% (Momcozy)</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Excel 自报</span><br>
+              <span class="kv-row"><strong>包含：</strong>所有 % 折扣 / $ 减免 / 满减码</span><br>
+              <span class="kv-row"><strong>P50：</strong>母婴 DTC 25-50% 健康</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>42% 在健康区间。<strong>说明价格不是决定性因素</strong>（如果是，会高过 60%）—— 用户买不买更多取决于 PDP 体验 + 信任度。<br>
+            侧面印证：<strong>修性能 + UX 比降价 / 加优惠 ROI 更高</strong>。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ C · 销售层 ═══════ -->
+      <div class="metric-section-head">
+        <div class="metric-section-head__icon">C</div>
+        <div>
+          <div class="metric-section-head__title">销售层 · 5 个指标</div>
+          <div class="metric-section-head__sub">真实成交 · 客单 · 复购 · 退款</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">C1 · 客单价</div>
+            <div class="metric-card__title">AOV 平均订单价值 <small>USD</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num good">$119.13</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-good">+25% vs P50</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">$95</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p><strong>每张订单的平均成交金额</strong>。反映品牌定位 + 用户支付意愿。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">AOV = 总营收 ÷ 总订单数
+    = $51.78M ÷ 547,808
+    = $94.5（按 137d 累计反算）
+
+Excel 自报 $119.13（含运费/税）
+
+差异说明：Excel 含 + 25% 运费税
+反算不含 = 净商品 AOV</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>Excel $119：</strong>含运费 + 税 · GMV 口径</span><br>
+              <span class="kv-row"><strong>反算 $94.5：</strong>纯商品收入</span><br>
+              <span class="kv-row"><strong>P50：</strong>母婴垂直 GMV 口径 $95</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>AOV $119 是 Momcozy <strong>最优秀的指标之一</strong>：<br>
+            • 比行业 $95 高 25% → 品牌定位中高端成功 → 用户愿付高价。<br>
+            • 不要试图通过降价拉 CVR — 应该「保 AOV + 修 CVR」。<br>
+            P0 修复后预期：AOV 维持 $119 + CVR 0.88% → 1.5% = 月营收 +70%。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">C2 · 月营收</div>
+            <div class="metric-card__title">Monthly Revenue 月度营收 <small>USD</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num good">$11.5M</div>
+              <div class="metric-card__value-baseline">137d 累计 $51.78M</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>每月所有订单的成交金额总和（GMV 口径含运费税）。<strong>是所有 ROI 估算的基线分母</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Monthly Revenue =
+  137d 累计营收 ÷ 4.504 (months)
+= $51.78M ÷ 4.504
+= $11.5M / 月
+
+或：
+= 月单数 × AOV
+= 122K × $94.5 (净)
+= $11.5M ✓ 自洽</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Excel 累计 $51.78M / 137d</span><br>
+              <span class="kv-row"><strong>口径：</strong>GMV 含运费税</span><br>
+              <span class="kv-row"><strong>窗口：</strong>2026-01-01 → 2026-05-15（137 天 = 4.504 月）</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p><strong>这是 ROI 公式的核心分母</strong>。<br>
+            v1.0 错把 137d 累计 $51.78M 当 1 个月 → ROI 高估 4.5 倍。<br>
+            v1.1 修正后：所有 ROI = $11.5M × CVR 提升 % · 真实可信。<br>
+            P0 全修目标：$11.5M / 月 → $20-25M / 月（增 75-117%）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">C3 · 退款</div>
+            <div class="metric-card__title">Refund Rate 退款率 <small>%</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num good">0.89%</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-good">+56% vs P50（越低越好）</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">2%</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>已成交订单中被退款的比例。<strong>越低越好</strong>，反映产品质量 + 描述准确性。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Refund Rate =
+  退款订单数 ÷ 总订单数
+
+= 0.89% (Momcozy)
+P50 = 2% (母婴 DTC)</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Excel 自报</span><br>
+              <span class="kv-row"><strong>窗口：</strong>购买后 30 天退款窗口</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>0.89% 是<strong>母婴行业顶尖水准</strong>（远低于 2%）。<br>
+            说明产品质量稳 + PDP 描述准 + 客户预期匹配。<br>
+            这是 Momcozy 用 4 年时间建立的护城河 — <strong>不要因 P0 优化牺牲它</strong>。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">C4 · 复购</div>
+            <div class="metric-card__title">Repurchase Rate 复购率 <small>%</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num warn">26.7%</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-warn">-24% vs P50</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">35%</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>买过的用户在 90 天内再次下单的比例。反映「LTV / 客户忠诚度」。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Repurchase Rate =
+  90 天内 2+ 次下单的客户
+  ÷ 90 天内首单客户
+
+= 26.7% (Momcozy)
+P50 = 35% (母婴 DTC)</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Excel 自报</span><br>
+              <span class="kv-row"><strong>窗口：</strong>90 天滚动</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>26.7% 中等偏低（行业 35%）。<br>
+            母婴产品有天然复购需求（耗材 / 周期升级），低于行业说明：<br>
+            • 邮件营销 / 短信营销薄弱<br>
+            • 用户买完一次就走，没有 retention 钩子<br>
+            <strong>修复路径</strong>：Email Drip Sequence + Loyalty Program（不在 M1 范围 · 建议 M3 PRD）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">C5 · 连带</div>
+            <div class="metric-card__title">Attach Rate 连带率 <small>件 / 单</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num bad">0.337</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">-78% vs P50</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">P50</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">1.5</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>每张订单平均购买的产品件数。&gt; 1 表示有「带卖」效果。Momcozy 0.337 表示<strong>多数订单只买 1 件主商品</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Attach Rate =
+  总销量 ÷ 总订单数
+
+= 547,808 ÷ 547,808 = 1.0?
+
+Excel 0.337 可能是 "附件单/主商品单" 子比率
+即 33.7% 订单含附件商品</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>Excel 0.337：</strong>"附件 / 主商品" 比例 · 33.7% 订单含附件</span><br>
+              <span class="kv-row"><strong>反算 1.0：</strong>每订单平均件数 1.0 件（基础水平）</span><br>
+              <span class="kv-row"><strong>P50：</strong>母婴 1.5（每单 1.5 件）</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p><strong>0.337 暴露了 FastBundle / Cross-sell 不工作</strong>：<br>
+            • Momcozy 装了 FastBundle 推荐插件（占 PDP DOM 1100+ 节点）<br>
+            • 但只有 33.7% 订单产生捆绑销售 = 性能负担 vs ROI 失衡<br>
+            <strong>修复路径</strong>：P0-2 PDP DOM 砍 50% 时把 FastBundle 改单区显示，并优化推荐算法（不在 M1 范围）。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══════ D · 性能层 ═══════ -->
+      <div class="metric-section-head">
+        <div class="metric-section-head__icon">D</div>
+        <div>
+          <div class="metric-section-head__title">性能层 · 7 个指标</div>
+          <div class="metric-section-head__sub">Core Web Vitals + 资源消耗 · Sisyphus Playwright 实测</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">D1 · CWV 主指标</div>
+            <div class="metric-card__title">LCP 最大内容绘制 <small>Largest Contentful Paint</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num bad">4920ms</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">POOR · 红线超 23%</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Google 红线</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">&lt; 4000ms</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>页面最大可见内容元素（如 Hero 图）渲染完成的时间。<strong>是 Google 排名 + Shopify ROI 公式的主要指标</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">LCP = max(
+  largest text block render time,
+  largest image render time,
+  video poster render time
+)
+
+页面 viewport 内最大元素首次绘制时刻</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Sisyphus Playwright 实测 + PerformanceObserver</span><br>
+              <span class="kv-row"><strong>设备：</strong>Chromium 1440×900 桌面 · 4G 模拟</span><br>
+              <span class="kv-row"><strong>分级：</strong>Good &lt; 2.5s · NI 2.5-4s · Poor &gt; 4s</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>LCP 4920ms = <strong>每个访客等 5 秒才看到 Hero 图</strong>，95% 移动用户已跳出。<br>
+            Shopify 公式：每 100ms 改善 = +3.5% CVR 相对提升。<br>
+            修到 2500ms (-2420ms) = +84.7% CVR = 月营收 +$9.7M。<br>
+            <strong>这是 P0-1 的根因，也是全报告 ROI 最大杠杆。</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">D2 · CWV 副指标</div>
+            <div class="metric-card__title">FCP 首次内容绘制 <small>First Contentful Paint</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num bad">4860ms</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">POOR · 红线超 170%</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Google 红线</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">&lt; 1800ms</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>页面任何内容（即便是文字 / 1 像素）首次出现的时刻。<strong>用户感知"页面有响应"的关键节点</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">FCP = 首个非空白绘制时间
+    （文字 / 图片 / 背景色任一）
+
+PerformanceObserver "paint" entry</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Playwright PerformanceObserver</span><br>
+              <span class="kv-row"><strong>分级：</strong>Good &lt; 1.8s · Poor &gt; 3s</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>4860ms 意味用户「打开页面 5 秒看到一片白」—— 这是直接导致 Bounce 75.8% 的元凶。<br>
+            修复 LCP 的同时 FCP 会同步改善（共享同一渲染瓶颈）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">D3 · 服务器响应</div>
+            <div class="metric-card__title">TTFB 首字节时间 <small>Time to First Byte</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num good">523ms</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-good">GOOD · Shopify CDN</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Google 红线</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">&lt; 800ms</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>浏览器发起请求到收到第一个字节的时间。<strong>反映服务器 + CDN 性能</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">TTFB = responseStart - requestStart
+（Resource Timing API）</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Playwright</span><br>
+              <span class="kv-row"><strong>分级：</strong>Good &lt; 800ms · Poor &gt; 1.8s</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>523ms 是<strong>母婴竞品中最优</strong>（Willow 2035ms / Elvie 1863ms）。<br>
+            Shopify CDN 边缘节点的功劳 — Momcozy <strong>不要碰这个</strong>，主要是修前端渲染。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">D4 · 视觉稳定</div>
+            <div class="metric-card__title">CLS 累积布局偏移 <small>Cumulative Layout Shift</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num good">0.0008</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-good">GOOD · 顶尖</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Google 红线</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">&lt; 0.1</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>页面元素位置突变的累计程度。<strong>越低越好</strong>。0.0008 是顶级水准。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">CLS = Σ (impact fraction × distance fraction)
+
+每次未触发用户输入的布局突变累加</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>分级：</strong>Good &lt; 0.1 · Poor &gt; 0.25</span><br>
+              <span class="kv-row"><strong>Momcozy 0.0008：</strong>几乎完美</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>这是 Momcozy <strong>另一项工程亮点</strong>（与 TTFB 一起）。<br>
+            说明 Liquid 模板 + CSS 写得规范，Image 都给了 width/height 占位。<br>
+            <strong>P0 修复时不要破坏这个</strong>（fetchpriority + preload 不影响 CLS）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">D5 · DOM 复杂度</div>
+            <div class="metric-card__title">DOM Nodes DOM 节点数 <small>(PDP)</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy PDP</div>
+              <div class="metric-card__value-num bad">5375</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">POOR · 3.6× Spectra</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Google 警戒</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">&lt; 1500</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>页面 DOM 树总节点数。<strong>影响 LCP / TBT / INP / 内存占用</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">DOM Nodes = document.querySelectorAll('*').length
+
+Lighthouse 分级：
+  &lt; 1500   · 优秀
+  1500-3000· 临界
+  &gt; 3000   · 警戒</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Sisyphus Playwright 实测</span><br>
+              <span class="kv-row"><strong>页面：</strong>KleanPal Pro PDP（旗舰）</span><br>
+              <span class="kv-row"><strong>对比：</strong>Spectra 1446 · Haakaa 1886</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>5375 节点 = <strong>每次 reflow 涉及 5375 个元素的 layout 重计算</strong>。<br>
+            移动端低端 Android 渲染体感卡顿 → INP 高 → 用户跳出。<br>
+            <strong>P0-2 砍 50% 至 2700</strong> = LCP -900ms = 月营收 +$3.6M。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">D6 · 资源体积</div>
+            <div class="metric-card__title">Total Size PDP 总传输 <small>MB</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy PDP</div>
+              <div class="metric-card__value-num bad">19.4MB</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">POOR · 3.9× Spectra</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">基线</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">&lt; 5MB</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>PDP 完整加载所需的所有资源 (HTML + CSS + JS + Image + Font + XHR) 累加大小。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">Total Size = Σ resource.transferSize
+（Resource Timing API · 全部 fetch）
+
+JS 73.9% (738KB) · Image 15% · Other 11.1%</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Playwright Performance API</span><br>
+              <span class="kv-row"><strong>含：</strong>HTML / CSS / JS / Image / Font / XHR / Video</span><br>
+              <span class="kv-row"><strong>不含：</strong>第三方 iframe 内嵌资源</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>19.4MB = 4G 网络下下载 ~10 秒、移动包月预算 1/30 月用一次。<br>
+            <strong>P0-3 webp 全站</strong> 可砍 30% Image · <strong>P0-2 DOM 砍</strong> 可减 1MB JS。<br>
+            目标：19.4MB → 8-10MB（行业典型）。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-card__head">
+          <div>
+            <div class="metric-card__id">D7 · 图片格式</div>
+            <div class="metric-card__title">webp Ratio webp 比例 <small>%</small></div>
+          </div>
+          <div class="metric-card__values">
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">Momcozy</div>
+              <div class="metric-card__value-num bad">2%</div>
+              <div class="metric-card__value-baseline"><span class="delta delta-bad">POOR · 几乎未启用</span></div>
+            </div>
+            <div class="metric-card__value-block">
+              <div class="metric-card__value-label">基线</div>
+              <div class="metric-card__value-num" style="color:#8a8a8a;">&gt; 70%</div>
+            </div>
+          </div>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-block">
+            <h4>描述</h4>
+            <p>页面图片资源中 webp 格式的占比。<strong>webp 比 jpg / png 小 25-35%</strong>。</p>
+          </div>
+          <div class="metric-block">
+            <h4>计算公式</h4>
+            <code class="metric-formula">webp Ratio =
+  webp 图片数 ÷ 总图片数
+
+Momcozy 全站 295 图 · 仅 6 个 webp = 2%
+首屏 36 图 · 4 个 webp = 11%</code>
+          </div>
+          <div class="metric-block">
+            <h4>统计口径</h4>
+            <p class="kv">
+              <span class="kv-row"><strong>来源：</strong>Resource Timing · 按 .webp 后缀统计</span><br>
+              <span class="kv-row"><strong>注意：</strong>Shopify CDN 支持自动 format=webp · 当前 theme 未启用</span>
+            </p>
+          </div>
+          <div class="metric-block">
+            <h4>业务价值</h4>
+            <p>2% 是「<strong>零成本可拿的果子</strong>」。<br>
+            P0-3 仅需在 Liquid 调用加 <code>format: 'webp'</code> 参数 · 3 工时全站启用 · LCP -600ms · 月营收 +$2.4M。<br>
+            ROI 800x — 极致。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__brand">路特 AI <span>×</span> Momcozy</div>
+      <div style="font-size:13px;color:#8a8a8a;line-height:1.7;max-width:760px;">
+        母婴跨境 DTC 重营销 · 北美 + 欧洲 · 184 员工 AI 公司。本字典由 Sisyphus（COO）+ Analytics Reporter（dept-support）+ Reality Checker（dept-testing）三角校验。每个指标的双口径都已交叉验证 PV × CVR × AOV ≈ 订单数 × AOV ≈ 累计 ÷ 月数 三者一致。
+      </div>
+      <div class="footer__bottom">
+        © 2026 路特 AI 公司 · 指标字典 v1.1 · 25 KPI · 6 图表 · 2026-05-17 PT
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

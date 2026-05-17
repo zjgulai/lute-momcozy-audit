@@ -1,0 +1,23 @@
+Metric,Layer,Momcozy,Willow,Elvie,Haakaa,Baby_Brezza,Industry_Baseline,Momcozy_Verdict
+TTFB (ms),Homepage,245,2035,1863,1463,1987,< 600 (good),✅ 245ms (5 站最快)
+DCL (ms),Homepage,-,7107,5397,3380,7237,< 1800,-
+Load (ms),Homepage,1383,14116,-,-,-,< 4000,-
+HTML Size (KB),Homepage,1117,-,-,-,-,< 400,-
+DOM Nodes,Homepage,3439,2814,2502,1957,3616,< 3000 (Google warn),⚠️ 接近警戒 3000
+LCP Pixels (M),Homepage,24.47,4.49,4.49,1.06,5.76,< 4,❌ 5 站最差 (24M)
+Total Transfer (KB),Homepage,-,20423,968,2286,22418,< 1500,-
+3rd-party Domains,Homepage,10,14,21,15,34,< 15,-
+JS Files,Homepage,-,157,-,-,-,< 30,-
+JS Total (KB),Homepage,1089,1478,382,1113,982,< 400,❌ Elvie 35% (1089KB)
+PNG > webp Ratio,Homepage,2,-,-,-,-,> 70% webp,❌ 仅 2% webp
+PDP TTFB (ms),PDP,239,170,195,566,620,< 400,-
+PDP HTML Size (KB),PDP,1810,-,-,-,-,< 500,❌ 1810KB · 5x 行业
+PDP DOM Nodes,PDP,5375,3360,3254,1886,2309,< 3000,❌ 严重超标 (5375)
+PDP 3rd Domains,PDP,72,-,-,-,39,< 30,❌ 5 站最差 (72)
+JSON-LD PDP Schemas,SEO,-,Product|FAQPage,Product,ProductGroup,BreadcrumbList|Product,Product+Offer+AggregateRating+BreadcrumbList,✅ 完整 4 schemas
+hreflang count,SEO,61,-,-,-,-,multi-region,✅ 61 个 (5 站最多)
+H1 Semantic,SEO,LOW (logo alt only),-,-,-,-,descriptive,"⚠️ ""momcozy"" 无语义"
+Sitemap,SEO,ACCESSIBLE · 9 sub-sitemaps,-,-,-,-,ACCESSIBLE,-
+Service Worker,Infra,False,False,False,False,False,optional,-
+Sync Blocking JS,Perf,0,-,-,-,-,0,-
+Anti-Pattern Count,Audit,9,2,2,2,3,minimal,-

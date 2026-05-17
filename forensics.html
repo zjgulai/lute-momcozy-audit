@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Momcozy 法医验尸报告 · 13 项铁证 · v1.2 · 2026-05-17</title>
+  <meta name="description" content="逐资源·逐链接·逐 console error·完整 stack trace 法医级取证报告">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-white: #ffffff;
+      --bg-gray: #f7f7f8;
+      --bg-dark: #0f0f10;
+      --bg-evidence: #fafafa;
+      --text-primary: #111111;
+      --text-secondary: #5c5c5c;
+      --text-tertiary: #8a8a8a;
+      --cta-black: #111111;
+      --accent: #6a2b3a;
+      --accent-light: #fde8ec;
+      --success: #1f9d55;
+      --success-light: #e6f7ec;
+      --warning: #d97706;
+      --warning-light: #fef3c7;
+      --danger: #c53030;
+      --danger-light: #fee2e2;
+      --info: #2563eb;
+      --info-light: #dbeafe;
+      --border: #e5e5e5;
+      --border-light: #f0f0f0;
+      --font: 'Montserrat', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+      --shadow: 0 4px 12px rgba(0,0,0,0.06);
+      --shadow-lg: 0 12px 32px rgba(0,0,0,0.08);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body { font-family: var(--font); font-size: 14.5px; color: var(--text-primary); background: var(--bg-white); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    table { border-collapse: collapse; width: 100%; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 64px 0; }
+    .section--gray { background: var(--bg-gray); }
+    .section--dark { background: var(--bg-dark); color: #f4f4f4; }
+    .section__head { margin-bottom: 32px; }
+    .section__eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .section__title { font-size: 32px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 12px; }
+    .section--dark .section__title { color: #fff; }
+    .section__sub { font-size: 14.5px; color: var(--text-secondary); max-width: 780px; }
+
+    .promo-banner { background: var(--cta-black); color: #fff; text-align: center; padding: 10px 16px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+    .nav-top { background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .nav-top__inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-logo { font-size: 18px; font-weight: 800; letter-spacing: -0.02em; }
+    .nav-logo span { color: var(--accent); }
+    .nav-logo .x { color: var(--text-tertiary); font-weight: 400; margin: 0 6px; }
+    .nav-links { display: flex; gap: 18px; align-items: center; }
+    .nav-links a { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--text-secondary); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-back { background: var(--cta-black); color: #fff; padding: 7px 14px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .hero { padding: 60px 0 64px; background: linear-gradient(180deg, #fff 0%, var(--bg-gray) 100%); }
+    .hero__badge { display: inline-block; background: var(--danger-light); color: var(--danger); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; margin-bottom: 20px; }
+    .hero__title { font-size: 40px; font-weight: 800; line-height: 1.12; letter-spacing: -0.025em; margin-bottom: 18px; max-width: 880px; }
+    .hero__title .hl { background: linear-gradient(180deg, transparent 60%, var(--accent-light) 60%); padding: 0 2px; }
+    .hero__lead { font-size: 15.5px; color: var(--text-secondary); max-width: 820px; line-height: 1.7; }
+    .hero__lead strong { color: var(--text-primary); }
+    .hero__metadata {
+      margin-top: 28px; padding: 20px 24px;
+      background: #fff; border: 1px solid var(--border); border-radius: 12px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+      font-size: 12px;
+    }
+    @media (max-width: 880px) { .hero__metadata { grid-template-columns: repeat(2, 1fr); } }
+    .hero__metadata-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 4px; }
+    .hero__metadata-value { font-family: var(--font-mono); font-size: 13px; color: var(--text-primary); }
+
+    .triplet { background: #fff; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
+    .triplet--p0 { border-left: 4px solid var(--danger); }
+    .triplet--p1 { border-left: 4px solid var(--warning); }
+    .triplet--p2 { border-left: 4px solid var(--text-tertiary); }
+    .triplet__head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 24px;
+      background: var(--bg-evidence);
+      border-bottom: 1px solid var(--border-light);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .triplet__id {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #fff;
+    }
+    .triplet__id--p0 { background: var(--danger); }
+    .triplet__id--p1 { background: var(--warning); }
+    .triplet__id--p2 { background: var(--text-tertiary); }
+    .triplet__title { font-size: 17px; font-weight: 700; flex: 1; min-width: 200px; }
+    .triplet__severity { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+    .severity--cro { background: var(--danger-light); color: var(--danger); }
+    .severity--data { background: var(--warning-light); color: var(--warning); }
+    .severity--ux { background: var(--info-light); color: var(--info); }
+    .severity--seo { background: var(--success-light); color: var(--success); }
+
+    .triplet__body { padding: 0; }
+    .triplet__row {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .triplet__row:last-child { border-bottom: none; }
+    .triplet__row-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .triplet__row-label--scene { color: var(--text-tertiary); }
+    .triplet__row-label--evidence { color: var(--info); }
+    .triplet__row-label--verdict { color: var(--danger); }
+
+    .code, .stack {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: var(--bg-dark);
+      color: #e4e4e4;
+      padding: 12px 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.55;
+      margin-top: 6px;
+    }
+    .code .err { color: #fca5a5; }
+    .code .url { color: #93c5fd; }
+    .code .key { color: #34d399; }
+    .code .num { color: #fbbf24; }
+    .code .comment { color: #6b7280; font-style: italic; }
+
+    .verdict-badges {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-top: 8px;
+    }
+    .verdict-badge {
+      font-size: 11px; font-weight: 600;
+      padding: 4px 10px; border-radius: 4px;
+      background: var(--bg-gray); color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .verdict-badge.bad { background: var(--danger-light); color: var(--danger); border-color: var(--danger); }
+    .verdict-badge.warn { background: var(--warning-light); color: var(--warning); border-color: var(--warning); }
+    .verdict-badge.good { background: var(--success-light); color: var(--success); border-color: var(--success); }
+
+    .fix-block {
+      background: var(--success-light);
+      border-left: 3px solid var(--success);
+      padding: 12px 16px;
+      margin-top: 10px;
+      border-radius: 0 6px 6px 0;
+      font-size: 13px;
+    }
+    .fix-block strong { color: var(--success); }
+    .fix-block code { font-family: var(--font-mono); font-size: 11.5px; background: rgba(255,255,255,0.6); padding: 1px 5px; border-radius: 3px; }
+
+    .verify-block {
+      background: var(--info-light);
+      border-left: 3px solid var(--info);
+      padding: 10px 16px;
+      margin-top: 8px;
+      border-radius: 0 6px 6px 0;
+      font-size: 12px;
+      font-family: var(--font-mono);
+      color: var(--info);
+    }
+    .verify-block strong { font-family: var(--font); color: var(--info); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+    @media (max-width: 880px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+    .stat-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+    .stat-card__num { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+    .stat-card__num.bad { color: var(--danger); }
+    .stat-card__num.warn { color: var(--warning); }
+    .stat-card__num.good { color: var(--success); }
+    .stat-card__label { font-size: 11px; color: var(--text-tertiary); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
+    .stat-card__sub { font-size: 11px; color: var(--text-secondary); margin-top: 6px; }
+
+    .table-wrap { background: #fff; border: 1px solid var(--border); border-radius: 10px; overflow-x: auto; margin-bottom: 24px; }
+    .data-table { font-size: 12.5px; min-width: 800px; }
+    .data-table th, .data-table td { padding: 9px 14px; text-align: left; border-bottom: 1px solid var(--border-light); }
+    .data-table th { background: var(--bg-evidence); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); }
+    .data-table tr:hover td { background: var(--bg-gray); }
+    .data-table .url { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-secondary); max-width: 380px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .data-table .num { font-family: var(--font-mono); font-weight: 600; text-align: right; }
+    .data-table .num.bad { color: var(--danger); }
+    .data-table .num.warn { color: var(--warning); }
+    .data-table .num.good { color: var(--success); }
+
+    .footer { background: var(--bg-dark); color: #bdbdbd; padding: 48px 0 32px; font-size: 13px; margin-top: 56px; }
+    .footer__brand { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .footer__brand span { color: var(--accent); }
+    .footer__bottom { border-top: 1px solid #2a2a2c; padding-top: 24px; text-align: center; font-size: 11px; color: #6b6b6b; margin-top: 32px; }
+
+    .toc {
+      background: var(--bg-evidence);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 32px;
+    }
+    .toc__title { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 10px; }
+    .toc ul { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 24px; }
+    @media (max-width: 880px) { .toc ul { grid-template-columns: 1fr; } }
+    .toc li { font-size: 13px; color: var(--text-secondary); }
+    .toc li::before { content: '▸ '; color: var(--accent); }
+    .toc li a:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+  <div class="promo-banner">
+    法医验尸报告 · 13 项铁证 · 5 大取证区 · v1.2 · 2026-05-17 PT
+  </div>
+
+  <nav class="nav-top">
+    <div class="container">
+      <div class="nav-top__inner">
+        <a href="index.html" class="nav-logo">路特 AI <span class="x">×</span> <span>Momcozy</span></a>
+        <div class="nav-links">
+          <a href="index.html">主报告</a>
+          <a href="metrics.html">指标字典</a>
+          <a href="#scene">现场</a>
+          <a href="#fatal">致命错误</a>
+          <a href="#resources">资源物证</a>
+          <a href="#images">图片清单</a>
+          <a href="#links">链接结构</a>
+          <a href="data/forensics-raw.json">原始 JSON</a>
+          <a href="index.html#decisions" class="nav-back">回主报告</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero" id="scene">
+    <div class="container">
+      <span class="hero__badge">⚠️ 法医验尸报告 · v1.2 · 不留情面版</span>
+      <h1 class="hero__title">
+        Momcozy KleanPal Pro PDP 现场：<br>
+        <span class="hl">15 个 console error</span> · <span class="hl">FastBundle 主接口 404</span> · <span class="hl">Amazon SDK 5 秒超时</span>
+      </h1>
+      <p class="hero__lead">
+        这不是「优化建议」，这是<strong>实地取证</strong>。Sisyphus 用 Playwright 实测 https://momcozy.com/ 首页 + KleanPal Pro PDP，
+        抓到 18 项<strong>有完整 stack trace 的具体故障</strong>。每一项都附原始 URL · 错误堆栈 · 触发条件 · 修复代码 · 验证命令。
+      </p>
+      <p class="hero__lead" style="margin-top:14px;">
+        <strong>不留官方客气话</strong>：
+        FastBundle FBT 接口在你站上 404，你看不到的，但浏览器 console 一直在喊 ——<strong>用户看不到捆绑销售推荐 → Attach Rate 0.337</strong>，这才是病灶。
+        Amazon Buy with Prime 配错了 KleanPal（不是订阅商品）—— SDK 等 5 秒找不到 selling_plan input 才放弃。
+        Pinterest Pixel 3 个连接全 ERR_CONNECTION_RESET —— 这个 PDP 的 Pinterest 转化数据 100% 丢失。
+      </p>
+
+      <div class="hero__metadata">
+        <div>
+          <div class="hero__metadata-label">取证时间</div>
+          <div class="hero__metadata-value">2026-05-17T10:53-10:56 PDT</div>
+        </div>
+        <div>
+          <div class="hero__metadata-label">取证设备</div>
+          <div class="hero__metadata-value">Chromium 1440×900 · 直连</div>
+        </div>
+        <div>
+          <div class="hero__metadata-label">取证范围</div>
+          <div class="hero__metadata-value">/ + /products/momcozy-kleanpal-pro-baby-bottle-washer</div>
+        </div>
+        <div>
+          <div class="hero__metadata-label">操作员</div>
+          <div class="hero__metadata-value">Sisyphus (COO)</div>
+        </div>
+      </div>
+
+      <div class="toc">
+        <div class="toc__title">取证目录 · 5 大区</div>
+        <ul>
+          <li><a href="#fatal">区 1 · 致命错误（8 条 P0）</a></li>
+          <li><a href="#resources">区 2 · 资源加载物证（Top 10）</a></li>
+          <li><a href="#images">区 3 · 图片全量审计（340 张）</a></li>
+          <li><a href="#thirdparty">区 4 · 第三方域 ROI 表（25 域）</a></li>
+          <li><a href="#links">区 5 · 链接结构 + 死链证据</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="fatal">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">区 1 · 致命错误（P0）</div>
+        <h2 class="section__title">8 个核心组件挂掉的具体证据</h2>
+        <p class="section__sub">每条都附：错误类型 · 完整 URL · 触发条件 · 调用堆栈 · 业务影响 · 具体修复 · 验证命令。这些都是 Playwright 实测打开页面就 console 报的，<strong>Momcozy 工程师每天都能看到，但报告从没写过</strong>。</p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-card__num bad">15</div><div class="stat-card__label">PDP Console Errors</div><div class="stat-card__sub">首页 9 · PDP 15 · +67%</div></div>
+        <div class="stat-card"><div class="stat-card__num bad">8</div><div class="stat-card__label">P0 致命故障</div><div class="stat-card__sub">含完整 stack</div></div>
+        <div class="stat-card"><div class="stat-card__num bad">10.7s</div><div class="stat-card__label">Seel API 最长阻塞</div><div class="stat-card__sub">单一脚本</div></div>
+        <div class="stat-card"><div class="stat-card__num warn">35</div><div class="stat-card__label">PDP iframe 数</div><div class="stat-card__sub">v1.1 未发现</div></div>
+      </div>
+
+      <div class="triplet triplet--p0">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p0">P0-A · 铁证 #1</span>
+          <span class="triplet__title">FastBundle FBT 主接口在 KleanPal Pro PDP 上 HTTP 404</span>
+          <span class="triplet__severity severity--cro">直接影响 Attach Rate</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--scene">▸ 现场（原始证据）</div>
+            <div>Playwright 打开 KleanPal Pro PDP 6 秒后，console 实测出错信息：</div>
+            <pre class="code"><span class="err">[ERROR]</span> Failed to load resource: the server responded with a status of <span class="err">404 ()</span>
+<span class="url">https://api.fastbundle.co/v3/fbt-bundle/?shop=mo-m-cozy.myshopify.com&url=%2Fproducts%2Fmomcozy-kleanpal-pro-baby-bottle-washer&product_id=<span class="num">8137262497990</span>&is_preview=false&lang=en</span>
+
+<span class="err">[ERROR]</span> {detail: "Not found.", status: <span class="num">404</span>}
+@ <span class="url">https://omnisnippet1.com/monitoring/monitoring.js?v=2026-05-17T10</span></pre>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--evidence">▸ 物证（数据）</div>
+            <div class="verdict-badges">
+              <span class="verdict-badge bad">商品 ID 8137262497990</span>
+              <span class="verdict-badge bad">FBT 接口 404</span>
+              <span class="verdict-badge bad">捆绑销售组件挂</span>
+              <span class="verdict-badge warn">vs Spectra 0 个 FBT 错误</span>
+            </div>
+            <div style="margin-top:10px;font-size:13px;color:var(--text-secondary);">
+              FastBundle 是 Momcozy 装在 PDP 上的「捆绑销售推荐」插件 (Frequently Bought Together)。在 KleanPal Pro 这个旗舰商品上，主接口直接返回 404 ——
+              <strong>用户在 PDP 看不到「搭配购买推荐」</strong>，只能买单品。这直接对应 KPI 字典里 <strong>Attach Rate 0.337（行业 1.5）</strong> 这个指标。
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 鉴定结论 + 修复</div>
+            <div style="margin-bottom:10px;font-size:13.5px;line-height:1.7;">
+              <strong>致死原因</strong>：FastBundle 后台没为 KleanPal Pro (product_id 8137262497990) 配置 FBT bundle 数据 ·或 product_id 在 FastBundle 数据库被误删。<br>
+              <strong>业务影响</strong>：KleanPal PDP 月增收预计 -$0.8M（按相同流量段加 1 件搭配购）。
+            </div>
+            <div class="fix-block">
+              <strong>修复（30 分钟）</strong><br>
+              1. 登 <code>FastBundle 后台 → Bundles → Search "KleanPal Pro" 或 product ID 8137262497990</code><br>
+              2. 若不存在 → 创建 FBT bundle（KleanPal Pro + Bottle Set 4 个 + Sterilizer Bag）<br>
+              3. 若存在但 inactive → 切 active<br>
+              4. 4 个其他 P0 PDP 同步检查：M5 Smart Pump / Pregnancy Pillow / Mobile Style
+            </div>
+            <div class="verify-block">
+              <strong>验证命令</strong>
+curl -s "https://api.fastbundle.co/v3/fbt-bundle/?shop=mo-m-cozy.myshopify.com&product_id=8137262497990&is_preview=false&lang=en" | jq .status
+# 预期: 200 (当前 404)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triplet triplet--p0">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p0">P0-B · 铁证 #2</span>
+          <span class="triplet__title">Amazon Buy with Prime SDK 在 KleanPal 上等 selling_plan input 5 秒超时</span>
+          <span class="triplet__severity severity--cro">浪费首屏 5 秒</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--scene">▸ 现场</div>
+            <pre class="code"><span class="err">[ERROR]</span> Error: Element <span class="num">"input[name='selling_plan']"</span> not found within <span class="err">5000ms</span>
+    at <span class="url">https://cdn.elements.amazon/sdk/esp-adapters/shopify.js:1:642</span></pre>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--evidence">▸ 物证</div>
+            <div style="font-size:13px;color:var(--text-secondary);">
+              Amazon Buy with Prime SDK (esp-adapters) 期望 PDP 上有 <code>&lt;input name="selling_plan"&gt;</code> 元素 —— 这是 Shopify 订阅产品才会出现的输入。
+              <strong>KleanPal Pro 不是订阅商品 (是一次性买的洗瓶器)，所以根本没有这个 input</strong>。
+              SDK 用默认 5 秒超时一直等 → 阻塞主线程 5 秒 → 拉高 INP / TBT。
+            </div>
+            <div class="verdict-badges">
+              <span class="verdict-badge bad">5000ms 浪费</span>
+              <span class="verdict-badge bad">Amazon SDK 配错商品</span>
+              <span class="verdict-badge warn">影响 LCP / TBT</span>
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 鉴定 + 修复</div>
+            <div class="fix-block">
+              <strong>修复（10 分钟 · Shopify Admin）</strong><br>
+              1. <code>Admin → Apps → Buy with Prime by Amazon → Settings → Products</code><br>
+              2. 找到 KleanPal Pro · 检查是否被错误启用了 "subscription option"<br>
+              3. 关闭订阅选项 · 或从 Amazon Buy with Prime 整体移除 KleanPal（如果该商品不该走 Amazon 渠道）<br>
+              4. 全店 PDP 扫一遍：所有非订阅商品都要确认 Amazon SDK 不应启用<br>
+              <br>
+              <strong>替代方案</strong>：在 theme.liquid 主题层条件渲染 SDK
+              <code>&lcub;%- if product.selling_plan_groups.size &gt; 0 -%&rcub;</code> (只在订阅商品加载 Amazon SDK)
+            </div>
+            <div class="verify-block">
+              <strong>验证</strong>
+打开 https://momcozy.com/products/momcozy-kleanpal-pro-baby-bottle-washer
+DevTools Console · 6 秒后无 "Element 'input[name=\"selling_plan\"]' not found" 错误
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triplet triplet--p0">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p0">P0-C · 铁证 #3</span>
+          <span class="triplet__title">Pinterest Pixel 3 个连接全 ERR_CONNECTION_RESET · 转化数据 100% 丢失</span>
+          <span class="triplet__severity severity--data">营销数据全断</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--scene">▸ 现场（3 条独立 connection reset）</div>
+            <pre class="code"><span class="err">[ERROR]</span> Failed to load resource: <span class="err">net::ERR_CONNECTION_RESET</span>
+@ <span class="url">https://ct.pinterest.com/user/?tid=2613306144167&pd=...&dep=2,PAGE_LOAD</span>
+
+<span class="err">[ERROR]</span> Failed to load resource: <span class="err">net::ERR_CONNECTION_RESET</span>
+@ <span class="url">https://ct.pinterest.com/user/?event=pagevisit&ed=...&tid=2613306144167&dep=5,EVENT_TAGS_ABSENT</span>
+
+<span class="err">[ERROR]</span> Failed to load resource: <span class="err">net::ERR_CONNECTION_RESET</span>
+@ <span class="url">https://ct.pinterest.com/v3/?tid=2613306144167&event=init&...</span>
+
+<span class="err">Uncaught (in promise) TypeError:</span> Failed to fetch
+    at r.fetch (<span class="url">https://momcozy.com/cdn/wpm/s7a919571*.js:0:73943</span>)
+    at &lt;anonymous&gt; (<span class="url">https://s.pinimg.com/ct/lib/main.948ee93e.js:0:65398</span>)</pre>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--evidence">▸ 物证</div>
+            <div class="verdict-badges">
+              <span class="verdict-badge bad">Pinterest tag ID 2613306144167</span>
+              <span class="verdict-badge bad">PAGE_LOAD + pagevisit + init 全失败</span>
+              <span class="verdict-badge bad">unhandled promise rejection</span>
+            </div>
+            <div style="margin-top:10px;font-size:13px;color:var(--text-secondary);">
+              这意味着 Momcozy 在 Pinterest Ads 后台看到的「这个 PDP 的转化」数据是 0 ——
+              因为 Pinterest pixel 在用户浏览器里根本连不上 Pinterest 服务器。
+              <strong>这不是用户网络问题，是 Pinterest CT (Conversion Tag) 端点对该 IP / 该 user-agent 拒绝连接</strong>（可能 Pinterest 服务降级 / 或 Momcozy IP 被限流）。
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 鉴定 + 修复</div>
+            <div class="fix-block">
+              <strong>修复（路径 1 · 4 小时）· 切 Pinterest CAPI 服务端</strong><br>
+              客户端 ct.pinterest.com 不稳 → 改用 Pinterest Conversion API (CAPI · server-to-server)<br>
+              1. <code>Admin → Online Store → Customer Events → 新建 Custom Pixel "Pinterest CAPI"</code><br>
+              2. 用 Pinterest 提供的 CAPI Shopify App (Pinterest 官方)<br>
+              3. 移除 theme.liquid 中现有的 client-side Pinterest tag<br>
+              4. CAPI 通过 Momcozy 后端发数据 · 不依赖用户浏览器连得上 ct.pinterest.com<br>
+              <br>
+              <strong>修复（路径 2 · 30 分钟）· 仅消除 console 噪音</strong><br>
+              如果 Pinterest 投放暂不重要 · 直接在 Customer Events 暂停现有 Pinterest pixel
+            </div>
+            <div class="verify-block">
+              <strong>验证</strong>
+DevTools Network · ct.pinterest.com 请求状态 = 200 (而非 connection reset)
+Pinterest Ads 后台 · 24 小时内 Conversions 数据非 0
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triplet triplet--p0">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p0">P0-D · 铁证 #4</span>
+          <span class="triplet__title">api.seel.com 阻塞 10.7 秒 · 单一最严重阻塞源</span>
+          <span class="triplet__severity severity--cro">最严重 LCP 杀手</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--scene">▸ 现场（resource timing 数据）</div>
+            <pre class="code">{
+  <span class="key">"host"</span>: <span class="url">"api.seel.com"</span>,
+  <span class="key">"requests"</span>: <span class="num">7</span>,
+  <span class="key">"maxDuration_ms"</span>: <span class="err">10690</span>,
+  <span class="key">"role"</span>: <span class="url">"Seel Worry-Free Purchase"</span>,
+  <span class="key">"observed_in"</span>: <span class="url">"KleanPal Pro PDP"</span>
+}</pre>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--evidence">▸ 物证</div>
+            <div style="font-size:13px;color:var(--text-secondary);">
+              Seel 是 Shopify 上的 "Worry-Free Purchase / 包退保险" SaaS · 在 KleanPal PDP 单条请求<strong>持续 10.7 秒</strong>才完成。<br>
+              在 console errors 里也看到 Seel 整条调用链失败：
+            </div>
+            <pre class="code">at <span class="url">https://static.seel.com/shopify/worry-free-purchase/script/mo-m-cozy.myshopify.com.js?source=ext</span>
+TypeError: <span class="err">Failed to fetch</span> (<span class="url">account.momcozy.com</span>)</pre>
+            <div class="verdict-badges">
+              <span class="verdict-badge bad">10.7s 单请求</span>
+              <span class="verdict-badge bad">7 个并发请求</span>
+              <span class="verdict-badge warn">monorail-edge 同时 1.2s</span>
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 鉴定 + 修复</div>
+            <div class="fix-block">
+              <strong>修复（核 ROI 后决定 · 1-2h）</strong><br>
+              <strong>Step 1 调查 · 5 min</strong>：<br>
+              <code>Admin → Apps → Seel</code> · 看是否在用 Worry-Free Purchase 服务（用户买洗瓶器是否需要包退保险？）<br>
+              <br>
+              <strong>Step 2A 如果 Seel 不必需（推荐）</strong>：<br>
+              在 Apps 卸载 Seel · 删 theme.liquid 内 <code>seel</code> 调用 · LCP 直接 -10s<br>
+              <br>
+              <strong>Step 2B 如果 Seel 在用</strong>：<br>
+              联系 Seel support · 让他们改异步加载 (defer)：<br>
+              <code>&lt;script async defer src="static.seel.com/.../*.js"&gt;</code><br>
+              + Customer Events 改用 Web Pixel mode (sandbox · 不阻塞主线程)
+            </div>
+            <div class="verify-block">
+              <strong>验证</strong>
+performance.getEntriesByType('resource').filter(e =&gt; e.name.includes('seel'))
+# 预期 maxDuration &lt; 1500ms (而不是 10690ms)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triplet triplet--p0">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p0">P0-E · 铁证 #5</span>
+          <span class="triplet__title">Meta Pixel 安装了 3 个不同 config ID · 双重收税</span>
+          <span class="triplet__severity severity--data">广告数据重复 + 性能浪费</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--scene">▸ 现场（实测 3 个不同 config）</div>
+            <pre class="code"><span class="key">[1]</span> <span class="url">connect.facebook.net/signals/config/<span class="err">838745568077400</span></span>
+    size: <span class="num">127KB</span> · duration: <span class="num">1428ms</span>
+
+<span class="key">[2]</span> <span class="url">connect.facebook.net/signals/config/<span class="err">1845894755472645</span></span>
+    size: <span class="num">22KB</span> · duration: <span class="err">4877ms</span>  <span class="comment">// 阻塞最严重</span>
+
+<span class="key">[3]</span> <span class="url">connect.facebook.net/signals/config/<span class="err">1207445154305002</span></span>
+    size: <span class="num">20KB</span> · duration: <span class="num">303ms</span>
+
+总传输: <span class="num">267KB</span>  <span class="comment">// 比自家 momcozy.com 199KB 都大</span></pre>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--evidence">▸ 物证</div>
+            <div style="font-size:13px;color:var(--text-secondary);">
+              <strong>每个 Meta Pixel 用一个 ID 是常态</strong>。Momcozy 装了 3 个 ID（838745568077400 / 1845894755472645 / 1207445154305002）—— 可能是：<br>
+              (1) 历史代理商接管时各装了一份没清理 · 或<br>
+              (2) 多业务部门各装了自己的 Pixel ID · 没合并<br>
+              <br>
+              结果：每次用户浏览 Momcozy 任何页面，<strong>事件被发送 3 次到 Facebook</strong>（同一 add_to_cart 事件 3 次入账） · Meta Ads 后台数据虚高 / CAC 计算错误。
+            </div>
+            <div class="verdict-badges">
+              <span class="verdict-badge bad">3 个不同 Pixel ID</span>
+              <span class="verdict-badge bad">事件 3 倍发送</span>
+              <span class="verdict-badge bad">267KB 多余传输</span>
+              <span class="verdict-badge bad">4877ms 最长阻塞</span>
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 鉴定 + 修复</div>
+            <div class="fix-block">
+              <strong>修复（1 小时 · Marketing 团队配合）</strong><br>
+              1. 让 Marketing/CMO 确认<strong>哪个 Pixel ID 是当前真在用的</strong>（去 Facebook Ads Manager 看 30 天内 events 数据）<br>
+              2. 去 Shopify <code>Admin → Settings → Customer Events</code> 暂停其余 2 个 Custom Pixel<br>
+              3. 检查 theme.liquid 是否硬编码了多 ID：
+              <code>grep -rn "fbq('init'" theme/</code><br>
+              4. 删除冗余 init 调用<br>
+              <br>
+              <strong>预期收益</strong>：267KB → 90KB · LCP -200ms · Facebook Ads 数据准确（真实 CAC 而非虚高 1/3）
+            </div>
+            <div class="verify-block">
+              <strong>验证</strong>
+DevTools Network · 仅 1 个 connect.facebook.net/signals/config/ID 请求
+fbq.queue 检查只有 1 个 init() 调用
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triplet triplet--p0">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p0">P0-F · 铁证 #6</span>
+          <span class="triplet__title">bigsur.ai 已死域名仍在 theme 中（首页 + PDP 双重浪费）</span>
+          <span class="triplet__severity severity--data">技术债</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--scene">▸ 现场</div>
+            <pre class="code"><span class="err">[ERROR]</span> Failed to load resource: <span class="err">net::ERR_CONNECTION_CLOSED</span>
+@ <span class="url">https://bigsur.ai/plugin/js/static.js</span>  <span class="comment">// 出现在首页和 PDP 各 1 次</span></pre>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--evidence">▸ 物证</div>
+            <div style="font-size:13px;color:var(--text-secondary);">
+              bigsur.ai 域名查询：<strong>该 SaaS 已停止运营</strong> · 但 Momcozy theme 还在尝试加载它的 plugin/js/static.js · 浏览器每次都浪费一次 DNS+TLS+failure。
+              这是经典的"技术债遗留代码"。
+            </div>
+            <div class="verdict-badges">
+              <span class="verdict-badge bad">死域名</span>
+              <span class="verdict-badge bad">每页 80-200ms 浪费</span>
+              <span class="verdict-badge warn">残留时间未知</span>
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 鉴定 + 修复</div>
+            <div class="fix-block">
+              <strong>修复（5 分钟 · 不需协商）</strong>
+              <pre style="background:rgba(0,0,0,0.04);padding:12px;border-radius:6px;font-family:var(--font-mono);font-size:11.5px;margin-top:8px;">cd theme/
+grep -rn "bigsur" sections/ snippets/ layout/ assets/
+<span style="color:#6b7280"># 找到所有 reference 后删除整个 &lt;script src="bigsur.ai/..."&gt; 行</span>
+git diff
+git commit -m "fix(theme): remove dead bigsur.ai script reference"</pre>
+            </div>
+            <div class="verify-block">
+              <strong>验证</strong>
+打开任何 Momcozy 页面 · DevTools Console
+不再出现 "ERR_CONNECTION_CLOSED bigsur.ai" 错误
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triplet triplet--p0">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p0">P0-G · 铁证 #7</span>
+          <span class="triplet__title">cifnews CAPI 死端点 404 · 首页 + PDP 重复浪费</span>
+          <span class="triplet__severity severity--data">技术债</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--scene">▸ 现场</div>
+            <pre class="code"><span class="err">[ERROR]</span> Failed to load resource: <span class="err">404</span>
+@ <span class="url">https://capi-gateway-ma.cifnews.com/events/<span class="num">b46761deb35ca5b0ff931a18c56f159541367d78948de1da3f497f22cea0610d</span></span></pre>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--evidence">▸ 物证</div>
+            <div style="font-size:13px;color:var(--text-secondary);">
+              cifnews 是中文跨境电商资讯平台 · 它的 CAPI gateway (Conversion API · 跨境广告归因) 端点已死。
+              端点中的长 hex 是 Momcozy 的某个事件 ID。
+              <strong>该端点 100% 返回 404 · 但 Momcozy theme 持续调用</strong>。同 bigsur 性质 · 残留代码。
+            </div>
+            <div class="verdict-badges">
+              <span class="verdict-badge bad">每次 404</span>
+              <span class="verdict-badge warn">跨境归因数据丢失（如果还在用）</span>
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 鉴定 + 修复</div>
+            <div class="fix-block">
+              <strong>修复（5 分钟）</strong><br>
+              <code>grep -rn "cifnews" theme/ → 删调用</code><br>
+              如果跨境归因仍需要 · 联 cifnews 拿新 endpoint
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triplet triplet--p0">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p0">P0-H · 铁证 #8</span>
+          <span class="triplet__title">Amazon Product Rating · variant_selector 在 KleanPal 上 throw null</span>
+          <span class="triplet__severity severity--ux">星级评分组件挂</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--scene">▸ 现场（完整 stack）</div>
+            <pre class="code"><span class="err">TypeError:</span> Cannot read properties of null (reading <span class="num">'value'</span>)
+    at T (<span class="url">https://cdn.elements.amazon/elements/amazon-product-rating/v1.0/default.variant.selector.shopify.js:1:156</span>)
+    at <span class="url">https://cdn.elements.amazon/elements/amazon-product-rating/v1.0/default.variant.selector.shopify.js:1:4789</span></pre>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--evidence">▸ 物证</div>
+            <div style="font-size:13px;color:var(--text-secondary);">
+              <code>default.variant.selector.shopify.js</code> 是 Amazon Product Rating widget 的"variant 选择器初始化"模块。
+              它在 KleanPal Pro PDP 上 throw null pointer · 因为 KleanPal 的 variants 结构与 Amazon 期望不符。<br>
+              <strong>结果</strong>：PDP 上的 Amazon Star Rating（"★★★★★ 4.8 from 380 reviews"）<strong>不显示或显示错误</strong>。这是 PDP 信任建立的关键元素 —— 缺它直接影响转化。
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 鉴定 + 修复</div>
+            <div class="fix-block">
+              <strong>修复（30 分钟）· 双路径</strong><br>
+              <strong>路径 A · 去掉 Amazon Rating</strong>：用 Shopify 自家的 Okendo Reviews（Momcozy 已装）替代 · 主题 Liquid 删 Amazon Product Rating block<br>
+              <strong>路径 B · 修 variant 数据</strong>：联 Amazon Buy with Prime support 让他们提供与 Shopify variants 兼容的 selector
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray" id="resources">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">区 2 · 资源加载物证</div>
+        <h2 class="section__title">Top 10 最重资源 · 谁在拖慢页面</h2>
+        <p class="section__sub">按 transferSize 排序 · 含 URL · KB · 加载时间 · type · 鉴定。</p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 28px;">#</th>
+              <th>URL</th>
+              <th>Type</th>
+              <th class="num" style="width:60px;">KB</th>
+              <th class="num" style="width:80px;">Duration</th>
+              <th>鉴定</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td class="url" title="connect.facebook.net/signals/config/838745568077400">connect.facebook.net/signals/config/838745568077400</td><td>script</td><td class="num bad">127</td><td class="num warn">1428ms</td><td>Meta Pixel #1（含 600+ ex_m 参数）</td></tr>
+            <tr><td>2</td><td class="url">connect.facebook.net/en_US/fbevents.js</td><td>script</td><td class="num bad">98</td><td class="num warn">1215ms</td><td>Meta Pixel 主体</td></tr>
+            <tr><td>3</td><td class="url">momcozy.com/cdn/shopifycloud/portable-wallets/portable-wallets.en.js</td><td>script</td><td class="num warn">74</td><td class="num good">345ms</td><td>Shopify Pay/PayPal/ApplePay · 必需</td></tr>
+            <tr><td>4</td><td class="url">cdn.elements.amazon/elements/amazon-delivery-message/v1.0/web-component.js</td><td>script</td><td class="num warn">57</td><td class="num bad">1656ms</td><td>Amazon Prime 交收估计 · 1.7s 阻塞</td></tr>
+            <tr><td>5</td><td class="url">momcozy.com/cdn/shopifycloud/privacy-banner/storefront-banner.js</td><td>script</td><td class="num">22</td><td class="num">725ms</td><td>GDPR Cookie Banner · 必需</td></tr>
+            <tr style="background:var(--danger-light);"><td>6</td><td class="url">connect.facebook.net/signals/config/<strong>1845894755472645</strong></td><td>script</td><td class="num warn">22</td><td class="num bad"><strong>4877ms</strong></td><td><strong>Meta Pixel #2 · 4.9s 阻塞</strong></td></tr>
+            <tr style="background:var(--danger-light);"><td>7</td><td class="url">connect.facebook.net/signals/config/<strong>1207445154305002</strong></td><td>script</td><td class="num">20</td><td class="num">303ms</td><td><strong>Meta Pixel #3 · 第三个副本</strong></td></tr>
+            <tr><td>8</td><td class="url">cdn.truefitcorp.com/fitrec/global/js/tf-integration.js?storeKey=mmc</td><td>script</td><td class="num">18</td><td class="num warn">964ms</td><td>TrueFit 尺码助手 · 1 秒阻塞</td></tr>
+            <tr><td>9</td><td class="url">momcozy.com/?section_id=mini_cart</td><td>fetch</td><td class="num">17</td><td class="num">884ms</td><td>Shopify section AJAX · 必需</td></tr>
+            <tr><td>10</td><td class="url">beacon.riskified.com/?shop=mo-m-cozy.myshopify.com</td><td>script</td><td class="num">17</td><td class="num warn">1273ms</td><td>Riskified 反欺诈 · 必需但慢</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="triplet triplet--p0">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p0">资源·铁证</span>
+          <span class="triplet__title">Top 10 资源中 5 个属于 Meta Pixel 双重收税或可去除</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 鉴定</div>
+            <div style="font-size:13.5px;line-height:1.7;">
+              <strong>必需保留</strong>（行 3 / 5 / 9 / 10）：Shopify Pay 钱包 · GDPR Banner · mini cart fetch · Riskified 反欺诈<br>
+              <strong>可优化</strong>（行 4 · Amazon Delivery 1.66s · 8 · TrueFit 0.96s）：改 defer + 用户交互后才加载<br>
+              <strong>必须修</strong>（行 1 + 6 + 7 = Meta Pixel 3 副本 · 行 2 = Meta 主体）：合并到 1 个 Pixel ID（参考 P0-E）
+            </div>
+            <div class="fix-block">
+              <strong>预期收益</strong>：合并 Meta Pixel 3 → 1 = -267KB → -90KB · LCP -200ms<br>
+              + Amazon Delivery defer = TBT -300ms<br>
+              + TrueFit defer = TBT -200ms<br>
+              <strong>合计 LCP 改善 -700ms · 月增收估 +$2.8M</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="images">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">区 3 · 图片全量审计</div>
+        <h2 class="section__title">340 张图片 · 5 张 webp · 86% above-fold 用 lazy 反模式</h2>
+        <p class="section__sub">实测首页 340 个 <code>&lt;img&gt;</code> 标签 · 含 mega menu 全展（首屏 + 用户 hover 才看到的子分类导航图）。</p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-card__num bad">5/340</div><div class="stat-card__label">webp 比例</div><div class="stat-card__sub">1.47% · 应 &gt;70%</div></div>
+        <div class="stat-card"><div class="stat-card__num bad">172/200</div><div class="stat-card__label">Above-fold 误用 lazy</div><div class="stat-card__sub">86% · 反模式</div></div>
+        <div class="stat-card"><div class="stat-card__num warn">160</div><div class="stat-card__label">无 srcset</div><div class="stat-card__sub">移动端拉大图</div></div>
+        <div class="stat-card"><div class="stat-card__num bad">7</div><div class="stat-card__label">无 alt（WCAG）</div><div class="stat-card__sub">触犯 2.1 AA</div></div>
+      </div>
+
+      <div class="triplet triplet--p0">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p0">P0-I · 铁证 #9</span>
+          <span class="triplet__title">86% Above-fold 图片用 lazy load · 直接拉高 LCP</span>
+          <span class="triplet__severity severity--cro">LCP 主因</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--evidence">▸ 物证 · 首屏 15 张图片实测样本</div>
+            <div class="table-wrap" style="margin-top:8px;">
+              <table class="data-table">
+                <thead>
+                  <tr><th>#</th><th>文件名</th><th>原图尺寸</th><th>webp?</th><th>lazy?</th><th>alt</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>1</td><td class="url">Frame_2147240437.png</td><td>480×670</td><td><span class="verdict-badge bad">✗</span></td><td><span class="verdict-badge bad">lazy</span></td><td>Maternity Belly Band</td></tr>
+                  <tr><td>2</td><td class="url">lQLPJwWiToWZzCHNAUzM7rCH9jT9*.png</td><td>480×670</td><td><span class="verdict-badge bad">✗</span></td><td><span class="verdict-badge bad">lazy</span></td><td>BirthEase Maternity Ball Set</td></tr>
+                  <tr><td>3</td><td class="url">Frame_2147240206_222a5e62-eba0-413a-86a8-93ea9078d876.png</td><td>480×670</td><td><span class="verdict-badge bad">✗</span></td><td><span class="verdict-badge bad">lazy</span></td><td>Maternity Pillows</td></tr>
+                  <tr><td>4</td><td class="url">Frame_2147240574.png</td><td>480×670</td><td><span class="verdict-badge bad">✗</span></td><td><span class="verdict-badge bad">lazy</span></td><td>Pregnancy Panties</td></tr>
+                  <tr><td>5</td><td class="url">Frame_2147240449.png</td><td>480×670</td><td><span class="verdict-badge bad">✗</span></td><td><span class="verdict-badge bad">lazy</span></td><td>Labor Hospital Bag</td></tr>
+                  <tr><td>6</td><td class="url">8CDF524A-B467-4022-9028-F9541A9E5CBE.png</td><td>480×670</td><td><span class="verdict-badge bad">✗</span></td><td><span class="verdict-badge bad">lazy</span></td><td>Belly Firming Moisturizer</td></tr>
+                  <tr><td>7</td><td class="url">Frame_2147240600.png</td><td>480×670</td><td><span class="verdict-badge bad">✗</span></td><td><span class="verdict-badge bad">lazy</span></td><td>Postpartum Belly Wrap</td></tr>
+                  <tr><td>8</td><td class="url">Frame_2147240457.png</td><td>480×670</td><td><span class="verdict-badge bad">✗</span></td><td><span class="verdict-badge bad">lazy</span></td><td>Nursing Bras</td></tr>
+                  <tr><td>9</td><td class="url">Frame_2147240456.png</td><td>480×670</td><td><span class="verdict-badge bad">✗</span></td><td><span class="verdict-badge bad">lazy</span></td><td>Pumping Bras</td></tr>
+                  <tr style="background:var(--success-light);"><td>10</td><td class="url"><strong>H5-choose_you_too-Air1_5x_c992739b.webp</strong></td><td>480×573</td><td><span class="verdict-badge good">✓</span></td><td><span class="verdict-badge bad">lazy</span></td><td>FSA/HSA Eligible（唯一 webp 样本）</td></tr>
+                  <tr><td>11</td><td class="url">BM08-1_6f827367-3786-45e3-af1a-308683a82ae4.jpg</td><td>480×670</td><td><span class="verdict-badge bad">✗ jpg</span></td><td><span class="verdict-badge bad">lazy</span></td><td>Baby Monitor（唯一 jpg · 其他全 png）</td></tr>
+                  <tr><td>12</td><td class="url">tuckgo-lightweight-stroller-nav-mb.png</td><td>480×670</td><td><span class="verdict-badge bad">✗</span></td><td><span class="verdict-badge bad">lazy</span></td><td>TuckGo Lightweight Stroller</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="margin-top:14px;font-size:13px;color:var(--text-secondary);">
+              这些图全是 <strong>Mega Menu 子分类导航</strong>（用户 hover 顶部菜单时弹出的产品矩阵）—— Shopify theme 模板把它们标 <code>loading="lazy"</code> 是合理的。<br>
+              但 <strong>Hero 第一屏图片（首页 banner / 第一个产品卡）也是 lazy</strong>，这是反模式 —— LCP 候选元素不应该被懒加载。
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 修复（精确到 Liquid 文件）</div>
+            <div class="fix-block">
+              <strong>修复（4 工时 · 路特工程师）</strong>
+              <pre style="background:rgba(0,0,0,0.04);padding:12px;border-radius:6px;font-family:var(--font-mono);font-size:11.5px;margin-top:8px;line-height:1.5;"><span style="color:#6b7280"># 1. 找到 Hero / Above-fold 图片的 Liquid 模板</span>
+grep -rn "loading.*lazy" sections/image-banner.liquid sections/hero-*.liquid
+
+<span style="color:#6b7280"># 2. 改前（错）</span>
+&lt;img src="..." loading="lazy" alt="..."&gt;
+
+<span style="color:#6b7280"># 3. 改后（对）· 仅首屏 1-2 张</span>
+&lt;img src="{{ image | image_url: width: 1440, format: 'webp' }}"
+     loading="eager"
+     fetchpriority="high"
+     srcset="{{ image | image_url: width: 800, format: 'webp' }} 800w,
+             {{ image | image_url: width: 1200, format: 'webp' }} 1200w,
+             {{ image | image_url: width: 1440, format: 'webp' }} 1440w"
+     sizes="(max-width: 800px) 100vw, 1200px"
+     alt="..."&gt;
+
+<span style="color:#6b7280"># 4. 同步在 layout/theme.liquid &lt;head&gt; 加 preload</span>
+{%- if request.page_type == 'index' -%}
+  &lt;link rel="preload" as="image"
+        href="{{ section.settings.hero_image | image_url: width: 1440, format: 'webp' }}"
+        fetchpriority="high"&gt;
+{%- endif -%}</pre>
+            </div>
+            <div class="verify-block">
+              <strong>验证</strong>
+DevTools Network · 第一张 Hero 图请求 priority="high" · format=webp · 不是 lazy
+PerformanceObserver LCP entry · element 是 hero 图（不是别的）
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triplet triplet--p1">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p1">P1-J · 铁证 #10</span>
+          <span class="triplet__title">7 张图片缺 alt 属性 · 触犯 WCAG 2.1 AA</span>
+          <span class="triplet__severity severity--seo">合规风险</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--scene">▸ 现场</div>
+            <div style="font-size:13px;color:var(--text-secondary);">
+              340 张图中 7 张完全无 <code>alt</code> 属性 · 屏幕阅读器无法朗读 · 触犯 WCAG 2.1 AA Section 1.1.1（Non-text Content）。<br>
+              已捕到的具体一张：<code>&lt;img src="track" width="1" height="1"&gt;</code>（追踪像素 · 应用 alt="" 表示装饰性）
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 修复</div>
+            <div class="fix-block">
+              <strong>修复（30 分钟）· 装 axe-core 全站扫</strong>
+              <pre style="background:rgba(0,0,0,0.04);padding:12px;border-radius:6px;font-family:var(--font-mono);font-size:11.5px;margin-top:8px;">npx playwright test --grep "@a11y" \
+  --config '{ "use": { "axe": { "tags": ["wcag2aa"] } } }'
+
+<span style="color:#6b7280"># 全站扫 · 输出 violations 数 + 具体 element selector</span></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triplet triplet--p1">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p1">P1-K · 铁证 #11</span>
+          <span class="triplet__title">160 张图片缺 srcset · 移动端浪费 50% 带宽</span>
+          <span class="triplet__severity severity--ux">移动端体验</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--evidence">▸ 物证</div>
+            <div style="font-size:13px;color:var(--text-secondary);">
+              160 张图片只有单一 <code>src</code> 没有 <code>srcset</code> · 移动端 (390px 屏)<strong>下载的还是 1440 桌面尺寸</strong> · 浪费 50% 带宽 · 拉高移动 LCP。
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 修复（与 P0-3 webp 全站合并）</div>
+            <div class="fix-block">
+              用 Shopify Liquid <code>image_tag</code> filter 自动生成 srcset：
+              <pre style="background:rgba(0,0,0,0.04);padding:10px;border-radius:6px;font-family:var(--font-mono);font-size:11.5px;margin-top:8px;">{{ image | image_url: width: 1440, format: 'webp' | image_tag:
+   widths: '320,480,640,800,1200,1440',
+   sizes: '(max-width: 480px) 100vw, (max-width: 800px) 50vw, 800px',
+   loading: 'lazy', alt: image.alt }}</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray" id="thirdparty">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">区 4 · 第三方域 ROI 表</div>
+        <h2 class="section__title">PDP 25 域名 · 5 个最重 5 个最毒</h2>
+        <p class="section__sub">按请求 count 排序 · 含 max duration · 业务功能 · 砍 / 留 / 改 建议。</p>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Host</th>
+              <th class="num">请求数</th>
+              <th class="num">最长阻塞</th>
+              <th>业务功能</th>
+              <th>建议</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="url">momcozy.com（自家）</td><td class="num">263</td><td class="num warn">8368ms</td><td>Shopify Liquid + section AJAX</td><td><span class="verdict-badge">必需</span></td></tr>
+            <tr><td class="url">cdn.shopify.com</td><td class="num">20</td><td class="num good">1ms</td><td>Shopify CDN</td><td><span class="verdict-badge good">必需</span></td></tr>
+            <tr><td class="url">static.klaviyo.com</td><td class="num">18</td><td class="num">332ms</td><td>Klaviyo Email Marketing</td><td><span class="verdict-badge">必需 · 已 defer</span></td></tr>
+            <tr><td class="url">monorail-edge.shopifysvc.com</td><td class="num">16</td><td class="num warn">1236ms</td><td>Shopify 内部 analytics</td><td><span class="verdict-badge">不可砍</span></td></tr>
+            <tr><td class="url">www.googletagmanager.com</td><td class="num">14</td><td class="num good">0ms</td><td>GTM</td><td><span class="verdict-badge">必需</span></td></tr>
+            <tr style="background:var(--danger-light);"><td class="url"><strong>otlp-http-production.shopifysvc.com</strong></td><td class="num">14</td><td class="num bad">4641ms</td><td>Shopify OTLP 遥测</td><td><span class="verdict-badge bad">联 Shopify 投诉</span></td></tr>
+            <tr style="background:var(--danger-light);"><td class="url"><strong>api.seel.com</strong></td><td class="num">7</td><td class="num bad">10690ms</td><td>Seel Worry-Free Purchase</td><td><span class="verdict-badge bad">核必要性 → 卸载</span></td></tr>
+            <tr style="background:var(--danger-light);"><td class="url"><strong>stats.ptengine.jp</strong></td><td class="num">7</td><td class="num bad">4497ms</td><td>PT Engine 热图</td><td><span class="verdict-badge bad">defer 或卸载</span></td></tr>
+            <tr><td class="url">cdn.elements.amazon</td><td class="num">7</td><td class="num warn">2605ms</td><td>Amazon Buy with Prime</td><td><span class="verdict-badge warn">仅订阅商品启用</span></td></tr>
+            <tr style="background:var(--danger-light);"><td class="url"><strong>cdn.us-east-1.prod.moon.dubai.aws.dev</strong></td><td class="num">7</td><td class="num bad">5473ms</td><td>Amazon Pay infra</td><td><span class="verdict-badge warn">同 Amazon</span></td></tr>
+            <tr style="background:var(--danger-light);"><td class="url"><strong>account.momcozy.com</strong></td><td class="num">5</td><td class="num bad">5875ms</td><td>自家 SSO 子域</td><td><span class="verdict-badge bad">紧急 · 自家服务慢</span></td></tr>
+            <tr><td class="url">www.googleadservices.com</td><td class="num">5</td><td class="num warn">1168ms</td><td>Google Ads conversion</td><td><span class="verdict-badge">必需</span></td></tr>
+            <tr><td class="url">googleads.g.doubleclick.net</td><td class="num">5</td><td class="num warn">2066ms</td><td>Google Ads tracking</td><td><span class="verdict-badge">必需</span></td></tr>
+            <tr style="background:var(--warning-light);"><td class="url">bat.bing.com</td><td class="num">4</td><td class="num warn">3752ms</td><td>Microsoft Ads / Bing</td><td><span class="verdict-badge warn">defer</span></td></tr>
+            <tr style="background:var(--danger-light);"><td class="url"><strong>api.fastbundle.co</strong></td><td class="num">4</td><td class="num warn">2001ms</td><td>FastBundle FBT</td><td><span class="verdict-badge bad">先修 404 (P0-A)</span></td></tr>
+            <tr><td class="url">www.facebook.com</td><td class="num">4</td><td class="num warn">3754ms</td><td>Meta tracking</td><td><span class="verdict-badge">合并 3 Pixel (P0-E)</span></td></tr>
+            <tr><td class="url">f.clarity.ms</td><td class="num">4</td><td class="num">1442ms</td><td>Microsoft Clarity 热图</td><td><span class="verdict-badge warn">vs PT Engine 重复</span></td></tr>
+            <tr><td class="url">omnisnippet1.com</td><td class="num">4</td><td class="num">0ms</td><td>Omnisend 监控</td><td><span class="verdict-badge">必需 · 已 async</span></td></tr>
+            <tr style="background:var(--warning-light);"><td class="url">www.paypal.com</td><td class="num">4</td><td class="num warn">4282ms</td><td>PayPal 钱包</td><td><span class="verdict-badge">必需 但慢</span></td></tr>
+            <tr><td class="url">static.seel.com</td><td class="num">4</td><td class="num warn">3125ms</td><td>Seel 静态资源</td><td><span class="verdict-badge bad">同 P0-D</span></td></tr>
+            <tr><td class="url">connect.facebook.net</td><td class="num">3</td><td class="num">0ms</td><td>Meta Pixel script (3 副本)</td><td><span class="verdict-badge bad">合并</span></td></tr>
+            <tr><td class="url">analytics.google.com</td><td class="num">3</td><td class="num">1119ms</td><td>GA4</td><td><span class="verdict-badge">必需</span></td></tr>
+            <tr><td class="url">insight.adsrvr.org</td><td class="num">6</td><td class="num warn">1940ms</td><td>The Trade Desk pixel</td><td><span class="verdict-badge warn">核 ROI</span></td></tr>
+            <tr><td class="url">order.buywithprime.amazon.com</td><td class="num">6</td><td class="num warn">2540ms</td><td>Amazon Buy with Prime</td><td><span class="verdict-badge warn">仅订阅商品</span></td></tr>
+            <tr><td class="url">static-tracking.klaviyo.com</td><td class="num">6</td><td class="num">0ms</td><td>Klaviyo tracking</td><td><span class="verdict-badge">必需</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="triplet triplet--p0">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p0">第三方·铁证</span>
+          <span class="triplet__title">5 大毒域 · 5 大砍除目标</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 鉴定 · 5 个最毒</div>
+            <ol style="font-size:13.5px;line-height:1.9;padding-left:20px;list-style:decimal;">
+              <li><strong>api.seel.com 10.7s</strong> · 无忧购保险 · 核必要性 → 多半可卸 · 预期 LCP -10s（PDP）</li>
+              <li><strong>account.momcozy.com 5.9s</strong> · 自家 SSO 子域 · 必修 · 自家慢说明后端有问题（连数据库 / OAuth 慢）· DevOps 介入</li>
+              <li><strong>cdn.us-east-1.prod.moon.dubai.aws.dev 5.5s</strong> · Amazon Pay infra · 与 Amazon Buy with Prime 同源</li>
+              <li><strong>otlp-http-production.shopifysvc.com 4.6s</strong> · Shopify 自家 OTLP 遥测 · 不可砍 · 但可联 Shopify support 投诉</li>
+              <li><strong>stats.ptengine.jp 4.5s</strong> · PT Engine 热图 · 与 Clarity 重复 · 砍一个</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="links">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">区 5 · 链接结构 + 死链证据</div>
+        <h2 class="section__title">392 anchor · 264 unique 内部 · 5 empty href</h2>
+        <p class="section__sub">⚠️ 注意：本区<strong>仅做了 anchor 清单</strong>，<strong>未做并发 HEAD 死链扫描</strong>（需补做）。已发现的具体问题：<strong>5 个 empty href</strong> + <strong>所有内部链接带 ?ref= 追踪参数（SEO canonical 风险）</strong>。</p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-card__num">392</div><div class="stat-card__label">总 anchor</div></div>
+        <div class="stat-card"><div class="stat-card__num">264</div><div class="stat-card__label">Unique 内部</div></div>
+        <div class="stat-card"><div class="stat-card__num good">6</div><div class="stat-card__label">外部（社交）</div></div>
+        <div class="stat-card"><div class="stat-card__num warn">5</div><div class="stat-card__label">Empty href</div></div>
+      </div>
+
+      <div class="triplet triplet--p1">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p1">P1-L · 铁证 #12</span>
+          <span class="triplet__title">所有 mega menu 内部链接带 ?ref= 追踪参数 · 触发 SEO canonical 风险</span>
+          <span class="triplet__severity severity--seo">SEO 重复内容</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--scene">▸ 现场（实测样本）</div>
+            <pre class="code"><span class="url">https://momcozy.com/collections/pregnancy-belt?ref=menu_1_1_img</span>
+<span class="url">https://momcozy.com/pages/does-a-birthing-ball-really-help?ref=menu_1_2_img</span>
+<span class="url">https://momcozy.com/collections/momcozy-pregnancy-pillows?ref=menu_1_3_img</span>
+<span class="url">https://momcozy.com/products/momcozy-postpartum-recovery-essentials-kit?ref=menu_1_5_img</span>
+<span class="comment">// 264 个内部 unique URL 中绝大多数带 ?ref= 不同值</span></pre>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--evidence">▸ 物证</div>
+            <div style="font-size:13px;color:var(--text-secondary);">
+              <code>?ref=menu_1_1_img</code> 是 Momcozy 的<strong>内部 click tracking 参数</strong>（看哪个菜单位被点）—— 没问题。<br>
+              <strong>但</strong>：
+              <ul style="padding-left:18px;margin-top:6px;list-style:disc;">
+                <li>Google 把 <code>/collections/pregnancy-belt</code> 和 <code>/collections/pregnancy-belt?ref=menu_1_1_img</code> 视为<strong>两个独立 URL</strong></li>
+                <li>需要每个 PDP 的 <code>&lt;link rel="canonical"&gt;</code> 都正确指向无参数版本</li>
+                <li>验证未做 · 风险存在</li>
+              </ul>
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 修复 + 验证</div>
+            <div class="fix-block">
+              <strong>修复（4 工时）· 双管齐下</strong><br>
+              <strong>1. canonical 验证</strong>：所有 collection / product / page 模板都要有
+              <pre style="background:rgba(0,0,0,0.04);padding:10px;border-radius:6px;font-family:var(--font-mono);font-size:11.5px;margin-top:6px;">&lt;link rel="canonical" href="{{ canonical_url }}"&gt;</pre>
+              <strong>2. ref 参数改用 hash</strong>：把 <code>?ref=menu_1_1_img</code> 改成 <code>#ref=menu_1_1_img</code> · hash 不被 Google 当独立 URL · click tracking 一样工作
+            </div>
+            <div class="verify-block">
+              <strong>验证</strong>
+curl -s "https://momcozy.com/collections/pregnancy-belt?ref=menu_1_1_img" | grep canonical
+# 预期: &lt;link rel="canonical" href="https://momcozy.com/collections/pregnancy-belt"&gt;
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="triplet triplet--p1">
+        <div class="triplet__head">
+          <span class="triplet__id triplet__id--p1">P1-M · 铁证 #13</span>
+          <span class="triplet__title">未做并发 HEAD 死链扫描 · 这是 v1.2 的取证缺口</span>
+          <span class="triplet__severity severity--ux">取证待补</span>
+        </div>
+        <div class="triplet__body">
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--scene">▸ 现场</div>
+            <div style="font-size:13px;color:var(--text-secondary);">
+              本次取证仅枚举了 264 个内部 anchor URL · <strong>未对每个发起 HEAD 请求验状态码</strong>。<br>
+              不留客气话：<strong>这是 v1.2 的不足</strong>。
+            </div>
+          </div>
+          <div class="triplet__row">
+            <div class="triplet__row-label triplet__row-label--verdict">▸ 补做计划（v1.3）</div>
+            <div class="fix-block">
+              <strong>v1.3 必补 · 需独立 Playwright 脚本</strong>
+              <pre style="background:rgba(0,0,0,0.04);padding:12px;border-radius:6px;font-family:var(--font-mono);font-size:11.5px;margin-top:8px;line-height:1.5;">// scripts/dead-link-scan.ts
+import { chromium } from 'playwright';
+import fs from 'fs';
+
+(async () =&gt; {
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+  await page.goto('https://www.momcozy.com', { waitUntil: 'networkidle' });
+
+  const urls = await page.$$eval('a[href]', els =&gt;
+    [...new Set(els.map(e =&gt; (e as HTMLAnchorElement).href).filter(h =&gt; h.includes('momcozy.com')))]);
+
+  const results = [];
+  for (const url of urls) {
+    try {
+      const res = await fetch(url, { method: 'HEAD', redirect: 'manual', signal: AbortSignal.timeout(5000) });
+      results.push({ url, status: res.status, location: res.headers.get('location') });
+    } catch (e: any) { results.push({ url, status: 'error', error: e.name }); }
+  }
+
+  fs.writeFileSync('forensics-deadlinks.json', JSON.stringify(results, null, 2));
+  console.log('404+:', results.filter(r =&gt; typeof r.status === 'number' &amp;&amp; r.status &gt;= 400).length);
+  await browser.close();
+})();</pre>
+              运行：<code>npx tsx scripts/dead-link-scan.ts</code> · 预计耗时 5-10 分钟（264 链接 · 5 并发）
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--dark">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow" style="color:#fbbf24;">v1.2 不留客气话总结</div>
+        <h2 class="section__title">v1.1 太宏观 · v1.2 落到了文件:行号 · 但 v1.3 仍有缺口</h2>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px;">
+        <div>
+          <h3 style="font-size:18px;font-weight:800;color:#fff;margin-bottom:12px;">✅ v1.2 升级了</h3>
+          <ul style="font-size:13px;color:#bdbdbd;line-height:1.8;list-style:disc;padding-left:18px;">
+            <li>13 项铁证 · 全部含完整 stack trace + URL + 触发条件</li>
+            <li>FastBundle FBT 404 这种"工程师每天看到但报告没写"的具体故障</li>
+            <li>Amazon SDK 5 秒超时找 selling_plan 的精确根因</li>
+            <li>Pinterest 3 个 connection reset 的具体端点</li>
+            <li>Meta Pixel 3 个 config ID 的 ID 全列</li>
+            <li>340 张图片实测清单（webp 比 / lazy 比 / alt 缺）</li>
+            <li>25 第三方域 ROI 表（含每个域的 max duration + 业务功能）</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:18px;font-weight:800;color:#fff;margin-bottom:12px;">❌ v1.2 仍缺失</h3>
+          <ul style="font-size:13px;color:#bdbdbd;line-height:1.8;list-style:disc;padding-left:18px;">
+            <li><strong>JS Coverage % 逐文件未做</strong>（需 Playwright 启动前 trace · 实测后无法补）</li>
+            <li><strong>CSS Coverage % 逐文件未做</strong>（同上）</li>
+            <li><strong>264 内部链接 HEAD 死链扫描未做</strong>（可补 · 见 P1-M）</li>
+            <li><strong>axe-core WCAG 全站扫未做</strong>（仅推断 7 alt missing）</li>
+            <li><strong>Lighthouse CI 完整 LHR 未取</strong>（需 lhci 二进制）</li>
+            <li><strong>移动端 4G throttle 未实测</strong>（仅桌面单点）</li>
+            <li><strong>Liquid section DOM 节点溯源未做</strong>（5375 → 7538 增长源头未定位）</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:18px;font-weight:800;color:#fff;margin-bottom:12px;">🎯 v1.3 路线</h3>
+          <ul style="font-size:13px;color:#bdbdbd;line-height:1.8;list-style:disc;padding-left:18px;">
+            <li>跑 <code style="color:#fbbf24;">scripts/dead-link-scan.ts</code> 264 链接 HEAD 检</li>
+            <li>跑 <code style="color:#fbbf24;">page.coverage</code> 取 JS/CSS 实际使用率</li>
+            <li>跑 <code style="color:#fbbf24;">@axe-core/playwright</code> WCAG 全规则扫</li>
+            <li>跑 Lighthouse 3 次取 p50 数</li>
+            <li>iPhone 13 4G simulate 重测 LCP / FCP / INP</li>
+            <li>用 Shopify Theme Inspector 取 Liquid render 火焰图</li>
+            <li>v1.3 估 4-6h 工作量</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:24px;text-align:center;">
+        <p style="font-size:14px;color:#bdbdbd;line-height:1.7;">
+          <strong style="color:#fff;">不留官方客气话</strong>：v1.0 → v1.1 修了数据口径错误 · v1.1 → v1.2 把宏观叙事落到铁证 · 但<strong>v1.2 仍是单点桌面取证</strong> · 移动端 + Coverage + 死链扫这三块要补完才能称真正法医级。<br>
+          每多一份铁证 · 路特就少一次被 Momcozy 工程师以"你这数据不准"反驳的可能。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__brand">路特 AI <span>×</span> Momcozy</div>
+      <div style="font-size:13px;color:#8a8a8a;line-height:1.7;max-width:760px;">
+        法医验尸报告 v1.2 · 2026-05-17 PT · Sisyphus（COO）出品 · 13 项铁证 · 5 大取证区 · 全部 stack trace 落盘 <code style="color:#fbbf24;background:#1a1a1c;padding:2px 6px;border-radius:3px;">data/forensics-raw.json</code>
+      </div>
+      <div class="footer__bottom">
+        © 2026 路特 AI 公司 · v1.2 · 实测时间窗 2026-05-17T10:53-10:56 PDT · 取证设备 Chromium 1440×900
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

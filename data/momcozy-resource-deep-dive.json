@@ -1,0 +1,106 @@
+{
+  "_metadata": {
+    "source": "Playwright + Performance API \u5b9e\u6d4b \u00b7 2026-05-17 07:30 PDT",
+    "browser": "Chromium 1440x900 desktop + 390x844 mobile",
+    "test_method": "PerformanceObserver LCP/CLS/longtask + getEntriesByType('resource')"
+  },
+
+  "core_web_vitals": {
+    "homepage_desktop": {
+      "lcp_ms": 4920,
+      "fcp_ms": 4860,
+      "ttfb_ms": 523,
+      "cls": 0.0008,
+      "domContentLoaded_ms": 8024,
+      "loadEvent_ms": 15326,
+      "long_tasks_count": 2,
+      "long_tasks_total_ms": 109,
+      "verdict_lcp": "POOR (4920 > 4000 \u8c37\u6b4c\u7ea2\u7ebf)",
+      "verdict_fcp": "POOR (4860 > 3000 \u8c37\u6b4c\u7ea2\u7ebf)",
+      "verdict_load": "\u707e\u96be\u7ea7 15.3s (\u884c\u4e1a\u57fa\u7ebf 4s)"
+    },
+    "homepage_mobile_390": {
+      "lcp_ms": null,
+      "fcp_ms": 0,
+      "ttfb_ms": 171,
+      "cls": 0.0015,
+      "domContentLoaded_ms": 6158,
+      "loadEvent_ms": 13985,
+      "totalResourceSize_kb": 148,
+      "totalResourceCount": 403,
+      "verdict_load": "\u79fb\u52a8 14s"
+    },
+    "pdp_kleanpal_pro_desktop": {
+      "url": "/products/momcozy-kleanpal-pro-baby-bottle-washer",
+      "lcp_ms": null,
+      "fcp_ms": 0,
+      "cls": 0.022,
+      "ttfb_ms": 162,
+      "domContentLoaded_ms": 10603,
+      "loadEvent_ms": 17160,
+      "totalResourceSize_kb": 19380,
+      "totalResourceCount": 485,
+      "breakdown_js_kb": 83,
+      "breakdown_js_count": 198,
+      "breakdown_css_kb": 11,
+      "breakdown_css_count": 68,
+      "breakdown_image_kb": 0,
+      "breakdown_image_count": 110,
+      "breakdown_fetch_kb": 29,
+      "breakdown_fetch_count": 49,
+      "verdict": "PDP 17 \u79d2 / \u603b\u8d44\u6e90 19.4MB / 485 \u8bf7\u6c42 \u00b7 \u5bf9\u5e94\u8def\u7279 Excel 23K PV \u4ec5 4 \u8f6c\u5316",
+      "warning": "image_kb \u4e3a 0 \u53ef\u80fd\u662f\u56e0\u4e3a\u7edd\u5927\u591a\u6570\u56fe\u662f\u5728 4 \u79d2\u540e\u540e\u8db3\u52a0\u8f7d \u00b7 \u9700 wait longer"
+    }
+  },
+
+  "homepage_resource_breakdown_desktop": {
+    "total_count": 571,
+    "total_size_kb": 999,
+    "js": {"count": 276, "size_kb": 738, "pct_of_total": 73.9},
+    "css": {"count": 99, "size_kb": 29, "pct_of_total": 2.9},
+    "image": {
+      "count": 36, "size_kb": 150, "pct_of_total": 15.0,
+      "png": 6, "jpg": 11, "webp": 4, "svg": 1, "gif": 6,
+      "webp_ratio_pct": 11.1,
+      "comment": "\u9996\u5c4f\u4ec5 36 \u56fe \u00b7 \u4f46\u5168\u9875 295 \u56fe \u00b7 \u660e\u663e lazy load \u751f\u6548"
+    },
+    "font": {"count": 0, "size_kb": 0, "comment": "\u5b57\u4f53\u88ab\u5168\u90e8\u7f13\u5b58 \u6216 inline \u00b7\u4e0d\u8ba1\u5165 transfer"},
+    "video": {"count": 0, "size_kb": 0},
+    "fetch_xhr": {"count": 101, "size_kb": 79, "comment": "101 \u4e2a\u5f02\u6b65\u8bf7\u6c42 \u00b7 \u591a\u4e3a Analytics / Pixel / API"},
+    "other": {"count": 59, "size_kb": 3}
+  },
+
+  "top_js_offenders": [
+    {"file": "FastBundle prod (\u63a8\u8350\u5f15\u64ce)", "kb": 204, "host": "cdn.shopify.com/extensions/", "comment": "\u6700\u91cd\u5355\u4e2a\u811a\u672c"},
+    {"file": "Meta Pixel config (838745568077400)", "kb": 127, "host": "connect.facebook.net/signals/", "comment": "Meta \u5e7f\u544a\u8c03\u7528\u591a"},
+    {"file": "fbevents.js", "kb": 98, "host": "connect.facebook.net/en_US/", "comment": "Meta Pixel \u4e3b\u4f53"},
+    {"file": "portable-wallets.en.js", "kb": 74, "host": "momcozy.com/cdn/shopifycloud/", "comment": "Shopify Pay/PayPal/Apple Pay"},
+    {"file": "FastBundle prod (\u7b2c\u4e8c\u4efd)", "kb": 62, "host": "cdn.shopify.com/extensions/"},
+    {"file": "Amazon delivery message", "kb": 57, "host": "cdn.elements.amazon/", "comment": "Amazon Prime \u4ea4\u6536\u4f30\u8ba1"}
+  ],
+
+  "console_errors_production": {
+    "count_desktop_homepage": 9,
+    "count_mobile_homepage": 13,
+    "count_pdp": 16,
+    "categories": [
+      {"category": "\u52a0\u8f7d\u5931\u8d25", "examples": ["dwin1.com/19038.js ERR_CONNECTION_CLOSED", "bigsur.ai/plugin/js/static.js ERR_CONNECTION_CLOSED"]},
+      {"category": "Amazon \u7ec4\u4ef6\u62a5\u9519", "examples": ["Attribution Reporting \u9274\u6743\u5931\u8d25", "Shared Storage \u5931\u8d25", "Cannot read properties of null (rating)"]},
+      {"category": "Shopify \u5185\u90e8\u4e0a\u62a5\u5931\u8d25", "examples": ["MonorailRequestError shopify_pay_page_load/2.7"]},
+      {"category": "\u7b2c\u4e09\u65b9\u90fd\u8be7\u8bef", "examples": ["capi-gateway-ma.cifnews.com 404", "Google FedCM NetworkError"]},
+      {"category": "\u96f6\u662f\u5e76\u95ee\u9898", "examples": ["Not signed in with the identity provider"]}
+    ],
+    "verdict": "\u751f\u4ea7\u73af\u5883 9-16 \u4e2a console error \u00b7 \u8868\u793a\u591a\u4e2a\u7b2c\u4e09\u65b9\u4f9d\u8d56\u6781\u4e0d\u7a33\u5b9a \u00b7 \u7528\u6237\u4e0d\u53ef\u89c1\u4f46\u662f\u9690\u85cf\u6027\u80fd\u635f\u8017"
+  },
+
+  "key_findings": [
+    "LCP 4.9s (\u684c\u9762) / 14s (\u79fb\u52a8 Load) \u00b7 LCP \u8c37\u6b4c\u7ea2\u7ebf 4s \u00b7\u8d85\u51fa 23%",
+    "JS \u603b\u4f53\u79ef 738KB \u4f4d 276 \u4e2a\u00b7\u5360\u603b\u4f20\u8f93 73.9% \u00b7 \u4e3b\u8981\u662f FastBundle + Meta Pixel + Amazon",
+    "CSS \u4ec5 29KB \u4f4d 99 \u4e2a \u00b7 \u88ab\u62c6\u5f97\u6781\u788e \u00b7 \u53cd\u800c\u589e\u52a0 HTTP \u8bf7\u6c42\u538b\u529b",
+    "\u9996\u5c4f\u56fe webp \u6bd4\u4f8b 11% (4/36) \u00b7\u4f46\u5168\u9875 webp 2% \u00b7 lazy load \u751f\u6548\u4f46\u52a8\u6b66\u672a\u8df3 webp \u4f18\u5316",
+    "Mobile LCP \u672a\u80fd\u8bb0\u5f55 \u00b7 \u8bf4\u660e\u9996\u5c4f\u51e0\u4e4e\u4e0d\u6e32\u67d3 \u00b7 \u7528\u6237\u8df3\u51fa\u7387 75.8% \u53ef\u9a8c\u8bc1\u8de8 \u00b7 \u7528\u6237\u770b\u4e0d\u5230\u5b9e\u9645\u5e74\u6837",
+    "PDP 17 \u79d2\u52a0\u8f7d / 19.4MB / 485 \u8bf7\u6c42 \u00b7 \u8def\u7279 Excel \u793a 23K PV \u4ec5 4 \u8f6c\u5316 \u00b7 \u539f\u56e0\u6e05\u6670",
+    "9-16 \u4e2a console error \u00b7 dwin1.com / bigsur.ai / Amazon \u9274\u6743 / cifnews 404 / Google FedCM \u00b7 \u90fd\u4e0d\u7528\u6237\u53ef\u89c1\u4f46\u662f\u8d44\u6e90\u635f\u8017",
+    "MOMCOZY \u603b\u8d44\u6e90 999KB / 571 \u4e2a \u00b7 vs Shopify \u57fa\u7ebf 800KB / 200 \u4e2a \u00b7 \u8bf7\u6c42\u6570\u4ef62.85x \u00b7 \u8fde\u63a5\u5f00\u9500\u662f\u9690\u85cf\u95ee\u9898"
+  ]
+}
