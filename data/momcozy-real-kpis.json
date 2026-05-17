@@ -1,20 +1,24 @@
 {
   "_metadata": {
     "source": "Lute Excel · 2026-05-17 · 独立站流量与转化监控分析.xlsx",
-    "period_days": 137,
-    "period": "2026-01-01 to 2026-05-17",
-    "note_unit": "原始 Ten Thousand 单位已换算 · PV/UV 单位为 million"
+    "period_days": 135,
+    "period": "2026-01-01 to 2026-05-15 (路特 Excel 取数窗 · v1.3 修正)",
+    "note_unit": "原始 Ten Thousand 单位已换算 · PV/UV 单位为 million",
+    "period_days_v1_2_was": 137,
+    "months": 4.4353
   },
   "traffic": {
-    "total_pv_million_137d": 207.9,
-    "total_uv_million_137d": 197.0,
-    "monthly_pv_million": 45.6,
-    "monthly_uv_million": 43.2,
+    "monthly_pv_million": 46.87,
+    "monthly_uv_million": 44.42,
     "avg_pv_per_visitor": 1.79,
     "avg_session_sec": 86.8,
     "bounce_rate": 0.758,
     "new_visitor_pct": 0.564,
-    "industry_baseline": "Bounce 55% / Session 180s · Momcozy 双输"
+    "industry_baseline": "Bounce 55% / Session 180s · Momcozy 双输",
+    "period_days": 135,
+    "note_baseline_unit": "所有 monthly_* 字段是 total_*_135d ÷ 4.4353 (路特口径 v1.3)",
+    "total_pv_million_135d": 207.9,
+    "total_uv_million_135d": 197.0
   },
   "conversion": {
     "browse_rate": 1.788,
@@ -26,47 +30,49 @@
     "industry_baseline": "CVR 1.5-2.5% / 加购 10% · Momcozy CVR 0.88% 加购 3.67% 双输"
   },
   "sales": {
-    "qty_sold_137d": 547808,
-    "revenue_million_USD_137d": 51.78,
-    "monthly_revenue_million_USD": 11.36,
+    "monthly_revenue_million_USD": 11.675,
     "AOV_USD": 119.13,
     "refund_rate": 0.00887,
     "repurchase_rate": 0.267,
     "attach_rate": 0.337,
-    "industry_baseline": "AOV  / Refund <2% / Repurchase 35% · AOV 高过基线 / Refund 优秀 / Repurchase 接近"
+    "industry_baseline": "AOV  / Refund <2% / Repurchase 35% · AOV 高过基线 / Refund 优秀 / Repurchase 接近",
+    "period_days": 135,
+    "qty_sold_135d": 547808,
+    "revenue_million_USD_135d": 51.78,
+    "monthly_orders": 123511
   },
   "problem_pdps_real_data": [
     {
       "sku": "KleanPal Pro",
       "url": "/products/momcozy-kleanpal-pro-baby-bottle-washer",
-      "pv_137d": 23758,
       "add_to_cart_rate": 0.00248,
       "cvr": 0.000168,
-      "verdict": "23K PV 仅 4 单成交 · 0.017% CVR · 极危"
+      "verdict": "23K PV 仅 4 单成交 · 0.017% CVR · 极危",
+      "pv_135d": 23758
     },
     {
       "sku": "M5 Smart Pump",
       "url": "/products/m5-smart-wearable-br",
-      "pv_137d": 2831,
       "add_to_cart_rate": 0.00247,
       "cvr": 0.0,
-      "verdict": "明星 SKU · 0 单 · 严重"
+      "verdict": "明星 SKU · 0 单 · 严重",
+      "pv_135d": 2831
     },
     {
       "sku": "Pregnancy Pillow",
       "url": "/products/momcozy-pregnancy-pi",
-      "pv_137d": 4840,
       "add_to_cart_rate": 0.00145,
       "cvr": 0.0,
-      "verdict": "4.8K PV · 0 单"
+      "verdict": "4.8K PV · 0 单",
+      "pv_135d": 4840
     },
     {
       "sku": "Mobile Style",
       "url": "/products/momcozy-mobile-style",
-      "pv_137d": 5288,
       "add_to_cart_rate": 0.01267,
       "cvr": 0.000756,
-      "verdict": "加购率最好 1.27% · 仍极低"
+      "verdict": "加购率最好 1.27% · 仍极低",
+      "pv_135d": 5288
     }
   ],
   "natural_search_top5": [
@@ -110,12 +116,16 @@
     "自然搜索前 4 全是 informational blog · 仅 1 个 transactional · SEO 流量未变现"
   ],
   "recalculated_roi_baseline": {
-    "monthly_pv": 45600000,
-    "monthly_uv": 43200000,
-    "current_cvr": 0.0088,
+    "period_days": 135,
+    "period": "2026-01-01 to 2026-05-15",
+    "months": 4.4353,
+    "monthly_pv": 46873943,
+    "monthly_uv": 44416387,
+    "current_cvr_excel_reported": 0.0088,
+    "current_cvr_computed_orders_over_uv": 0.002781,
     "current_aov_USD": 119.13,
-    "monthly_orders": 401280,
-    "monthly_revenue_USD": 47804486,
-    "note": "基线 月入 $47.8M (vs Sisyphus 假设 $1.5M = 31x 倍数 · 真实 ROI 提升空间 = 假设 31x)"
+    "monthly_orders": 123511,
+    "monthly_revenue_USD": 11674520,
+    "note_v1_3_fix": "period_days corrected from 137→135 · months from 4.504→4.4353 · all monthly_* re-derived"
   }
 }

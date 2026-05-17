@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Momcozy 指标字典 · 25 KPI · 路特 AI 公司 × Momcozy · M1 v1.1</title>
+  <title>📐 归因分析 · Momcozy 25 KPI + 6 图表 · 路特 AI 公司 × Momcozy</title>
   <meta name="description" content="25 个核心指标 · 计算公式 · 统计口径 · 业务价值 · 双轴漏斗 + 6 张差异化图表">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,6 +61,56 @@
     .nav-links a { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--text-secondary); transition: color 0.2s; }
     .nav-links a:hover { color: var(--accent); }
     .nav-back { background: var(--cta-black); color: #fff; padding: 8px 16px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ─── 主导航：3 故事节点 + CTA ─────────────────────────────────── */
+    .nav-main {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .nav-main:hover { background: var(--bg-gray); }
+    .nav-main--active {
+      background: var(--accent);
+      color: #fff !important;
+    }
+    .nav-main--active:hover { background: var(--accent); }
+    .nav-cta {
+      background: var(--cta-black);
+      color: #fff !important;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .nav-cta:hover { background: var(--accent); }
+
+    /* ─── 子导航：当前页章节锚点 · 灰色小字 ──────────────────────── */
+    .nav-sub {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 8px 24px 10px;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border-light);
+      font-size: 12px;
+    }
+    .nav-sub a {
+      color: var(--text-tertiary);
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-sub a:hover { color: var(--accent); }
+    @media (max-width: 768px) {
+      .nav-sub { gap: 14px; padding: 6px 24px 8px; font-size: 11px; }
+    }
+
 
     .hero { padding: 64px 0 80px; background: linear-gradient(180deg, #fff 0%, var(--bg-gray) 100%); }
     .hero__badge { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; margin-bottom: 24px; }
@@ -191,8 +241,9 @@
 </head>
 <body>
 
+  <!-- ═══════ Promo Banner · 数据口径 ═══════ -->
   <div class="promo-banner">
-    <span class="dot"></span> 指标字典 · 25 KPI · 双轴漏斗 + 6 张差异化图表 · v1.1 · 2026-05-17 PT <span class="dot"></span>
+    <span class="dot"></span> 数据窗口 2026-01-01 → 2026-05-15 · 135 天累计 · ÷ 4.44 月化 · v1.3 · 路特 AI 公司 COO Sisyphus <span class="dot"></span>
   </div>
 
   <nav class="nav-top">
@@ -200,24 +251,27 @@
       <div class="nav-top__inner">
         <a href="index.html" class="nav-logo">路特 AI <span class="x">×</span> <span>Momcozy</span></a>
         <div class="nav-links">
-          <a href="index.html#hero">主报告</a>
-          <a href="#funnel">核心漏斗</a>
-          <a href="#gap-chart">行业差距</a>
-          <a href="#deps">依赖网络</a>
-          <a href="#quadrant">象限定位</a>
-          <a href="#pdp-funnel">PDP 漏斗</a>
-          <a href="#performance-gauges">性能水表</a>
-          <a href="#dict-A">指标字典</a>
-          <a href="forensics.html" style="color:var(--danger);font-weight:700;">法医报告 v1.2</a>
-          <a href="index.html#decisions" class="nav-back">回主报告</a>
+          <a href="index.html" class="nav-main">📊 总览</a>
+          <a href="metrics.html" class="nav-main nav-main--active">📐 归因分析</a>
+          <a href="forensics.html" class="nav-main">🩻 策略 SOP</a>
+          <a href="index.html#decisions" class="nav-cta">路特决策 →</a>
         </div>
+      </div>
+      <div class="nav-sub">
+        <a href="#funnel">核心漏斗</a>
+        <a href="#gap-chart">行业差距</a>
+        <a href="#deps">依赖网络</a>
+        <a href="#quadrant">AOV×CVR 象限</a>
+        <a href="#pdp-funnel">PDP 漏斗</a>
+        <a href="#performance-gauges">性能水表</a>
+        <a href="#dict-A">25 指标字典</a>
       </div>
     </div>
   </nav>
 
   <section class="hero">
     <div class="container">
-      <span class="hero__badge">25 KPI · 指标字典 + 6 图表</span>
+      <span class="hero__badge">📐 归因分析 · 25 KPI + 6 图表</span>
       <h1 class="hero__title">
         Momcozy 的 <span class="hl">25 个核心指标</span>，<br>
         每个都有「<span class="hl">公式 · 口径 · 价值</span>」三件套。
@@ -235,7 +289,7 @@
         <div class="count-card"><div class="count-card__num">25</div><div class="count-card__label">核心指标</div></div>
         <div class="count-card"><div class="count-card__num">6</div><div class="count-card__label">差异化图表</div></div>
         <div class="count-card"><div class="count-card__num">4</div><div class="count-card__label">指标层级</div></div>
-        <div class="count-card"><div class="count-card__num">137d</div><div class="count-card__label">数据窗口</div></div>
+        <div class="count-card"><div class="count-card__num">135d</div><div class="count-card__label">数据窗口</div></div>
       </div>
     </div>
   </section>
@@ -278,7 +332,7 @@
             <rect x="0" y="50" width="930" height="22" fill="url(#baselinePattern)"/>
             <text x="-10" y="18" text-anchor="end" class="axis-label" font-weight="700" fill="#111">访客 UV</text>
             <text x="-10" y="34" text-anchor="end" class="axis-label">100%</text>
-            <text x="10" y="28" class="bar-label--white" font-weight="700">43.7M / 月 · 100% · Momcozy</text>
+            <text x="10" y="28" class="bar-label--white" font-weight="700">~44.4M / 月 · 100% · Momcozy</text>
             <text x="10" y="65" class="axis-label">~5-30M / 月 · P50 母婴 DTC</text>
           </g>
 
@@ -322,7 +376,7 @@
             <rect x="0" y="50" width="19" height="22" fill="url(#baselinePattern)"/>
             <text x="-10" y="18" text-anchor="end" class="axis-label" font-weight="700" fill="#111">成交</text>
             <text x="-10" y="34" text-anchor="end" class="axis-label">0.28%（订单/UV）</text>
-            <text x="18" y="28" class="bar-label">122K · 0.28% 反算 (Momcozy)</text>
+            <text x="18" y="28" class="bar-label">123.5K · 0.28% 反算 (Momcozy)</text>
             <text x="29" y="65" class="axis-label">2.0% · P50（Momcozy 仅 14%）</text>
           </g>
 
@@ -331,7 +385,7 @@
 
           <!-- 右侧标注 -->
           <g transform="translate(960, 440)">
-            <text font-size="10" text-anchor="end" fill="#8a8a8a">数据：Excel 137d / 4.504 月 · 行业基线参考 Shopify+Baymard</text>
+            <text font-size="10" text-anchor="end" fill="#8a8a8a">数据：Excel 135d / 4.44 月 · 行业基线参考 Shopify+Baymard</text>
           </g>
         </svg>
 
@@ -350,7 +404,7 @@
           <div class="insight-card__title">Excel 自报 CVR 0.88% ≠ 反算 0.28% · 真相是后者</div>
           <div class="insight-card__body">
             Excel 字段 <code>overall_cvr 0.88%</code> 与 <strong>订单数 / 访客数</strong> 反算 0.28% 矛盾 3.1 倍。<br>
-            可能解释：Excel 0.88% 是「加购 → 支付」子漏斗口径（1.61M 加购 × ~7.5% = 122K 成交 ≈ 0.88%）。<br>
+            可能解释：Excel 0.88% 是「加购 → 支付」子漏斗口径（1.61M 加购 × ~7.7% = 123.5K 成交 ≈ 0.88%）。<br>
             <strong>工业标准 CVR = 订单 / 访客 = 0.28%</strong>（行业基线 1.5-2.5% 的 11-19%）· <em>实际比 Excel 上报更糟</em>。<br>
             → 字典里此处 <strong>双口径都报</strong>，路特可与 Marketing/Analytics 团队对齐口径。
           </div>
@@ -461,7 +515,7 @@
           <g transform="translate(780, 330)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">CVR 0.28-0.88%</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 2% · 双口径</text></g>
 
           <g transform="translate(280, 460)"><rect class="deps-node deps-node--good" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">AOV $119</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 $95 · +25%</text></g>
-          <g transform="translate(540, 460)"><rect class="deps-node deps-node--root" x="0" y="0" rx="8" width="180" height="60"/><text x="90" y="28" text-anchor="middle" class="deps-text deps-text--white" font-size="14" font-weight="800">月营收 $11.5M</text><text x="90" y="46" text-anchor="middle" class="deps-text-small" fill="#fde8ec">122K 单/月 · 待激活</text></g>
+          <g transform="translate(540, 460)"><rect class="deps-node deps-node--root" x="0" y="0" rx="8" width="180" height="60"/><text x="90" y="28" text-anchor="middle" class="deps-text deps-text--white" font-size="14" font-weight="800">月营收 $11.67M</text><text x="90" y="46" text-anchor="middle" class="deps-text-small" fill="#fde8ec">123.5K 单/月 · 待激活</text></g>
           <g transform="translate(800, 460)"><rect class="deps-node deps-node--bad" x="0" y="0" rx="8" width="160" height="60"/><text x="80" y="25" text-anchor="middle" class="deps-text">Repurchase 26.7%</text><text x="80" y="42" text-anchor="middle" class="deps-text-small">P50 35% · -24%</text></g>
 
           <path d="M 185 110 Q 200 150 280 190" class="deps-arrow deps-arrow--bad" marker-end="url(#arrowBad)"/>
@@ -497,7 +551,7 @@
         <div class="insight-card__title">12 条红线全指向 1 个根 · 改 LCP 是全链最高 ROI 杠杆</div>
         <div class="insight-card__body">
           从 L1 工程指标到 L4 营收，存在<strong>清晰的级联因果</strong>：<br>
-          LCP 4.92s → Bounce 75.8% → 加购 3.67% → CVR 0.28% → 月营收 $11.5M（远低潜力）。<br>
+          LCP 4.92s → Bounce 75.8% → 加购 3.67% → CVR 0.28% → 月营收 $11.67M（远低潜力）。<br>
           <strong>修 LCP 不是为了 Lighthouse 漂亮，是为了让漏斗 4 节都获益</strong> —— 这是 P0-1 ROI 估 $6M / 月的根因。
         </div>
       </div>
@@ -606,7 +660,7 @@
         <div class="insight-card__body">
           <strong>Momcozy 已经在做对的事</strong>：定位中高端母婴（AOV $119）· 用户来了就有意愿付费。<br>
           <strong>错的事</strong>：CVR 0.88% 意味着 99% 来访没买 —— 价值被站点性能/UX 吃掉。<br>
-          → <strong>目标轨迹</strong>：维持 AOV $119（不降价不打折）· 把 CVR 从 0.88% 拉到 1.5-2.0%（Elvie/Willow 水平）· 月营收从 $11.5M → $20-25M。
+          → <strong>目标轨迹</strong>：维持 AOV $119（不降价不打折）· 把 CVR 从 0.88% 拉到 1.5-2.0%（Elvie/Willow 水平）· 月营收从 $11.67M → $20-25M。
         </div>
       </div>
     </div>
@@ -621,7 +675,7 @@
       </div>
 
       <div class="chart-card">
-        <div class="chart-card__title">4 主力 PDP · 137 天累计漏斗</div>
+        <div class="chart-card__title">4 主力 PDP · 135 天累计漏斗</div>
         <div class="chart-card__sub">每行：PV → 加购（按各自加购率）→ 订单 · 数字为绝对量</div>
 
         <svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
@@ -825,7 +879,7 @@
           <div class="metric-card__values">
             <div class="metric-card__value-block">
               <div class="metric-card__value-label">Momcozy</div>
-              <div class="metric-card__value-num good">45.6M</div>
+              <div class="metric-card__value-num good">~46.9M</div>
               <div class="metric-card__value-baseline">超规模 ✓</div>
             </div>
             <div class="metric-card__value-block">
@@ -842,22 +896,22 @@
           </div>
           <div class="metric-block">
             <h4>计算公式</h4>
-            <code class="metric-formula">月 PV = 137 天累计 PV ÷ (137 / 30.42)
-     = 207.9M ÷ 4.504
-     = 45.6M / 月</code>
+            <code class="metric-formula">月 PV = 135 天累计 PV ÷ (135 / 30.4375)
+     = 207.9M ÷ 4.4353
+     = ~46.9M / 月</code>
           </div>
           <div class="metric-block">
             <h4>统计口径</h4>
             <p class="kv">
-              <span class="kv-row"><strong>来源：</strong>路特 Excel · 累计 207.9M / 137 天</span><br>
-              <span class="kv-row"><strong>窗口：</strong>2026-01-01 → 2026-05-17</span><br>
+              <span class="kv-row"><strong>来源：</strong>路特 Excel · 累计 207.9M / 135 天</span><br>
+              <span class="kv-row"><strong>窗口：</strong>2026-01-01 → 2026-05-15</span><br>
               <span class="kv-row"><strong>去重：</strong>不去重 · 一次浏览 = 1 PV</span><br>
               <span class="kv-row"><strong>边界：</strong>含所有子站 / 多语言版本</span>
             </p>
           </div>
           <div class="metric-block">
             <h4>业务价值</h4>
-            <p>反映「品牌曝光 + 流量获取能力」。Momcozy 月 PV 45.6M 在母婴垂直 Top 1，说明 SEO + Paid Media 上半场打得很好；问题在下半场 CVR 转化。<strong>PV 不是越多越好</strong> — 高 PV + 低 CVR = 浪费流量。</p>
+            <p>反映「品牌曝光 + 流量获取能力」。Momcozy 月 PV ~46.9M 在母婴垂直 Top 1，说明 SEO + Paid Media 上半场打得很好；问题在下半场 CVR 转化。<strong>PV 不是越多越好</strong> — 高 PV + 低 CVR = 浪费流量。</p>
           </div>
         </div>
       </div>
@@ -871,7 +925,7 @@
           <div class="metric-card__values">
             <div class="metric-card__value-block">
               <div class="metric-card__value-label">Momcozy</div>
-              <div class="metric-card__value-num good">43.2M</div>
+              <div class="metric-card__value-num good">~44.4M</div>
               <div class="metric-card__value-baseline">UV / PV ≈ 0.95</div>
             </div>
           </div>
@@ -883,9 +937,9 @@
           </div>
           <div class="metric-block">
             <h4>计算公式</h4>
-            <code class="metric-formula">月 UV = 137d 累计 UV ÷ 4.504
-     = 197.0M ÷ 4.504
-     = 43.7M / 月
+            <code class="metric-formula">月 UV = 135d 累计 UV ÷ 4.4353
+     = 197.0M ÷ 4.4353
+     = ~44.4M / 月
 
 UV/PV ≈ 0.95
 （行业平均 0.4-0.6）</code>
@@ -893,7 +947,7 @@ UV/PV ≈ 0.95
           <div class="metric-block">
             <h4>统计口径</h4>
             <p class="kv">
-              <span class="kv-row"><strong>来源：</strong>Excel · 137d 累计 197.0M</span><br>
+              <span class="kv-row"><strong>来源：</strong>Excel · 135d 累计 197.0M</span><br>
               <span class="kv-row"><strong>去重：</strong>按 cookie + device · 30 天窗口去重</span><br>
               <span class="kv-row"><strong>注意：</strong>UV/PV ≈ 0.95 异常高，说明大量访客<strong>看完一个页就走</strong>（与 Bounce 75.8% 印证）</span>
             </p>
@@ -932,7 +986,7 @@ UV/PV ≈ 0.95
           <div class="metric-block">
             <h4>计算公式</h4>
             <code class="metric-formula">PV/Visitor = 月 PV ÷ 月 UV
-           = 45.6M ÷ 43.2M
+           = 46.9M ÷ 44.4M
            = 1.06（按月独立 UV）
 
 Excel 自报 1.79（按访问会话）</code>
@@ -1319,7 +1373,7 @@ P50 = 10% (母婴 DTC)</code>
             <code class="metric-formula">Cart Abandonment =
   (加购数 - 成交数) ÷ 加购数
 
-= 1 - (122K / 1.61M)
+= 1 - (123.5K / 1.61M)
 = 1 - 7.6%
 = 92.4%（？反算与 28.8% 不符）
 
@@ -1370,8 +1424,8 @@ Excel 28.8% 可能是
           <div class="metric-block">
             <h4>计算公式</h4>
             <code class="metric-formula">CVR (订单/UV 工业标准) =
-  月订单数 ÷ 月独立访客
-= 121,637 ÷ 43.7M
+  月订单数（口径见 § 1） ÷ 月独立访客
+= 123,510 ÷ 44.4M
 = 0.28%
 
 CVR (Excel 自报) = 0.88%
@@ -1381,7 +1435,7 @@ CVR (Excel 自报) = 0.88%
             <h4>统计口径</h4>
             <p class="kv">
               <span class="kv-row"><strong>Excel 0.88%：</strong>未明确分母 · 疑似细分漏斗</span><br>
-              <span class="kv-row"><strong>反算 0.28%：</strong>122K 订单 / 43.7M UV · 工业标准</span><br>
+              <span class="kv-row"><strong>反算 0.28%：</strong>123.5K 订单 / 44.4M UV · 工业标准</span><br>
               <span class="kv-row"><strong>差距 3.1 倍：</strong>需路特与 Analytics 团队对齐口径</span>
             </p>
           </div>
@@ -1389,7 +1443,7 @@ CVR (Excel 自报) = 0.88%
             <h4>业务价值</h4>
             <p>这是<strong>所有 ROI 计算的基础</strong>。<br>
             按 Shopify 公式：每 100ms LCP 改善 = +3.5% CVR 相对提升。<br>
-            如 CVR 从 0.88% → 1.5%（行业基线）= +70% 相对提升 = 月营收 $11.5M × 70% = +$8M / 月。<br>
+            如 CVR 从 0.88% → 1.5%（行业基线）= +70% 相对提升 = 月营收 $11.67M × 70% = +$8M / 月。<br>
             <strong>核心战略目标</strong>：把 CVR 拉到 1.5%（Elvie / Willow 水平）。</p>
           </div>
         </div>
@@ -1473,7 +1527,7 @@ CVR (Excel 自报) = 0.88%
             <h4>计算公式</h4>
             <code class="metric-formula">AOV = 总营收 ÷ 总订单数
     = $51.78M ÷ 547,808
-    = $94.5（按 137d 累计反算）
+    = $94.5（按 135d 累计反算）
 
 Excel 自报 $119.13（含运费/税）
 
@@ -1507,8 +1561,8 @@ Excel 自报 $119.13（含运费/税）
           <div class="metric-card__values">
             <div class="metric-card__value-block">
               <div class="metric-card__value-label">Momcozy</div>
-              <div class="metric-card__value-num good">$11.5M</div>
-              <div class="metric-card__value-baseline">137d 累计 $51.78M</div>
+              <div class="metric-card__value-num good">$11.67M</div>
+              <div class="metric-card__value-baseline">135d 累计 $51.78M</div>
             </div>
           </div>
         </div>
@@ -1520,29 +1574,29 @@ Excel 自报 $119.13（含运费/税）
           <div class="metric-block">
             <h4>计算公式</h4>
             <code class="metric-formula">Monthly Revenue =
-  137d 累计营收 ÷ 4.504 (months)
-= $51.78M ÷ 4.504
-= $11.5M / 月
+  135d 累计营收 ÷ 4.4353 (months)
+= $51.78M ÷ 4.4353
+= $11.67M / 月
 
 或：
 = 月单数 × AOV
-= 122K × $94.5 (净)
-= $11.5M ✓ 自洽</code>
+= 123.5K × $94.5 (净)
+= $11.67M ✓ 自洽</code>
           </div>
           <div class="metric-block">
             <h4>统计口径</h4>
             <p class="kv">
-              <span class="kv-row"><strong>来源：</strong>Excel 累计 $51.78M / 137d</span><br>
+              <span class="kv-row"><strong>来源：</strong>Excel 累计 $51.78M / 135d</span><br>
               <span class="kv-row"><strong>口径：</strong>GMV 含运费税</span><br>
-              <span class="kv-row"><strong>窗口：</strong>2026-01-01 → 2026-05-15（137 天 = 4.504 月）</span>
+              <span class="kv-row"><strong>窗口：</strong>2026-01-01 → 2026-05-15（135 天 = 4.44 月）</span>
             </p>
           </div>
           <div class="metric-block">
             <h4>业务价值</h4>
             <p><strong>这是 ROI 公式的核心分母</strong>。<br>
-            v1.0 错把 137d 累计 $51.78M 当 1 个月 → ROI 高估 4.5 倍。<br>
-            v1.1 修正后：所有 ROI = $11.5M × CVR 提升 % · 真实可信。<br>
-            P0 全修目标：$11.5M / 月 → $20-25M / 月（增 75-117%）。</p>
+            v1.0 错把 135d 累计 $51.78M 当 1 个月 → ROI 高估 4.5 倍。<br>
+            v1.1 修正后：所有 ROI = $11.67M × CVR 提升 % · 真实可信。<br>
+            P0 全修目标：$11.67M / 月 → $20-25M / 月（增 75-117%）。</p>
           </div>
         </div>
       </div>
@@ -1932,7 +1986,7 @@ Lighthouse 分级：
             <h4>业务价值</h4>
             <p>5375 节点 = <strong>每次 reflow 涉及 5375 个元素的 layout 重计算</strong>。<br>
             移动端低端 Android 渲染体感卡顿 → INP 高 → 用户跳出。<br>
-            <strong>P0-2 砍 50% 至 2700</strong> = LCP -900ms = 月营收 +$3.6M。</p>
+            <strong>P0-2 砍 50% 至 2700</strong> = LCP -900ms = 月营收 +$3.7M。</p>
           </div>
         </div>
       </div>
@@ -2025,7 +2079,7 @@ Momcozy 全站 295 图 · 仅 6 个 webp = 2%
           <div class="metric-block">
             <h4>业务价值</h4>
             <p>2% 是「<strong>零成本可拿的果子</strong>」。<br>
-            P0-3 仅需在 Liquid 调用加 <code>format: 'webp'</code> 参数 · 3 工时全站启用 · LCP -600ms · 月营收 +$2.4M。<br>
+            P0-3 仅需在 Liquid 调用加 <code>format: 'webp'</code> 参数 · 3 工时全站启用 · LCP -600ms · 月营收 +$2.5M。<br>
             ROI 800x — 极致。</p>
           </div>
         </div>
@@ -2040,7 +2094,7 @@ Momcozy 全站 295 图 · 仅 6 个 webp = 2%
         母婴跨境 DTC 重营销 · 北美 + 欧洲 · 184 员工 AI 公司。本字典由 Sisyphus（COO）+ Analytics Reporter（dept-support）+ Reality Checker（dept-testing）三角校验。每个指标的双口径都已交叉验证 PV × CVR × AOV ≈ 订单数 × AOV ≈ 累计 ÷ 月数 三者一致。
       </div>
       <div class="footer__bottom">
-        © 2026 路特 AI 公司 · 指标字典 v1.1 · 25 KPI · 6 图表 · 2026-05-17 PT
+        © 2026 路特 AI 公司 · 归因分析 v1.2 · 25 KPI + 6 图表 · 2026-05-17 PT
       </div>
     </div>
   </footer>

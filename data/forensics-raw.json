@@ -3,7 +3,10 @@
     "audit_method": "Sisyphus Playwright Chromium 1440x900 desktop · 直连无 throttle",
     "audit_date": "2026-05-17T10:53-10:56 PDT",
     "operator": "Sisyphus (COO of 路特AI公司)",
-    "scope": ["https://momcozy.com/", "https://momcozy.com/products/momcozy-kleanpal-pro-baby-bottle-washer"],
+    "scope": [
+      "https://momcozy.com/",
+      "https://momcozy.com/products/momcozy-kleanpal-pro-baby-bottle-washer"
+    ],
     "tool_chain": "browser_navigate + browser_evaluate + browser_console_messages + browser_network_requests",
     "data_quality": "实测数据 · 单点测试 · 非 CrUX field 数据 · 移动端模拟未做",
     "limitations": [
@@ -12,13 +15,12 @@
       "未做 axe-core WCAG 扫描",
       "未做并发 HEAD 死链扫描（数据无 status code · 仅有 URL 清单）",
       "未做移动端 4G throttle 实测"
-    ]
+    ],
+    "data_window": "2026-01-01 → 2026-05-15 (135 天 · 4.44 月) · 路特 v1.3 修正"
   },
-
   "homepage_evidence": {
     "url": "https://momcozy.com/",
     "title": "Momcozy: High-Quality Care for Moms and Babies",
-
     "core_web_vitals": {
       "lcp_ms_v1_1_baseline": 4920,
       "fcp_ms_v1_1_baseline": 4860,
@@ -26,49 +28,191 @@
       "cls": 0.0008,
       "verdict": "LCP POOR · FCP POOR · TTFB GOOD · CLS GOOD"
     },
-
     "resources_summary": {
       "total_resources": 471,
       "by_initiator_type": {
-        "script": {"count": 186, "total_kb": 468},
-        "fetch": {"count": 77, "total_kb": 61},
-        "link_preconnect_etc": {"count": 57, "total_kb": 14},
-        "img": {"count": 35, "total_kb_visible": 0, "note": "首屏渲染前 transferSize 为 0 · 因 lazy/srcset 未触发"},
-        "xmlhttprequest": {"count": 28, "total_kb": 23},
-        "iframe": {"count": 25, "total_kb": 0},
-        "beacon": {"count": 24, "total_kb": 3},
-        "css": {"count": 17, "total_kb": 1, "note": "CSS 极小可能 inline 或被合并"}
+        "script": {
+          "count": 186,
+          "total_kb": 468
+        },
+        "fetch": {
+          "count": 77,
+          "total_kb": 61
+        },
+        "link_preconnect_etc": {
+          "count": 57,
+          "total_kb": 14
+        },
+        "img": {
+          "count": 35,
+          "total_kb_visible": 0,
+          "note": "首屏渲染前 transferSize 为 0 · 因 lazy/srcset 未触发"
+        },
+        "xmlhttprequest": {
+          "count": 28,
+          "total_kb": 23
+        },
+        "iframe": {
+          "count": 25,
+          "total_kb": 0
+        },
+        "beacon": {
+          "count": 24,
+          "total_kb": 3
+        },
+        "css": {
+          "count": 17,
+          "total_kb": 1,
+          "note": "CSS 极小可能 inline 或被合并"
+        }
       }
     },
-
     "top_20_hosts_by_size": [
-      {"host": "connect.facebook.net", "count": 4, "kb": 267, "verdict": "Meta Pixel 主 · 主要负担"},
-      {"host": "momcozy.com (自家 CDN)", "count": 207, "kb": 199, "verdict": "正常"},
-      {"host": "cdn.elements.amazon", "count": 5, "kb": 57, "verdict": "Amazon Buy with Prime + Product Rating"},
-      {"host": "cdn.truefitcorp.com", "count": 1, "kb": 18, "verdict": "TrueFit 尺码助手 · 阻塞 964ms"},
-      {"host": "beacon.riskified.com", "count": 1, "kb": 17, "verdict": "Riskified 反欺诈 · 阻塞 1273ms"},
-      {"host": "www.googleadservices.com", "count": 5, "kb": 7, "verdict": "Google Ads conversion"},
-      {"host": "fonts.googleapis.com", "count": 2, "kb": 2, "verdict": "Montserrat 字体"},
-      {"host": "static.klaviyo.com", "count": 22, "kb": 0, "verdict": "Klaviyo Email · 22 请求"},
-      {"host": "cdn-static.okendo.io", "count": 7, "kb": 0, "verdict": "Okendo Reviews · 7 请求"},
-      {"host": "stats.ptengine.jp", "count": 7, "kb": 0, "verdict": "PT Engine Heatmap"},
-      {"host": "bigsur.ai", "count": 1, "kb": 0, "verdict": "❌ 已挂掉 ERR_CONNECTION_CLOSED · 应移除"},
-      {"host": "www.dwin1.com", "count": 1, "kb": 0, "verdict": "DWIN · 0 ROI 数据 · 建议暂停"}
+      {
+        "host": "connect.facebook.net",
+        "count": 4,
+        "kb": 267,
+        "verdict": "Meta Pixel 主 · 主要负担"
+      },
+      {
+        "host": "momcozy.com (自家 CDN)",
+        "count": 207,
+        "kb": 199,
+        "verdict": "正常"
+      },
+      {
+        "host": "cdn.elements.amazon",
+        "count": 5,
+        "kb": 57,
+        "verdict": "Amazon Buy with Prime + Product Rating"
+      },
+      {
+        "host": "cdn.truefitcorp.com",
+        "count": 1,
+        "kb": 18,
+        "verdict": "TrueFit 尺码助手 · 阻塞 964ms"
+      },
+      {
+        "host": "beacon.riskified.com",
+        "count": 1,
+        "kb": 17,
+        "verdict": "Riskified 反欺诈 · 阻塞 1273ms"
+      },
+      {
+        "host": "www.googleadservices.com",
+        "count": 5,
+        "kb": 7,
+        "verdict": "Google Ads conversion"
+      },
+      {
+        "host": "fonts.googleapis.com",
+        "count": 2,
+        "kb": 2,
+        "verdict": "Montserrat 字体"
+      },
+      {
+        "host": "static.klaviyo.com",
+        "count": 22,
+        "kb": 0,
+        "verdict": "Klaviyo Email · 22 请求"
+      },
+      {
+        "host": "cdn-static.okendo.io",
+        "count": 7,
+        "kb": 0,
+        "verdict": "Okendo Reviews · 7 请求"
+      },
+      {
+        "host": "stats.ptengine.jp",
+        "count": 7,
+        "kb": 0,
+        "verdict": "PT Engine Heatmap"
+      },
+      {
+        "host": "bigsur.ai",
+        "count": 1,
+        "kb": 0,
+        "verdict": "❌ 已挂掉 ERR_CONNECTION_CLOSED · 应移除"
+      },
+      {
+        "host": "www.dwin1.com",
+        "count": 1,
+        "kb": 0,
+        "verdict": "DWIN · 0 ROI 数据 · 建议暂停"
+      }
     ],
-
     "top_10_largest_resources": [
-      {"url": "connect.facebook.net/signals/config/838745568077400", "kb": 127, "ms": 1428, "type": "script", "verdict": "Meta Pixel 配置 #1 · 含 600+ ex_m 参数 · 不可缩减"},
-      {"url": "connect.facebook.net/en_US/fbevents.js", "kb": 98, "ms": 1215, "type": "script", "verdict": "Meta Pixel 主体"},
-      {"url": "momcozy.com/cdn/shopifycloud/portable-wallets/portable-wallets.en.js", "kb": 74, "ms": 345, "type": "script", "verdict": "Shopify Pay/PayPal/ApplePay 钱包"},
-      {"url": "cdn.elements.amazon/elements/amazon-delivery-message/v1.0/web-component.js", "kb": 57, "ms": 1656, "type": "script", "verdict": "Amazon Prime 交收估计"},
-      {"url": "momcozy.com/cdn/shopifycloud/privacy-banner/storefront-banner.js", "kb": 22, "ms": 725, "type": "script", "verdict": "GDPR Cookie Banner"},
-      {"url": "connect.facebook.net/signals/config/1845894755472645", "kb": 22, "ms": 4877, "type": "script", "verdict": "❌ Meta Pixel 配置 #2 · 4877ms 阻塞 · 多副本"},
-      {"url": "connect.facebook.net/signals/config/1207445154305002", "kb": 20, "ms": 303, "type": "script", "verdict": "❌ Meta Pixel 配置 #3 · 第三个副本"},
-      {"url": "cdn.truefitcorp.com/fitrec/global/js/tf-integration.js?storeKey=mmc", "kb": 18, "ms": 964, "type": "script", "verdict": "TrueFit 尺码 · 1 秒阻塞"},
-      {"url": "momcozy.com/?section_id=mini_cart", "kb": 17, "ms": 884, "type": "fetch", "verdict": "Shopify section AJAX"},
-      {"url": "beacon.riskified.com/?shop=mo-m-cozy.myshopify.com", "kb": 17, "ms": 1273, "type": "script", "verdict": "Riskified 反欺诈"}
+      {
+        "url": "connect.facebook.net/signals/config/838745568077400",
+        "kb": 127,
+        "ms": 1428,
+        "type": "script",
+        "verdict": "Meta Pixel 配置 #1 · 含 600+ ex_m 参数 · 不可缩减"
+      },
+      {
+        "url": "connect.facebook.net/en_US/fbevents.js",
+        "kb": 98,
+        "ms": 1215,
+        "type": "script",
+        "verdict": "Meta Pixel 主体"
+      },
+      {
+        "url": "momcozy.com/cdn/shopifycloud/portable-wallets/portable-wallets.en.js",
+        "kb": 74,
+        "ms": 345,
+        "type": "script",
+        "verdict": "Shopify Pay/PayPal/ApplePay 钱包"
+      },
+      {
+        "url": "cdn.elements.amazon/elements/amazon-delivery-message/v1.0/web-component.js",
+        "kb": 57,
+        "ms": 1656,
+        "type": "script",
+        "verdict": "Amazon Prime 交收估计"
+      },
+      {
+        "url": "momcozy.com/cdn/shopifycloud/privacy-banner/storefront-banner.js",
+        "kb": 22,
+        "ms": 725,
+        "type": "script",
+        "verdict": "GDPR Cookie Banner"
+      },
+      {
+        "url": "connect.facebook.net/signals/config/1845894755472645",
+        "kb": 22,
+        "ms": 4877,
+        "type": "script",
+        "verdict": "❌ Meta Pixel 配置 #2 · 4877ms 阻塞 · 多副本"
+      },
+      {
+        "url": "connect.facebook.net/signals/config/1207445154305002",
+        "kb": 20,
+        "ms": 303,
+        "type": "script",
+        "verdict": "❌ Meta Pixel 配置 #3 · 第三个副本"
+      },
+      {
+        "url": "cdn.truefitcorp.com/fitrec/global/js/tf-integration.js?storeKey=mmc",
+        "kb": 18,
+        "ms": 964,
+        "type": "script",
+        "verdict": "TrueFit 尺码 · 1 秒阻塞"
+      },
+      {
+        "url": "momcozy.com/?section_id=mini_cart",
+        "kb": 17,
+        "ms": 884,
+        "type": "fetch",
+        "verdict": "Shopify section AJAX"
+      },
+      {
+        "url": "beacon.riskified.com/?shop=mo-m-cozy.myshopify.com",
+        "kb": 17,
+        "ms": 1273,
+        "type": "script",
+        "verdict": "Riskified 反欺诈"
+      }
     ],
-
     "links": {
       "total_anchors": 392,
       "unique_internal": 264,
@@ -84,11 +228,18 @@
         "https://app.cozyinnov.com/app/privacy/?client=1&isShowCountry=show"
       ],
       "internal_sample_redirected": [
-        {"text": "Maternity Belly BandBest Seller", "href": "/collections/pregnancy-belt?ref=menu_1_1_img", "note": "→ ref 参数追踪 · 可能 SEO canonical 风险"},
-        {"text": "BirthEase Maternity Ball Set", "href": "/pages/does-a-birthing-ball-really-help?ref=menu_1_2_img", "note": "✓ 内容引流页"}
+        {
+          "text": "Maternity Belly BandBest Seller",
+          "href": "/collections/pregnancy-belt?ref=menu_1_1_img",
+          "note": "→ ref 参数追踪 · 可能 SEO canonical 风险"
+        },
+        {
+          "text": "BirthEase Maternity Ball Set",
+          "href": "/pages/does-a-birthing-ball-really-help?ref=menu_1_2_img",
+          "note": "✓ 内容引流页"
+        }
       ]
     },
-
     "images_audit": {
       "total_img_tags": 340,
       "webp_count": 5,
@@ -102,24 +253,115 @@
       "oversized_count": 1,
       "verdict": "❌ 86% above-fold 图片用 lazy load (反模式 · LCP 候选不应 lazy) · 197/200 above-fold 非 webp · 7 张无 alt 触犯 WCAG",
       "above_fold_first_15_samples": [
-        {"file": "Frame_2147240437.png", "natural": "480×670", "alt": "Maternity Belly Band", "isWebp": false, "isLazy": true},
-        {"file": "lQLPJwWiToWZzCHNAUzM7rCH9jT9m5Wtxwmj1DNfz80B_238_332.png", "natural": "480×670", "alt": "BirthEase Maternity Ball Set", "isWebp": false, "isLazy": true},
-        {"file": "Frame_2147240206_222a5e62-eba0-413a-86a8-93ea9078d876.png", "natural": "480×670", "alt": "Maternity Pillows", "isWebp": false, "isLazy": true},
-        {"file": "Frame_2147240574.png", "natural": "480×670", "alt": "Pregnancy Panties", "isWebp": false, "isLazy": true},
-        {"file": "Frame_2147240449.png", "natural": "480×670", "alt": "Labor Hospital Bag", "isWebp": false, "isLazy": true},
-        {"file": "8CDF524A-B467-4022-9028-F9541A9E5CBE.png", "natural": "480×670", "alt": "Belly Firming Moisturizer", "isWebp": false, "isLazy": true},
-        {"file": "Frame_2147240600.png", "natural": "480×670", "alt": "Postpartum Belly Wrap", "isWebp": false, "isLazy": true},
-        {"file": "Frame_2147240457.png", "natural": "480×670", "alt": "Nursing Bras", "isWebp": false, "isLazy": true},
-        {"file": "Frame_2147240456.png", "natural": "480×670", "alt": "Pumping Bras", "isWebp": false, "isLazy": true},
-        {"file": "Frame_2147240468.png", "natural": "480×670", "alt": "Breastfeeding Essentials", "isWebp": false, "isLazy": true},
-        {"file": "Frame_2147240474.png", "natural": "480×670", "alt": "Replacement Parts", "isWebp": false, "isLazy": true},
-        {"file": "H5-choose_you_too-Air1_5x_c992739b.webp", "natural": "480×573", "alt": "View More FSA/HSA Eligible", "isWebp": true, "isLazy": true, "note": "✓ 唯一 webp 样本"},
-        {"file": "Frame_2147240476.png", "natural": "480×670", "alt": "Bottle Washer", "isWebp": false, "isLazy": true},
-        {"file": "BM08-1_6f827367-3786-45e3-af1a-308683a82ae4.jpg", "natural": "480×670", "alt": "Baby Monitor", "isWebp": false, "isLazy": true, "note": "唯一 jpg 样本 · 其他全 png"},
-        {"file": "tuckgo-lightweight-stroller-nav-mb.png", "natural": "480×670", "alt": "TuckGo Lightweight Stroller", "isWebp": false, "isLazy": true}
+        {
+          "file": "Frame_2147240437.png",
+          "natural": "480×670",
+          "alt": "Maternity Belly Band",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "lQLPJwWiToWZzCHNAUzM7rCH9jT9m5Wtxwmj1DNfz80B_238_332.png",
+          "natural": "480×670",
+          "alt": "BirthEase Maternity Ball Set",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "Frame_2147240206_222a5e62-eba0-413a-86a8-93ea9078d876.png",
+          "natural": "480×670",
+          "alt": "Maternity Pillows",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "Frame_2147240574.png",
+          "natural": "480×670",
+          "alt": "Pregnancy Panties",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "Frame_2147240449.png",
+          "natural": "480×670",
+          "alt": "Labor Hospital Bag",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "8CDF524A-B467-4022-9028-F9541A9E5CBE.png",
+          "natural": "480×670",
+          "alt": "Belly Firming Moisturizer",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "Frame_2147240600.png",
+          "natural": "480×670",
+          "alt": "Postpartum Belly Wrap",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "Frame_2147240457.png",
+          "natural": "480×670",
+          "alt": "Nursing Bras",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "Frame_2147240456.png",
+          "natural": "480×670",
+          "alt": "Pumping Bras",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "Frame_2147240468.png",
+          "natural": "480×670",
+          "alt": "Breastfeeding Essentials",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "Frame_2147240474.png",
+          "natural": "480×670",
+          "alt": "Replacement Parts",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "H5-choose_you_too-Air1_5x_c992739b.webp",
+          "natural": "480×573",
+          "alt": "View More FSA/HSA Eligible",
+          "isWebp": true,
+          "isLazy": true,
+          "note": "✓ 唯一 webp 样本"
+        },
+        {
+          "file": "Frame_2147240476.png",
+          "natural": "480×670",
+          "alt": "Bottle Washer",
+          "isWebp": false,
+          "isLazy": true
+        },
+        {
+          "file": "BM08-1_6f827367-3786-45e3-af1a-308683a82ae4.jpg",
+          "natural": "480×670",
+          "alt": "Baby Monitor",
+          "isWebp": false,
+          "isLazy": true,
+          "note": "唯一 jpg 样本 · 其他全 png"
+        },
+        {
+          "file": "tuckgo-lightweight-stroller-nav-mb.png",
+          "natural": "480×670",
+          "alt": "TuckGo Lightweight Stroller",
+          "isWebp": false,
+          "isLazy": true
+        }
       ]
     },
-
     "console_errors_homepage": {
       "total_errors": 9,
       "total_warnings": 9,
@@ -170,11 +412,9 @@
       ]
     }
   },
-
   "pdp_evidence_kleanpal_pro": {
     "url": "https://momcozy.com/products/momcozy-kleanpal-pro-baby-bottle-washer",
     "title": "Momcozy One-Stop Baby Bottle Washer and Sterilizer",
-
     "navigation_timing": {
       "ttfb_ms": 186,
       "domInteractive_ms": 3069,
@@ -182,7 +422,6 @@
       "loadEvent_ms": 11269,
       "verdict": "TTFB 186ms 优秀 · 但 loadEvent 11.3s 灾难 (vs Spectra ~5s 行业标杆)"
     },
-
     "size_audit": {
       "total_resources": 506,
       "total_transfer_mb": 7.88,
@@ -193,40 +432,149 @@
       "v1_1_vs_v1_2_diff": "v1.1 报 DOM 5375 是首屏快照 · 6 秒后实际涨到 7538 (+40%) · iframe 35 个比 v1.1 多发现",
       "verdict": "❌ PDP 体积 7.88MB · DOM 7538 · 357 script tag · 35 iframe 全方位灾难"
     },
-
     "top_25_hosts_by_count_PDP": [
-      {"host": "momcozy.com", "count": 263, "kb": 7874, "maxDur_ms": 8368},
-      {"host": "cdn.shopify.com", "count": 20, "maxDur_ms": 1, "note": "✓ Shopify CDN 快"},
-      {"host": "static.klaviyo.com", "count": 18, "maxDur_ms": 332},
-      {"host": "monorail-edge.shopifysvc.com", "count": 16, "maxDur_ms": 1236},
-      {"host": "www.googletagmanager.com", "count": 14, "maxDur_ms": 0},
-      {"host": "otlp-http-production.shopifysvc.com", "count": 14, "maxDur_ms": 4641, "verdict": "❌ Shopify OTLP 遥测 4.6 秒阻塞"},
-      {"host": "api.seel.com", "count": 7, "maxDur_ms": 10690, "verdict": "❌ Seel 无忧购 10.7 秒 · 最严重阻塞"},
-      {"host": "stats.ptengine.jp", "count": 7, "maxDur_ms": 4497, "verdict": "❌ PT Engine 4.5 秒"},
-      {"host": "cdn.elements.amazon", "count": 7, "maxDur_ms": 2605},
-      {"host": "cdn.us-east-1.prod.moon.dubai.aws.dev", "count": 7, "maxDur_ms": 5473, "verdict": "❌ AWS moon.dubai (Amazon Pay infra) 5.5 秒"},
-      {"host": "static-tracking.klaviyo.com", "count": 6, "maxDur_ms": 0},
-      {"host": "order.buywithprime.amazon.com", "count": 6, "maxDur_ms": 2540},
-      {"host": "insight.adsrvr.org", "count": 6, "maxDur_ms": 1940, "verdict": "TradeDesk pixel"},
-      {"host": "account.momcozy.com", "count": 5, "maxDur_ms": 5875, "verdict": "❌ 自家 SSO 子域 5.9 秒阻塞"},
-      {"host": "www.googleadservices.com", "count": 5, "maxDur_ms": 1168},
-      {"host": "googleads.g.doubleclick.net", "count": 5, "maxDur_ms": 2066},
-      {"host": "bat.bing.com", "count": 4, "maxDur_ms": 3752, "verdict": "❌ Microsoft Ads 3.75 秒"},
-      {"host": "api.fastbundle.co", "count": 4, "maxDur_ms": 2001, "verdict": "❌ FastBundle API 主接口 404 (见 console errors)"},
-      {"host": "www.facebook.com", "count": 4, "maxDur_ms": 3754},
-      {"host": "f.clarity.ms", "count": 4, "maxDur_ms": 1442, "verdict": "Microsoft Clarity 热图"},
-      {"host": "omnisnippet1.com", "count": 4, "maxDur_ms": 0},
-      {"host": "www.paypal.com", "count": 4, "maxDur_ms": 4282, "verdict": "❌ PayPal 4.3 秒"},
-      {"host": "static.seel.com", "count": 4, "maxDur_ms": 3125},
-      {"host": "connect.facebook.net", "count": 3, "maxDur_ms": 0},
-      {"host": "analytics.google.com", "count": 3, "maxDur_ms": 1119}
+      {
+        "host": "momcozy.com",
+        "count": 263,
+        "kb": 7874,
+        "maxDur_ms": 8368
+      },
+      {
+        "host": "cdn.shopify.com",
+        "count": 20,
+        "maxDur_ms": 1,
+        "note": "✓ Shopify CDN 快"
+      },
+      {
+        "host": "static.klaviyo.com",
+        "count": 18,
+        "maxDur_ms": 332
+      },
+      {
+        "host": "monorail-edge.shopifysvc.com",
+        "count": 16,
+        "maxDur_ms": 1236
+      },
+      {
+        "host": "www.googletagmanager.com",
+        "count": 14,
+        "maxDur_ms": 0
+      },
+      {
+        "host": "otlp-http-production.shopifysvc.com",
+        "count": 14,
+        "maxDur_ms": 4641,
+        "verdict": "❌ Shopify OTLP 遥测 4.6 秒阻塞"
+      },
+      {
+        "host": "api.seel.com",
+        "count": 7,
+        "maxDur_ms": 10690,
+        "verdict": "❌ Seel 无忧购 10.7 秒 · 最严重阻塞"
+      },
+      {
+        "host": "stats.ptengine.jp",
+        "count": 7,
+        "maxDur_ms": 4497,
+        "verdict": "❌ PT Engine 4.5 秒"
+      },
+      {
+        "host": "cdn.elements.amazon",
+        "count": 7,
+        "maxDur_ms": 2605
+      },
+      {
+        "host": "cdn.us-east-1.prod.moon.dubai.aws.dev",
+        "count": 7,
+        "maxDur_ms": 5473,
+        "verdict": "❌ AWS moon.dubai (Amazon Pay infra) 5.5 秒"
+      },
+      {
+        "host": "static-tracking.klaviyo.com",
+        "count": 6,
+        "maxDur_ms": 0
+      },
+      {
+        "host": "order.buywithprime.amazon.com",
+        "count": 6,
+        "maxDur_ms": 2540
+      },
+      {
+        "host": "insight.adsrvr.org",
+        "count": 6,
+        "maxDur_ms": 1940,
+        "verdict": "TradeDesk pixel"
+      },
+      {
+        "host": "account.momcozy.com",
+        "count": 5,
+        "maxDur_ms": 5875,
+        "verdict": "❌ 自家 SSO 子域 5.9 秒阻塞"
+      },
+      {
+        "host": "www.googleadservices.com",
+        "count": 5,
+        "maxDur_ms": 1168
+      },
+      {
+        "host": "googleads.g.doubleclick.net",
+        "count": 5,
+        "maxDur_ms": 2066
+      },
+      {
+        "host": "bat.bing.com",
+        "count": 4,
+        "maxDur_ms": 3752,
+        "verdict": "❌ Microsoft Ads 3.75 秒"
+      },
+      {
+        "host": "api.fastbundle.co",
+        "count": 4,
+        "maxDur_ms": 2001,
+        "verdict": "❌ FastBundle API 主接口 404 (见 console errors)"
+      },
+      {
+        "host": "www.facebook.com",
+        "count": 4,
+        "maxDur_ms": 3754
+      },
+      {
+        "host": "f.clarity.ms",
+        "count": 4,
+        "maxDur_ms": 1442,
+        "verdict": "Microsoft Clarity 热图"
+      },
+      {
+        "host": "omnisnippet1.com",
+        "count": 4,
+        "maxDur_ms": 0
+      },
+      {
+        "host": "www.paypal.com",
+        "count": 4,
+        "maxDur_ms": 4282,
+        "verdict": "❌ PayPal 4.3 秒"
+      },
+      {
+        "host": "static.seel.com",
+        "count": 4,
+        "maxDur_ms": 3125
+      },
+      {
+        "host": "connect.facebook.net",
+        "count": 3,
+        "maxDur_ms": 0
+      },
+      {
+        "host": "analytics.google.com",
+        "count": 3,
+        "maxDur_ms": 1119
+      }
     ],
-
     "console_errors_pdp": {
       "total_errors": 15,
       "total_warnings": 14,
       "verdict": "❌ PDP 15 errors / 14 warnings · 比首页严重 67% · 多个核心组件挂掉",
-
       "critical_errors_with_stack": [
         {
           "rank": 1,
@@ -297,33 +645,82 @@
         }
       ]
     },
-
     "long_tasks_pdp": {
       "count": 7,
       "total_ms": 456,
       "longest_ms": 92,
       "verdict": "TBT (Total Blocking Time) 估 ~250ms · Lighthouse 红线 200ms · 临界 POOR",
       "top_3": [
-        {"startTime_ms": 9291, "duration_ms": 92, "attribution": "unknown (post-loadEvent)"},
-        {"startTime_ms": 3329, "duration_ms": 65, "attribution": "self · DOMContentLoaded 附近"},
-        {"startTime_ms": 4751, "duration_ms": 65, "attribution": "self"}
+        {
+          "startTime_ms": 9291,
+          "duration_ms": 92,
+          "attribution": "unknown (post-loadEvent)"
+        },
+        {
+          "startTime_ms": 3329,
+          "duration_ms": 65,
+          "attribution": "self · DOMContentLoaded 附近"
+        },
+        {
+          "startTime_ms": 4751,
+          "duration_ms": 65,
+          "attribution": "self"
+        }
       ]
     }
   },
-
   "summary_comparison": {
     "homepage_vs_pdp": [
-      {"metric": "Console Errors", "homepage": 9, "pdp": 15, "delta": "+67%"},
-      {"metric": "Total Resources", "homepage": 471, "pdp": 506, "delta": "+7%"},
-      {"metric": "DOM Nodes", "homepage": "N/A (未测)", "pdp": 7538, "delta": "v1.1 报 5375 是首屏 · 实际涨到 7538"},
-      {"metric": "iframe count", "homepage": "N/A", "pdp": 35, "delta": "v1.1 未发现"},
-      {"metric": "script tag count", "homepage": "N/A", "pdp": 357, "delta": "v1.1 未发现"},
-      {"metric": "Image 总数", "homepage": 340, "pdp": 376, "delta": "+11%"},
-      {"metric": "Image webp 比例", "homepage": "1.47% (5/340)", "pdp": "未单独测", "delta": "几乎无 webp"},
-      {"metric": "Above-fold Lazy 反模式", "homepage": "86% (172/200)", "pdp": "未单独测", "delta": "首屏 86% 图片用 lazy 是反模式"}
+      {
+        "metric": "Console Errors",
+        "homepage": 9,
+        "pdp": 15,
+        "delta": "+67%"
+      },
+      {
+        "metric": "Total Resources",
+        "homepage": 471,
+        "pdp": 506,
+        "delta": "+7%"
+      },
+      {
+        "metric": "DOM Nodes",
+        "homepage": "N/A (未测)",
+        "pdp": 7538,
+        "delta": "v1.1 报 5375 是首屏 · 实际涨到 7538"
+      },
+      {
+        "metric": "iframe count",
+        "homepage": "N/A",
+        "pdp": 35,
+        "delta": "v1.1 未发现"
+      },
+      {
+        "metric": "script tag count",
+        "homepage": "N/A",
+        "pdp": 357,
+        "delta": "v1.1 未发现"
+      },
+      {
+        "metric": "Image 总数",
+        "homepage": 340,
+        "pdp": 376,
+        "delta": "+11%"
+      },
+      {
+        "metric": "Image webp 比例",
+        "homepage": "1.47% (5/340)",
+        "pdp": "未单独测",
+        "delta": "几乎无 webp"
+      },
+      {
+        "metric": "Above-fold Lazy 反模式",
+        "homepage": "86% (172/200)",
+        "pdp": "未单独测",
+        "delta": "首屏 86% 图片用 lazy 是反模式"
+      }
     ]
   },
-
   "v1_2_new_findings_vs_v1_1": {
     "new_findings": [
       "❌ FastBundle FBT 接口 404 (KleanPal Pro PDP 上特定 404 · 该商品的捆绑销售挂掉)",

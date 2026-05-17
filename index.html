@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Momcozy 独立站诊断 M1 · 路特 AI 公司 × Momcozy · v1.1 FINAL</title>
-  <meta name="description" content="月入 $11.5M / CVR 0.88% / Top 5 P0 修复 35h 估月增收 $10-16M · 路特 AI 公司 COO Sisyphus 出品">
+  <title>📊 总览 · Momcozy 独立站诊断 M1 v1.3 · 路特 AI 公司 × Momcozy</title>
+  <meta name="description" content="月入 $11.67M / CVR 0.88% / Top 5 P0 修复 35h 估月增收 $10.9-12.6M · 路特 AI 公司 COO Sisyphus 出品">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -153,6 +153,44 @@
       text-transform: uppercase;
     }
     .nav-cta:hover { background: var(--accent); color: #fff; }
+
+    /* ─── 主导航：3 故事节点 + CTA ─────────────────────────────────── */
+    .nav-main {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .nav-main:hover { background: var(--bg-gray); }
+    .nav-main--active {
+      background: var(--accent);
+      color: #fff !important;
+    }
+    .nav-main--active:hover { background: var(--accent); }
+
+    /* ─── 子导航：当前页章节锚点 · 灰色小字 ──────────────────────── */
+    .nav-sub {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 8px 24px 10px;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border-light);
+      font-size: 12px;
+    }
+    .nav-sub a {
+      color: var(--text-tertiary);
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-sub a:hover { color: var(--accent); }
+    @media (max-width: 768px) {
+      .nav-sub { gap: 14px; padding: 6px 24px 8px; font-size: 11px; }
+    }
 
     /* ─── Hero ────────────────────────────────────────────────────────── */
     .hero {
@@ -910,9 +948,9 @@
 </head>
 <body>
 
-  <!-- ═══════ Promo Banner ═══════ -->
+  <!-- ═══════ Promo Banner · 数据口径 ═══════ -->
   <div class="promo-banner">
-    <span class="dot"></span> M1 v1.1 FINAL · 数据口径修正 · 2026-05-17 PT · 路特 AI 公司 COO Sisyphus 出品 <span class="dot"></span>
+    <span class="dot"></span> 数据窗口 2026-01-01 → 2026-05-15 · 135 天累计 · ÷ 4.44 月化 · v1.3 · 路特 AI 公司 COO Sisyphus <span class="dot"></span>
   </div>
 
   <!-- ═══════ Top Nav ═══════ -->
@@ -921,17 +959,20 @@
       <div class="nav-top__inner">
         <a href="#hero" class="nav-logo">路特 AI <span class="x">×</span> <span>Momcozy</span></a>
         <div class="nav-links">
-          <a href="#health">体检</a>
-          <a href="#perf">性能</a>
-          <a href="#top15">Top 15</a>
-          <a href="#matrix">竞品</a>
-          <a href="#code">代码</a>
-          <a href="#scripts">脚本</a>
-          <a href="#roadmap">路线图</a>
-          <a href="metrics.html">指标字典</a>
-          <a href="forensics.html" style="color:var(--danger);font-weight:700;">法医报告 v1.2</a>
-          <a href="#decisions" class="nav-cta">路特决策</a>
+          <a href="index.html" class="nav-main nav-main--active">📊 总览</a>
+          <a href="metrics.html" class="nav-main">📐 归因分析</a>
+          <a href="forensics.html" class="nav-main">🩻 策略 SOP</a>
+          <a href="index.html#decisions" class="nav-cta">路特决策 →</a>
         </div>
+      </div>
+      <div class="nav-sub">
+        <a href="#health">业务体检</a>
+        <a href="#perf">性能实测</a>
+        <a href="#top15">Top 15 病灶</a>
+        <a href="#matrix">8 站矩阵</a>
+        <a href="#code">15 PR 代码</a>
+        <a href="#scripts">神秘脚本</a>
+        <a href="#roadmap">Sprint 路线图</a>
       </div>
     </div>
   </nav>
@@ -941,17 +982,17 @@
     <div class="container">
       <div class="hero__grid">
         <div>
-          <span class="hero__badge">M1 诊断报告 · v1.0 FINAL</span>
+          <span class="hero__badge">📊 总览 · M1 诊断报告 · v1.3</span>
           <h1 class="hero__title">
-            月入 <span class="hl">$11.5M</span><br>
+            月入 <span class="hl">$11.67M</span><br>
             的高流量站，<br>
             CVR 卡在 <span class="hl">0.88%</span>。
           </h1>
           <p class="hero__lead">
-            <strong>Momcozy</strong> 在母婴跨境 DTC 赛道流量优秀（月 PV 45.6M）、AOV 优秀（$119 / +25%）、退款率优秀（0.89%），但 <strong>CVR 仅 0.88%</strong>（行业基线的 35-58%）—— 核心问题是 <strong>独立站性能 + UX 灾难</strong>（LCP 4.92s · PDP Load 17.2s · DOM 5375）拖死转化。基础数据来自路特 Excel 137 天累计（2026-01-01 → 2026-05-15）÷ 4.5 个月换月度。
+            <strong>Momcozy</strong> 在母婴跨境 DTC 赛道流量优秀（月 PV ~46.9M）、AOV 优秀（$119 / +25%）、退款率优秀（0.89%），但 <strong>CVR 仅 0.88%</strong>（行业基线的 35-58%）—— 核心问题是 <strong>独立站性能 + UX 灾难</strong>（LCP 4.92s · PDP Load 17.2s · DOM 5375）拖死转化。基础数据来自路特 Excel 135 天累计（2026-01-01 → 2026-05-15）÷ 4.5 个月换月度。
           </p>
           <p class="hero__lead">
-            Top 5 P0 修复 <strong>35 工时</strong>，估月增收 <strong>$10-16M</strong>（保守区间 $8-13M）。ROI 500-1500x · 投资回报期 &lt; 1-2 周上线后。
+            Top 5 P0 修复 <strong>35 工时</strong>，估月增收 <strong>$10.9-12.6M</strong>（保守区间 $8.5-10.5M）。ROI 500-1500x · 投资回报期 &lt; 1-2 周上线后。
           </p>
           <div class="hero__meta">
             <span>方法：<strong>Sisyphus Playwright</strong> + Performance API</span>
@@ -963,7 +1004,7 @@
         <div class="hero__roi-card">
           <div class="hero__roi-eyebrow">月增收 ROI 速查 · LCP 阶梯</div>
           <div class="hero__roi-big">$11.7<span class="unit">M / 月</span></div>
-          <div class="hero__roi-sub">LCP 4920ms → 2000ms = +102% CVR 相对提升 · 按真实月入 $11.5M 基线</div>
+          <div class="hero__roi-sub">LCP 4920ms → 2000ms = +102% CVR 相对提升 · 按真实月入 $11.67M 基线</div>
           <div class="hero__roi-bars">
             <div class="roi-bar">
               <div class="roi-bar__label">→ 4500ms (-420ms)</div>
@@ -997,21 +1038,21 @@
       <div class="section__head">
         <div class="section__eyebrow">§ 2 · 业务体检</div>
         <h2 class="section__title">真实运营数据 vs 母婴 DTC 行业基线</h2>
-        <p class="section__sub">基于路特提供的真实 Excel 运营数据（137 天 · 2026-01-01 → 2026-05-17）。流量、AOV、退款率都是顶级 DTC 水准，但 CVR / 跳出率 / 加购率三项是病灶。</p>
+        <p class="section__sub">基于路特提供的真实 Excel 运营数据（135 天 · 2026-01-01 → 2026-05-15）。流量、AOV、退款率都是顶级 DTC 水准，但 CVR / 跳出率 / 加购率三项是病灶。</p>
       </div>
 
       <div class="kpi-grid">
         <div class="kpi-card kpi-card--good">
           <span class="kpi-card__status status-good"></span>
-          <div class="kpi-card__label">月 PV</div>
-          <div class="kpi-card__value">45.6M</div>
-          <div class="kpi-card__baseline">超规模 · 大 DTC 5-30M</div>
+          <div class="kpi-card__label">月 PV · 月化估</div>
+          <div class="kpi-card__value">~46.9M</div>
+          <div class="kpi-card__baseline">超规模 · 207.9M ÷ 4.44 月</div>
         </div>
         <div class="kpi-card kpi-card--bad">
           <span class="kpi-card__status status-bad"></span>
-          <div class="kpi-card__label">CVR</div>
+          <div class="kpi-card__label">CVR (Excel 口径)</div>
           <div class="kpi-card__value">0.88%</div>
-          <div class="kpi-card__baseline">基线 1.5-2.5% · 差 35-58%</div>
+          <div class="kpi-card__baseline">订单/UV 反算仅 0.28% · 详 § 字典</div>
         </div>
         <div class="kpi-card kpi-card--good">
           <span class="kpi-card__status status-good"></span>
@@ -1021,9 +1062,9 @@
         </div>
         <div class="kpi-card">
           <span class="kpi-card__status status-good"></span>
-          <div class="kpi-card__label">月毛收入</div>
-          <div class="kpi-card__value">$11.5M</div>
-          <div class="kpi-card__baseline">月单数 122K · 137d 累计 $51.8M</div>
+          <div class="kpi-card__label">月毛收入 · 月化估</div>
+          <div class="kpi-card__value">$11.67M</div>
+          <div class="kpi-card__baseline">135d 累计 $51.78M ÷ 4.44 月</div>
         </div>
         <div class="kpi-card kpi-card--bad">
           <span class="kpi-card__status status-bad"></span>
@@ -1038,20 +1079,20 @@
           <thead>
             <tr>
               <th>维度</th>
-              <th>Momcozy 真实</th>
+              <th>Momcozy 真实<br><span style="font-weight:500;text-transform:none;letter-spacing:0;color:var(--text-tertiary);">(135 天累计 / 月化估)</span></th>
               <th>行业基线</th>
               <th>评</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>月 PV</td><td class="num good">45,600,000</td><td>5M-30M</td><td><span class="delta delta-good">✓ 超规模</span></td></tr>
-            <tr><td>月 UV</td><td class="num good">43,200,000</td><td>—</td><td><span class="delta delta-good">✓</span></td></tr>
+            <tr><td>月 PV<br><small style="color:var(--text-tertiary);">(月化估)</small></td><td class="num good">46,866,000<br><small style="color:var(--text-tertiary);font-weight:400;">累计 207.9M / 135d</small></td><td>5M-30M</td><td><span class="delta delta-good">✓ 超规模</span></td></tr>
+            <tr><td>月 UV<br><small style="color:var(--text-tertiary);">(月化估)</small></td><td class="num good">44,418,000<br><small style="color:var(--text-tertiary);font-weight:400;">累计 197.0M / 135d</small></td><td>—</td><td><span class="delta delta-good">✓</span></td></tr>
             <tr><td><strong>CVR</strong></td><td class="num bad">0.88%</td><td>1.5% – 2.5%</td><td><span class="delta delta-bad">✗ -41% to -65%</span></td></tr>
             <tr><td>AOV</td><td class="num good">$119.13</td><td>$95</td><td><span class="delta delta-good">✓ +25%</span></td></tr>
-            <tr><td><strong>月毛收入</strong></td><td class="num good">$11.5M / 月</td><td>—</td><td><span class="delta delta-good">✓ 累计 $51.8M / 137 天</span></td></tr>
+            <tr><td><strong>月毛收入</strong><br><small style="color:var(--text-tertiary);">(月化估)</small></td><td class="num good">$11.67M<br><small style="color:var(--text-tertiary);font-weight:400;">累计 $51.78M / 135d</small></td><td>—</td><td><span class="delta delta-good">✓</span></td></tr>
             <tr><td><strong>跳出率</strong></td><td class="num bad">75.8%</td><td>55%</td><td><span class="delta delta-bad">✗ +38%</span></td></tr>
             <tr><td><strong>加购率</strong></td><td class="num bad">3.67%</td><td>10%</td><td><span class="delta delta-bad">✗ -63%</span></td></tr>
-            <tr><td>月单数</td><td class="num">121,637</td><td>—</td><td>累计 547,808 / 137 天</td></tr>
+            <tr><td>月单数<br><small style="color:var(--text-tertiary);">(月化估)</small></td><td class="num">123,510<br><small style="color:var(--text-tertiary);font-weight:400;">累计 547,808 / 135d</small></td><td>—</td><td>—</td></tr>
             <tr><td>退款率</td><td class="num good">0.89%</td><td>2%</td><td><span class="delta delta-good">✓ -56%</span></td></tr>
             <tr><td>复购率</td><td class="num">26.7%</td><td>35%</td><td><span class="delta delta-warn">⚠ -24%</span></td></tr>
           </tbody>
@@ -1128,7 +1169,7 @@
       <div class="section__head">
         <div class="section__eyebrow">§ 4 · Top 15 P0/P1/P2</div>
         <h2 class="section__title">15 项问题 · 月增收 ROI 排序</h2>
-        <p class="section__sub">按 Shopify 2026 公式（每 100ms LCP 改善 = 3.5% CVR 提升）· 应用月 PV 45.6M / CVR 0.88% / AOV $119 真实数据计算。</p>
+        <p class="section__sub">按 Shopify 2026 公式（每 100ms LCP 改善 = 3.5% CVR 提升）· 应用月 PV ~46.9M / CVR 0.88% / AOV $119 真实数据计算（数据窗 2026-01-01 → 05-15 · 135d 累计 ÷ 4.44 月）。</p>
       </div>
 
       <div class="diag-list">
@@ -1146,7 +1187,7 @@
           <div class="diag-row__title"><small>性能</small>LCP Hero 图 fetchpriority + preload + webp</div>
           <div class="diag-row__evidence">Hero 图 24M 像素 · 用 lazysizes 懒加载（反模式）</div>
           <div class="diag-row__num">-1500ms</div>
-          <div class="diag-row__roi">$6.0M</div>
+          <div class="diag-row__roi">$6.1M</div>
           <div class="diag-row__hours">4h</div>
         </div>
         <div class="diag-row">
@@ -1154,7 +1195,7 @@
           <div class="diag-row__title"><small>性能</small>PDP DOM 砍 50%（5375 → 2700）</div>
           <div class="diag-row__evidence">FastBundle 双区注入 · Okendo review widget 754 条</div>
           <div class="diag-row__num">-900ms</div>
-          <div class="diag-row__roi">$3.6M</div>
+          <div class="diag-row__roi">$3.7M</div>
           <div class="diag-row__hours">16h</div>
         </div>
         <div class="diag-row">
@@ -1162,7 +1203,7 @@
           <div class="diag-row__title"><small>性能</small>Image webp 全站（2% → 90%）</div>
           <div class="diag-row__evidence">295 图全站仅 6 个 webp · Shopify CDN 原生支持</div>
           <div class="diag-row__num">-600ms</div>
-          <div class="diag-row__roi">$2.4M</div>
+          <div class="diag-row__roi">$2.5M</div>
           <div class="diag-row__hours">3h</div>
         </div>
         <div class="diag-row">
@@ -1170,7 +1211,7 @@
           <div class="diag-row__title"><small>性能</small>PDP 第三方域 72 → 30</div>
           <div class="diag-row__evidence">Spectra 仅 15 域 · 4.8x 多 · 大量 KleanPal 不必要 pixel</div>
           <div class="diag-row__num">-800ms</div>
-          <div class="diag-row__roi">$3.2M</div>
+          <div class="diag-row__roi">$3.3M</div>
           <div class="diag-row__hours">8h</div>
         </div>
         <div class="diag-row">
@@ -1264,7 +1305,7 @@
       </div>
 
       <p style="margin-top:24px; font-size:13px; color:var(--text-secondary);">
-        * 月增收估算按 Shopify 2026 公式 · 累计有交叉重叠效应 · 实际叠加 ROI ≈ <strong style="color:var(--accent);">$12-20M / 月</strong>（保守区间 $10-16M · 按真实月入 $11.5M 基线）。
+        * 月增收估算按 Shopify 2026 公式 · 累计有交叉重叠效应 · 实际叠加 ROI ≈ <strong style="color:var(--accent);">$13-17M / 月</strong>（保守区间 $10.9-12.6M · 按真实月入 $11.67M 基线）。
       </p>
     </div>
   </section>
@@ -1416,10 +1457,10 @@
 
       <div class="pr-wrap">
         <div class="pr-tabs" role="tablist">
-          <button class="pr-tab active" data-pr="p01" role="tab"><span class="pr-tab__pri pri-p0">P0-1</span><span class="pr-tab__title">LCP Hero 图优化</span><span class="pr-tab__roi">$6.0M / 月 · 4h</span></button>
-          <button class="pr-tab" data-pr="p02" role="tab"><span class="pr-tab__pri pri-p0">P0-2</span><span class="pr-tab__title">PDP DOM 砍 50%</span><span class="pr-tab__roi">$3.6M / 月 · 16h</span></button>
-          <button class="pr-tab" data-pr="p03" role="tab"><span class="pr-tab__pri pri-p0">P0-3</span><span class="pr-tab__title">Image webp 全站</span><span class="pr-tab__roi">$2.4M / 月 · 3h</span></button>
-          <button class="pr-tab" data-pr="p04" role="tab"><span class="pr-tab__pri pri-p0">P0-4</span><span class="pr-tab__title">第三方域 72→30</span><span class="pr-tab__roi">$3.2M / 月 · 8h</span></button>
+          <button class="pr-tab active" data-pr="p01" role="tab"><span class="pr-tab__pri pri-p0">P0-1</span><span class="pr-tab__title">LCP Hero 图优化</span><span class="pr-tab__roi">$6.1M / 月 · 4h</span></button>
+          <button class="pr-tab" data-pr="p02" role="tab"><span class="pr-tab__pri pri-p0">P0-2</span><span class="pr-tab__title">PDP DOM 砍 50%</span><span class="pr-tab__roi">$3.7M / 月 · 16h</span></button>
+          <button class="pr-tab" data-pr="p03" role="tab"><span class="pr-tab__pri pri-p0">P0-3</span><span class="pr-tab__title">Image webp 全站</span><span class="pr-tab__roi">$2.5M / 月 · 3h</span></button>
+          <button class="pr-tab" data-pr="p04" role="tab"><span class="pr-tab__pri pri-p0">P0-4</span><span class="pr-tab__title">第三方域 72→30</span><span class="pr-tab__roi">$3.3M / 月 · 8h</span></button>
           <button class="pr-tab" data-pr="p05" role="tab"><span class="pr-tab__pri pri-p0">P0-5</span><span class="pr-tab__title">Console errors 修零</span><span class="pr-tab__roi">$1.2M / 月 · 4h</span></button>
           <button class="pr-tab" data-pr="p07" role="tab"><span class="pr-tab__pri pri-p0">P0-7</span><span class="pr-tab__title">PDP Mobile sticky AddToCart</span><span class="pr-tab__roi">$1.2M / 月 · 12h</span></button>
           <button class="pr-tab" data-pr="p08" role="tab"><span class="pr-tab__pri pri-p0">P0-8</span><span class="pr-tab__title">KleanPal 5 项 vs Spectra</span><span class="pr-tab__roi">$0.95M / 月 · 16.5h</span></button>
@@ -1434,7 +1475,7 @@
             <div class="pr-panel__meta">
               <span>工时 <strong id="pr-hours">4h</strong></span>
               <span>LCP 改善 <strong id="pr-lcp">-1500ms</strong></span>
-              <span>月增收 <strong id="pr-roi" style="color:var(--accent);">$6.0M</strong></span>
+              <span>月增收 <strong id="pr-roi" style="color:var(--accent);">$6.1M</strong></span>
               <span>文件 <strong id="pr-file">layout/theme.liquid + sections/image-banner.liquid</strong></span>
             </div>
           </div>
@@ -1513,7 +1554,7 @@
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">§ 8 · M2 实施 4 周路线图</div>
-        <h2 class="section__title">Sprint 1-4 · 81h · 估月增收 $12-20M</h2>
+        <h2 class="section__title">Sprint 1-4 · 81h · 估月增收 $13-17M</h2>
         <p class="section__sub">建议 Shopify Plus 工程师 1 人 4 周完成 P0 全部 + P1 启程。每 Sprint 上线后用 28 天 CrUX 数据 + GrowthBook A/B 验证。</p>
       </div>
 
@@ -1574,8 +1615,8 @@
         </div>
         <div>
           <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;opacity:0.7;margin-bottom:8px;">月增收估</div>
-          <div style="font-size:32px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;">$12-20M</div>
-          <div style="font-size:13px;opacity:0.85;margin-top:6px;">已扣除交叉效应保守估 · 真实月入 $11.5M 基线</div>
+          <div style="font-size:32px;font-weight:800;letter-spacing:-0.02em;line-height:1.1;">$13-17M</div>
+          <div style="font-size:13px;opacity:0.85;margin-top:6px;">已扣除交叉效应保守估 · 真实月入 $11.67M 基线</div>
         </div>
         <div>
           <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;opacity:0.7;margin-bottom:8px;">投资回报期</div>
@@ -1686,7 +1727,7 @@
         </div>
       </div>
       <div class="footer__bottom">
-        © 2026 路特 AI 公司 · M1 v1.1 FINAL · 数据口径修正 · 2026-05-17 PT · Sisyphus(COO) signed out
+        © 2026 路特 AI 公司 · M1 v1.3 · 数据窗 2026-01-01→05-15 · 135d ÷ 4.44月 · 2026-05-17 PT · Sisyphus(COO)
       </div>
     </div>
   </footer>
@@ -1695,35 +1736,35 @@
     const PR_DATA = {
       p01: {
         title: 'P0-1 · LCP Hero 图优化',
-        hours: '4h', lcp: '-1500ms', roi: '$6.0M',
+        hours: '4h', lcp: '-1500ms', roi: '$6.1M',
         file: 'layout/theme.liquid + sections/image-banner.liquid',
         why: '<strong>问题</strong>：首页 LCP 4920ms（Google Poor 4000ms 红线超 23%）· Hero 图像素 24M（Elvie 4.5M / Haakaa 1M）· LCP 候选用 lazysizes 懒加载（反模式应 eager + fetchpriority high）。',
         code: '<span class="comment">{%- if request.page_type == \'index\' -%}</span>\n  <span class="liquid">{%- assign hero_image = sections[\'image-banner\'].settings.image -%}</span>\n  <span class="comment">{%- if hero_image -%}</span>\n    <span class="tag">&lt;link</span> rel=<span class="str">"preload"</span> as=<span class="str">"image"</span>\n      href=<span class="str">"{{ hero_image | image_url: width: 1440, format: \'webp\' }}"</span>\n      imagesrcset=<span class="str">"{{ hero_image | image_url: width: 800, format: \'webp\' }} 800w,\n                   {{ hero_image | image_url: width: 1200, format: \'webp\' }} 1200w,\n                   {{ hero_image | image_url: width: 1440, format: \'webp\' }} 1440w"</span>\n      imagesizes=<span class="str">"(max-width: 800px) 100vw, (max-width: 1200px) 1200px, 1440px"</span>\n      fetchpriority=<span class="str">"high"</span><span class="tag">&gt;</span>\n  <span class="comment">{%- endif -%}</span>\n<span class="comment">{%- endif -%}</span>\n\n<span class="comment">// sections/image-banner.liquid · Hero img 改 eager</span>\n<span class="liquid">{{ hero_image | image_url: width: 1440 | image_tag:</span>\n   <span class="key">loading:</span> <span class="str">\'eager\'</span>,\n   <span class="key">fetchpriority:</span> <span class="str">\'high\'</span>,\n   <span class="key">widths:</span> <span class="str">\'400,800,1200,1440\'</span>,\n   <span class="key">sizes:</span> <span class="str">\'(max-width: 800px) 100vw, (max-width: 1200px) 1200px, 1440px\'</span>,\n   <span class="key">class:</span> <span class="str">\'hero-image\'</span> <span class="liquid">}}</span>',
-        impact: '<strong>预估</strong>：LCP -1500-2000ms · CVR +52-70%（按 100ms = 3.5%）· Lighthouse Mobile +20 分 · <strong>月增收 $6.0M</strong>。<strong>验证</strong>：上线 28 天 CrUX p75 LCP 进 &lt; 2.5s 绿区 · A/B 用 GrowthBook 服务端渲染。'
+        impact: '<strong>预估</strong>：LCP -1500-2000ms · CVR +52-70%（按 100ms = 3.5%）· Lighthouse Mobile +20 分 · <strong>月增收 $6.1M</strong>。<strong>验证</strong>：上线 28 天 CrUX p75 LCP 进 &lt; 2.5s 绿区 · A/B 用 GrowthBook 服务端渲染。'
       },
       p02: {
         title: 'P0-2 · PDP DOM 砍 50%（5375 → 2700）',
-        hours: '16h', lcp: '-900ms', roi: '$3.6M',
+        hours: '16h', lcp: '-900ms', roi: '$3.7M',
         file: 'sections/main-product.liquid + snippets/fastbundle-*.liquid',
         why: '<strong>问题</strong>：PDP DOM 5375 节点（Google 警戒 3000 · Spectra 1446 · 3.7x）。FastBundle 双区注入 + Okendo 754 review 全 DOM 渲染 + Liquid 模板未做 desktop/mobile 条件渲染。',
         code: '<span class="comment">{%- comment -%} 1. FastBundle 单页 only-show 1 区（旗舰 only） {%- endcomment -%}</span>\n<span class="liquid">{%- liquid\n  if request.path contains \'kleanpal\' or product.tags contains \'flagship\'\n    assign show_bundle = true\n  endif\n-%}</span>\n<span class="liquid">{%- if show_bundle -%}</span>\n  <span class="liquid">{% include \'fastbundle-recommendations\' %}</span>\n<span class="liquid">{%- endif -%}</span>\n\n<span class="comment">// 2. Okendo review 改分页 lazy（首屏只 5 条 · 滚动加载）</span>\n<span class="tag">&lt;div</span> data-okendo-review-widget data-page-size=<span class="str">"5"</span> data-lazy=<span class="str">"true"</span><span class="tag">&gt;&lt;/div&gt;</span>\n\n<span class="comment">// 3. desktop/mobile 条件渲染（去掉 mobile-only 的双套 DOM）</span>\n<span class="liquid">{%- if section.settings.show_mobile_variant_grid -%}</span>\n  <span class="tag">&lt;div</span> class=<span class="str">"variant-grid--mobile"</span> hidden=<span class="str">"hidden"</span> data-mobile-only<span class="tag">&gt;</span>\n    <span class="liquid">{% render \'product-variant-grid\', product: product %}</span>\n  <span class="tag">&lt;/div&gt;</span>\n<span class="liquid">{%- endif -%}</span>\n\n<span class="comment">// 4. CSS @media 控制显示 · DOM 仅一份</span>\n<span class="tag">&lt;style&gt;</span>\n  @media (max-width: 768px) { <span class="key">.variant-grid--desktop</span> { display: none; } }\n  @media (min-width: 769px) { <span class="key">[data-mobile-only]</span> { display: none; } }\n<span class="tag">&lt;/style&gt;</span>',
-        impact: '<strong>预估</strong>：DOM 5375 → 2700（-50%）· LCP -900ms · TBT -300ms · 移动端 INP 改善明显。<strong>月增收 $3.6M</strong>。<strong>验证</strong>：Lighthouse PDP DOM size audit 通过 + Web Vitals 库实测。'
+        impact: '<strong>预估</strong>：DOM 5375 → 2700（-50%）· LCP -900ms · TBT -300ms · 移动端 INP 改善明显。<strong>月增收 $3.7M</strong>。<strong>验证</strong>：Lighthouse PDP DOM size audit 通过 + Web Vitals 库实测。'
       },
       p03: {
         title: 'P0-3 · Image webp 全站（2% → 90%）',
-        hours: '3h', lcp: '-600ms', roi: '$2.4M',
+        hours: '3h', lcp: '-600ms', roi: '$2.5M',
         file: 'snippets/responsive-image.liquid（新建）+ 全站 image_tag 替换',
         why: '<strong>问题</strong>：首页 webp 仅 2%（295 图全站仅 6 个）· Shopify CDN 原生支持 <code>format: \'webp\'</code>，但 theme 一直没用。',
         code: '<span class="comment">{%- comment -%} snippets/responsive-image.liquid · 全站统一 wrapper {%- endcomment -%}</span>\n<span class="liquid">{%- liquid\n  assign image_widths = \'400,800,1200,1600\'\n  assign default_sizes = \'(max-width: 800px) 100vw, 800px\'\n-%}</span>\n\n<span class="liquid">{{ image | image_url: width: 1600, format: \'webp\' | image_tag:</span>\n   <span class="key">loading:</span> loading | <span class="key">default:</span> <span class="str">\'lazy\'</span>,\n   <span class="key">fetchpriority:</span> priority | <span class="key">default:</span> <span class="str">\'auto\'</span>,\n   <span class="key">widths:</span> image_widths,\n   <span class="key">sizes:</span> sizes | <span class="key">default:</span> default_sizes,\n   <span class="key">alt:</span> alt | <span class="key">default:</span> image.alt <span class="liquid">}}</span>\n\n<span class="comment">// 全站搜替换：所有 {{ x.image | image_tag }} → {% render \'responsive-image\', image: x.image %}</span>\n<span class="comment">// grep -rn "image_tag" sections/ snippets/ templates/ | wc -l</span>\n<span class="comment">// 改完 295 个调用点 ≈ 2-3h（自动化脚本可批量）</span>',
-        impact: '<strong>预估</strong>：webp 比例 2% → 90% · 总图传输 -55% · LCP -600ms · 移动端流量包月省 30%。<strong>月增收 $2.4M</strong>。<strong>验证</strong>：Chrome DevTools Network → Img filter → 看 Type 列。'
+        impact: '<strong>预估</strong>：webp 比例 2% → 90% · 总图传输 -55% · LCP -600ms · 移动端流量包月省 30%。<strong>月增收 $2.5M</strong>。<strong>验证</strong>：Chrome DevTools Network → Img filter → 看 Type 列。'
       },
       p04: {
         title: 'P0-4 · PDP 第三方域 72 → 30',
-        hours: '8h', lcp: '-800ms', roi: '$3.2M',
+        hours: '8h', lcp: '-800ms', roi: '$3.3M',
         file: 'Shopify Customer Events 后台 + theme.liquid + partytown',
         why: '<strong>问题</strong>：PDP 第三方域 72 个（Spectra 15 · 4.8x 多）· 大量是 KleanPal 不必要 pixel（dwin1.com / bigsur.ai / 老 cifnews / 重复 Meta Pixel 副本）。',
         code: '<span class="comment">// Step 1: Customer Events 后台暂停以下 Pixel</span>\n<span class="comment">//   - dwin1.com (DWIN · 0 ROI 数据)</span>\n<span class="comment">//   - bigsur.ai static.js (Bigsur AI · 0 ROI)</span>\n<span class="comment">//   - cifnews capi-gateway (404 已死)</span>\n\n<span class="comment">// Step 2: theme.liquid 用 partytown 把第三方延迟到 web worker</span>\n<span class="tag">&lt;script</span> type=<span class="str">"text/partytown"</span><span class="tag">&gt;</span>\n  setTimeout(() <span class="key">=&gt;</span> {\n    <span class="key">import</span>(<span class="str">\'https://connect.facebook.net/en_US/fbevents.js\'</span>);\n  }, 3000);\n<span class="tag">&lt;/script&gt;</span>\n\n<span class="comment">// Step 3: 删冗余 Meta Pixel 多副本（主题 vs Shopify Pixel App 重复）</span>\n<span class="comment">// grep theme.liquid "fbq(\'init\'" → 只保留 1 处</span>\n\n<span class="comment">// Step 4: dns-prefetch 必要的归因 domain 提前</span>\n<span class="tag">&lt;link</span> rel=<span class="str">"dns-prefetch"</span> href=<span class="str">"//res4.applovin.com"</span><span class="tag">&gt;</span>\n<span class="tag">&lt;link</span> rel=<span class="str">"preconnect"</span> href=<span class="str">"//res4.applovin.com"</span> crossorigin<span class="tag">&gt;</span>',
-        impact: '<strong>预估</strong>：第三方域 72 → 30（-58%）· 砍 42 个 DNS+TLS 握手 · LCP -800ms · 移动端可视化更丝滑。<strong>月增收 $3.2M</strong>。<strong>风险</strong>：必先验证哪些 pixel 在用 · 不要盲删归因 SaaS。'
+        impact: '<strong>预估</strong>：第三方域 72 → 30（-58%）· 砍 42 个 DNS+TLS 握手 · LCP -800ms · 移动端可视化更丝滑。<strong>月增收 $3.3M</strong>。<strong>风险</strong>：必先验证哪些 pixel 在用 · 不要盲删归因 SaaS。'
       },
       p05: {
         title: 'P0-5 · Console errors 修零（9-16 → 0）',

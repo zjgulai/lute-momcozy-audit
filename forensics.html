@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Momcozy 法医验尸报告 · 13 项铁证 · v1.2 · 2026-05-17</title>
+  <title>🩻 策略 SOP · Momcozy 13 项铁证 + Liquid PR · 路特 AI 公司 × Momcozy</title>
   <meta name="description" content="逐资源·逐链接·逐 console error·完整 stack trace 法医级取证报告">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,6 +61,56 @@
     .nav-links a { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: var(--text-secondary); transition: color 0.2s; }
     .nav-links a:hover { color: var(--accent); }
     .nav-back { background: var(--cta-black); color: #fff; padding: 7px 14px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    /* ─── 主导航：3 故事节点 + CTA ─────────────────────────────────── */
+    .nav-main {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      color: var(--text-primary);
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .nav-main:hover { background: var(--bg-gray); }
+    .nav-main--active {
+      background: var(--accent);
+      color: #fff !important;
+    }
+    .nav-main--active:hover { background: var(--accent); }
+    .nav-cta {
+      background: var(--cta-black);
+      color: #fff !important;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .nav-cta:hover { background: var(--accent); }
+
+    /* ─── 子导航：当前页章节锚点 · 灰色小字 ──────────────────────── */
+    .nav-sub {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 8px 24px 10px;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--border-light);
+      font-size: 12px;
+    }
+    .nav-sub a {
+      color: var(--text-tertiary);
+      font-weight: 500;
+      transition: color 0.15s;
+    }
+    .nav-sub a:hover { color: var(--accent); }
+    @media (max-width: 768px) {
+      .nav-sub { gap: 14px; padding: 6px 24px 8px; font-size: 11px; }
+    }
+
 
     .hero { padding: 60px 0 64px; background: linear-gradient(180deg, #fff 0%, var(--bg-gray) 100%); }
     .hero__badge { display: inline-block; background: var(--danger-light); color: var(--danger); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; margin-bottom: 20px; }
@@ -224,8 +274,9 @@
 </head>
 <body>
 
+  <!-- ═══════ Promo Banner · 数据口径 ═══════ -->
   <div class="promo-banner">
-    法医验尸报告 · 13 项铁证 · 5 大取证区 · v1.2 · 2026-05-17 PT
+    <span class="dot"></span> 数据窗口 2026-01-01 → 2026-05-15 · 135 天累计 · ÷ 4.44 月化 · v1.3 · 路特 AI 公司 COO Sisyphus <span class="dot"></span>
   </div>
 
   <nav class="nav-top">
@@ -233,23 +284,26 @@
       <div class="nav-top__inner">
         <a href="index.html" class="nav-logo">路特 AI <span class="x">×</span> <span>Momcozy</span></a>
         <div class="nav-links">
-          <a href="index.html">主报告</a>
-          <a href="metrics.html">指标字典</a>
-          <a href="#scene">现场</a>
-          <a href="#fatal">致命错误</a>
-          <a href="#resources">资源物证</a>
-          <a href="#images">图片清单</a>
-          <a href="#links">链接结构</a>
-          <a href="data/forensics-raw.json">原始 JSON</a>
-          <a href="index.html#decisions" class="nav-back">回主报告</a>
+          <a href="index.html" class="nav-main">📊 总览</a>
+          <a href="metrics.html" class="nav-main">📐 归因分析</a>
+          <a href="forensics.html" class="nav-main nav-main--active">🩻 策略 SOP</a>
+          <a href="index.html#decisions" class="nav-cta">路特决策 →</a>
         </div>
+      </div>
+      <div class="nav-sub">
+        <a href="#fatal">致命错误</a>
+        <a href="#resources">资源物证</a>
+        <a href="#images">图片清单</a>
+        <a href="#thirdparty">第三方域</a>
+        <a href="#links">链接结构</a>
+        <a href="data/forensics-raw.json">原始 JSON</a>
       </div>
     </div>
   </nav>
 
   <section class="hero" id="scene">
     <div class="container">
-      <span class="hero__badge">⚠️ 法医验尸报告 · v1.2 · 不留情面版</span>
+      <span class="hero__badge">🩻 策略 SOP · v1.2 · 法医级取证 + 修复</span>
       <h1 class="hero__title">
         Momcozy KleanPal Pro PDP 现场：<br>
         <span class="hl">15 个 console error</span> · <span class="hl">FastBundle 主接口 404</span> · <span class="hl">Amazon SDK 5 秒超时</span>
@@ -1129,7 +1183,7 @@ import fs from 'fs';
     <div class="container">
       <div class="footer__brand">路特 AI <span>×</span> Momcozy</div>
       <div style="font-size:13px;color:#8a8a8a;line-height:1.7;max-width:760px;">
-        法医验尸报告 v1.2 · 2026-05-17 PT · Sisyphus（COO）出品 · 13 项铁证 · 5 大取证区 · 全部 stack trace 落盘 <code style="color:#fbbf24;background:#1a1a1c;padding:2px 6px;border-radius:3px;">data/forensics-raw.json</code>
+        策略 SOP v1.2 · 2026-05-17 PT · Sisyphus（COO）出品 · 13 项铁证 · 5 取证区 · 14 修复代码 · 全部 stack trace 落盘 <code style="color:#fbbf24;background:#1a1a1c;padding:2px 6px;border-radius:3px;">data/forensics-raw.json</code>
       </div>
       <div class="footer__bottom">
         © 2026 路特 AI 公司 · v1.2 · 实测时间窗 2026-05-17T10:53-10:56 PDT · 取证设备 Chromium 1440×900
