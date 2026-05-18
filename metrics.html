@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📐 归因分析 v1.6 · Momcozy 25 KPI + 4 PDP 实测对比 · 路特 AI 公司 × Momcozy</title>
+  <title>📐 归因分析 v1.7 · Momcozy 25 KPI + 50+ 术语表 + 4 PDP 详细对比 · 路特 AI 公司 × Momcozy</title>
   <meta name="description" content="25 个核心指标 · 计算公式 · 统计口径 · 业务价值 · 双轴漏斗 + 6 张差异化图表">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -182,6 +182,18 @@
     .metric-block .kv strong { color: var(--text-primary); font-weight: 600; min-width: 80px; display: inline-block; }
     .metric-block .kv-row { margin-bottom: 6px; }
 
+    .glossary-term { display: grid; grid-template-columns: 96px 1fr; gap: 14px; padding: 14px 0; border-top: 1px solid var(--border-light); }
+    .glossary-term:first-of-type { border-top: none; }
+    .glossary-term__abbr { font-family: var(--font-mono); font-size: 16px; font-weight: 800; color: var(--accent); letter-spacing: -0.01em; line-height: 1.3; padding-top: 1px; }
+    .glossary-term__body { font-size: 13px; line-height: 1.65; }
+    .glossary-term__en { font-size: 11.5px; font-weight: 700; color: var(--text-tertiary); letter-spacing: 0.04em; margin-bottom: 6px; }
+    .glossary-term__biz { color: var(--text-secondary); margin-bottom: 6px; }
+    .glossary-term__mom { color: var(--text-secondary); padding-left: 10px; border-left: 2px solid var(--accent); margin-top: 4px; font-size: 12.5px; }
+    .glossary-term__mom strong { color: var(--accent); }
+
+    abbr[title] { text-decoration: none; border-bottom: 1px dashed var(--accent); cursor: help; }
+    abbr[title]:hover { color: var(--accent); }
+
     .metric-section-head {
       display: flex;
       align-items: center;
@@ -265,6 +277,7 @@
         <a href="#pdp-funnel">PDP 漏斗</a>
         <a href="#performance-gauges">性能水表</a>
         <a href="#dict-A">25 指标字典</a>
+        <a href="#glossary" style="color:var(--accent);font-weight:700;">📖 术语表 v1.7</a>
       </div>
     </div>
   </nav>
@@ -980,6 +993,501 @@
           <strong>2 项 GOOD</strong>：TTFB 523ms（Shopify CDN 优秀）/ CLS 0.0008（布局稳定）— 说明工程底子在。<br>
           <strong>6 项 POOR</strong>：LCP / FCP / PDP Load / DOM / Size / webp — 全是 P0-1 到 P0-5 的修复目标。<br>
           → <strong>底子在，问题集中</strong>：35 工时 P0 全修后预测 8 项可全转 GOOD。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--gray" id="glossary">
+    <div class="container">
+      <div class="metric-section-head">
+        <div class="metric-section-head__icon" style="background:var(--info);">📖</div>
+        <div>
+          <div class="metric-section-head__title">术语表 · 50+ 缩写完整释义</div>
+          <div class="metric-section-head__sub">v1.7 新增 · 路特反馈：很多人不懂 PDP/LCP/DOM 等缩写 → 全报告缩写统一在此查阅 · 每个 4 段（英文全称 / 中文 / 业务解释 / Momcozy 含义）· 报告内首次出现也会带 hover tooltip</div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
+
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--danger);margin-bottom:14px;border-bottom:2px solid var(--danger);padding-bottom:8px;">① 页面性能类（Core Web Vitals）· 9 个</div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">LCP</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Largest Contentful Paint · 最大内容渲染时间</div>
+              <p class="glossary-term__biz">用户打开页面后，看到「最重要的那块内容」要等多久。Google 用它评判页面"够不够快"，直接影响 SEO 排名 + Google Ads 质量分。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：当前 LCP 4.92s 红色警戒，超 Google 标准 ≤2.5s 的 97% — 用户等近 5 秒才看到产品主图，每多 1s LCP 行业平均跳出 +32%。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">FCP</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">First Contentful Paint · 首次内容渲染</div>
+              <p class="glossary-term__biz">用户屏幕上"第一个像素出现"的时间。比 LCP 更早，是用户感知页面"开始响应"的临界点。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：FCP 4.86s POOR · 用户点开链接后近 5 秒屏幕还是白的，1/3 跳出率根因。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">TTFB</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Time to First Byte · 服务器首字节响应</div>
+              <p class="glossary-term__biz">浏览器请求页面后，服务器返回第一个字节的时间。反映服务器/CDN 性能（≠ 前端渲染）。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：TTFB 245ms 良好 — Shopify CDN 没问题，性能病灶全在前端。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">CLS</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Cumulative Layout Shift · 累计布局偏移</div>
+              <p class="glossary-term__biz">页面加载时元素"跳动"的程度（如：图未加载完按钮位置变了，导致用户点错）。Google 三大 Web Vitals 之一。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：CLS 0.0008 GOOD · 仅 8/万 · Momcozy 这点做得很好。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">TBT</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Total Blocking Time · 总阻塞时间</div>
+              <p class="glossary-term__biz">页面加载时"用户点击但没反应"的总时间。TBT 高 = 页面看着出来了但点不动。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：TBT 1840ms（KleanPal PDP）· 是 Google GOOD ≤200ms 的 9 倍 · 移动端低端 Android 卡顿主因。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">INP</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Interaction to Next Paint · 交互响应延迟</div>
+              <p class="glossary-term__biz">用户点击/滑动后到页面有反应的时间。2024 年 Google 把 INP 升级为 Core Web Vital，超 200ms 算差。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：当前 INP 未直接测 · 但 TBT 1840ms 推断 INP 大概率 POOR。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">CWV</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Core Web Vitals · 谷歌核心网页指标</div>
+              <p class="glossary-term__biz">Google 用于评判网站质量的 3 大体验指标 = LCP + CLS + INP（2024 起替代 FID）。是 SEO 排名因素之一。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：8 项 CWV 7 项 POOR · 唯一 GOOD 的是 CLS。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">P50 / P75</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">50/75 Percentile · 50%/75% 分位数</div>
+              <p class="glossary-term__biz">P50 = 中位数（一半用户体验比这好/差）· P75 = Google CrUX 字段数据标准（75% 用户的真实体验）。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：行业 P50 LCP 3.1s · Momcozy P75 LCP 4.92s · 在 4 分位中排最后。</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;border-bottom:2px solid var(--accent);padding-bottom:8px;">② 页面结构类 · 12 个</div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">PDP</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Product Detail Page · 商品详情页</div>
+              <p class="glossary-term__biz">用户最终决定"买不买"的核心落地页 · 所有付费流量的转化终点。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：KleanPal Pro PDP 是路特最关键 4 个旗舰 SKU 的详情页 · 承接 Meta/TikTok/Google 全部付费流量 · 报告所有性能指标以它为测量对象。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">DOM</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Document Object Model · 文档对象模型</div>
+              <p class="glossary-term__biz">浏览器把 HTML 转换成的"节点树"。DOM 节点越多 · 浏览器渲染/滚动越慢 · 是页面"复杂度"工程指标。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：KleanPal PDP DOM 7535 节点 · 超 Google 警戒 3000 · 是行业均值 2.7 倍 · 直接导致移动端卡顿。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">CTA</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Call-To-Action · 行动召唤</div>
+              <p class="glossary-term__biz">引导用户下一步操作的按钮/链接 · 如「加入购物车」「立即购买」。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：KleanPal PDP 缺 Mobile Sticky CTA · 而 Pregnancy Pillow PDP 已有 · 是 P0-7 修复方案核心。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">UX / UI</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">User Experience / User Interface · 用户体验 / 界面</div>
+              <p class="glossary-term__biz">UX = 用户使用过程的全部感受（含速度/流畅度/直觉性）· UI = 视觉界面（颜色/布局/按钮）。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：UI 设计水准在行业前列 · 但 UX 因性能拖累 · 移动端体验灾难。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">webp</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Web Picture · 网页图片格式</div>
+              <p class="glossary-term__biz">Google 推的下一代图片格式 · 比 JPG/PNG 小 25-35% · 加载更快。Shopify CDN 原生支持。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：全站 webp 仅 2% (295 图中 6 张) · 是 P0-3 "零成本可拿果子" · 3h 全站启用 = 月增 $2.4M。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">XHR / fetch</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">XMLHttpRequest / Fetch API · 异步网络请求</div>
+              <p class="glossary-term__biz">页面后台向服务器发的请求 · 如：getCart / loadReviews。XHR 多 = 第三方依赖多 = 性能负担。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：KleanPal PDP 49 个 XHR · 含 FastBundle 404 等失败请求。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">SDK</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Software Development Kit · 软件开发工具包</div>
+              <p class="glossary-term__biz">第三方提供给网站使用的 JS 模块 · 如 Amazon Buy with Prime SDK / Klarna SDK。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：Amazon Buy with Prime SDK 在 KleanPal 等 selling_plan input 5 秒超时 · 是 P0-B 铁证。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">CDN</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Content Delivery Network · 内容分发网络</div>
+              <p class="glossary-term__biz">把网站资源（图/JS/CSS）缓存到全球多个节点 · 用户访问最近节点 · 加载更快。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：使用 Shopify CDN · 性能良好（TTFB 245ms）· 这部分不用动。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">JSON-LD</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">JSON for Linking Data · 结构化数据标记</div>
+              <p class="glossary-term__biz">网页给 Google 看的"产品说明书"代码 · Google 用它生成富摘要（搜索结果里的星级/价格）。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：JSON-LD 配置完整（4 类）· 但首页缺 VideoObject Schema · 是 P1-2 SEO 优化机会。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">HTML / CSS / JS</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">网页三大基础语言</div>
+              <p class="glossary-term__biz">HTML = 内容结构 · CSS = 视觉样式 · JS = 交互逻辑。三者大小决定页面下载量。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：KleanPal PDP 含 339 个 JS 脚本（行业 50-80 即可）· 是 P0-2 砍 DOM 重点。</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--success);margin-bottom:14px;border-bottom:2px solid var(--success);padding-bottom:8px;">③ 业务电商类 · 18 个</div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">PV / UV</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Page Views / Unique Visitors · 浏览量 / 独立访客</div>
+              <p class="glossary-term__biz">PV = 网页被打开的总次数（含同一人多次）· UV = 不重复人数（去重）· UV 是真实流量规模。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：135 天累计 PV 207.9M · UV 197.0M · 在母婴 DTC 类目 Top 1（领先 10-30x）。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">CVR</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Conversion Rate · 转化率</div>
+              <p class="glossary-term__biz">访客中下单的比例。是 DTC 站最重要的单一指标 · 直接挂钩营收。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：Excel 自报 0.88% · 反算 0.28%（订单/UV）· 行业 P50 1.5-2.5% · 是 Momcozy 唯一垫底指标。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">AOV</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Average Order Value · 客单价</div>
+              <p class="glossary-term__biz">每张订单的平均成交金额。反映品牌定位与用户支付意愿。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：AOV $119.13 · 高行业 $95 的 25% · 是 Momcozy 最强护城河 · 不能为拉 CVR 降价。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">GMV</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Gross Merchandise Value · 总成交额</div>
+              <p class="glossary-term__biz">站内所有订单成交金额总和（含运费税）。是营收 + GMV ≠ 净利润。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：135 天累计 GMV $51.78M · 折算月度 ~$11.67M。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">ROI</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Return on Investment · 投资回报率</div>
+              <p class="glossary-term__biz">投入 vs 收益的比值。如 ROI 1000x = 1 元投入获 1000 元回报。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：Top 5 P0 修复 35h ≈ $7K · 月增 $10.9M · ROI 1500x · 投资回报期 &lt; 1 周。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">ROAS</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Return on Ad Spend · 广告投入回报</div>
+              <p class="glossary-term__biz">广告每花 1 元带来的销售收入。ROAS 3 = 花 1 元广告产生 3 元 GMV。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：当前未实测 · 但 45% paid 流量结构 → 拉 CVR 后 ROAS 会同步翻倍。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">CAC</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Customer Acquisition Cost · 获客成本</div>
+              <p class="glossary-term__biz">获取一个新付费用户花的钱（广告 + 营销 + 销售）。CAC 越低越好。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：未直接测 · 但 45% paid 流量结构 + CVR 0.88% 暗示 CAC 风险大。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">LTV</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Lifetime Value · 用户生命周期价值</div>
+              <p class="glossary-term__biz">一个用户在整个使用周期内贡献的总收入。LTV/CAC ≥ 3 是健康 DTC。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：复购率 26.7% · 远低于 Bobbie 70% · LTV 提升空间大 · 需订阅模式 / 会员体系。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">SKU</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Stock Keeping Unit · 库存单元</div>
+              <p class="glossary-term__biz">一个独立销售商品的最小单位（含规格/颜色变体）。一个产品可能有多个 SKU。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：路特 Excel 跟踪 4 个主力 SKU · v1.6 实测发现 3 个 URL 已 404。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">DTC</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Direct-to-Consumer · 品牌直营</div>
+              <p class="glossary-term__biz">品牌绕过 Amazon/零售商直接卖给终端用户。利润更高 + 用户数据自有 + 可做 LTV 复购。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：momcozy.com 独立站是 DTC 主战场 · 本报告所有建议以提升 DTC CVR/AOV 为目标 · 非 Amazon。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">FBT</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Frequently Bought Together · 经常一起购买</div>
+              <p class="glossary-term__biz">Shopify PDP 底部的"配件推荐"模块 · 提升 Attach Rate + AOV 的标配。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：FastBundle FBT 接口在 KleanPal Pro PDP 上 404 · 是 P0-A 铁证 · 直接砍掉 Attach Rate。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">KOL / KOC / UGC</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Key Opinion Leader / Consumer / User-Generated Content</div>
+              <p class="glossary-term__biz">KOL = 大网红（粉丝百万+）· KOC = 小网红（千-万级）· UGC = 普通用户原生内容。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：22,600 条 KOL 内容 / 9,100+ KOL · 领先 Lovevery 6-7x · 工业化矩阵。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">CTR</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Click-Through Rate · 点击率</div>
+              <p class="glossary-term__biz">广告/搜索结果被看到后被点击的比例。广告 CTR 高 = Google 给的质量分高 = CPC 低。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：JSON-LD 富摘要可提升 SERP CTR · P1-2 Schema 补全后预估 +5-8%。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">KPI</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Key Performance Indicator · 关键绩效指标</div>
+              <p class="glossary-term__biz">业务最关键的几个数 · 团队按它考核。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：本报告字典定义了 25 个 KPI · 路特 4 决策点全部以 KPI 改善为基准。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">CRM</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Customer Relationship Management · 客户关系管理</div>
+              <p class="glossary-term__biz">Email / SMS / Push 等用户运营系统 · 用于复购 + LTV。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：Klaviyo 已装 (18 个请求) · 但 26.7% 复购率说明 CRM 触达薄弱。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">SCR</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Session Conversion Rate · 会话转化率</div>
+              <p class="glossary-term__biz">一次访问中下单的概率（与 CVR 类似 · 按 session 算）。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：与 CVR 同源 · 详见 § 25 KPI 字典 B5。</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--warning);margin-bottom:14px;border-bottom:2px solid var(--warning);padding-bottom:8px;">④ 流量营销类 · 9 个</div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">TOFU / MOFU / BOFU</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Top / Middle / Bottom of Funnel · 漏斗上 / 中 / 下层</div>
+              <p class="glossary-term__biz">TOFU = 流量获取（认知）· MOFU = 兴趣培育（考虑）· BOFU = 决策转化（购买）。营销内容按漏斗位置区分。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：TOFU 钩子 "chinese gender calendar" +857% 增长 · 拦截孕早期人群 · 是 CVR 被稀释主因（与产品无关流量）。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">SEO</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Search Engine Optimization · 搜索引擎优化</div>
+              <p class="glossary-term__biz">让网站在 Google 自然搜索结果中排名靠前的工程 + 内容操作。免费流量 · 但慢。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：自然搜索仅 5.80% · 远低于成熟品牌 30%+ · 长期 SEO 是 P1 重点。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">SEM / PPC</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Search Engine Marketing / Pay-Per-Click · 搜索付费广告</div>
+              <p class="glossary-term__biz">Google Ads / Bing Ads 等 · 按点击收费。SEM ⊇ PPC。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：Paid Search 占 45.04% 流量 · 行业 DTC 中位 22% · 翻倍 · 饱和攻击模式。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">GA4</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Google Analytics 4 · 谷歌分析 4 代</div>
+              <p class="glossary-term__biz">Google 的免费网站分析工具 · 提供流量来源 / 转化漏斗 / 用户路径。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：路特 Excel 数据可能来自 GA4 · v1.6 发现 URL 已变 · Analytics 团队需重新归类。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">API</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Application Programming Interface · 应用程序接口</div>
+              <p class="glossary-term__biz">不同系统之间数据交换的协议。如 FastBundle API 给 Shopify 提供 FBT 数据。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：FastBundle API 在 KleanPal Pro 返回 404 · 是 P0-A 铁证。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">HTTP / HTTPS</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">HyperText Transfer Protocol (Secure) · 网络传输协议</div>
+              <p class="glossary-term__biz">浏览器与服务器之间通信的标准。HTTPS 加密版 · 现为 Google 标配。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：全站 HTTPS · 没问题。</p>
+            </div>
+          </div>
+
+          <div class="glossary-term">
+            <div class="glossary-term__abbr">TLS / DNS</div>
+            <div class="glossary-term__body">
+              <div class="glossary-term__en">Transport Layer Security · 域名解析</div>
+              <p class="glossary-term__biz">TLS = HTTPS 加密底层 · DNS = 域名转 IP 地址。每次请求都要走一遍。</p>
+              <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：第三方域 72 个 · 每个都要做 DNS+TLS · 加 dns-prefetch 可节 80ms。</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="background:#fff;border:1px solid var(--border);border-radius:14px;padding:24px;grid-column:span 2;">
+          <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:14px;border-bottom:2px solid var(--text-tertiary);padding-bottom:8px;">⑤ 方法论 + 其他 · 8 个</div>
+
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
+            <div>
+              <div class="glossary-term">
+                <div class="glossary-term__abbr">SCQA</div>
+                <div class="glossary-term__body">
+                  <div class="glossary-term__en">Situation · Complication · Question · Answer</div>
+                  <p class="glossary-term__biz">McKinsey 经典叙事框架：现状 → 但是 → 引出问题 → 给答案。</p>
+                  <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：v1.5 起本报告全部按 SCQA 重构。</p>
+                </div>
+              </div>
+
+              <div class="glossary-term">
+                <div class="glossary-term__abbr">MECE</div>
+                <div class="glossary-term__body">
+                  <div class="glossary-term__en">Mutually Exclusive Collectively Exhaustive</div>
+                  <p class="glossary-term__biz">「互斥且穷尽」· McKinsey 分析框架原则：分类不重叠 + 不遗漏。</p>
+                  <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：3 大资产 + 1 病灶 + 漏斗 4 节都按 MECE 分。</p>
+                </div>
+              </div>
+
+              <div class="glossary-term">
+                <div class="glossary-term__abbr">SOP</div>
+                <div class="glossary-term__body">
+                  <div class="glossary-term__en">Standard Operating Procedure · 标准操作流程</div>
+                  <p class="glossary-term__biz">把"怎么做"写成步骤清单 · 可复用的执行手册。</p>
+                  <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：forensics.html 即"策略 SOP" · 13 铁证每条配修复 + 验证命令 = 可执行 SOP。</p>
+                </div>
+              </div>
+
+              <div class="glossary-term">
+                <div class="glossary-term__abbr">WCAG</div>
+                <div class="glossary-term__body">
+                  <div class="glossary-term__en">Web Content Accessibility Guidelines · Web 无障碍指南</div>
+                  <p class="glossary-term__biz">W3C 制定的无障碍标准（AA 是法律最低要求）· 美国 ADA 法案要求合规。</p>
+                  <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：7 张图片缺 alt · 触犯 WCAG 2.1 AA · 是 P1-J 法律合规风险。</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="glossary-term">
+                <div class="glossary-term__abbr">GDPR</div>
+                <div class="glossary-term__body">
+                  <div class="glossary-term__en">General Data Protection Regulation · 欧盟通用数据保护条例</div>
+                  <p class="glossary-term__biz">欧盟 2018 起强制 · 跨境品牌进入欧盟必须合规 · 罚款上限 4% 全球营收。</p>
+                  <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：站点有 Cookie Banner 但需确认 Customer Events 中各 pixel 合规。</p>
+                </div>
+              </div>
+
+              <div class="glossary-term">
+                <div class="glossary-term__abbr">NICU</div>
+                <div class="glossary-term__body">
+                  <div class="glossary-term__en">Neonatal Intensive Care Unit · 新生儿重症监护室</div>
+                  <p class="glossary-term__biz">医院产科最高级别监护单元 · 母婴医疗信任的"金标准"背书。</p>
+                  <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：Spectra 的 NICU 认证是其临床信任护城河 · Momcozy 缺这块 · Gap $50M 市场份额。</p>
+                </div>
+              </div>
+
+              <div class="glossary-term">
+                <div class="glossary-term__abbr">FSA / HSA</div>
+                <div class="glossary-term__body">
+                  <div class="glossary-term__en">Flexible / Health Savings Account · 美国税前医保账户</div>
+                  <p class="glossary-term__biz">美国雇员可税前存的医疗账户 · 可买母婴医疗类用品。FSA/HSA 兼容产品销售更好。</p>
+                  <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：首页有 "View More FSA/HSA Eligible" 入口 · 这是 Momcozy 已做对的差异化。</p>
+                </div>
+              </div>
+
+              <div class="glossary-term">
+                <div class="glossary-term__abbr">A/B 测试</div>
+                <div class="glossary-term__body">
+                  <div class="glossary-term__en">A/B Testing · 对照实验</div>
+                  <p class="glossary-term__biz">同时给一半用户看 A 版 / 另一半看 B 版 · 用数据决定哪个更好。</p>
+                  <p class="glossary-term__mom"><strong>Momcozy 含义</strong>：路特决策 #3 推荐 GrowthBook (开源 / 服务端渲染 / 避 Googlebot 看变体)。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:24px;background:var(--info-light);border-left:4px solid var(--info);border-radius:8px;padding:18px 24px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--info);margin-bottom:8px;">💡 路特对术语表的批注</div>
+        <div style="font-size:13.5px;color:var(--text-secondary);line-height:1.75;">
+          <strong>路特 v1.7 反馈</strong>："PDP DOM / LCP 等这些缩写指标都是要纳入指标字典的 · 很多人不懂这些缩写 · 请排查 · 然后更新"。<br>
+          <strong>Sisyphus 响应</strong>：盘点全报告 50+ 缩写 · 按 5 类组织 · 每个 4 段（英文全称 / 中文 / 业务解释 / Momcozy 具体含义）· 报告首次出现的缩写都加了 <code>&lt;abbr title=""&gt;</code> 悬停 tooltip · PPT / PDF 截图场景下也可读懂。
         </div>
       </div>
     </div>
