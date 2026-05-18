@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📐 归因分析 · Momcozy 25 KPI + 6 图表 · 路特 AI 公司 × Momcozy</title>
+  <title>📐 归因分析 v1.6 · Momcozy 25 KPI + 4 PDP 实测对比 · 路特 AI 公司 × Momcozy</title>
   <meta name="description" content="25 个核心指标 · 计算公式 · 统计口径 · 业务价值 · 双轴漏斗 + 6 张差异化图表">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -669,70 +669,195 @@
   <section class="section section--gray" id="pdp-funnel">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">图表 5 · 4 主力 PDP 漏斗对比</div>
-        <h2 class="section__title">KleanPal · M5 · Pillow · Mobile Style</h2>
-        <p class="section__sub">Excel 中 4 个主力 SKU 的 PDP 流量与转化 · 横向漏斗对比。KleanPal 流量最大但 CVR 仅 0.017% · 是性能优化第一目标。</p>
+        <div class="section__eyebrow">图表 5 · 4 主力 PDP 详细诊断 · 让领导有体感</div>
+        <h2 class="section__title">KleanPal Pro · M5 Smart Pump · Pregnancy Pillow · Mobile Style</h2>
+        <p class="section__sub">v1.6 升级 · 每张 PDP 配实测截图 + 真实状态 + 详细 spec + 个性化诊断 + 修复推荐。<strong>本次取证发现的重大事实</strong>：路特 Excel 给的 4 个 URL 中 <strong>3 个截断版返回 404</strong>（M5 / Pregnancy / Mobile Style）· 这才是"明星 SKU 0 单"的根因 — 不是 PDP 体验差 · 是用户点不进去！</p>
+      </div>
+
+      <div style="background:var(--danger-light);border-left:4px solid var(--danger);padding:24px 28px;border-radius:12px;margin-bottom:32px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--danger);margin-bottom:8px;">🚨 v1.6 重大新发现 · 不留客气话</div>
+        <div style="font-size:17px;font-weight:800;margin-bottom:10px;">路特 Excel 中 4 主力 PDP URL · 3 个 404 · 数据被误读 4 个月</div>
+        <div style="font-size:14px;color:var(--text-secondary);line-height:1.7;">
+          Sisyphus 用 Playwright 实地访问 Excel 中给出的 4 个产品 URL，发现：
+          <ul style="padding-left:24px;margin-top:8px;list-style:disc;">
+            <li><code style="background:#fff;padding:2px 6px;border-radius:3px;">/products/momcozy-kleanpal-pro-baby-bottle-washer</code> → ✅ 200 OK（唯一活的）</li>
+            <li><code style="background:#fff;padding:2px 6px;border-radius:3px;">/products/m5-smart-wearable-br</code> → ❌ <strong>HTTP 404</strong> "Sorry! Page You Are Looking Can't Be Found"</li>
+            <li><code style="background:#fff;padding:2px 6px;border-radius:3px;">/products/momcozy-pregnancy-pi</code> → ❌ <strong>HTTP 404</strong></li>
+            <li><code style="background:#fff;padding:2px 6px;border-radius:3px;">/products/momcozy-mobile-style</code> → ❌ <strong>HTTP 404</strong></li>
+          </ul>
+          <strong>真实可用 URL</strong>（Sisyphus 通过站内搜索找回）：<code>/products/momcozy-pregnancy-pillows</code> · <code>/products/momcozy-mobile-style-hands-free-breast-pump</code>。M5 已被替换为 M5 Bra Bundle / M5 Breast Pump Replacement Parts。<br><br>
+          <strong>So-What</strong>：这<strong>不是 CVR 问题</strong> · 是<strong>SEO / 内部链接 / Excel 数据采集口径错误</strong>。M5 / Pillow / Mobile Style "0 订单" 的根因是路特 Excel 在用旧 URL 统计 · 这些 URL 现在 404 ·实际产品仍在卖但被错误归类成 0 单。路特的 Analytics 团队需立即核对 GA4 / Shopify 后台是否同样误归类。
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-bottom:32px;">
+
+        <div style="background:#fff;border:2px solid var(--accent);border-radius:14px;overflow:hidden;">
+          <div style="background:var(--accent);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.85;">PDP #1 · 旗舰品类</div>
+              <div style="font-size:17px;font-weight:800;">Momcozy KleanPal Pro</div>
+            </div>
+            <div style="font-size:11px;font-weight:700;background:#fff;color:var(--accent);padding:4px 10px;border-radius:4px;">✓ URL 200 OK</div>
+          </div>
+          <img src="assets/pdp-screenshots/kleanpal-pro.png" alt="KleanPal Pro PDP above-fold" style="width:100%;display:block;border-bottom:1px solid var(--border-light);">
+          <div style="padding:18px 20px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">实测 spec</div>
+            <table style="width:100%;font-size:12.5px;color:var(--text-secondary);">
+              <tr><td style="padding:3px 0;">价格</td><td><strong style="color:var(--text-primary);">$299.99 USD</strong></td></tr>
+              <tr><td style="padding:3px 0;">URL</td><td><code style="font-size:11px;background:var(--bg-gray);padding:1px 5px;border-radius:3px;">.../momcozy-kleanpal-pro-baby-bottle-washer</code></td></tr>
+              <tr><td style="padding:3px 0;">DOM 节点</td><td><strong style="color:var(--danger);">7,535</strong> (Google 警戒 3,000)</td></tr>
+              <tr><td style="padding:3px 0;">img 标签</td><td>373 个</td></tr>
+              <tr><td style="padding:3px 0;">script</td><td>339 个</td></tr>
+              <tr><td style="padding:3px 0;">PDP Load</td><td><strong style="color:var(--danger);">17.2s</strong></td></tr>
+              <tr><td style="padding:3px 0;">Excel 数据</td><td>23,758 PV · 加购 59 · <strong style="color:var(--danger);">订单 4</strong></td></tr>
+              <tr><td style="padding:3px 0;">实测 CVR</td><td><strong style="color:var(--danger);">0.017%</strong> (反算: 4/23758)</td></tr>
+            </table>
+            <div style="margin-top:14px;background:var(--danger-light);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--danger);">
+              <strong>诊断</strong>：流量真大 · 转化最差 · FastBundle 404（见 P0-A 铁证）+ Amazon SDK 5s 超时（P0-B）+ Pinterest Pixel 全 reset（P0-C）三重灾难叠加 · 修这一个 PDP = 修整站 80% 价值
+            </div>
+            <div style="margin-top:8px;background:var(--success-light);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--success);">
+              <strong>修复路径</strong>：P0-A FastBundle bundle 配置（30min）+ P0-B Amazon SDK 条件加载（10min）+ P0-D Seel 卸载（5min）= 总 1 小时 · 估 CVR 0.017% → 0.5% · 月增收 +$0.8M
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:2px solid var(--danger);border-radius:14px;overflow:hidden;">
+          <div style="background:var(--danger);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.85;">PDP #2 · "明星 SKU 0 单" 真相</div>
+              <div style="font-size:17px;font-weight:800;">M5 Smart Wearable Pump</div>
+            </div>
+            <div style="font-size:11px;font-weight:700;background:#fff;color:var(--danger);padding:4px 10px;border-radius:4px;">❌ URL 404</div>
+          </div>
+          <img src="assets/pdp-screenshots/m5-pump-404.png" alt="M5 Smart Pump PDP 404 截图" style="width:100%;display:block;border-bottom:1px solid var(--border-light);">
+          <div style="padding:18px 20px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">实测 spec</div>
+            <table style="width:100%;font-size:12.5px;color:var(--text-secondary);">
+              <tr><td style="padding:3px 0;">HTTP 状态</td><td><strong style="color:var(--danger);">404 Not Found</strong></td></tr>
+              <tr><td style="padding:3px 0;">页面标题</td><td>"404 Not Found"</td></tr>
+              <tr><td style="padding:3px 0;">H1</td><td>"404"</td></tr>
+              <tr><td style="padding:3px 0;">Body 文本</td><td>"Sorry! Page You Are Looking Can't Be Found"</td></tr>
+              <tr><td style="padding:3px 0;">站内搜索结果</td><td>91 个含 "M5" 链接 · 但 <strong>无 m5-smart-wearable-br</strong></td></tr>
+              <tr><td style="padding:3px 0;">真实存在产品</td><td>M5 Bra Bundle / M5 Breast Pump Replacement Parts</td></tr>
+              <tr><td style="padding:3px 0;">Excel 数据</td><td>2,831 PV · 加购 7 · <strong style="color:var(--danger);">订单 0</strong></td></tr>
+              <tr><td style="padding:3px 0;">"0 单" 真相</td><td><strong style="color:var(--danger);">URL 已废弃 · 数据归类错</strong></td></tr>
+            </table>
+            <div style="margin-top:14px;background:var(--danger-light);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--danger);">
+              <strong>诊断</strong>：不是 PDP 体验问题 · M5 Smart Pump 主商品 SKU 已被 retire · 用户找到 404 直接弹离 · 2,831 PV 全部白送 · 加购 7 单可能来自旧 cache 还在试访问的用户
+            </div>
+            <div style="margin-top:8px;background:var(--success-light);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--success);">
+              <strong>修复路径</strong>：① 在 Shopify Admin → URL Redirects 加 301 旧 URL → M5 Bra Bundle（5 分钟）② 路特 Analytics 团队核对 GA4 / Shopify 后台是否同样误归类（30 分钟）③ 全站 grep 旧 URL 替换内部链接（1 小时）
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:2px solid var(--accent);border-radius:14px;overflow:hidden;">
+          <div style="background:var(--accent);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.85;">PDP #3 · 真实页面 · 体验最好</div>
+              <div style="font-size:17px;font-weight:800;">Pregnancy Pillow (Huggable U-Shaped)</div>
+            </div>
+            <div style="font-size:11px;font-weight:700;background:#fff;color:var(--accent);padding:4px 10px;border-radius:4px;">✓ 重定向后 200</div>
+          </div>
+          <img src="assets/pdp-screenshots/pregnancy-pillows.png" alt="Pregnancy Pillow PDP" style="width:100%;display:block;border-bottom:1px solid var(--border-light);">
+          <div style="padding:18px 20px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">实测 spec</div>
+            <table style="width:100%;font-size:12.5px;color:var(--text-secondary);">
+              <tr><td style="padding:3px 0;">价格</td><td><strong style="color:var(--success);">$44.99</strong> USD <span style="text-decoration:line-through;color:var(--text-tertiary);">$64.99</span> · <span style="color:var(--accent);">SAVE 31%</span></td></tr>
+              <tr><td style="padding:3px 0;">真实 URL</td><td><code style="font-size:11px;background:var(--bg-gray);padding:1px 5px;border-radius:3px;">.../momcozy-pregnancy-pillows</code></td></tr>
+              <tr><td style="padding:3px 0;">变体</td><td>Cover Material: Velvet / 其他</td></tr>
+              <tr><td style="padding:3px 0;">DOM 节点</td><td><strong style="color:var(--warning);">6,659</strong> (比 KleanPal -12%)</td></tr>
+              <tr><td style="padding:3px 0;">img 标签</td><td>348 个</td></tr>
+              <tr><td style="padding:3px 0;">script</td><td>315 个</td></tr>
+              <tr><td style="padding:3px 0;">Sticky AddToCart</td><td><strong style="color:var(--success);">✓ 有</strong>（KleanPal 没有）</td></tr>
+              <tr><td style="padding:3px 0;">Excel 数据</td><td>4,840 PV · 加购 7 · <strong style="color:var(--danger);">订单 0</strong></td></tr>
+            </table>
+            <div style="margin-top:14px;background:var(--warning-light);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--warning);">
+              <strong>诊断</strong>：URL 截断同 M5 · 4,840 PV 数据可能也归类错。该 PDP <strong>已带 Sticky AddToCart</strong>（KleanPal 没！）· 是 Momcozy theme 里少数做对的 PDP 模板。$44.99 折扣 31% · 低价 · 加购率 0.14% 仍偏低 · 可能产品本身吸引力不足
+            </div>
+            <div style="margin-top:8px;background:var(--success-light);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--success);">
+              <strong>修复路径</strong>：① 同 M5 加 301 redirect ② 把 Pregnancy Pillow 的 Sticky AddToCart Liquid 代码<strong>反向移植到 KleanPal PDP</strong>（最快 P0-7 修复方案 · 不用从 0 写）
+            </div>
+          </div>
+        </div>
+
+        <div style="background:#fff;border:2px solid var(--success);border-radius:14px;overflow:hidden;">
+          <div style="background:var(--success);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;opacity:0.85;">PDP #4 · "相对最好" 真相</div>
+              <div style="font-size:17px;font-weight:800;">Mobile Style M6 (Hands-free)</div>
+            </div>
+            <div style="font-size:11px;font-weight:700;background:#fff;color:var(--success);padding:4px 10px;border-radius:4px;">✓ 重定向后 200</div>
+          </div>
+          <img src="assets/pdp-screenshots/mobile-style-m6.png" alt="Mobile Style M6 PDP" style="width:100%;display:block;border-bottom:1px solid var(--border-light);">
+          <div style="padding:18px 20px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-tertiary);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">实测 spec</div>
+            <table style="width:100%;font-size:12.5px;color:var(--text-secondary);">
+              <tr><td style="padding:3px 0;">价格</td><td><strong>$229.99 USD</strong> (Double) / $129.99 (Single)</td></tr>
+              <tr><td style="padding:3px 0;">真实 URL</td><td><code style="font-size:11px;background:var(--bg-gray);padding:1px 5px;border-radius:3px;">.../mobile-style-hands-free-breast-pump</code></td></tr>
+              <tr><td style="padding:3px 0;">真实产品名</td><td>"Momcozy Mobile Style™ Hands-free Slim Breast Pump <strong>| M6</strong>"</td></tr>
+              <tr><td style="padding:3px 0;">变体</td><td>Style: Double / Single · Color: Cozy Red 等</td></tr>
+              <tr><td style="padding:3px 0;">DOM 节点</td><td><strong style="color:var(--danger);">7,776</strong>（4 PDP 中最多）</td></tr>
+              <tr><td style="padding:3px 0;">img 标签</td><td><strong style="color:var(--warning);">448 个</strong>（4 PDP 中最多）</td></tr>
+              <tr><td style="padding:3px 0;">script</td><td>325 个</td></tr>
+              <tr><td style="padding:3px 0;">Excel 数据</td><td>5,288 PV · 加购 67 · <strong style="color:var(--warning);">订单 4</strong></td></tr>
+              <tr><td style="padding:3px 0;">实测 CVR</td><td><strong style="color:var(--warning);">0.076%</strong>（4 PDP 中相对最好但仍极低）</td></tr>
+            </table>
+            <div style="margin-top:14px;background:var(--warning-light);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--warning);">
+              <strong>诊断</strong>：加购率 1.27%（4 PDP 中最高 · KleanPal 5x）· 但 DOM 7,776 / 448 img 最重 · 说明<strong>用户喜欢这个商品 · 但 PDP 给他们的体验最差</strong>。M6 是新版穿戴泵 · 价格段 $229.99 同价位 Elvie · 应主推
+            </div>
+            <div style="margin-top:8px;background:var(--success-light);border-radius:6px;padding:10px 12px;font-size:12px;color:var(--success);">
+              <strong>修复路径</strong>：① 这是「<strong>用户已经投票的赢家 SKU</strong>」· M2 优先优化这个 PDP（性能 + Sticky 加购 + Schema）② 把 KleanPal 的 Hero 视频 / Spec table 复用到这（M6 缺）
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <div class="chart-card">
-        <div class="chart-card__title">4 主力 PDP · 135 天累计漏斗</div>
-        <div class="chart-card__sub">每行：PV → 加购（按各自加购率）→ 订单 · 数字为绝对量</div>
+        <div class="chart-card__title">4 PDP 横向对比 · 135 天累计漏斗 + 关键 spec</div>
+        <div class="chart-card__sub">用 KleanPal Pro 当锚点 100% · 其他 3 个相对量</div>
 
-        <svg viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;">
-          <g transform="translate(0, 30)">
-            <text x="20" y="18" font-size="13" font-weight="700" fill="#111">KleanPal Pro</text>
-            <text x="20" y="36" font-size="10" fill="#8a8a8a">23,758 PV · 加购率 0.25% · CVR 0.017%</text>
-            <rect x="200" y="6" width="700" height="32" fill="#6a2b3a" opacity="0.9"/>
-            <text x="210" y="28" font-size="12" fill="#fff" font-weight="700">PV 23,758 (100%)</text>
-            <rect x="200" y="44" width="51" height="22" fill="#8b3a4d" opacity="0.85"/>
-            <text x="258" y="60" font-size="11" fill="#5c5c5c">加购 59</text>
-            <rect x="200" y="72" width="3" height="20" fill="#c53030"/>
-            <text x="212" y="86" font-size="11" fill="#c53030" font-weight="700">订单 4（CVR 0.017% · 极危）</text>
-          </g>
-
-          <g transform="translate(0, 150)">
-            <text x="20" y="18" font-size="13" font-weight="700" fill="#111">M5 Smart Pump</text>
-            <text x="20" y="36" font-size="10" fill="#8a8a8a">2,831 PV · 加购率 0.25% · CVR 0%</text>
-            <rect x="200" y="6" width="83" height="32" fill="#6a2b3a" opacity="0.9"/>
-            <text x="210" y="28" font-size="12" fill="#fff" font-weight="700">PV 2,831 (100%)</text>
-            <rect x="200" y="44" width="7" height="22" fill="#8b3a4d" opacity="0.85"/>
-            <text x="215" y="60" font-size="11" fill="#5c5c5c">加购 7</text>
-            <rect x="200" y="72" width="0.4" height="20" fill="#c53030"/>
-            <text x="212" y="86" font-size="11" fill="#c53030" font-weight="700">订单 0（明星 SKU · 严重）</text>
-          </g>
-
-          <g transform="translate(0, 270)">
-            <text x="20" y="18" font-size="13" font-weight="700" fill="#111">Pregnancy Pillow</text>
-            <text x="20" y="36" font-size="10" fill="#8a8a8a">4,840 PV · 加购率 0.14% · CVR 0%</text>
-            <rect x="200" y="6" width="143" height="32" fill="#6a2b3a" opacity="0.9"/>
-            <text x="210" y="28" font-size="12" fill="#fff" font-weight="700">PV 4,840 (100%)</text>
-            <rect x="200" y="44" width="7" height="22" fill="#8b3a4d" opacity="0.85"/>
-            <text x="216" y="60" font-size="11" fill="#5c5c5c">加购 7</text>
-            <rect x="200" y="72" width="0.4" height="20" fill="#c53030"/>
-            <text x="212" y="86" font-size="11" fill="#c53030" font-weight="700">订单 0</text>
-          </g>
-
-          <g transform="translate(0, 390)">
-            <text x="20" y="18" font-size="13" font-weight="700" fill="#111">Mobile Style</text>
-            <text x="20" y="36" font-size="10" fill="#8a8a8a">5,288 PV · 加购率 1.27% · CVR 0.076%</text>
-            <rect x="200" y="6" width="156" height="32" fill="#6a2b3a" opacity="0.9"/>
-            <text x="210" y="28" font-size="12" fill="#fff" font-weight="700">PV 5,288 (100%)</text>
-            <rect x="200" y="44" width="67" height="22" fill="#8b3a4d" opacity="0.85"/>
-            <text x="275" y="60" font-size="11" fill="#5c5c5c">加购 67 · 最优</text>
-            <rect x="200" y="72" width="4" height="20" fill="#d97706"/>
-            <text x="212" y="86" font-size="11" fill="#d97706" font-weight="700">订单 4（CVR 0.076% · 相对最好）</text>
-          </g>
-        </svg>
+        <div style="overflow-x:auto;">
+          <table style="width:100%;font-size:13px;border-collapse:collapse;min-width:880px;">
+            <thead>
+              <tr style="background:var(--bg-gray);">
+                <th style="padding:12px 14px;text-align:left;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-tertiary);">维度</th>
+                <th style="padding:12px 14px;text-align:center;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);">KleanPal Pro<br><span style="font-size:10px;color:var(--text-tertiary);">$299.99 · 旗舰</span></th>
+                <th style="padding:12px 14px;text-align:center;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--danger);">M5 Smart Pump<br><span style="font-size:10px;color:var(--text-tertiary);">已 404</span></th>
+                <th style="padding:12px 14px;text-align:center;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-tertiary);">Pregnancy Pillow<br><span style="font-size:10px;">$44.99 · 配件</span></th>
+                <th style="padding:12px 14px;text-align:center;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--success);">Mobile Style M6<br><span style="font-size:10px;color:var(--text-tertiary);">$229.99 · 同价 Elvie</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;font-weight:600;">URL 状态</td><td style="padding:10px 14px;text-align:center;color:var(--success);font-weight:700;">✓ 200</td><td style="padding:10px 14px;text-align:center;color:var(--danger);font-weight:700;">❌ 404</td><td style="padding:10px 14px;text-align:center;color:var(--warning);font-weight:700;">⚠ 截断 (重定向后 200)</td><td style="padding:10px 14px;text-align:center;color:var(--warning);font-weight:700;">⚠ 截断 (重定向后 200)</td></tr>
+              <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;font-weight:600;">价格</td><td style="padding:10px 14px;text-align:center;">$299.99</td><td style="padding:10px 14px;text-align:center;color:var(--text-tertiary);">无法访问</td><td style="padding:10px 14px;text-align:center;">$44.99 (折 31%)</td><td style="padding:10px 14px;text-align:center;">$229.99 / $129.99</td></tr>
+              <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;font-weight:600;">135d 累计 PV</td><td style="padding:10px 14px;text-align:center;font-family:monospace;">23,758</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--danger);">2,831 (浪费)</td><td style="padding:10px 14px;text-align:center;font-family:monospace;">4,840</td><td style="padding:10px 14px;text-align:center;font-family:monospace;">5,288</td></tr>
+              <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;font-weight:600;">加购</td><td style="padding:10px 14px;text-align:center;font-family:monospace;">59 (0.25%)</td><td style="padding:10px 14px;text-align:center;font-family:monospace;">7 (0.25% · cache 残留)</td><td style="padding:10px 14px;text-align:center;font-family:monospace;">7 (0.14%)</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--success);">67 (1.27% · 最高)</td></tr>
+              <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;font-weight:600;">订单</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--danger);">4</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--danger);">0</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--danger);">0</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--warning);">4</td></tr>
+              <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;font-weight:600;">实测 CVR</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--danger);"><strong>0.017%</strong></td><td style="padding:10px 14px;text-align:center;color:var(--danger);font-family:monospace;"><strong>0%</strong></td><td style="padding:10px 14px;text-align:center;color:var(--danger);font-family:monospace;"><strong>0%</strong></td><td style="padding:10px 14px;text-align:center;color:var(--warning);font-family:monospace;"><strong>0.076%</strong></td></tr>
+              <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;font-weight:600;">DOM 节点</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--danger);">7,535</td><td style="padding:10px 14px;text-align:center;color:var(--text-tertiary);">N/A</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--warning);">6,659</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--danger);">7,776 (最多)</td></tr>
+              <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;font-weight:600;">img 标签</td><td style="padding:10px 14px;text-align:center;font-family:monospace;">373</td><td style="padding:10px 14px;text-align:center;color:var(--text-tertiary);">N/A</td><td style="padding:10px 14px;text-align:center;font-family:monospace;">348</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--warning);">448 (最多)</td></tr>
+              <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;font-weight:600;">script</td><td style="padding:10px 14px;text-align:center;font-family:monospace;color:var(--danger);">339</td><td style="padding:10px 14px;text-align:center;color:var(--text-tertiary);">N/A</td><td style="padding:10px 14px;text-align:center;font-family:monospace;">315</td><td style="padding:10px 14px;text-align:center;font-family:monospace;">325</td></tr>
+              <tr style="border-bottom:1px solid var(--border-light);"><td style="padding:10px 14px;font-weight:600;">Sticky AddToCart</td><td style="padding:10px 14px;text-align:center;color:var(--danger);font-weight:700;">❌ 缺</td><td style="padding:10px 14px;text-align:center;color:var(--text-tertiary);">N/A</td><td style="padding:10px 14px;text-align:center;color:var(--success);font-weight:700;">✓ 有</td><td style="padding:10px 14px;text-align:center;color:var(--text-tertiary);">待验</td></tr>
+              <tr><td style="padding:10px 14px;font-weight:600;">Sisyphus 评级</td><td style="padding:10px 14px;text-align:center;color:var(--danger);font-weight:700;">病灶 #1 · 优先</td><td style="padding:10px 14px;text-align:center;color:var(--danger);font-weight:700;">数据错</td><td style="padding:10px 14px;text-align:center;color:var(--warning);font-weight:700;">还可以</td><td style="padding:10px 14px;text-align:center;color:var(--success);font-weight:700;">用户已投票</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <div class="insight-card insight-card--danger">
-        <div class="insight-card__head">💡 关键洞察 #6 · PDP 灾难</div>
-        <div class="insight-card__title">4 主力 PDP 累计 36,717 PV · 仅 8 单 · CVR 平均 0.02%</div>
+        <div class="insight-card__head">💡 关键洞察 #6 v1.6 · 4 PDP 真相</div>
+        <div class="insight-card__title">"明星 SKU 0 单" 不是体验问题 · 是 URL 404 + Excel 数据归类错</div>
         <div class="insight-card__body">
-          KleanPal Pro 是「<strong>流量最大但 CVR 最低</strong>」的奇葩 SKU — 23,758 人看过仅 4 单 (0.017%)。<br>
-          M5 Smart Pump / Pregnancy Pillow 是「<strong>明星 SKU 0 单</strong>」 — Excel 时间窗内完全未变现。<br>
-          Mobile Style 是「<strong>相对最好</strong>」 — 加购率 1.27% (KleanPal 5x)，但仍远低于行业 10%。<br>
-          → 4 主力 PDP 全是 P0-8 KleanPal 重点优化的同源问题（DOM / 第三方 / Hero / Mobile sticky）。
+          <strong>v1.0-v1.5 的解读错误</strong>：4 PDP 累计 36,717 PV 仅 8 单 → 解读成"PDP 体验灾难"。<br>
+          <strong>v1.6 实地取证发现</strong>：3 个 URL 实际 404 · 用户根本进不去 · Excel 的 PV 数可能含<strong>用户访问 404 页面</strong>的浪费流量。<br><br>
+          <strong>分三组真相</strong>：<br>
+          ① <strong>KleanPal Pro</strong>（唯一活的 URL）·真实的 PDP 体验灾难 · 修 FastBundle/Amazon SDK/Seel/Pinterest = 1 小时 = 月增 $0.8M<br>
+          ② <strong>M5 Smart Pump</strong> · URL 已死 · 旧的 m5-smart-wearable-br 应 301 重定向到 M5 Bra Bundle · Analytics 团队需重新归类<br>
+          ③ <strong>Pregnancy / Mobile Style</strong> · URL 截断 · 实际 PDP 还活着 · Mobile Style M6 加购率 1.27% 是<strong>用户已投票的赢家 SKU</strong> · M2 应优先优化它<br><br>
+          <strong>对路特的核心建议</strong>：让 Analytics 团队<strong>立即核对 GA4 / Shopify 后台</strong>是否同样按这些过时 URL 统计 · 否则 Momcozy 全公司的 PDP 性能讨论都是建立在错误数据上 · 修 URL 301 redirect = 5 分钟工作 · 但需要数据团队介入。
         </div>
       </div>
     </div>
