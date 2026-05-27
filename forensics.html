@@ -5,35 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>III · 策略 SOP — Momcozy M1 v2.0 — 路特 AI 公司 × Momcozy</title>
   <meta name="description" content="逐资源·逐链接·逐 console error·完整 stack trace 法医级取证报告">
+  <meta property="og:title" content="III · 策略 SOP — Momcozy M1 v2.0">
+  <meta property="og:description" content="法医级取证：15 条 P0/P1 完整证据链 + stack trace + Liquid 修复代码">
+  <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/shared.css">
   <style>
     :root {
-      --bg-white: #ffffff;
-      --bg-gray: #f7f7f8;
-      --bg-dark: #0f0f10;
-      --bg-evidence: #fafafa;
-      --text-primary: #111111;
-      --text-secondary: #5c5c5c;
-      --text-tertiary: #8a8a8a;
-      --cta-black: #111111;
-      --accent: #6a2b3a;
-      --accent-light: #fde8ec;
-      --success: #1f9d55;
-      --success-light: #e6f7ec;
-      --warning: #d97706;
-      --warning-light: #fef3c7;
-      --danger: #c53030;
-      --danger-light: #fee2e2;
-      --info: #2563eb;
-      --info-light: #dbeafe;
-      --border: #e5e5e5;
-      --border-light: #f0f0f0;
+      --bg-white: #ffffff; --bg-gray: #f7f7f8; --bg-dark: #0f0f10; --bg-evidence: #fafafa;
+      --text-primary: #111111; --text-secondary: #5c5c5c; --text-tertiary: #8a8a8a;
+      --cta-black: #111111; --accent: #6a2b3a; --accent-light: #fde8ec;
+      --success: #1f9d55; --success-light: #e6f7ec;
+      --warning: #d97706; --warning-light: #fef3c7;
+      --danger: #c53030; --danger-light: #fee2e2;
+      --info: #2563eb; --info-light: #dbeafe;
+      --border: #e5e5e5; --border-light: #f0f0f0;
       --font: 'Montserrat', 'PingFang SC', 'Microsoft YaHei', sans-serif;
       --font-mono: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
-      --shadow: 0 4px 12px rgba(0,0,0,0.06);
-      --shadow-lg: 0 12px 32px rgba(0,0,0,0.08);
+      --shadow: 0 4px 12px rgba(0,0,0,0.06); --shadow-lg: 0 12px 32px rgba(0,0,0,0.08);
+      --r-sm: 4px; --r-md: 8px; --r-lg: 12px; --r-xl: 16px; --r-pill: 999px;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; scroll-padding-top: 80px; }
@@ -276,10 +268,10 @@
   </style>
 </head>
 <body>
+  <div class="scroll-progress" id="scrollProgress"></div>
 
-  <!-- ═══════ Promo Banner · 数据口径 ═══════ -->
   <div class="promo-banner">
-    <span class="dot"></span> 数据窗口 2026-01-01 → 2026-05-15 · 135 天累计 · 量类 (PV/UV/营收/订单) 累计+日均 · 率类 (CVR/AOV/跳出率) 不变 · v1.4 <span class="dot"></span>
+    <span class="dot"></span> 法医级取证 v2.0 · 2026-05-17 10:53 PDT · Chromium 1440×900 桌面 + 390×844 移动 <span class="dot"></span>
   </div>
 
   <nav class="nav-top">
@@ -1189,10 +1181,29 @@ import fs from 'fs';
         策略 SOP v1.2 · 2026-05-17 PT · Sisyphus（COO）出品 · 13 项铁证 · 5 取证区 · 14 修复代码 · 全部 stack trace 落盘 <code style="color:#fbbf24;background:#1a1a1c;padding:2px 6px;border-radius:3px;">data/forensics-raw.json</code>
       </div>
       <div class="footer__bottom">
-        © 2026 路特 AI 公司 · v1.2 · 实测时间窗 2026-05-17T10:53-10:56 PDT · 取证设备 Chromium 1440×900
+        © 2026 路特 AI 公司 · 法医取证 v2.0 · 实测时间窗 2026-05-17T10:53-10:56 PDT · 取证设备 Chromium 1440×900
       </div>
     </div>
   </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="回到顶部">↑</button>
+
+  <script>
+    const sp = document.getElementById('scrollProgress');
+    const btt = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      if (sp) sp.style.width = pct + '%';
+      if (btt) btt.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    if (btt) btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const obs = new IntersectionObserver(entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); }
+      }), { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    }
+  </script>
 
 </body>
 </html>
