@@ -1,0 +1,32 @@
+---
+layout: layout.njk
+permalink: /forensics/index.html
+title: Forensics
+description: Sanitized technical evidence and audit limitations.
+---
+<section class="hero compact">
+  <p class="eyebrow">Evidence before certainty</p>
+  <h1>Forensics</h1>
+  <p class="lede">A public evidence trail that keeps method, observation time, and confidence while excluding raw captures and private infrastructure.</p>
+</section>
+<section aria-label="Forensic findings">
+  <div class="timeline">
+    {% for item in audit.forensics %}
+    <article class="timeline-item">
+      <span class="timeline-index">0{{ loop.index }}</span>
+      <div>
+        <h2>{{ item.label }}</h2>
+        <p class="metric-value small">{{ item.value }} <span>{{ item.unit }}</span></p>
+        <p>{{ item.interpretation }}</p>
+        <p class="source-line"><strong>Source:</strong> {{ item.source }} · <strong>Confidence:</strong> {{ item.confidence }}</p>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+<section class="panel limitation" aria-labelledby="limits-title">
+  <p class="eyebrow">Important boundary</p>
+  <h2 id="limits-title">What this public edition does not claim</h2>
+  <p>The sample is deliberately narrow. It does not estimate business performance, user intent, realized impact, or population-wide behavior. Recommendations require controlled validation before production decisions.</p>
+</section>
+

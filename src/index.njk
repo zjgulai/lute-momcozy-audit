@@ -1,0 +1,50 @@
+---
+layout: layout.njk
+title: Overview
+description: Sanitized public overview of a Momcozy storefront technical audit.
+---
+<section class="hero">
+  <p class="eyebrow">{{ audit.meta.publication }}</p>
+  <h1>{{ audit.meta.title }}</h1>
+  <p class="lede">{{ audit.summary.verdict }}</p>
+  <dl class="meta-grid">
+    <div><dt>Observed</dt><dd>{{ audit.meta.observedAt }}</dd></div>
+    <div><dt>Scope</dt><dd>{{ audit.meta.scope }}</dd></div>
+    <div><dt>Method</dt><dd>{{ audit.meta.method }}</dd></div>
+  </dl>
+</section>
+
+<section aria-labelledby="signal-title">
+  <div class="section-heading">
+    <p class="eyebrow">At a glance</p>
+    <h2 id="signal-title">Signals worth acting on</h2>
+  </div>
+  <div class="split-grid">
+    <article class="panel positive">
+      <h3>Observed strengths</h3>
+      <ul>{% for item in audit.summary.strengths %}<li>{{ item }}</li>{% endfor %}</ul>
+    </article>
+    <article class="panel risk">
+      <h3>Observed risks</h3>
+      <ul>{% for item in audit.summary.risks %}<li>{{ item }}</li>{% endfor %}</ul>
+    </article>
+  </div>
+</section>
+
+<section aria-labelledby="recommendations-title">
+  <div class="section-heading">
+    <p class="eyebrow">Prioritized work</p>
+    <h2 id="recommendations-title">Recommendations with validation gates</h2>
+  </div>
+  <div class="card-grid">
+    {% for item in audit.recommendations %}
+    <article class="card">
+      <span class="priority">{{ item.priority }}</span>
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.action }}</p>
+      <p class="validation"><strong>Validate:</strong> {{ item.validation }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+

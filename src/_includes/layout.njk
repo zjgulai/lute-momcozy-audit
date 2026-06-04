@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ description }}">
+    <title>{{ title }} · Lute Technical Audit</title>
+    <link rel="stylesheet" href="/assets/site.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="brand" href="/">Lute <span>Technical Audit</span></a>
+      <nav aria-label="Primary">
+        <a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Overview</a>
+        <a href="/metrics/" {% if page.url == "/metrics/" %}aria-current="page"{% endif %}>Metrics</a>
+        <a href="/forensics/" {% if page.url == "/forensics/" %}aria-current="page"{% endif %}>Forensics</a>
+      </nav>
+    </header>
+    <main id="main">{{ content | safe }}</main>
+    <footer>
+      <p>{{ audit.meta.publication }} · Observed {{ audit.meta.observedAt }}</p>
+      <p>Technical observations only. No private business data is published.</p>
+    </footer>
+  </body>
+</html>
+

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["meta", "summary", "metrics", "forensics", "recommendations", "glossary"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title", "observedAt", "scope", "method", "publication"],
+      "properties": {
+        "title": {"type": "string"},
+        "observedAt": {"type": "string"},
+        "scope": {"type": "string"},
+        "method": {"type": "string"},
+        "publication": {"type": "string"}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verdict", "strengths", "risks"],
+      "properties": {
+        "verdict": {"type": "string"},
+        "strengths": {"type": "array", "items": {"type": "string"}},
+        "risks": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "metrics": {"$ref": "#/$defs/findings"},
+    "forensics": {"$ref": "#/$defs/findings"},
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["priority", "title", "action", "validation"],
+        "properties": {
+          "priority": {"enum": ["P0", "P1", "P2"]},
+          "title": {"type": "string"},
+          "action": {"type": "string"},
+          "validation": {"type": "string"}
+        }
+      }
+    },
+    "glossary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["term", "definition"],
+        "properties": {
+          "term": {"type": "string"},
+          "definition": {"type": "string"}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "value", "unit", "interpretation", "source", "confidence"],
+        "properties": {
+          "label": {"type": "string"},
+          "value": {"type": "number"},
+          "unit": {"type": "string"},
+          "interpretation": {"type": "string"},
+          "source": {"type": "string"},
+          "confidence": {"enum": ["high", "medium", "low"]}
+        }
+      }
+    }
+  }
+}
+

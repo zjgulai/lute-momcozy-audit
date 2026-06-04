@@ -1,0 +1,44 @@
+name: Publish Verified Artifact to Tencent
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - name: Configure SSH
+        env:
+          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s' "$DEPLOY_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+      - name: Upload immutable release and switch symlink
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          RELEASE="/srv/lute-momcozy-audit/releases/${GITHUB_SHA}"
+          rsync -az --delete _site/ "${DEPLOY_USER}@${DEPLOY_HOST}:${RELEASE}/"
+          ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "ln -sfn '${RELEASE}' /srv/lute-momcozy-audit/current"
+      - name: Post-deploy 404 smoke tests
+        env:
+          PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
+        run: |
+          test "$(curl -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL/not-a-real-page")" = "404"
+          test "$(curl -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL/data/private.json")" = "404"
+
