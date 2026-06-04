@@ -69,7 +69,7 @@ jobs:
           PUBLIC_URL=$3
           LIVE="${ROOT}/html"
           STAGE="${ROOT}/staging/${RELEASE}"
-          BACKUP="${ROOT}/backups/${RELEASE}_workflow"
+          BACKUP="${ROOT}/workflow-backups/${RELEASE}"
           ROLLBACK_NEEDED=0
           rollback() {
             status=$?
