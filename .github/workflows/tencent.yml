@@ -1,14 +1,21 @@
 name: Publish Verified Artifact to Tencent
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: tencent-production
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: tencent-production
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
@@ -23,21 +30,81 @@ jobs:
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
         run: |
+          test -n "$DEPLOY_SSH_KEY"
+          test -n "$DEPLOY_HOST"
           install -m 700 -d ~/.ssh
-          printf '%s' "$DEPLOY_SSH_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
-      - name: Upload immutable release and switch symlink
+          printf '%s' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          timeout 60 ssh-keyscan -T 30 -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+      - name: Upload verified staging release
         env:
           DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_ROOT: ${{ secrets.DEPLOY_ROOT }}
           DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
         run: |
-          RELEASE="/srv/lute-momcozy-audit/releases/${GITHUB_SHA}"
-          rsync -az --delete _site/ "${DEPLOY_USER}@${DEPLOY_HOST}:${RELEASE}/"
-          ssh "${DEPLOY_USER}@${DEPLOY_HOST}" "ln -sfn '${RELEASE}' /srv/lute-momcozy-audit/current"
-      - name: Post-deploy 404 smoke tests
+          test -n "$DEPLOY_ROOT"
+          test -n "$DEPLOY_USER"
+          SSH="ssh -i ~/.ssh/deploy_key -o ConnectTimeout=60 -o ServerAliveInterval=10 -o ServerAliveCountMax=4"
+          STAGE="${DEPLOY_ROOT}/staging/${GITHUB_SHA}"
+          (cd _site && find . -type f -print0 | sort -z | xargs -0 sha256sum) > /tmp/site.sha256
+          $SSH "${DEPLOY_USER}@${DEPLOY_HOST}" "rm -rf '${STAGE}' && mkdir -p '${STAGE}/site'"
+          rsync -az --delete -e "$SSH" _site/ "${DEPLOY_USER}@${DEPLOY_HOST}:${STAGE}/site/"
+          scp -i ~/.ssh/deploy_key -o ConnectTimeout=60 /tmp/site.sha256 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}:${STAGE}/site.sha256"
+      - name: Deploy only the isolated Momcozy directory
+        env:
+          DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+          DEPLOY_ROOT: ${{ secrets.DEPLOY_ROOT }}
+          DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+          PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
+        run: |
+          test -n "$PUBLIC_URL"
+          ssh -i ~/.ssh/deploy_key -o ConnectTimeout=60 \
+            -o ServerAliveInterval=10 -o ServerAliveCountMax=4 \
+            "${DEPLOY_USER}@${DEPLOY_HOST}" \
+            "bash -s -- '${DEPLOY_ROOT}' '${GITHUB_SHA}' '${PUBLIC_URL}'" <<'REMOTE'
+          set -Eeuo pipefail
+          ROOT=$1
+          RELEASE=$2
+          PUBLIC_URL=$3
+          LIVE="${ROOT}/html"
+          STAGE="${ROOT}/staging/${RELEASE}"
+          BACKUP="${ROOT}/backups/${RELEASE}_workflow"
+          ROLLBACK_NEEDED=0
+          rollback() {
+            status=$?
+            set +e
+            if [ "$ROLLBACK_NEEDED" = 1 ]; then
+              rsync -a --delete "${BACKUP}/html/" "${LIVE}/"
+            fi
+            exit "$status"
+          }
+          trap rollback ERR
+          status_code() {
+            curl --connect-timeout 5 --max-time 20 -sS -o /dev/null -w '%{http_code}' "$1"
+          }
+          expect_code() {
+            test "$(status_code "$2")" = "$1"
+          }
+          cd "${STAGE}/site"
+          sha256sum -c ../site.sha256
+          install -d -m 0750 "${BACKUP}/html"
+          cp -a "${LIVE}/." "${BACKUP}/html/"
+          ROLLBACK_NEEDED=1
+          rsync -a --delete "${STAGE}/site/" "${LIVE}/"
+          cd "${LIVE}"
+          sha256sum -c "${STAGE}/site.sha256"
+          expect_code 200 "${PUBLIC_URL}/"
+          expect_code 200 "${PUBLIC_URL}/metrics/"
+          expect_code 200 "${PUBLIC_URL}/forensics/"
+          expect_code 404 "${PUBLIC_URL}/not-a-real-page"
+          expect_code 404 "${PUBLIC_URL}/data/private.json"
+          ROLLBACK_NEEDED=0
+          REMOTE
+      - name: External post-deploy smoke tests
         env:
           PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
         run: |
-          test "$(curl -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL/not-a-real-page")" = "404"
-          test "$(curl -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL/data/private.json")" = "404"
+          test "$(curl --connect-timeout 5 --max-time 20 -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL/")" = "200"
+          test "$(curl --connect-timeout 5 --max-time 20 -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL/not-a-real-page")" = "404"
+          test "$(curl --connect-timeout 5 --max-time 20 -sS -o /dev/null -w '%{http_code}' "$PUBLIC_URL/data/private.json")" = "404"
