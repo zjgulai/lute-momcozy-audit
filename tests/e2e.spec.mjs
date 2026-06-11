@@ -1,6 +1,6 @@
 import {expect, test} from "@playwright/test";
 
-const pages = ["/", "/metrics/", "/forensics/"];
+const pages = ["/", "/metrics/", "/forensics/", "/trends/"];
 for (const pathname of pages) {
   test(`${pathname} is stable on desktop and mobile`, async ({browser}) => {
     for (const viewport of [{width: 1440, height: 900}, {width: 390, height: 844}]) {

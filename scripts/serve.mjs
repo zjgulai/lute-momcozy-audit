@@ -10,9 +10,21 @@ const mime = {
   ".svg": "image/svg+xml"
 };
 
+const securityHeaders = {
+  "content-security-policy": "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; frame-ancestors 'none';",
+  "x-frame-options": "DENY",
+  "x-content-type-options": "nosniff",
+  "referrer-policy": "no-referrer",
+  "permissions-policy": "camera=(), microphone=(), geolocation=()"
+};
+
 function send(response, status, file) {
-  response.writeHead(status, {"content-type": mime[path.extname(file)] || "application/octet-stream"});
-  response.end(fs.readFileSync(file));
+  response.writeHead(status, {
+    "content-type": mime[path.extname(file)] || "application/octet-stream",
+    ...securityHeaders
+  });
+  const stream = fs.createReadStream(file);
+  stream.pipe(response);
 }
 
 const server = http.createServer((request, response) => {

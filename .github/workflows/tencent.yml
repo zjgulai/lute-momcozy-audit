@@ -13,18 +13,42 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment: tencent-production
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
       - run: npm test
+      - name: Generate SHA-256 manifest
+        run: (cd _site && find . -type f -print0 | sort -z | xargs -0 sha256sum) > site.sha256
+      - name: Upload verified site artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: verified-site-${{ github.sha }}
+          path: |
+            _site/
+            site.sha256
+          retention-days: 7
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: tencent-production
+    steps:
+      - name: Download verified site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: verified-site-${{ github.sha }}
       - name: Configure SSH
         env:
           DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
@@ -46,10 +70,9 @@ jobs:
           test -n "$DEPLOY_USER"
           SSH="ssh -i ~/.ssh/deploy_key -o ConnectTimeout=60 -o ServerAliveInterval=10 -o ServerAliveCountMax=4"
           STAGE="${DEPLOY_ROOT}/staging/${GITHUB_SHA}"
-          (cd _site && find . -type f -print0 | sort -z | xargs -0 sha256sum) > /tmp/site.sha256
           $SSH "${DEPLOY_USER}@${DEPLOY_HOST}" "rm -rf '${STAGE}' && mkdir -p '${STAGE}/site'"
           rsync -az --delete -e "$SSH" _site/ "${DEPLOY_USER}@${DEPLOY_HOST}:${STAGE}/site/"
-          scp -i ~/.ssh/deploy_key -o ConnectTimeout=60 /tmp/site.sha256 \
+          scp -i ~/.ssh/deploy_key -o ConnectTimeout=60 site.sha256 \
             "${DEPLOY_USER}@${DEPLOY_HOST}:${STAGE}/site.sha256"
       - name: Deploy only the isolated Momcozy directory
         env:

@@ -1,22 +1,27 @@
 {
   "meta": {
     "title": "Momcozy Storefront Technical Audit",
+    "sessionId": "session-2026-06-10",
+    "auditVersion": "3.3.0",
+    "collectedBy": "Automated Playwright observation (v2, dual viewport)",
     "observedAt": "May 17, 2026",
+    "latestObservedAt": "Jun 10, 2026",
     "scope": "Public storefront homepage and one product-detail journey",
     "method": "Single-session Chromium observation with resource and rendering instrumentation",
     "publication": "Sanitized public edition"
   },
   "summary": {
-    "verdict": "The storefront has a credible brand foundation, while rendering weight, third-party resilience, and mobile interaction deserve focused engineering work.",
+    "verdict": "The storefront has a credible brand foundation, while rendering weight, third-party resilience, and mobile interaction deserve focused engineering work. A Jun 10 automated session further identified a 1.9 MB JavaScript payload, 7,299 DOM nodes, and 47 third-party request failures — each a confirmed risk to real-user performance.",
     "strengths": [
-      "Stable layout during the observed render",
-      "Fast initial server response in the observed session",
+      "Stable layout during the observed render (CLS held at 0 in the Jun 10 automated session)",
+      "Fast initial server response in the observed session (TTFB confirmed at 253 ms in Jun 10 recheck)",
       "Clear product-storytelling structure"
     ],
     "risks": [
-      "The primary visual arrived late in the observed session",
-      "Third-party failures can add noise and weaken attribution confidence",
-      "Mobile purchase controls need explicit usability validation"
+      "The primary visual arrived late in the observed session — and the hero element is not LCP-eligible in lab instrumentation",
+      "Third-party failures can add noise and weaken attribution confidence (47 failures observed in the Jun 10 automated baseline)",
+      "Mobile purchase controls need explicit usability validation",
+      "JavaScript payload is 1.9 MB and DOM contains 7,299 nodes — both identified in the Jun 10 automated session"
     ]
   },
   "metrics": [
@@ -24,33 +29,57 @@
       "label": "Largest contentful paint",
       "value": 4.92,
       "unit": "seconds",
-      "interpretation": "The observed hero visual appeared later than the recommended good threshold.",
-      "source": "Chromium PerformanceObserver, homepage",
+      "interpretation": "The observed hero visual appeared later than the recommended good threshold. The Jun 10 automated session could not record LCP — the hero element appears not to be LCP-eligible in headless instrumentation, suggesting a CSS background-image or lazy-loaded asset.",
+      "source": "Chromium PerformanceObserver, homepage, May 17 manual session",
       "confidence": "medium"
     },
     {
       "label": "First contentful paint",
       "value": 4.86,
       "unit": "seconds",
-      "interpretation": "The first visible content was delayed in the observed session.",
-      "source": "Chromium paint timing, homepage",
+      "interpretation": "The first visible content was delayed in the observed session. The Jun 10 automated headless session recorded 0.38 s desktop / 0.39 s mobile — lower due to absence of network throttling and third-party script competition in lab conditions.",
+      "source": "Chromium paint timing, homepage, May 17 manual session",
       "confidence": "medium"
     },
     {
       "label": "Server response",
       "value": 245,
       "unit": "milliseconds",
-      "interpretation": "The initial server response was healthy during the observation.",
-      "source": "Navigation timing, homepage",
+      "interpretation": "The initial server response was healthy during the observation. The Jun 10 automated session confirmed 253 ms desktop / 269 ms mobile — consistently within the good threshold across both sessions.",
+      "source": "Navigation timing, homepage, May 17 manual session; confirmed Jun 10",
       "confidence": "medium"
     },
     {
       "label": "Layout shift",
       "value": 0.0008,
       "unit": "score",
-      "interpretation": "Visual stability was strong during the observed render.",
-      "source": "Chromium layout-shift observation, homepage",
+      "interpretation": "Visual stability was strong during the observed render. The Jun 10 automated session recorded a perfect 0 on both desktop and mobile, confirming consistent improvement.",
+      "source": "Chromium layout-shift observation, homepage, May 17 manual session",
       "confidence": "medium"
+    },
+    {
+      "label": "JavaScript payload",
+      "value": 1900,
+      "unit": "kilobytes",
+      "interpretation": "1.9 MB of JS transferred in the Jun 10 automated session — 3.8x the recommended 500 KB budget. This metric was not observable in the May 17 manual baseline. On a mid-range device with a cold cache, parsing and compiling this payload will delay the point at which the page can respond to input.",
+      "source": "Resource timing initiatorType=script transferSize sum, homepage desktop, Jun 10 automated session",
+      "confidence": "high"
+    },
+    {
+      "label": "DOM node count",
+      "value": 7299,
+      "unit": "nodes",
+      "interpretation": "7,299 DOM nodes — 4.9x the recommended ceiling of 1,500. Measured in the Jun 10 automated session. Common Shopify contributors include off-screen carousel slides, un-virtualised product grids, and nested theme components.",
+      "source": "document.querySelectorAll length, homepage desktop, Jun 10 automated session",
+      "confidence": "high"
+    },
+    {
+      "label": "Third-party request failures",
+      "value": 47,
+      "unit": "requests",
+      "interpretation": "47 non-origin requests failed on desktop (33 on mobile) in the Jun 10 automated session — 9.3% of 506 total requests. The May 17 manual session observed 3 failures; the increase may reflect new integrations or methodological differences. Either way, 47 failures per session is a material risk to analytics and attribution.",
+      "source": "Playwright requestfailed events non-origin filter, homepage, Jun 10 automated session",
+      "confidence": "high"
     }
   ],
   "forensics": [
@@ -58,23 +87,47 @@
       "label": "Observed third-party request failures",
       "value": 3,
       "unit": "requests",
-      "interpretation": "A small set of third-party calls failed during the session and should be isolated from the purchase path.",
-      "source": "Chromium network observation",
+      "interpretation": "A small set of third-party calls failed during the May 17 session and should be isolated from the purchase path. The Jun 10 automated session recorded 47 desktop failures and 33 mobile failures — each a potential gap in analytics, attribution, or feature delivery.",
+      "source": "Chromium network observation, May 17; Playwright requestfailed, Jun 10",
       "confidence": "medium"
     },
     {
       "label": "Observed long tasks",
       "value": 2,
       "unit": "tasks",
-      "interpretation": "Main-thread work showed short periods that may affect responsiveness on slower devices.",
-      "source": "Chromium long-task observation",
+      "interpretation": "Main-thread work showed short periods in the May 17 session that may affect responsiveness on slower devices. The Jun 10 automated session recorded TBT = 0 ms — a lab artifact, because 47 failing third-party scripts never executed and did not contribute blocking time. Field INP data is needed for real-user interaction responsiveness.",
+      "source": "Chromium long-task observation, May 17; PerformanceObserver longtask, Jun 10",
+      "confidence": "low"
+    },
+    {
+      "label": "JavaScript payload — Jun 10 finding",
+      "value": 1900,
+      "unit": "kilobytes",
+      "interpretation": "1.9 MB of JS is the largest single quantified performance risk identified to date. Not observable in the May 17 manual session. The parse and compile cost on a mid-range device will delay user interaction. TBT appeared 0 in the lab because failing scripts never executed — field INP data is needed to quantify the real impact.",
+      "source": "Resource timing API initiatorType=script transferSize sum, homepage desktop, Jun 10 automated session",
+      "confidence": "high"
+    },
+    {
+      "label": "DOM node count — Jun 10 finding",
+      "value": 7299,
+      "unit": "nodes",
+      "interpretation": "7,299 DOM nodes is 4.9x the recommended limit of 1,500. Not observable in the May 17 manual session. On Shopify storefronts, common contributors are off-screen carousel slides, un-virtualised product grids, and nested theme components left in the DOM. StyleRecalc timing was not directly measured.",
+      "source": "document.querySelectorAll length, homepage desktop, Jun 10 automated session",
+      "confidence": "high"
+    },
+    {
+      "label": "LCP observability",
+      "value": 4.92,
+      "unit": "seconds (manual) / not observed (automated)",
+      "interpretation": "The May 17 manual session recorded LCP at 4.92 s. The Jun 10 automated session could not record LCP in either desktop or mobile — the hero element is likely a CSS background-image or a lazy-loaded asset, neither of which qualifies as an LCP candidate under the spec. The site needs an LCP-eligible element to be measured accurately in lab conditions.",
+      "source": "Chromium PerformanceObserver, May 17 manual; Chromium LCP PerformanceObserver, Jun 10 automated",
       "confidence": "low"
     },
     {
       "label": "Audited journeys",
       "value": 2,
       "unit": "journeys",
-      "interpretation": "Findings are directional and should be revalidated across more templates and real-user conditions.",
+      "interpretation": "The May 17 session covered homepage and one product-detail journey. The Jun 10 automated session covered the homepage in two viewports (desktop 1440x900, mobile 390x844). Findings are directional and should be revalidated across cart and checkout pages.",
       "source": "Audit scope record",
       "confidence": "high"
     }
@@ -83,20 +136,26 @@
     {
       "priority": "P0",
       "title": "Make the hero image the rendering priority",
-      "action": "Preload the selected hero asset, emit responsive dimensions, and remove competing above-the-fold work.",
-      "validation": "Repeat lab measurements across representative mobile and desktop profiles."
+      "action": "Preload the selected hero asset, emit responsive dimensions, and remove competing above-the-fold work. Replace any CSS-background or lazy-loaded hero with an eagerly loaded img with fetchpriority=high so it becomes a valid LCP candidate.",
+      "validation": "Repeat lab measurements across representative mobile and desktop profiles. Confirm a numeric LCP value is captured in automated collection."
     },
     {
       "priority": "P0",
-      "title": "Return real not-found responses",
-      "action": "Serve unknown paths and private data paths with an HTTP 404 instead of the homepage.",
-      "validation": "Automate status checks for an unknown path and a blocked data path after every deploy."
+      "title": "Reduce JavaScript payload from 1.9 MB",
+      "action": "Audit bundle composition using source-map-explorer or equivalent. Remove unused polyfills, defer non-critical third-party scripts, and tree-shake app code. Target under 500 KB transferred on initial load.",
+      "validation": "Re-run automated collection and confirm jsKb drops below 600. Validate TBT improvement via Lighthouse lab runs."
+    },
+    {
+      "priority": "P0",
+      "title": "Isolate optional third parties",
+      "action": "Delay nonessential integrations and keep failures outside the critical purchase path. Enumerate all failing origins and wrap remaining third parties with error boundaries. Target under 10 failures per session.",
+      "validation": "Re-run automated collection and confirm thirdPartyFailures drops below 10 on both desktop and mobile."
     },
     {
       "priority": "P1",
-      "title": "Isolate optional third parties",
-      "action": "Delay nonessential integrations and keep failures outside the critical purchase path.",
-      "validation": "Run a controlled test with each optional integration unavailable."
+      "title": "Reduce DOM size from 7,299 nodes",
+      "action": "Use Chrome DevTools Performance panel to identify the largest DOM contributors. Virtualise off-screen carousel slides, paginate product grids, and remove hidden duplicate markup. Target under 2,000 nodes.",
+      "validation": "Re-run automated collection and confirm domNodes below 2,500."
     },
     {
       "priority": "P1",
@@ -106,10 +165,11 @@
     }
   ],
   "glossary": [
-    {"term": "LCP", "definition": "Time until the largest visible content element is rendered."},
+    {"term": "LCP", "definition": "Time until the largest visible content element is rendered. Must be an img, video poster, or block-level text — CSS backgrounds do not qualify."},
     {"term": "FCP", "definition": "Time until the browser renders the first visible content."},
-    {"term": "CLS", "definition": "A measure of unexpected visual movement during page load."},
+    {"term": "CLS", "definition": "A measure of unexpected visual movement during page load. A score of 0 is perfect; good is below 0.1."},
+    {"term": "TTFB", "definition": "Time to First Byte — elapsed time from navigation start to the first byte of the HTTP response. The most consistent metric across lab and real-user conditions."},
+    {"term": "TBT", "definition": "Total Blocking Time — sum of time each long task blocks the main thread between FCP and Time to Interactive. In lab sessions where third-party scripts fail at the network level, TBT may read 0 regardless of payload size."},
     {"term": "Confidence", "definition": "How strongly the limited public evidence supports a finding."}
   ]
 }
-

@@ -1,0 +1,62 @@
+name: Monthly Performance Collection
+
+on:
+  schedule:
+    - cron: "0 2 1 * *"  # 01:00 UTC on the 1st of every month
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: "Override target URL (defaults to secret AUDIT_TARGET_URL)"
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ hashFiles('package-lock.json') }}
+      - run: npx playwright install --with-deps chromium
+      - name: Collect performance session
+        env:
+          AUDIT_TARGET_URL: ${{ inputs.target_url || secrets.AUDIT_TARGET_URL }}
+        run: node scripts/collect.mjs
+      - name: Check if new session was written
+        id: check
+        run: |
+          if git diff --quiet src/_data/sessions/; then
+            echo "new_session=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "new_session=true" >> "$GITHUB_OUTPUT"
+            echo "date=$(date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Open PR with new session data
+        if: steps.check.outputs.new_session == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DATE="${{ steps.check.outputs.date }}"
+          BRANCH="collect/session-${DATE}"
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add src/_data/sessions/
+          git commit -m "collect: add performance session ${DATE}"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "Performance snapshot ${DATE}" \
+            --body "Automated monthly collection. Review metrics before merging to publish the updated trends page." \
+            --base main \
+            --head "$BRANCH"

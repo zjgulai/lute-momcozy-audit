@@ -13,7 +13,7 @@ description: Sanitized technical evidence and audit limitations.
   <div class="timeline">
     {% for item in audit.forensics %}
     <article class="timeline-item">
-      <span class="timeline-index">0{{ loop.index }}</span>
+      <span class="timeline-index">{{ loop.index | twoDigit }}</span>
       <div>
         <h2>{{ item.label }}</h2>
         <p class="metric-value small">{{ item.value }} <span>{{ item.unit }}</span></p>

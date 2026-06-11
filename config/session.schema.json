@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["sessionId", "observedAt", "collectedBy", "targetUrl", "metrics", "confidence"],
+  "properties": {
+    "sessionId": {
+      "type": "string",
+      "pattern": "^session-\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "observedAt": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "collectedBy":  {"type": "string"},
+    "targetUrl":    {"type": "string"},
+    "confidence":   {"enum": ["high", "medium", "low"]},
+    "notes":        {"type": "string"},
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lcp", "fcp", "ttfb", "cls"],
+      "properties": {
+        "lcp":                {"type": ["number", "null"]},
+        "fcp":                {"type": ["number", "null"]},
+        "ttfb":               {"type": ["number", "null"]},
+        "cls":                {"type": "number"},
+        "tbt":                {"type": ["integer", "null"]},
+        "domNodes":           {"type": ["integer", "null"]},
+        "longTasks":          {"type": "integer", "minimum": 0},
+        "totalRequests":      {"type": ["integer", "null"]},
+        "jsKb":               {"type": ["integer", "null"]},
+        "thirdPartyFailures": {"type": "integer", "minimum": 0}
+      }
+    },
+    "mobile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lcp":                {"type": ["number", "null"]},
+        "fcp":                {"type": ["number", "null"]},
+        "ttfb":               {"type": ["number", "null"]},
+        "cls":                {"type": "number"},
+        "tbt":                {"type": ["integer", "null"]},
+        "thirdPartyFailures": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

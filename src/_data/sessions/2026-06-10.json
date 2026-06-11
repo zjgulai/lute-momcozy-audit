@@ -1,0 +1,28 @@
+{
+  "sessionId": "session-2026-06-10",
+  "observedAt": "2026-06-10",
+  "collectedBy": "collect.mjs Playwright automated observation",
+  "targetUrl": "https://momcozy.com",
+  "metrics": {
+    "lcp": null,
+    "fcp": 0.38,
+    "ttfb": 253,
+    "cls": 0,
+    "tbt": 0,
+    "domNodes": 7299,
+    "longTasks": 3,
+    "totalRequests": 506,
+    "jsKb": 1900,
+    "thirdPartyFailures": 47
+  },
+  "mobile": {
+    "lcp": null,
+    "fcp": 0.39,
+    "ttfb": 269,
+    "cls": 0,
+    "tbt": 0,
+    "thirdPartyFailures": 33
+  },
+  "confidence": "medium",
+  "notes": "Automated collection. Desktop: LCP N/As, FCP 0.38s, TTFB 253ms, 3P failures 47. Mobile: LCP N/As, FCP 0.39s, 3P failures 33."
+}

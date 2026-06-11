@@ -15,7 +15,7 @@ for (const page of pages) {
   const html = fs.readFileSync(page, "utf8");
   for (const match of html.matchAll(/href="([^"]+)"/g)) {
     const href = match[1];
-    if (/^(?:https?:|mailto:|#)/.test(href)) continue;
+    if (/^(?:https?:|mailto:|#|data:)/.test(href)) continue;
     const clean = href.split(/[?#]/)[0];
     const target = clean.startsWith("/") ? path.join(root, clean) : path.join(path.dirname(page), clean);
     const candidates = [target, `${target}.html`, path.join(target, "index.html")];
