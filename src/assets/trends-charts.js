@@ -5,12 +5,11 @@
   var palette = {
     accent: "#16684d",
     risk:   "#92512c",
-    warn:   "#8a6a00",
     muted:  "#56665d",
     line:   "#cbd3ca"
   };
 
-  var thresholds = {lcp: 2.5, fcp: 1.8, ttfb: 800, cls: 0.1, failures: 10};
+  var thresholds = {lcp: 2.5, fcp: 1.8, ttfb: 800, cls: 0.1, failures: 10, jsKb: 500, domNodes: 1500};
 
   function thresholdPlugin(threshold, color) {
     return {
@@ -33,7 +32,7 @@
   }
 
   function makeChart(el, values, threshold, decimals) {
-    if (!el) return;
+    if (!el) return null;
     var plugins = threshold != null ? [thresholdPlugin(threshold, palette.risk)] : [];
     var opts = {
       width:  el.offsetWidth || 480,
@@ -71,26 +70,47 @@
       ],
       plugins: plugins
     };
-    new uPlot(opts, [dates, values], el);
+    return new uPlot(opts, [dates, values], el);
   }
 
-  makeChart(document.getElementById("chart-lcp"),
-    raw.map(function (s) { return s.metrics.lcp; }), thresholds.lcp, 2);
+  var chartDefs = [
+    {id: "chart-lcp",      vals: function(s) { return s.metrics.lcp; },
+     thresh: thresholds.lcp, dec: 2},
+    {id: "chart-fcp",      vals: function(s) { return s.metrics.fcp; },
+     thresh: thresholds.fcp, dec: 2},
+    {id: "chart-ttfb",     vals: function(s) { return s.metrics.ttfb; },
+     thresh: thresholds.ttfb, dec: 0},
+    {id: "chart-cls",      vals: function(s) { return s.metrics.cls; },
+     thresh: thresholds.cls, dec: 4},
+    {id: "chart-3p",       vals: function(s) { return s.metrics.thirdPartyFailures != null ? s.metrics.thirdPartyFailures : null; },
+     thresh: thresholds.failures, dec: 0},
+    {id: "chart-requests", vals: function(s) { return s.metrics.totalRequests != null ? s.metrics.totalRequests : null; },
+     thresh: null, dec: 0},
+    {id: "chart-js",       vals: function(s) { return s.metrics.jsKb != null ? s.metrics.jsKb : null; },
+     thresh: thresholds.jsKb, dec: 0},
+    {id: "chart-dom",      vals: function(s) { return s.metrics.domNodes != null ? s.metrics.domNodes : null; },
+     thresh: thresholds.domNodes, dec: 0}
+  ];
 
-  makeChart(document.getElementById("chart-fcp"),
-    raw.map(function (s) { return s.metrics.fcp; }), thresholds.fcp, 2);
+  var instances = [];
 
-  makeChart(document.getElementById("chart-ttfb"),
-    raw.map(function (s) { return s.metrics.ttfb; }), thresholds.ttfb, 0);
+  function buildAll() {
+    instances.forEach(function(u) { try { u.destroy(); } catch(e) {} });
+    instances = [];
+    chartDefs.forEach(function (def) {
+      var el = document.getElementById(def.id);
+      if (!el) return;
+      el.innerHTML = "";
+      var u = makeChart(el, raw.map(def.vals), def.thresh, def.dec);
+      if (u) instances.push(u);
+    });
+  }
 
-  makeChart(document.getElementById("chart-cls"),
-    raw.map(function (s) { return s.metrics.cls; }), thresholds.cls, 4);
+  buildAll();
 
-  makeChart(document.getElementById("chart-3p"),
-    raw.map(function (s) { return s.metrics.thirdPartyFailures != null ? s.metrics.thirdPartyFailures : null; }),
-    thresholds.failures, 0);
-
-  makeChart(document.getElementById("chart-requests"),
-    raw.map(function (s) { return s.metrics.totalRequests != null ? s.metrics.totalRequests : null; }),
-    null, 0);
+  var resizeTimer;
+  window.addEventListener("resize", function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(buildAll, 150);
+  });
 })();

@@ -66,6 +66,22 @@ description: Performance trends across all audit sessions.
       </figcaption>
       <div id="chart-requests" class="chart-wrap"></div>
     </figure>
+
+    <figure class="trend-card" aria-label="JavaScript payload trend">
+      <figcaption>
+        <span class="trend-label">JS Payload</span>
+        <span class="trend-unit">kilobytes — lower is better · budget &lt; 500 KB</span>
+      </figcaption>
+      <div id="chart-js" class="chart-wrap"></div>
+    </figure>
+
+    <figure class="trend-card" aria-label="DOM node count trend">
+      <figcaption>
+        <span class="trend-label">DOM Nodes</span>
+        <span class="trend-unit">count — lower is better · limit &lt; 1,500</span>
+      </figcaption>
+      <div id="chart-dom" class="chart-wrap"></div>
+    </figure>
   </div>
 </section>
 
@@ -99,7 +115,7 @@ description: Performance trends across all audit sessions.
           </td>
         </tr>
         {% endif %}
-        <tr class="{{ 'row-manual' if not s.isAutomated else 'row-auto' }}">
+        <tr class="{{ 'row-manual' if not s.isAutomated else 'row-auto' }}{% if s.confidence == 'low' %} row-low-confidence{% endif %}">
           <td>{{ s.observedAt }}{% if not s.isAutomated %} <span class="method-badge">manual</span>{% endif %}</td>
           <td class="num {% if s.metrics.fcp === null %}na{% elif s.metrics.fcp < 1.8 %}good{% elif s.metrics.fcp < 3 %}warn{% else %}bad{% endif %}">{{ s.metrics.fcp if s.metrics.fcp !== null else "N/A" }}</td>
           <td class="num {% if s.metrics.ttfb === null %}na{% elif s.metrics.ttfb < 800 %}good{% elif s.metrics.ttfb < 1800 %}warn{% else %}bad{% endif %}">{{ s.metrics.ttfb if s.metrics.ttfb !== null else "N/A" }}</td>
