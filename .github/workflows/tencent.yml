@@ -41,6 +41,7 @@ jobs:
           path: |
             _site/
             site.sha256
+          include-hidden-files: true
           retention-days: 7
 
   deploy:
