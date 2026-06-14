@@ -39,7 +39,7 @@
       "label": "FCP（首页，桌面）",
       "value": 0.58,
       "unit": "秒",
-      "interpretation": "首页桌面端 FCP 为 0.58 秒，较此前手工基线更快，说明首屏初始像素不再是主要颈颈。",
+      "interpretation": "首页桌面端 FCP 为 0.58 秒，较此前手工基线更快，说明首屏初始像素不再是主要瓶颈。",
       "source": "Chromium 首次绘制时序，session-2026-06-14 首页桌面",
       "confidence": "medium"
     },
@@ -191,9 +191,9 @@
     },
     {
       "label": "商品详情运行时错误",
-      "value": 9,
+      "value": 15,
       "unit": "次",
-      "interpretation": "商品详情中控制台/页面错误合计 9 次（桌面 4，移动 5）。尚需 INP 或 RUM 追踪映射业务影响，但该项已构成明确工程风险。",
+      "interpretation": "商品详情中控制台与页面错误合计 15 次（桌面 6，移动 9）。尚需 INP 或 RUM 追踪映射业务影响，但该项已构成明确工程风险。",
       "source": "Console/Page Error 采集，session-2026-06-14 商品详情",
       "confidence": "low"
     },
@@ -201,7 +201,7 @@
       "label": "图片可访问性缺口",
       "value": 45,
       "unit": "张",
-      "interpretation": "首页与商品详情合并仍有 45 张图片缺失可访问标识；结合商品详情路径缺失图像标签，属于真实可修复债务。",
+      "interpretation": "桌面样本中首页与商品详情合并仍有 45 张图片缺失可访问标识；结合商品详情路径缺失图像标签，属于真实可修复债务。",
       "source": "图片审计，session-2026-06-14 路由集",
       "confidence": "low"
     }

@@ -1,0 +1,113 @@
+{
+  "generatedAt": "2026-06-14T12:07:58+00:00",
+  "label": "2026-06-14 内外部交叉审计公开摘要",
+  "classification": "public_safe_summary",
+  "internal": {
+    "assessment": "Share with caveats",
+    "statusCounts": {
+      "PASS": 7,
+      "WARN": 3,
+      "FAIL": 0
+    },
+    "trafficObservedDays": 137,
+    "salesObservedDays": 204,
+    "currencyStatus": "owner-confirmation-needed",
+    "pdpWatchlistCount": 10,
+    "naturalSearchRows": 0,
+    "publicBoundary": "内部经营数据仅用于方向性诊断；公开页不发布原始 Excel、金额、收益模型输入或私有明细。"
+  },
+  "external": {
+    "latestSession": "session-2026-06-14",
+    "routeCount": 2,
+    "routes": ["homepage", "product-detail"],
+    "confidence": "low",
+    "homepageTtfbDesktopMs": 416,
+    "homepageTtfbMobileMs": 213,
+    "homepageFcpDesktopSec": 0.58,
+    "homepageFcpMobileSec": 0.34,
+    "homepageJsKb": 1904,
+    "pdpJsKb": 1942,
+    "maxDomNodes": 8088,
+    "maxThirdPartyFailures": 56,
+    "pdpThirdPartyFailures": "56 / 55",
+    "lcpObservedSamples": 0,
+    "lcpTotalSamples": 4
+  },
+  "conclusions": [
+    {
+      "id": "C1",
+      "issue": "旧版收益点估不能继续作为决策基线。",
+      "verdict": "旧报告中基于旧窗口、旧口径的高收益叙事必须降级为历史假设；当前只允许作为实验假设，不允许作为承诺收益。",
+      "evidence": "内部校验为 Share with caveats；经营数据存在 137 天流量窗口与 204 天销售窗口不一致，且币种需要 owner 确认。",
+      "references": ["内部经营数据校验摘要 2026-06-14", "收益模型治理记录 2026-06-14"],
+      "confidence": "High"
+    },
+    {
+      "id": "C2",
+      "issue": "站点主问题不是后端慢。",
+      "verdict": "TTFB 与 CLS 不能解释转化摩擦；更可信的技术主因是前端重量、DOM 膨胀、第三方失败和 LCP 不可观测。",
+      "evidence": "公开自动采集显示首页 TTFB 416 / 213ms；首页与 PDP JS 约 1.9MB；最大 DOM 8088；最大第三方失败 56。",
+      "references": ["公开自动采集 session-2026-06-14", "公开审计快照 audit.json"],
+      "confidence": "High"
+    },
+    {
+      "id": "C3",
+      "issue": "经营漏斗支持优先级，但不支持直接收入因果。",
+      "verdict": "内部漏斗可复算，说明修复方向有业务价值；但每个技术项的收入影响必须通过 A/B 或分阶段上线验证。",
+      "evidence": "内部校验中漏斗分母与阶段计数通过；收益模型被标记为未验证假设。",
+      "references": ["内部经营数据校验摘要 2026-06-14", "收益模型治理记录 2026-06-14"],
+      "confidence": "High"
+    },
+    {
+      "id": "C4",
+      "issue": "PDP 应成为下一轮实战队列。",
+      "verdict": "内部 watchlist 证明 PDP 值得治理；外部采集目前只有 1 条代表性 PDP，因此不能把该 PDP 的结论扩大为全部商品页结论。",
+      "evidence": "内部 watchlist 包含 10 个 PDP；公开 v3 采集覆盖 homepage 与 product-detail 两条路径。",
+      "references": ["内部经营数据校验摘要 2026-06-14", "公开自动采集 session-2026-06-14"],
+      "confidence": "Medium"
+    },
+    {
+      "id": "C5",
+      "issue": "SEO 变现结论必须冻结。",
+      "verdict": "当前 Excel 没有自然搜索关键词行，旧版 SEO 收益或关键词优先级不能继续刷新，只能等待独立搜索源补齐。",
+      "evidence": "内部校验显示 natural search keyword rows = 0。",
+      "references": ["内部经营数据校验摘要 2026-06-14"],
+      "confidence": "High"
+    },
+    {
+      "id": "C6",
+      "issue": "归因数据本身需要治理。",
+      "verdict": "第三方失败、币种待确认和窗口差异共同说明：先修采集与归因质量，再谈预算、渠道或产品策略。",
+      "evidence": "公开自动采集显示第三方失败最高 56；内部校验存在币种确认和观察窗口 caveat。",
+      "references": ["公开自动采集 session-2026-06-14", "内部经营数据校验摘要 2026-06-14"],
+      "confidence": "High"
+    }
+  ],
+  "pageUpdates": [
+    {
+      "page": "index.html",
+      "route": "从旧版高收益叙事改为旧基线失效、技术债仍成立、收益必须实验化。",
+      "conclusionIds": ["C1", "C2", "C3"]
+    },
+    {
+      "page": "metrics.html",
+      "route": "从指标字典改为口径治理：区分可复算、可公开、只能私有验证和暂不能刷新。",
+      "conclusionIds": ["C1", "C3", "C5"]
+    },
+    {
+      "page": "forensics.html",
+      "route": "从单点故障现场改为证据等级页：保留物证，避免把代表性 PDP 扩大成全部 PDP 收入因果。",
+      "conclusionIds": ["C2", "C4", "C6"]
+    },
+    {
+      "page": "trends.html",
+      "route": "从 M2 首页趋势扩展为 M3 路由感知趋势，并把经营 caveat 与外部技术证据交叉呈现。",
+      "conclusionIds": ["C2", "C4", "C6"]
+    },
+    {
+      "page": "cross-audit.html",
+      "route": "新增公开安全交叉审计总页，集中呈现每条结论、证据等级和参考依据。",
+      "conclusionIds": ["C1", "C2", "C3", "C4", "C5", "C6"]
+    }
+  ]
+}

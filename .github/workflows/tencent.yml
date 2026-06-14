@@ -162,8 +162,8 @@ jobs:
             local body
             body="$(curl --connect-timeout 5 --max-time 20 -sS "$url")"
             printf '%s\n' "$body" | grep -q 'lang="zh-CN"'
-            printf '%s\n' "$body" | grep -q "路特技术审计"
-            printf '%s\n' "$body" | grep -q "总览"
+            printf '%s\n' "$body" | grep -q "路特 AI"
+            printf '%s\n' "$body" | grep -q "Momcozy"
           }
           expect_private_path_blocked() {
             local url=$1
@@ -229,8 +229,8 @@ jobs:
             local body
             body="$(curl --connect-timeout 5 --max-time 20 -sS "$url")"
             printf '%s\n' "$body" | grep -q 'lang="zh-CN"'
-            printf '%s\n' "$body" | grep -q "路特技术审计"
-            printf '%s\n' "$body" | grep -q "总览"
+            printf '%s\n' "$body" | grep -q "路特 AI"
+            printf '%s\n' "$body" | grep -q "Momcozy"
           }
           expect_any_code() {
             local expected=$1

@@ -11,7 +11,7 @@ const mime = {
 };
 
 const securityHeaders = {
-  "content-security-policy": "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; frame-ancestors 'none';",
+  "content-security-policy": "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; img-src 'self' data:; frame-ancestors 'none';",
   "x-frame-options": "DENY",
   "x-content-type-options": "nosniff",
   "referrer-policy": "no-referrer",
@@ -30,7 +30,11 @@ function send(response, status, file) {
 const server = http.createServer((request, response) => {
   const url = new URL(request.url, "http://127.0.0.1");
   const firstSegment = url.pathname.split("/").filter(Boolean)[0] || "";
-  if (firstSegment === "data" || url.pathname.endsWith(".json")) {
+  if (
+    firstSegment === "data" ||
+    firstSegment === "reports" ||
+    /\.(?:json|csv|md|bak|log|sh|env)$/i.test(url.pathname)
+  ) {
     return send(response, 404, path.join(root, "404.html"));
   }
   let relative = decodeURIComponent(url.pathname).replace(/^\/+/, "");

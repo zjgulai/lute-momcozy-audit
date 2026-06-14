@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "eleventy",
+    "build": "node scripts/build-history-site.mjs",
     "collect": "node scripts/collect.mjs",
     "collect:summary": "node scripts/generate-collect-summary.mjs",
     "serve": "node scripts/serve.mjs",
