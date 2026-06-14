@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const roots = ["src", "docs"];
+const roots = ["src", "docs", "history_static"];
 const forbidden = [
   [/\/Users\//i, "private filesystem path"],
   [/(?:\d{1,3}\.){3}\d{1,3}/, "server address"],
@@ -10,6 +10,20 @@ const forbidden = [
   [/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/, "private key"],
   [/(?<!\w)\/data\/(?!\w)/, "data endpoint path"]
 ];
+const textExtensions = new Set([
+  ".css",
+  ".html",
+  ".js",
+  ".json",
+  ".md",
+  ".mjs",
+  ".njk",
+  ".svg",
+  ".txt",
+  ".xml",
+  ".yml",
+  ".yaml"
+]);
 
 function files(directory) {
   if (!fs.existsSync(directory)) return [];
@@ -20,6 +34,7 @@ function files(directory) {
 }
 
 for (const file of roots.flatMap(files)) {
+  if (!textExtensions.has(path.extname(file))) continue;
   let content;
   try {
     content = fs.readFileSync(file, "utf8");

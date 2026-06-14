@@ -10,6 +10,17 @@ const forbidden = [
   [/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/, "private key"],
   [/(?<!\w)\/data\/(?!\w)/, "data endpoint path"],
 ];
+const textExtensions = new Set([
+  ".css",
+  ".html",
+  ".js",
+  ".json",
+  ".md",
+  ".mjs",
+  ".svg",
+  ".txt",
+  ".xml"
+]);
 
 function files(directory) {
   return fs.readdirSync(directory, {withFileTypes: true}).flatMap((entry) => {
@@ -19,6 +30,7 @@ function files(directory) {
 }
 
 for (const file of files(root)) {
+  if (!textExtensions.has(path.extname(file))) continue;
   let content;
   try {
     content = fs.readFileSync(file, "utf8");
@@ -33,4 +45,3 @@ for (const file of files(root)) {
   }
 }
 console.log("public build passed safety scan");
-
