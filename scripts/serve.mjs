@@ -29,7 +29,8 @@ function send(response, status, file) {
 
 const server = http.createServer((request, response) => {
   const url = new URL(request.url, "http://127.0.0.1");
-  if (url.pathname.startsWith("/data/")) {
+  const firstSegment = url.pathname.split("/").filter(Boolean)[0] || "";
+  if (firstSegment === "data" || url.pathname.endsWith(".json")) {
     return send(response, 404, path.join(root, "404.html"));
   }
   let relative = decodeURIComponent(url.pathname).replace(/^\/+/, "");
@@ -44,4 +45,3 @@ const server = http.createServer((request, response) => {
 });
 server.listen(8080, "127.0.0.1");
 for (const signal of ["SIGINT", "SIGTERM"]) process.on(signal, () => server.close(() => process.exit(0)));
-

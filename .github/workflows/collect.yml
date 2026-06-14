@@ -2,7 +2,7 @@ name: Monthly Performance Collection
 
 on:
   schedule:
-    - cron: "0 2 1 * *"  # 01:00 UTC on the 1st of every month
+    - cron: "0 2 1 * *"  # 02:00 UTC on the 1st of every month
   workflow_dispatch:
     inputs:
       target_url:
@@ -23,6 +23,8 @@ jobs:
           node-version: "22"
           cache: npm
       - run: npm ci
+      - name: Dry-run validate uptime cron template
+        run: npm run test:uptime-cron
       - name: Cache Playwright browsers
         uses: actions/cache@v4
         with:
@@ -40,8 +42,16 @@ jobs:
             echo "new_session=false" >> "$GITHUB_OUTPUT"
           else
             echo "new_session=true" >> "$GITHUB_OUTPUT"
-            echo "date=$(date +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+            NEW_FILE=$(git diff --name-only src/_data/sessions/ | tail -n 1)
+            DATE="${NEW_FILE##*/}"
+            echo "date=${DATE%.json}" >> "$GITHUB_OUTPUT"
           fi
+      - name: Generate collection PR summary
+        if: steps.check.outputs.new_session == 'true'
+        env:
+          AUDIT_OUTPUT_DIR: src/_data/sessions
+          AUDIT_SESSION_PATH: src/_data/sessions/${{ steps.check.outputs.date }}.json
+        run: node scripts/generate-collect-summary.mjs > .github/collect-summary.md
       - name: Open PR with new session data
         if: steps.check.outputs.new_session == 'true'
         env:
@@ -57,6 +67,6 @@ jobs:
           git push origin "$BRANCH"
           gh pr create \
             --title "Performance snapshot ${DATE}" \
-            --body "Automated monthly collection. Review metrics before merging to publish the updated trends page." \
+            --body-file .github/collect-summary.md \
             --base main \
             --head "$BRANCH"

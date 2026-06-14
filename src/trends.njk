@@ -10,6 +10,10 @@ description: Performance trends across all audit sessions.
   <p class="eyebrow">Across {{ sessions.length }} sessions</p>
   <h1>Performance trends</h1>
   <p class="lede">Each point is one lab session. Direction matters more than any single value.</p>
+  <aside class="public-cross-note" aria-label="Trends cross-audit conclusion">
+    <p class="eyebrow">Cross-audit conclusion</p>
+    <p><strong>Trends are release gates, not business attribution.</strong> Manual and automated sessions are intentionally separated; the public trend line should drive technical rechecks for JS payload, DOM size, third-party failures, and LCP capture, not private revenue estimates.</p>
+  </aside>
 </section>
 
 <section aria-labelledby="trends-charts-title">
@@ -17,6 +21,33 @@ description: Performance trends across all audit sessions.
     <p class="eyebrow">Core web vitals over time</p>
     <h2 id="trends-charts-title">Session-by-session readings</h2>
   </div>
+
+  <div class="filter-row" role="search" aria-label="Trend filters">
+    <div class="filter-field">
+      <label for="method-filter">Method</label>
+      <select id="method-filter">
+        <option value="all">All methods</option>
+        <option value="automated">Automated only</option>
+        <option value="manual">Manual only</option>
+      </select>
+    </div>
+    <div class="filter-field">
+      <label for="route-filter">Route focus</label>
+      <select id="route-filter">
+        <option value="all">All routes</option>
+      </select>
+    </div>
+  </div>
+
+  <section aria-labelledby="latest-status-title">
+    <div class="section-heading">
+      <p class="eyebrow">Latest automated baseline</p>
+      <h2 id="latest-status-title">Threshold status for selected scope</h2>
+    </div>
+    <div id="latest-threshold-grid" class="status-grid">
+      <p class="status-empty">No automated session available for this scope.</p>
+    </div>
+  </section>
 
   <div class="trend-grid">
     <figure class="trend-card" aria-label="Largest Contentful Paint trend">
@@ -95,6 +126,7 @@ description: Performance trends across all audit sessions.
       <thead>
         <tr>
           <th scope="col">Date</th>
+          <th scope="col">Method</th>
           <th scope="col">FCP (s)</th>
           <th scope="col">TTFB (ms)</th>
           <th scope="col">CLS</th>
@@ -110,13 +142,18 @@ description: Performance trends across all audit sessions.
         {% for s in sessions | reverse %}
         {% if s.methodologyBreak %}
         <tr class="method-break-row">
-          <td colspan="10" class="method-break-cell">
-            <span class="method-break-label">⚠ Methodology change — sessions above are manual browser observations; sessions below are automated headless Chromium. Values are not directly comparable.</span>
+          <td colspan="11" class="method-break-cell">
+            <span class="method-break-label">⚠ Methodology change — this marks the first automated headless Chromium baseline; older manual browser observations appear below. Values are not directly comparable.</span>
           </td>
         </tr>
         {% endif %}
-        <tr class="{{ 'row-manual' if not s.isAutomated else 'row-auto' }}{% if s.confidence == 'low' %} row-low-confidence{% endif %}">
+        <tr
+          class="{{ 'row-manual' if not s.isAutomated else 'row-auto' }}{% if s.confidence == 'low' %} row-low-confidence{% endif %} session-row"
+          data-method="{% if s.isAutomated %}automated{% else %}manual{% endif %}"
+          data-route-ids="{{ s.routeIds | join(',') }}"
+        >
           <td>{{ s.observedAt }}{% if not s.isAutomated %} <span class="method-badge">manual</span>{% endif %}</td>
+          <td class="session-method"><span class="method-badge">{{ "Automated" if s.isAutomated else "Manual" }}</span></td>
           <td class="num {% if s.metrics.fcp === null %}na{% elif s.metrics.fcp < 1.8 %}good{% elif s.metrics.fcp < 3 %}warn{% else %}bad{% endif %}">{{ s.metrics.fcp if s.metrics.fcp !== null else "N/A" }}</td>
           <td class="num {% if s.metrics.ttfb === null %}na{% elif s.metrics.ttfb < 800 %}good{% elif s.metrics.ttfb < 1800 %}warn{% else %}bad{% endif %}">{{ s.metrics.ttfb if s.metrics.ttfb !== null else "N/A" }}</td>
           <td class="num {% if s.metrics.cls < 0.1 %}good{% elif s.metrics.cls < 0.25 %}warn{% else %}bad{% endif %}">{{ s.metrics.cls }}</td>

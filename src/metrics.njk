@@ -8,6 +8,10 @@ description: Sanitized technical metrics with source and confidence.
   <p class="eyebrow">Measured, bounded, sourced</p>
   <h1>Technical metrics</h1>
   <p class="lede">Each observation carries its method and confidence. These are directional lab results, not real-user field data.</p>
+  <aside class="public-cross-note" aria-label="Metrics cross-audit conclusion">
+    <p class="eyebrow">Cross-audit conclusion</p>
+    <p><strong>Metrics are evidence, not revenue claims.</strong> The internal refresh was used to reject unsupported payoff shortcuts. This public page keeps only technical metrics with source and confidence; any business effect must be validated outside the public edition.</p>
+  </aside>
 </section>
 <section aria-label="Technical observations">
   <div class="metric-grid">
@@ -30,4 +34,3 @@ description: Sanitized technical metrics with source and confidence.
     {% for item in audit.glossary %}<article class="panel"><h3>{{ item.term }}</h3><p>{{ item.definition }}</p></article>{% endfor %}
   </div>
 </section>
-

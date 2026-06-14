@@ -37,6 +37,8 @@ h3 { font-size: 1.15rem; line-height: 1.25; }
 .lede { max-width: 760px; color: var(--muted); font-size: clamp(1.1rem, 2vw, 1.35rem); }
 .meta-grid, .evidence { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; margin-top: 2.5rem; }
 .meta-grid div, .evidence div { background: var(--surface); padding: 1rem; min-width: 0; }
+.public-cross-note { max-width: 860px; margin-top: 1.5rem; padding: 1.1rem 1.25rem; border: 1px solid var(--line); border-left: 5px solid var(--risk); border-radius: 16px; background: var(--surface); }
+.public-cross-note p:last-child { margin-bottom: 0; }
 dt { color: var(--muted); font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 dd { margin: .35rem 0 0; }
 .section-heading { margin-bottom: 1.5rem; }
@@ -71,6 +73,19 @@ footer { display: flex; justify-content: space-between; gap: 1rem; border-top: 1
 
 /* ── Trends page ─────────────────────────────────────────────── */
 .trend-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.filter-row { display: flex; flex-wrap: wrap; gap: .85rem; align-items: flex-end; margin: 1rem 0 1.2rem; }
+.filter-field { display: flex; flex-direction: column; gap: .35rem; }
+.filter-field label { font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.filter-field select { border: 1px solid var(--line); border-radius: 12px; padding: .55rem .75rem; min-width: 220px; background: var(--surface); color: var(--ink); }
+.status-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .85rem; }
+.status-card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: .95rem 1rem; }
+.status-label { margin: 0; font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 800; }
+.status-value { margin: .35rem 0 .15rem; font-family: Georgia, "Times New Roman", serif; font-size: 1.45rem; color: var(--ink); line-height: 1.1; }
+.status-meta { margin: 0; font-size: .75rem; color: var(--muted); }
+.status-pass { border-left: 4px solid var(--accent); }
+.status-warn, .status-fail { border-left: 4px solid var(--risk); }
+.status-na { border-left: 4px solid var(--line); color: var(--muted); }
+.status-empty { margin: 0; color: var(--muted); }
 .trend-card { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(1.1rem, 3vw, 1.75rem); }
 .trend-card figcaption { display: flex; align-items: baseline; gap: .75rem; margin-bottom: 1rem; }
 .trend-label { font-weight: 800; font-size: 1rem; }
@@ -117,5 +132,7 @@ footer { display: flex; justify-content: space-between; gap: 1rem; border-top: 1
   .trend-grid { grid-template-columns: 1fr; }
   .delta-grid { grid-template-columns: repeat(2, 1fr); }
   .table-wrap { border-radius: 0; margin-inline: calc(-1rem); border-left: none; border-right: none; }
+  .filter-row { flex-direction: column; align-items: stretch; }
+  .status-grid { grid-template-columns: 1fr; }
+  .filter-field select { min-width: 0; width: 100%; }
 }
-

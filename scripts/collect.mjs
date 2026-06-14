@@ -10,13 +10,17 @@ if (!TARGET_URL) {
 }
 
 const now = new Date();
-const DATE = [
+const DATE = process.env.AUDIT_SESSION_DATE || [
   now.getFullYear(),
   String(now.getMonth() + 1).padStart(2, "0"),
   String(now.getDate()).padStart(2, "0")
 ].join("-");
 const SESSION_ID = `session-${DATE}`;
-const OUT_PATH = path.resolve(`src/_data/sessions/${DATE}.json`);
+const OUT_DIR = process.env.AUDIT_OUTPUT_DIR || "src/_data/sessions";
+const OUT_PATH = path.resolve(OUT_DIR, `${DATE}.json`);
+const ROUTE_CONFIG_PATH = process.env.AUDIT_ROUTE_CONFIG || "config/collection-routes.json";
+const ROUTE_CONFIG = readRouteConfig(ROUTE_CONFIG_PATH);
+const METHODOLOGY_VERSION = ROUTE_CONFIG.methodologyVersion || "collector-v3-route-aggregate";
 
 if (fs.existsSync(OUT_PATH)) {
   console.log(`Session ${DATE} already exists at ${OUT_PATH}, skipping.`);
@@ -52,26 +56,43 @@ console.error(`All ${MAX_ATTEMPTS} attempts failed. Last error:`, lastError?.mes
 process.exit(1);
 
 async function collect(browser) {
-  const desktopMetrics = await runViewport(browser, 1440, 900, "desktop");
-  const mobileMetrics  = await runViewport(browser, 390,  844, "mobile");
-  return {desktopMetrics, mobileMetrics};
+  const routes = [];
+  for (const route of ROUTE_CONFIG.routes) {
+    const desktop = await runViewport(browser, route, 1440, 900, "desktop");
+    const mobile  = await runViewport(browser, route, 390,  844, "mobile");
+    routes.push({
+      routeId: route.id,
+      label: route.label,
+      path: route.path,
+      primary: Boolean(route.primary),
+      viewports: [desktop, mobile]
+    });
+  }
+  return {routes};
 }
 
-async function runViewport(browser, width, height, label) {
+async function runViewport(browser, route, width, height, label) {
   const context = await browser.newContext({
     viewport: {width, height},
     userAgent: "Mozilla/5.0 (compatible; LuteAuditBot/1.0)"
   });
   const page = await context.newPage();
 
-  const failures = [];
-  const requestUrls = new Set();
+  let thirdPartyFailures = 0;
+  let consoleErrors = 0;
+  let pageErrors = 0;
+  let lcpTimedOut = false;
 
   page.on("requestfailed", (req) => {
     const reqHost = (() => { try { return new URL(req.url()).hostname; } catch { return ""; } })();
-    if (!reqHost.endsWith(BASE_DOMAIN)) failures.push(req.url());
+    if (!reqHost.endsWith(BASE_DOMAIN)) thirdPartyFailures++;
   });
-  page.on("request", (req) => requestUrls.add(req.url()));
+  page.on("console", (message) => {
+    if (message.type() === "error") consoleErrors++;
+  });
+  page.on("pageerror", () => {
+    pageErrors++;
+  });
 
   await page.addInitScript(() => {
     window.__longTaskCount = 0;
@@ -81,11 +102,12 @@ async function runViewport(browser, width, height, label) {
     observer.observe({type: "longtask", buffered: true});
   });
 
-  const response = await page.goto(TARGET_URL, {waitUntil: "load", timeout: 90_000});
+  const routeUrl = new URL(route.path, TARGET_URL).toString();
+  const response = await page.goto(routeUrl, {waitUntil: "load", timeout: 90_000});
 
   if (!response || response.status() >= 400) {
     await context.close();
-    throw new Error(`HTTP ${response?.status()} from ${TARGET_URL}`);
+    throw new Error(`HTTP ${response?.status()} from ${route.id}`);
   }
 
   await page.evaluate(() => window.scrollTo(0, 0));
@@ -93,16 +115,21 @@ async function runViewport(browser, width, height, label) {
   await page.waitForFunction(
     () => performance.getEntriesByType("largest-contentful-paint").length > 0,
     {timeout: 25_000}
-  ).catch(() => {});
+  ).catch(() => {
+    lcpTimedOut = true;
+  });
 
   await page.waitForTimeout(2000);
 
-  const raw = await page.evaluate(() => {
+  const raw = await page.evaluate((timedOut) => {
     const paint = performance.getEntriesByType("paint");
     const fcp = paint.find((e) => e.name === "first-contentful-paint")?.startTime ?? null;
 
     const lcpEntries = performance.getEntriesByType("largest-contentful-paint");
     const lcp = lcpEntries.length > 0 ? lcpEntries.at(-1).startTime : null;
+    const lcpNullReason = lcp === null
+      ? (timedOut ? "lcp_unobserved_in_timeout" : "lcp_not_observable_in_session")
+      : null;
 
     let cls = 0;
     for (const entry of performance.getEntriesByType("layout-shift")) {
@@ -117,24 +144,48 @@ async function runViewport(browser, width, height, label) {
       tbt += Math.max(0, entry.duration - 50);
     }
 
+    const loadEventMs = nav ? Math.round(nav.loadEventEnd - nav.fetchStart) : null;
+
+    const images = [...document.images];
+    const aboveFold = images.filter((img) => {
+      const rect = img.getBoundingClientRect();
+      return rect.width > 0 && rect.height > 0 && rect.bottom > 0 && rect.top < window.innerHeight;
+    });
+    const isWebp = (img) => {
+      const source = [img.currentSrc, img.src, img.srcset].filter(Boolean).join(" ").toLowerCase();
+      return source.includes(".webp") || source.includes("format=webp");
+    };
+
     return {
       fcp:      fcp  !== null ? Math.round(fcp  / 10) / 100 : null,
       lcp:      lcp  !== null ? Math.round(lcp  / 10) / 100 : null,
+      lcpNullReason,
       ttfb,
       cls:      Math.round(cls * 10000) / 10000,
       tbt:      Math.round(tbt),
       domNodes: document.querySelectorAll("*").length,
-      longTaskCount: window.__longTaskCount ?? 0
+      longTaskCount: window.__longTaskCount ?? 0,
+      loadEventMs,
+      scriptTags: document.scripts.length,
+      iframeCount: document.querySelectorAll("iframe").length,
+      imagesTotal: images.length,
+      imagesWebp: images.filter(isWebp).length,
+      missingAlt: images.filter((img) => !img.hasAttribute("alt") || img.getAttribute("alt").trim() === "").length,
+      missingSrcset: images.filter((img) => !img.hasAttribute("srcset") || img.getAttribute("srcset").trim() === "").length,
+      aboveFoldImages: aboveFold.length,
+      aboveFoldLazyImages: aboveFold.filter((img) => img.loading === "lazy" || img.classList.contains("lazyload")).length
     };
-  });
+  }, lcpTimedOut);
 
   const resourceSummary = await page.evaluate(() => {
     const resources = performance.getEntriesByType("resource");
+    const transferKb = resources.reduce((sum, r) => sum + (r.transferSize || 0), 0);
     const jsKb = resources
       .filter((r) => r.initiatorType === "script")
       .reduce((sum, r) => sum + (r.transferSize || 0), 0);
     return {
       totalRequests: resources.length,
+      transferKb: Math.round(transferKb / 1024),
       jsKb: Math.round(jsKb / 1024)
     };
   });
@@ -143,35 +194,63 @@ async function runViewport(browser, width, height, label) {
 
   return {
     label,
-    lcp:                raw.lcp,
-    fcp:                raw.fcp,
-    ttfb:               raw.ttfb,
-    cls:                raw.cls,
-    tbt:                raw.tbt,
-    domNodes:           raw.domNodes,
-    longTasks:          raw.longTaskCount,
-    totalRequests:      resourceSummary.totalRequests,
-    jsKb:               resourceSummary.jsKb,
-    thirdPartyFailures: failures.length
+    width,
+    height,
+    metrics: {
+      lcp:                 raw.lcp,
+      lcpNullReason:       raw.lcpNullReason,
+      fcp:                 raw.fcp,
+      ttfb:                raw.ttfb,
+      cls:                 raw.cls,
+      tbt:                 raw.tbt,
+      domNodes:            raw.domNodes,
+      longTasks:           raw.longTaskCount,
+      totalRequests:       resourceSummary.totalRequests,
+      transferKb:          resourceSummary.transferKb,
+      jsKb:                resourceSummary.jsKb,
+      thirdPartyFailures,
+      consoleErrors,
+      pageErrors,
+      loadEventMs:         raw.loadEventMs,
+      scriptTags:          raw.scriptTags,
+      iframeCount:         raw.iframeCount,
+      imagesTotal:         raw.imagesTotal,
+      imagesWebp:          raw.imagesWebp,
+      imagesWebpPct:       raw.imagesTotal > 0 ? Math.round((raw.imagesWebp / raw.imagesTotal) * 10000) / 100 : 0,
+      missingAlt:          raw.missingAlt,
+      missingSrcset:       raw.missingSrcset,
+      aboveFoldImages:     raw.aboveFoldImages,
+      aboveFoldLazyImages: raw.aboveFoldLazyImages
+    }
   };
 }
 
 function computeConfidence(desktop, mobile) {
+  if (!desktop || !mobile) return "low";
   const nullCount = [desktop.lcp, desktop.fcp, desktop.ttfb, mobile.lcp, mobile.fcp, mobile.ttfb]
     .filter((v) => v === null).length;
   if (nullCount === 0) return "high";
-  if (nullCount <= 2) return "medium";
+  if (nullCount <= 1) return "medium";
   return "low";
 }
 
-function writeSession({desktopMetrics, mobileMetrics}) {
+function writeSession({routes}) {
+  const primaryRoute = routes.find((route) => route.primary) || routes[0];
+  const desktopMetrics = primaryRoute.viewports.find((viewport) => viewport.label === "desktop")?.metrics || null;
+  const mobileMetrics = primaryRoute.viewports.find((viewport) => viewport.label === "mobile")?.metrics || null;
+  if (!desktopMetrics || !mobileMetrics) {
+    throw new Error(`Primary route ${primaryRoute.routeId} missing viewport metrics for ${SESSION_ID}`);
+  }
+  const routeIds = routes.map((route) => route.routeId);
   const session = {
     sessionId:   SESSION_ID,
     observedAt:  DATE,
+    methodologyVersion: METHODOLOGY_VERSION,
     collectedBy: "collect.mjs Playwright automated observation",
     targetUrl:   TARGET_URL,
     metrics: {
       lcp:                desktopMetrics.lcp,
+      lcpNullReason:      desktopMetrics.lcpNullReason || null,
       fcp:                desktopMetrics.fcp,
       ttfb:               desktopMetrics.ttfb,
       cls:                desktopMetrics.cls,
@@ -184,15 +263,27 @@ function writeSession({desktopMetrics, mobileMetrics}) {
     },
     mobile: {
       lcp:                mobileMetrics.lcp,
+      lcpNullReason:      mobileMetrics.lcpNullReason || null,
       fcp:                mobileMetrics.fcp,
       ttfb:               mobileMetrics.ttfb,
       cls:                mobileMetrics.cls,
       tbt:                mobileMetrics.tbt,
       thirdPartyFailures: mobileMetrics.thirdPartyFailures
     },
+    observations: routes.flatMap((route) =>
+      route.viewports.map((viewport) => ({
+        routeId: route.routeId,
+        routeLabel: route.label,
+        routePath: route.path,
+        viewport: viewport.label,
+        metrics: viewport.metrics
+      }))
+    ),
+    routes,
     confidence: computeConfidence(desktopMetrics, mobileMetrics),
     notes: [
       `Automated collection.`,
+      `Routes: ${routes.map((route) => route.routeId).join(", ")}.`,
       `Desktop: LCP ${desktopMetrics.lcp ?? "N/A"}s, FCP ${desktopMetrics.fcp ?? "N/A"}s, TTFB ${desktopMetrics.ttfb ?? "N/A"}ms, 3P failures ${desktopMetrics.thirdPartyFailures}.`,
       `Mobile: LCP ${mobileMetrics.lcp ?? "N/A"}s, FCP ${mobileMetrics.fcp ?? "N/A"}s, 3P failures ${mobileMetrics.thirdPartyFailures}.`
     ].join(" ")
@@ -210,5 +301,26 @@ function writeSession({desktopMetrics, mobileMetrics}) {
   console.log(`Session written: ${OUT_PATH}`);
   console.log(`  Desktop — LCP ${session.metrics.lcp ?? "N/A"}s | FCP ${session.metrics.fcp ?? "N/A"}s | TTFB ${session.metrics.ttfb ?? "N/A"}ms | CLS ${session.metrics.cls} | TBT ${session.metrics.tbt}ms | 3P fail ${session.metrics.thirdPartyFailures}`);
   console.log(`  Mobile  — LCP ${session.mobile.lcp ?? "N/A"}s | FCP ${session.mobile.fcp ?? "N/A"}s | 3P fail ${session.mobile.thirdPartyFailures}`);
+  console.log(`  Routes  — ${session.routes.map((route) => `${route.routeId} (${route.viewports.length} viewports)`).join(", ")}`);
   console.log(`  Confidence: ${session.confidence}`);
+}
+
+function readRouteConfig(file) {
+  const config = JSON.parse(fs.readFileSync(file, "utf8"));
+  if (!Array.isArray(config.routes) || config.routes.length === 0) {
+    throw new Error(`${file}: routes must be a non-empty array`);
+  }
+  const ids = new Set();
+  for (const route of config.routes) {
+    if (!route.id || !/^[a-z0-9-]+$/.test(route.id)) {
+      throw new Error(`${file}: route id must use lowercase letters, numbers, and hyphens`);
+    }
+    if (ids.has(route.id)) throw new Error(`${file}: duplicate route id ${route.id}`);
+    ids.add(route.id);
+    const firstSegment = route.path.split("/").filter(Boolean)[0] || "";
+    if (!route.path || !route.path.startsWith("/") || route.path.includes(".json") || firstSegment === "data") {
+      throw new Error(`${file}: route ${route.id} must use a public non-data path`);
+    }
+  }
+  return config;
 }

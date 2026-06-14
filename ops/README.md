@@ -5,8 +5,8 @@
 `nginx/momcozy-audit.conf` defines the server block for Tencent Cloud production.
 
 Key behaviour:
-- `location ^~ /data/ { return 404; }` — all `/data/*` requests return a real
-  HTTP 404, not the homepage. This prevents accidental exposure of data paths.
+- raw structured-file requests return a real HTTP 404, not the homepage. This
+  prevents accidental exposure of private source artifacts.
 - `try_files $uri $uri/ =404` — unknown paths return a real HTTP 404.
 - `error_page 404 /404.html` with `internal` — the custom 404 page is served
   for all not-found responses without revealing internal routing.
@@ -50,3 +50,19 @@ ${DEPLOY_ROOT}/
 sudo chown -R deploy-user:www-data ${DEPLOY_ROOT}/html
 sudo chmod -R 750 ${DEPLOY_ROOT}/html
 ```
+
+## External uptime cron
+
+`ops/uptime-cron.example` is the production cron template for the external uptime monitor. It writes:
+
+- JSONL monitor results to `logs/monitor-results.log`
+- alert dedupe/escalation state to `logs/uptime-alert-state.json`
+- cron stdout/stderr to `logs/uptime.log`
+
+Before installing or changing the cron entry, run:
+
+```bash
+npm run test:uptime-cron
+```
+
+This is a dry-run parser/validator only. It does not execute the monitor or make network requests.

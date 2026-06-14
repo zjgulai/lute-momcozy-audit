@@ -6,14 +6,21 @@
   "scripts": {
     "build": "eleventy",
     "collect": "node scripts/collect.mjs",
+    "collect:summary": "node scripts/generate-collect-summary.mjs",
     "serve": "node scripts/serve.mjs",
+    "monitor:uptime": "node scripts/uptime-monitor.mjs",
+    "monitor:notify-summary": "node scripts/summarize-notify-failures.mjs",
     "test:allowlist": "node scripts/validate-public-data.mjs",
+    "test:source-safety": "node scripts/safety-scan-source.mjs",
+    "test:collection-config": "node scripts/validate-collection-config.mjs",
     "test:sessions": "node scripts/validate-sessions.mjs",
     "test:safety": "node scripts/safety-scan.mjs",
     "test:links": "node scripts/check-links.mjs",
-    "test:e2e": "playwright test tests/e2e.spec.mjs",
-    "test:a11y": "playwright test tests/a11y.spec.mjs",
-    "test": "npm run build && npm run test:allowlist && npm run test:sessions && npm run test:safety && npm run test:links && npm run test:e2e && npm run test:a11y"
+    "test:uptime-monitor": "node --test tests/uptime-monitor.test.mjs",
+    "test:uptime-cron": "node scripts/validate-uptime-cron.mjs --dry-run",
+    "test:e2e": "npm run build && playwright test tests/e2e.spec.mjs",
+    "test:a11y": "npm run build && playwright test tests/a11y.spec.mjs",
+    "test": "npm run build && npm run test:allowlist && npm run test:source-safety && npm run test:collection-config && npm run test:sessions && npm run test:safety && npm run test:links && npm run test:uptime-monitor && npm run test:uptime-cron && npm run test:e2e && npm run test:a11y"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.2",

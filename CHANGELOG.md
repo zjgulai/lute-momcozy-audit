@@ -1,5 +1,48 @@
 # Changelog
 
+## Unreleased
+
+### Planning
+- Added `docs/optimization-todo.md` with phased work for release reliability, collector coverage, data model evolution, review workflow, and production observability.
+- Added `docs/legacy-history-migration.md` to document which legacy technical evidence was migrated and which sensitive categories were excluded.
+
+### Data
+- Expanded `audit.json` with sanitized legacy product-detail, image-format, DOM, script, console, and peer-benchmark evidence.
+- Added follow-up recommendations for product-detail monitoring, optional-integration repair, and automated image checks.
+
+### Validation
+- Added source-level safety scanning for public content inputs.
+- Added collection-route config validation.
+- Added e2e assertions that Trends charts render non-empty uPlot widgets.
+- Added `/trends/` to Tencent production smoke checks.
+- Corrected the monthly collection cron comment to match the actual schedule.
+- Added route/method session filtering on Trends charts and table row visibility.
+- Added automated collection PR summaries with methodology notes, threshold checks, and reviewer checklist data in `collect.yml`.
+- Added reviewer guidance for automated-session sanity checks (`docs/review-workflow.md`) and rendered threshold status cards for the latest automated scope on `/trends/`.
+- Added production observability checks for response headers (CSP/frame policy/cache policy), noindex metadata, route availability (`/trends/`), and private path block status (accepting 403/404).
+- Added external uptime monitor (`scripts/uptime-monitor.mjs`) and `npm run monitor:uptime` runbook for periodic out-of-band availability checks.
+- Extended uptime monitoring with optional webhook alerting, optional title identity assertion, and optional line-delimited result logging.
+- Extended uptime monitoring with optional homepage content markers and optional response-body SHA256 checks for deployment identity verification.
+- Added `UPTIME_WEBHOOK_KIND` presets for Feishu/DingTalk/Slack webhook payload compatibility.
+- Added alert suppression and escalation state for uptime monitoring (`UPTIME_ALERT_STATE_*`), including hour/day duplicate suppression and warning-run escalation thresholds.
+- Added focused uptime monitor contract tests (`npm run test:uptime-monitor`) for alert policy and webhook payload behavior, and exported monitor helpers for future policy testing.
+- Added resilient uptime fetch execution with configurable retry attempts and delay for transient network errors.
+- Added webhook delivery retries in uptime monitoring (`UPTIME_WEBHOOK_RETRIES`, `UPTIME_WEBHOOK_RETRY_DELAY_MS`) with retriable network/5xx handling and updated runbook/test coverage.
+- Added webhook payload contract validation, webhook delivery observability metadata, and exponential backoff/jitter controls for webhook retries.
+- Added unit tests for webhook backoff delay computation (including multiplier, cap, and bounded jitter), exported retry delay helper, and included `test:uptime-monitor` in the main `npm test` pipeline.
+- Added atomic alert-state persistence (`temp -> rename`) and machine-readable notification failure signaling (`notifyFailureSignals` + `notifyFailureCodes`) with test coverage.
+- Added alert-state write retry controls, redacted notification-failure severity metadata, and `npm run monitor:notify-summary` for JSONL failure-code aggregation.
+- Added optional uptime monitor JSONL summary to monthly collection reports plus `ops/uptime-cron.example` and `npm run test:uptime-cron` dry-run validation.
+
+### Collector
+- Added `config/collection-routes.json` for homepage plus representative product-detail collection.
+- Updated `collect.mjs` to emit backward-compatible v2 homepage fields plus route-scoped aggregate metrics under `routes[]`.
+- Added methodology versioning and aggregate-only route metrics for console errors, page errors, scripts, iframes, transfer size, image format coverage, missing alt/srcset, and above-fold lazy images.
+- Added explicit LCP null-reason fields (`lcpNullReason`) for headless instrumentation.
+- Added session `observations[]` for future route+viewport projection and kept legacy compatibility in `sessions.js` adapter.
+
+---
+
 ## [3.3.0] — 2026-06-10
 
 ### Data

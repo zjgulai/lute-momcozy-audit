@@ -12,6 +12,10 @@ description: Sanitized public overview of a Momcozy storefront technical audit.
     <div><dt>Scope</dt><dd>{{ audit.meta.scope }}</dd></div>
     <div><dt>Method</dt><dd>{{ audit.meta.method }}</dd></div>
   </dl>
+  <aside class="public-cross-note" aria-label="Public cross-audit boundary">
+    <p class="eyebrow">Cross-audit boundary</p>
+    <p><strong>Public conclusion:</strong> the private operating-data refresh was used only to challenge causality and prioritization, not to publish business performance. This overview now treats business impact as an experiment question; the public evidence supports a narrower technical conclusion: client-side weight, third-party resilience, and LCP observability are the immediate engineering risks.</p>
+  </aside>
 </section>
 
 <section aria-labelledby="signal-title">
@@ -47,4 +51,3 @@ description: Sanitized public overview of a Momcozy storefront technical audit.
     {% endfor %}
   </div>
 </section>
-
