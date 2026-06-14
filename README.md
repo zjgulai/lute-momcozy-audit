@@ -2,9 +2,9 @@
 
 Public, sanitized technical audit of the Momcozy storefront — a periodic performance monitoring product.
 
-**Production**: https://shopify.lute-tlz-dddd.top  
-**Audit version**: 3.3.0  
-**Last session**: 2026-06-10 (automated, dual-viewport)
+**Production**: https://shopify.lute-tlz-dddd.top
+**Audit version**: 3.3.1
+**Last session**: 2026-06-14 (automated, route-aware)
 
 ## Quick Start
 
@@ -176,26 +176,27 @@ Detailed usage and alerting expectations are in `docs/uptime-monitoring.md`.
 
 ### Tencent Cloud — production nginx
 
-The site is served by the shared `ai_video_nginx` container.  
-Files live at `/opt/momcozy-audit/html/` (mounted as `/var/www/momcozy-audit` in the container).  
+The site is served by the shared `ai_video_nginx` container.
+Files live at `/opt/momcozy-audit/html/` (mounted as `/var/www/momcozy-audit` in the container).
 nginx config: `/opt/ai-video/deploy/lighthouse/nginx.conf` — the `shopify.lute-tlz-dddd.top` server block.
 
 **Do not edit `ops/nginx/momcozy-audit.conf` as a production operation** — it is a reference copy only.
 
-## Key Findings (2026-06-10 baseline)
+## Key Findings (2026-06-14 baseline)
 
 | Metric | Value | Status |
 |---|---|---|
-| FCP desktop | 0.38 s | Good (lab, no throttling) |
-| FCP mobile | 0.39 s | Good (lab, no throttling) |
-| TTFB desktop | 253 ms | Good |
+| FCP desktop | 0.58 s | Good (lab, no throttling) |
+| FCP mobile | 0.34 s | Good (lab, no throttling) |
+| TTFB desktop | 416 ms | Good |
+| TTFB mobile | 213 ms | Good |
 | CLS | 0 | Perfect |
 | TBT | 0 ms | Lab artifact (3P scripts failed) |
-| JS payload | 1,900 KB | **Critical — 3.8× budget** |
-| DOM nodes | 7,299 | **Critical — 4.9× limit** |
-| Total requests | 506 | High |
-| 3P failures desktop | 47 | **Critical** |
-| 3P failures mobile | 33 | **Critical** |
-| LCP | null | Not observable (hero not LCP-eligible) |
+| JS payload | 1,904 KB (homepage), 1,942 KB (product-detail) | **Critical — 3.8× budget** |
+| DOM nodes | 7,356 (homepage) | **Critical — 4.9× limit** |
+| Total requests | 504 | High |
+| 3P failures desktop | 45 | **Critical** |
+| 3P failures mobile | 44 (homepage), 55 (product-detail) | **Critical** |
+| LCP | N/A (not observable) | Not observable (hero/background path) |
 
-Top P0 actions: reduce JS payload from 1.9 MB, fix 47 third-party failures, make hero an LCP-eligible element.
+Top P0 actions: reduce JS payload from 1.9 MB, fix 45–56 third-party failures, make hero an LCP-eligible element and extend route coverage to cart/checkout.
