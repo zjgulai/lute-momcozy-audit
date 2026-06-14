@@ -136,6 +136,7 @@ jobs:
           }
           expect_headers() {
             expect_header "$1" "content-security-policy" "default-src 'self'"
+            expect_header "$1" "content-security-policy" "style-src 'self' 'unsafe-inline'"
             expect_header "$1" "x-frame-options" "DENY"
             expect_header "$1" "x-content-type-options" "nosniff"
             expect_header "$1" "permissions-policy" "camera=()"
