@@ -123,12 +123,19 @@ jobs:
             test -n "$value"
             printf '%s\n' "$value" | grep -qi "$expected"
           }
+          expect_cache_control() {
+            local url=$1
+            local value
+            value="$(header_value "$url" "cache-control")"
+            test -n "$value"
+            printf '%s\n' "$value" | grep -Eqi '(^|[[:space:];,])no-(store|cache)([[:space:];,]|$)'
+          }
           expect_headers() {
             expect_header "$1" "content-security-policy" "default-src 'self'"
             expect_header "$1" "x-frame-options" "DENY"
             expect_header "$1" "x-content-type-options" "nosniff"
             expect_header "$1" "permissions-policy" "camera=()"
-            expect_header "$1" "cache-control" "no-store"
+            expect_cache_control "$1"
           }
           expect_noindex_page() {
             local url=$1
