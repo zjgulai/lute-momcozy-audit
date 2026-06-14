@@ -1,283 +1,283 @@
 {
   "meta": {
-    "title": "Momcozy Storefront Technical Audit",
+    "title": "Momcozy 门店技术审计",
     "sessionId": "session-2026-06-14",
     "auditVersion": "3.3.1",
-    "collectedBy": "Automated Playwright observation (v3 route-aggregate)",
-    "observedAt": "Jun 14, 2026",
-    "latestObservedAt": "Jun 14, 2026",
-    "scope": "Public storefront homepage and one representative product-detail journey; desktop and mobile",
-    "method": "Automated Playwright route-aware collection with dual viewport and route aggregation",
-    "publication": "Sanitized public edition"
+    "collectedBy": "Playwright 自动采集（v3 路由聚合）",
+    "observedAt": "2026 年 6 月 14 日",
+    "latestObservedAt": "2026 年 6 月 14 日",
+    "scope": "公开版门店首页与一条代表性商品详情路径；桌面端与移动端双视口",
+    "method": "Playwright 路由感知自动采集，含双视口与路由聚合",
+    "publication": "脱敏公开版"
   },
   "summary": {
-    "verdict": "The 2026-06-14 automated baseline confirms the previous pattern: the storefront remains technically constrained by large client-side payload, large DOM size, and unstable third-party reliability, while CLS is stable and first paint remains fast. Route-aware capture now proves the same failure modes on homepage and representative product-detail paths, and LCP is still not observable in this lab mode.",
+    "verdict": "2026-06-14 自动化基线与历史结论一致：门店端瓶颈仍然主要集中在客户端体积、DOM 规模和第三方稳定性；在实验室条件下 CLS 保持稳定、首屏速度较快，但首页与商品详情的 LCP 仍不可观测。路由感知采集中，首页与商品详情均复现了相同失效面，说明问题是路径级结构性，不是偶发点位。",
     "strengths": [
-      "Route-aware automated collection now covers both homepage and product-detail in desktop and mobile in one run",
-      "TTFB is within the good envelope on both desktop and mobile for sampled routes",
-      "CLS is stable at 0 for both tracked routes and both viewports in the latest run",
-      "Data pipeline, confidence scoring, and release checks are complete enough to treat this as a bounded baseline for technical decisions"
+      "路由感知采集已在单次运行中覆盖首页与商品详情（桌面+移动）",
+      "TTFB 在抽样路由的桌面与移动端均处于可接受区间",
+      "CLS 在全部采样路由与视口均为 0，且稳定",
+      "数据流水线、置信度评分与发布校验链路可用于形成有边界的基线"
     ],
     "risks": [
-      "LCP remains unobserved in all latest route/viewport samples, so actual render-to-interaction sequencing is still missing in lab",
-      "Third-party request failures remain high (45-56 per route), which can distort attribution, personalization, and analytics signals",
-      "The technical ceiling is still exceeded: ~1.9 MB JS and ~7.3k DOM nodes on sampled routes",
-      "Product-detail path introduces extra failure and complexity risk (script tags 342, iframes 32, console/page errors), while image format and accessibility debt remain unresolved",
-      "No direct business causality is claimed from this public file; internal operating data is only used to constrain interpretation"
+      "LCP 在最新路由与视口样本中均未可观测，实验室链路仍缺少可用的首屏核心序列",
+      "第三方请求失败仍偏高（每条样本 45–56），会放大归因、个性化与埋点结果偏差",
+      "技术上限仍超阈：路径样本 JS 体积约 1.9 MB、DOM 节点约 7.3k",
+      "商品详情路径的失败与复杂度更高（脚本标签 342、iframe 32，控制台及页面错误）且图片与可访问性债务未消化",
+      "报告仅给出技术边界与可执行建议，不得直接外推业务营收因果关系"
     ]
   },
   "metrics": [
     {
-      "label": "LCP observability coverage",
+      "label": "LCP 可观测覆盖率",
       "value": 0,
-      "unit": "percent of route-viewport samples",
-      "interpretation": "No LCP value was observed in 2026-06-14 automated samples (desktop and mobile for homepage and product-detail). The same route-aggregate run reported lcp_unobserved_in_timeout on all samples, so the route is still not a reliable LCP source in headless mode.",
-      "source": "Playwright PerformanceObserver, session-2026-06-14 route-aggregate",
+      "unit": "路由-视口样本百分比",
+      "interpretation": "2026-06-14 自动样本未观测到任何 LCP 值（首页与商品详情各 2 个视口）。路由聚合运行显示 4 个样本均触发 lcp_unobserved_in_timeout，因此当前路由仍非 Headless 模式下稳定的 LCP 来源。",
+      "source": "Playwright PerformanceObserver，session-2026-06-14 路由聚合",
       "confidence": "low"
     },
     {
-      "label": "First contentful paint (homepage, desktop)",
+      "label": "FCP（首页，桌面）",
       "value": 0.58,
-      "unit": "seconds",
-      "interpretation": "The latest homepage desktop FCP is 0.58 s, which is materially faster than the earlier manual value and indicates the first paint itself is no longer the dominant bottleneck.",
-      "source": "Chromium paint timing, session-2026-06-14 homepage desktop",
+      "unit": "秒",
+      "interpretation": "首页桌面端 FCP 为 0.58 秒，较此前手工基线更快，说明首屏初始像素不再是主要颈颈。",
+      "source": "Chromium 首次绘制时序，session-2026-06-14 首页桌面",
       "confidence": "medium"
     },
     {
-      "label": "First contentful paint (homepage, mobile)",
+      "label": "FCP（首页，移动）",
       "value": 0.34,
-      "unit": "seconds",
-      "interpretation": "The homepage mobile FCP is 0.34 s in the latest run, still fast under lab assumptions and well under a common 1.8 s threshold.",
-      "source": "Chromium paint timing, session-2026-06-14 homepage mobile",
+      "unit": "秒",
+      "interpretation": "首页移动端 FCP 为 0.34 秒，在当前实验条件下表现快速，显著优于常见 1.8 秒参考线。",
+      "source": "Chromium 首次绘制时序，session-2026-06-14 首页移动",
       "confidence": "medium"
     },
     {
-      "label": "Server response (homepage, desktop)",
+      "label": "服务器响应（首页，桌面）",
       "value": 416,
-      "unit": "milliseconds",
-      "interpretation": "Homepage desktop TTFB is 416 ms and mobile is 213 ms in the same session, both within the 800 ms practical boundary for the sampled scope.",
-      "source": "Navigation timing, session-2026-06-14 homepage desktop + mobile",
+      "unit": "毫秒",
+      "interpretation": "首页桌面端 TTFB 416ms，移动端 213ms，均位于抽样范围内的可接受边界。",
+      "source": "Navigation Timing，session-2026-06-14 首页桌面 + 移动",
       "confidence": "medium"
     },
     {
-      "label": "Server response (product-detail, mobile)",
+      "label": "服务器响应（商品详情，移动）",
       "value": 298,
-      "unit": "milliseconds",
-      "interpretation": "Product-detail mobile TTFB is 298 ms, confirming that server responsiveness is not the primary blocker for deeper-journey speed regressions.",
-      "source": "Navigation timing, session-2026-06-14 representative product-detail mobile",
+      "unit": "毫秒",
+      "interpretation": "商品详情移动端 TTFB 为 298ms，说明更深路径的服务端响应本身不是主要速度上限来源。",
+      "source": "Navigation Timing，session-2026-06-14 代表性商品详情移动",
       "confidence": "medium"
     },
     {
-      "label": "Layout shift",
+      "label": "布局偏移（CLS）",
       "value": 0,
-      "unit": "score",
-      "interpretation": "CLS remains at 0 across latest sampled routes and both viewports, indicating no major layout instability during initial paint in this instrumentation window.",
-      "source": "Chromium layout-shift observation, session-2026-06-14 routes",
+      "unit": "分数",
+      "interpretation": "最新采样路由与视口下 CLS 持续为 0，说明初始渲染窗口未出现显著布局偏移。",
+      "source": "Chromium 布局偏移观测，session-2026-06-14 路由集",
       "confidence": "high"
     },
     {
-      "label": "JavaScript payload (homepage)",
+      "label": "JavaScript 体积（首页）",
       "value": 1904,
-      "unit": "kilobytes",
-      "interpretation": "Homepage JavaScript transfer is still 1.9 MB on desktop (1.905 MB on mobile), exceeding a practical 500 KB lab target by ~3.8x.",
-      "source": "Resource timing API initiatorType=script transferSize sum, session-2026-06-14 homepage",
+      "unit": "KB",
+      "interpretation": "首页脚本下载量仍为 1.9 MB（移动端 1.905 MB），超过 500 KB 目标约 3.8 倍。",
+      "source": "Resource Timing API（initiatorType=script）transferSize 合计，session-2026-06-14 首页",
       "confidence": "high"
     },
     {
-      "label": "DOM node count (homepage)",
+      "label": "DOM 节点（首页）",
       "value": 7356,
-      "unit": "nodes",
-      "interpretation": "The homepage node count remains above 7k (desktop 7356, mobile 8088), a level likely to increase rendering and scripting costs on lower-end devices.",
-      "source": "document.querySelectorAll length, session-2026-06-14 homepage route",
+      "unit": "个",
+      "interpretation": "首页 DOM 节点仍在 7k 以上（桌面 7356，移动 8088），对低端设备的渲染与脚本成本仍有显著压力。",
+      "source": "document.querySelectorAll 长度统计，session-2026-06-14 首页路径",
       "confidence": "high"
     },
     {
-      "label": "Third-party failures (homepage)",
+      "label": "第三方失败（首页）",
       "value": 45,
-      "unit": "requests",
-      "interpretation": "Homepage recorded 45 desktop and 44 mobile third-party failures; this remains materially above the <10 operational budget and can suppress analytics or feature initialization consistency.",
-      "source": "Playwright requestfailed events, session-2026-06-14 homepage",
+      "unit": "请求",
+      "interpretation": "首页记录到桌面与移动均约 45 次失败（桌面 45，移动 44），明显高于 <10 的工程预算，可能抑制埋点或功能初始化一致性。",
+      "source": "Playwright requestfailed 事件，session-2026-06-14 首页",
       "confidence": "high"
     },
     {
-      "label": "Third-party failures (product-detail)",
+      "label": "第三方失败（商品详情）",
       "value": 56,
-      "unit": "requests",
-      "interpretation": "Representative product-detail added pressure with 56 desktop and 55 mobile failures, confirming route-specific fragility and not just homepage-specific script noise.",
-      "source": "Playwright requestfailed events, session-2026-06-14 product-detail",
+      "unit": "请求",
+      "interpretation": "商品详情路径新增失败压力（56/55），说明失效并非首页特异性，而是跨路径稳态问题。",
+      "source": "Playwright requestfailed 事件，session-2026-06-14 商品详情",
       "confidence": "high"
     },
     {
-      "label": "Product-detail load completion",
+      "label": "商品详情加载完成时间",
       "value": 4.94,
-      "unit": "seconds",
-      "interpretation": "Product-detail desktop load event reached near 4.94 s, much cleaner than legacy manual snapshots but still materially slower than expected for a conversion-critical route.",
-      "source": "loadEventMs measurement, session-2026-06-14 product-detail desktop",
+      "unit": "秒",
+      "interpretation": "商品详情桌面端 load 事件约 4.94 秒，虽优于老版本手工基线，但仍显著高于转化关键路径的理想区间。",
+      "source": "loadEventMs 测量，session-2026-06-14 商品详情桌面",
       "confidence": "low"
     },
     {
-      "label": "Product-detail image format coverage",
+      "label": "商品详情图片格式覆盖率",
       "value": 11.08,
-      "unit": "percent",
-      "interpretation": "Product-detail desktop showed 11.08% WebP image coverage in this sample, while homepage remained below 1%; format strategy is route-sensitive and still below a healthy technical floor.",
-      "source": "Image scan, session-2026-06-14 product-detail and homepage",
+      "unit": "百分比",
+      "interpretation": "商品详情桌面端 WebP 覆盖率 11.08%，首页低于 1%。格式策略具有路径敏感性，当前仍处于较低水平。",
+      "source": "图片扫描，session-2026-06-14 商品详情与首页",
       "confidence": "low"
     },
     {
-      "label": "Product-detail missing alt text",
+      "label": "商品详情图片缺失 alt",
       "value": 40,
-      "unit": "images",
-      "interpretation": "At least 40 image tags were missing alt on the representative product-detail route sample; this is an accessibility regression candidate in a high-signal path.",
-      "source": "Image accessibility scan, session-2026-06-14 product-detail",
+      "unit": "张",
+      "interpretation": "代表性商品详情样本中至少有 40 张图片缺失 alt 属性，属于高价值路径上的可访问性回归风险。",
+      "source": "图片可访问性扫描，session-2026-06-14 商品详情",
       "confidence": "low"
     }
   ],
   "forensics": [
     {
-      "label": "Observed third-party request failures",
+      "label": "第三方请求失败观测",
       "value": 56,
-      "unit": "requests",
-      "interpretation": "The highest observed route/viewport failure count in 2026-06-14 was 56 on product-detail desktop, with homepage desktop at 45. This is not comparable to the old manual baseline (3) and indicates collector-comparable route failures are now structurally elevated.",
-      "source": "Playwright requestfailed events, session-2026-06-14",
+      "unit": "请求",
+      "interpretation": "2026-06-14 中最大观测值为商品详情桌面 56 次失败，首页为 45 次。与旧手工基线（3）不可横向比较，说明可对照的结构性失败率已显著抬升。",
+      "source": "Playwright requestfailed 事件，session-2026-06-14",
       "confidence": "high"
     },
     {
-      "label": "Observed long tasks",
+      "label": "长任务（long tasks）",
       "value": 3,
-      "unit": "tasks",
-      "interpretation": "Main-thread task pressure is measurable but not exploding in this run (2-3). TBT remains low in lab likely due early network failures that stop script execution before blocking phases accumulate.",
-      "source": "Chromium long-task metrics, session-2026-06-14 routes",
+      "unit": "任务",
+      "interpretation": "主线程压力可观但未爆发性上升（2–3）。TBT 在实验室里偏低，可能受第三方失败提前中断脚本执行影响。",
+      "source": "Chromium long-task 指标，session-2026-06-14 路由集",
       "confidence": "low"
     },
     {
-      "label": "JavaScript payload — latest finding",
+      "label": "JavaScript 体积（最新）",
       "value": 1942,
-      "unit": "kilobytes",
-      "interpretation": "Latest product-detail desktop observed 1.942 MB JS. Homepage stays around 1.904 MB. This confirms the JavaScript budget issue is not isolated to one route.",
-      "source": "Resource timing API initiatorType=script transferSize sum, session-2026-06-14 routes",
+      "unit": "KB",
+      "interpretation": "商品详情桌面端最新观测为 1.942 MB，首页约 1.904 MB。说明脚本体积问题并非单一路径异常。",
+      "source": "Resource Timing API（initiatorType=script）transferSize 合计，session-2026-06-14 路由集",
       "confidence": "high"
     },
     {
-      "label": "DOM node count — latest finding",
+      "label": "DOM 节点（最新）",
       "value": 8088,
-      "unit": "nodes",
-      "interpretation": "Homepage mobile reached 8,088 nodes and product-detail climbed to 8,073 on mobile. Route-aware growth remains consistent with earlier manual path observations.",
-      "source": "document.querySelectorAll length, session-2026-06-14",
+      "unit": "个",
+      "interpretation": "首页移动端达到 8,088 个节点，商品详情移动端 8,073，路由级增长与历史手工观察一致。",
+      "source": "document.querySelectorAll 长度统计，session-2026-06-14",
       "confidence": "high"
     },
     {
-      "label": "LCP observability risk",
+      "label": "LCP 可观测风险",
       "value": 4,
-      "unit": "samples",
-      "interpretation": "All 4 samples (2 routes × 2 viewports) failed to produce LCP. This gives high confidence that hero/background implementation, not bandwidth alone, is the primary cause of LCP invisibility.",
-      "source": "Playwright PerformanceObserver, session-2026-06-14 route-aggregate",
+      "unit": "样本",
+      "interpretation": "4 个样本（2 路由 × 2 视口）全部未产出 LCP，说明问题更可能源于 Hero 与背景结构，而非单纯带宽因素。",
+      "source": "Playwright PerformanceObserver，session-2026-06-14 路由聚合",
       "confidence": "high"
     },
     {
-      "label": "Audited journeys",
+      "label": "审计覆盖路径",
       "value": 2,
-      "unit": "journeys",
-      "interpretation": "The latest automated scope now covers homepage and one representative product-detail path, still short of full conversion funnel coverage (cart/checkout/search).",
-      "source": "Session route map, session-2026-06-14",
+      "unit": "条",
+      "interpretation": "最新自动覆盖范围已含首页与一条代表性商品详情，仍未覆盖购物车、结账、搜索等核心转化链路。",
+      "source": "Session 路径映射，session-2026-06-14",
       "confidence": "high"
     },
     {
-      "label": "Product-detail DOM footprint",
+      "label": "商品详情 DOM 规模",
       "value": 342,
-      "unit": "script tags",
-      "interpretation": "The representative product-detail route includes 342 script tags with 32 iframes; this is high surface area for load ordering, hydration, and error propagation.",
-      "source": "DOM inventory, session-2026-06-14 product-detail",
+      "unit": "脚本标签",
+      "interpretation": "代表性商品详情含 342 个脚本标签、32 个 iframe，加载顺序与错误传播面较大。",
+      "source": "DOM 清单，session-2026-06-14 商品详情",
       "confidence": "low"
     },
     {
-      "label": "Product-detail runtime errors",
+      "label": "商品详情运行时错误",
       "value": 9,
-      "unit": "errors",
-      "interpretation": "Product-detail captured 4 console errors and 5 page errors in combined desktop/mobile samples. Field-side INP or real-user traces are still required to map business impact, but this is a concrete engineering risk signal.",
-      "source": "Console/page error capture, session-2026-06-14 product-detail",
+      "unit": "次",
+      "interpretation": "商品详情中控制台/页面错误合计 9 次（桌面 4，移动 5）。尚需 INP 或 RUM 追踪映射业务影响，但该项已构成明确工程风险。",
+      "source": "Console/Page Error 采集，session-2026-06-14 商品详情",
       "confidence": "low"
     },
     {
-      "label": "Image accessibility gaps",
+      "label": "图片可访问性缺口",
       "value": 45,
-      "unit": "images",
-      "interpretation": "Homepage + product-detail combined missing accessibility tags remain a concrete debt: homepage still has alt/alt-like gaps and product-detail has 40 missing alt observations.",
-      "source": "Image audit, session-2026-06-14 routes",
+      "unit": "张",
+      "interpretation": "首页与商品详情合并仍有 45 张图片缺失可访问标识；结合商品详情路径缺失图像标签，属于真实可修复债务。",
+      "source": "图片审计，session-2026-06-14 路由集",
       "confidence": "low"
     }
   ],
   "recommendations": [
     {
       "priority": "P0",
-      "title": "Make hero image LCP-eligible",
-      "action": "Replace CSS-background and lazy-loaded hero mechanisms with an eagerly loaded, sized img candidate (or validated alternative markup) using hero-specific loading priority and preload hints so automated LCP can be observed consistently.",
-      "validation": "Re-run route-aggregate collection and confirm LCP becomes a concrete numeric value in both desktop/mobile and both tracked routes. Repeat across one follow-up run before closing."
+      "title": "让 Hero 图可被 LCP 采样",
+      "action": "将背景图与延迟加载 Hero 机制改为可优先抓取的 img 机制（或通过验证通过的替代标记），并补齐 preload，确保桌面/移动在两个关键路由下均可持续观测到 LCP。",
+      "validation": "复跑路由聚合采集，要求首页与商品详情在桌面、移动下均可输出具体 LCP 数值，并连续追跑至少一次回归确认。"
     },
     {
       "priority": "P0",
-      "title": "Reduce JavaScript payload below route budget",
-      "action": "Trim app/runtime bundles and postpone non-critical scripts. Aim to keep initial transfer below 600 KB on first paint path; target below 500 KB as a hard warning threshold.",
-      "validation": "Automated re-collect should show jsKb < 600 on homepage desktop and product-detail desktop. Also confirm TBT no longer stays at zero because of blocked script execution alone."
+      "title": "压缩 JavaScript 体积到路由预算内",
+      "action": "裁剪应用与运行时主包，推迟非关键脚本。首页首屏目标仍按 600 KB 运行时硬门槛，500 KB 为严控告警线。",
+      "validation": "重采后要求首页与商品详情桌面端 jsKb 均低于 600 KB，且在可观测样本中出现非零且健康的 TBT，避免第三方失败单点中断主测量。"
     },
     {
       "priority": "P0",
-      "title": "Control third-party failure surface by route",
-      "action": "Add script guards and defer/load-order constraints for non-essential widgets; keep failures outside critical purchase rendering and checkout initiation paths.",
-      "validation": "Re-run collection and hold 3P failures below 10 for homepage and below 15 for product-detail as an immediate hard gate, with per-route thresholds in CI checks."
+      "title": "按路径控制第三方失败面",
+      "action": "对非关键组件加脚本保护与加载顺序约束，避免非核心脚本阻塞关键商品购买与首屏初始化链路。",
+      "validation": "重采后首页第三方失败降到 < 10，商品详情 < 15；同时在 CI 加入路由级阈值。"
     },
     {
       "priority": "P1",
-      "title": "Reduce DOM size on route-level templates",
-      "action": "Audit the highest DOM contributors in product template and homepage modules, with route-specific pruning, virtualization, and lazy mount strategies for off-screen sections.",
-      "validation": "Re-run collection and confirm domNodes < 3000 for homepage and < 5000 for product-detail in at least one representative snapshot."
+      "title": "缩减路径级 DOM 规模",
+      "action": "聚焦商品模板与首页模块的高贡献节点，分批做模板裁剪、虚拟化与首屏外区块懒加载。",
+      "validation": "重采后至少一次样本中：首页 domNodes < 3000，商品详情 < 5000。"
     },
     {
       "priority": "P1",
-      "title": "Fix product-detail runtime faults and accessibility debt",
-      "action": "Prioritize the 4+ page/console errors and 40 missing-alt gaps on product-detail route, especially around script state initialization and recommendation widgets.",
-      "validation": "Re-run product-detail desktop/mobile and confirm console errors and missing-alt counts drop materially before broad route rollout."
+      "title": "修复商品详情运行时错误与可访问性债务",
+      "action": "优先清理商品详情中的脚本初始化错误与缺失 alt，优先覆盖推荐区、脚本挂载点与状态初始化区。",
+      "validation": "在商品详情桌面/移动复跑后，控制台与页面错误显著下降，缺失 alt 数量同步下降后，再推进路由扩展。"
     },
     {
       "priority": "P1",
-      "title": "Extend recurring route coverage",
-      "action": "Add cart and checkout routes to v3 collection scope, with same route filters used in trends and threshold reports.",
-      "validation": "Ensure each new route has normalized desktop/mobile metrics and a methodology tag so trend comparisons stay route-specific."
+      "title": "扩展采集路径到购物车与结账",
+      "action": "在 v3 采集中增加 cart 与 checkout 路径，并沿用现有路由过滤与方法标签体系。",
+      "validation": "确认新增路径产出标准化桌面/移动指标，并在趋势与阈值层面形成可归因的对比。"
     },
     {
       "priority": "P2",
-      "title": "Automate image-format and accessibility checks",
-      "action": "Track WebP coverage, missing alt, missing srcset, and above-fold lazy ratios route-by-route in the collector so degradations are caught before deployment.",
-      "validation": "Fail automated quality checks when route-level image-format and accessibility debt regresses beyond review thresholds."
+      "title": "自动化图片格式与可访问性告警",
+      "action": "在采集链路内落地 WebP 覆盖率、图片 alt、srcset 缺失率和首屏懒加载比率指标，并按路线级阈值治理回归。",
+      "validation": "在自动校验中加入回归红线：图片格式与可访问性指标退化时使构建阻断。"
     }
   ],
   "glossary": [
     {
       "term": "LCP",
-      "definition": "Time until the largest visible content element is rendered. Must be an img, video poster, or block-level text — CSS backgrounds do not qualify."
+      "definition": "从页面开始到最大可见内容元素完成渲染的时间。该元素需为 img、video poster 或块级文本，CSS 背景不计入。"
     },
     {
       "term": "FCP",
-      "definition": "Time until the browser renders the first visible content."
+      "definition": "浏览器首次渲染可见内容的时间。"
     },
     {
       "term": "CLS",
-      "definition": "A measure of unexpected visual movement during page load. A score of 0 is perfect; good is below 0.1."
+      "definition": "加载过程中意外布局位移的指标。得分 0 为理想，0.1 以下通常为良好。"
     },
     {
       "term": "TTFB",
-      "definition": "Time to First Byte — elapsed time from navigation start to the first byte of the HTTP response. The most consistent metric across lab and real-user conditions."
+      "definition": "从导航开始到首字节返回所用时间。该指标在实验室与真实环境中的可比性最强。"
     },
     {
       "term": "TBT",
-      "definition": "Total Blocking Time — sum of time each long task blocks the main thread between FCP and Time to Interactive. In lab sessions where third-party scripts fail at the network level, TBT may read low regardless of payload size."
+      "definition": "从 FCP 到 Time to Interactive 期间，主线程任务阻塞总时长。若第三方脚本在网络层面提前失败，TBT 可能被低估。"
     },
     {
       "term": "Confidence",
-      "definition": "How strongly the limited public evidence supports a finding."
+      "definition": "限定公开证据支持该结论的强度。"
     },
     {
       "term": "Route-aware metrics",
-      "definition": "Metrics grouped by sampled route and viewport so homepage and product paths are not mixed into one direct comparison unless explicitly noted."
+      "definition": "按采样路径与视口分组统计指标，避免首页与商品详情无差别直接并列比较。"
     }
   ]
 }

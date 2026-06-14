@@ -1,36 +1,36 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="description" content="{{ description }}">
-    <title>{{ title }} · Lute Technical Audit</title>
+    <title>{{ title }} · 路特技术审计</title>
     <!-- Open Graph -->
     <meta property="og:type"        content="website">
-    <meta property="og:title"       content="{{ title }} · Lute Technical Audit">
+    <meta property="og:title"       content="{{ title }} · 路特技术审计">
     <meta property="og:description" content="{{ description }}">
-    <meta property="og:site_name"   content="Lute Technical Audit">
+    <meta property="og:site_name"   content="路特技术审计">
     <!-- Favicon: inline SVG data URI — zero extra request -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2316684d'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' font-weight='700' fill='white' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E">
     <link rel="stylesheet" href="/assets/site.css">
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
+    <a class="skip-link" href="#main">跳转到正文</a>
     <header class="site-header">
-      <a class="brand" href="/">Lute <span>Technical Audit</span></a>
-      <nav aria-label="Primary">
-        <a href="/" {% if page.url == "/" %}aria-current="page"{% endif %}>Overview</a>
-        <a href="/metrics/" {% if page.url == "/metrics/" %}aria-current="page"{% endif %}>Metrics</a>
-        <a href="/forensics/" {% if page.url == "/forensics/" %}aria-current="page"{% endif %}>Forensics</a>
-        <a href="/trends/" {% if page.url == "/trends/" %}aria-current="page"{% endif %}>Trends</a>
+      <a class="brand" href="/">路特 <span>技术审计</span></a>
+      <nav aria-label="主导航">
+        {% set pagePath = page.url %}
+        <a href="/" {% if pagePath == "/" %}aria-current="page"{% endif %}>总览</a>
+        <a href="/metrics/" {% if pagePath == "/metrics/" or pagePath == "/metrics.html" %}aria-current="page"{% endif %}>指标</a>
+        <a href="/forensics/" {% if pagePath == "/forensics/" or pagePath == "/forensics.html" %}aria-current="page"{% endif %}>法证</a>
+        <a href="/trends/" {% if pagePath == "/trends/" or pagePath == "/trends.html" %}aria-current="page"{% endif %}>趋势</a>
       </nav>
     </header>
     <main id="main">{{ content | safe }}</main>
     <footer>
-      <p>{{ audit.meta.publication }} · Observed {{ audit.meta.observedAt }}</p>
-      <p>Technical observations only. No private business data is published.</p>
+      <p>{{ audit.meta.publication }} · 发布于 {{ audit.meta.observedAt }}</p>
+      <p>仅发布技术观察，不披露任何私有运营数据。</p>
     </footer>
   </body>
 </html>
-

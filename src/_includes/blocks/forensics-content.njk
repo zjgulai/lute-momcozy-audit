@@ -1,0 +1,30 @@
+<section class="hero compact">
+  <p class="eyebrow">证据优先于结论</p>
+  <h1>法证审计</h1>
+  <p class="lede">通过方法、观测时间和置信度串联公开证据链，不暴露原始抓取数据与私有基础设施。</p>
+<aside class="public-cross-note" aria-label="法证跨审计结论">
+    <p class="eyebrow">审计边界</p>
+    <p><strong>法证结果能提示修复方向，但不足以直接证明业务因果。</strong> 产品详情页结论在持续采集覆盖前仍先进入待复核队列。</p>
+  </aside>
+</section>
+<section aria-label="法证发现">
+  <div class="timeline">
+    {% for item in audit.forensics %}
+    <article class="timeline-item">
+      <span class="timeline-index">{{ loop.index | twoDigit }}</span>
+      <div>
+        <h2>{{ item.label }}</h2>
+        <p class="metric-value small">{{ item.value }} <span>{{ item.unit }}</span></p>
+        <p>{{ item.interpretation }}</p>
+        <p class="source-line"><strong>来源：</strong> {{ item.source }} · <strong>置信度：</strong> {{ item.confidence }}</p>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+<section class="panel limitation" aria-labelledby="limits-title">
+  <p class="eyebrow">重要边界</p>
+  <h2 id="limits-title">本公开版不承担的声明</h2>
+  <p>样本窗口刻意收窄，不推导整体业务表现、用户意图、真实增量影响或人群分布。所有建议都需通过受控验证后再用于生产决策。</p>
+  <p>内部经营数据仅用于约束口径与优先级，不发布私有数值、不发布货币假设、不发布回报估算与产品层级的商业结论。</p>
+</section>

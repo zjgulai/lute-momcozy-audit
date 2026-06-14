@@ -13,15 +13,15 @@
   };
 
   var statusDefs = [
-    {metric: "lcp", label: "LCP", threshold: 2.5, unit: "s", decimals: 2},
-    {metric: "fcp", label: "FCP", threshold: 1.8, unit: "s", decimals: 2},
-    {metric: "ttfb", label: "TTFB", threshold: 800, unit: "ms", decimals: 0},
-    {metric: "cls", label: "CLS", threshold: 0.1, unit: "score", decimals: 4},
-    {metric: "tbt", label: "TBT", threshold: 200, unit: "ms", decimals: 0},
-    {metric: "domNodes", label: "DOM Nodes", threshold: 1500, unit: "count", decimals: 0},
-    {metric: "totalRequests", label: "Requests", threshold: 400, unit: "count", decimals: 0},
-    {metric: "jsKb", label: "JS KB", threshold: 500, unit: "KB", decimals: 0},
-    {metric: "thirdPartyFailures", label: "3P failures", threshold: 10, unit: "count", decimals: 0}
+    {metric: "lcp", label: "LCP", threshold: 2.5, unit: "秒", decimals: 2},
+    {metric: "fcp", label: "FCP", threshold: 1.8, unit: "秒", decimals: 2},
+    {metric: "ttfb", label: "TTFB", threshold: 800, unit: "毫秒", decimals: 0},
+    {metric: "cls", label: "CLS", threshold: 0.1, unit: "分数", decimals: 4},
+    {metric: "tbt", label: "TBT", threshold: 200, unit: "毫秒", decimals: 0},
+    {metric: "domNodes", label: "DOM 节点", threshold: 1500, unit: "个", decimals: 0},
+    {metric: "totalRequests", label: "请求数", threshold: 400, unit: "次", decimals: 0},
+    {metric: "jsKb", label: "JS 体积", threshold: 500, unit: "KB", decimals: 0},
+    {metric: "thirdPartyFailures", label: "第三方失败", threshold: 10, unit: "次", decimals: 0}
   ];
 
   function toUnixDate(value) {
@@ -64,7 +64,7 @@
           grid: {stroke: palette.line},
           values: function (u, vals) {
             return vals.map(function (v) {
-              return new Date(v * 1000).toLocaleDateString("en-US", {month: "short", day: "numeric"});
+              return new Date(v * 1000).toLocaleDateString("zh-CN", {month: "short", day: "numeric"});
             });
           }
         },
@@ -192,12 +192,12 @@
   }
 
   function statusDeltaText(current, previous, decimals) {
-    if (current == null || previous == null) return "No previous comparable point";
+    if (current == null || previous == null) return "无可比历史点";
     var delta = current - previous;
-    if (delta === 0) return "Flat";
+    if (delta === 0) return "持平";
     var sign = delta > 0 ? "↑" : "↓";
     var changed = Math.abs(delta);
-    var trend = delta > 0 ? "worse" : "better";
+    var trend = delta > 0 ? "恶化" : "改善";
     return sign + " " + changed.toFixed(decimals) + " " + trend;
   }
 
@@ -216,7 +216,7 @@
     if (candidates.length === 0) {
       var empty = document.createElement("p");
       empty.className = "status-empty";
-      empty.textContent = "No automated session available for this scope.";
+      empty.textContent = "当前范围内无可用自动化会话。";
       statusGrid.appendChild(empty);
       return;
     }
@@ -229,7 +229,7 @@
       var latestValue = getSessionMetric(latest, routeForScope, "desktop", def.metric);
       var previousValue = previous ? getSessionMetric(previous, routeForScope, "desktop", def.metric) : null;
       var statusClass = statusClassFromValue(latestValue, def.threshold);
-      var statusText = latestValue == null ? "N/A" : (latestValue <= def.threshold ? "PASS" : "FAIL");
+      var statusText = latestValue == null ? "N/A" : (latestValue <= def.threshold ? "通过" : "不通过");
       var trend = statusDeltaText(latestValue, previousValue, def.decimals);
 
       var card = document.createElement("article");
@@ -247,7 +247,7 @@
 
       var meta = document.createElement("p");
       meta.className = "status-meta";
-      meta.textContent = "Threshold: " + def.threshold + " " + def.unit + " · " + statusText + " · " + trend;
+      meta.textContent = "阈值: " + def.threshold + " " + def.unit + " · " + statusText + " · " + trend;
       card.appendChild(meta);
 
       statusGrid.appendChild(card);
