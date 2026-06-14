@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Momcozy audit">
+  <rect width="64" height="64" rx="14" fill="#111827"/>
+  <path fill="#fff" d="M14 44V20h7l11 15 11-15h7v24h-7V31L34 44h-4L21 31v13z"/>
+  <path fill="#f59e0b" d="M18 50h28v4H18z"/>
+</svg>

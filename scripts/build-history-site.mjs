@@ -171,6 +171,7 @@ function page(title, active, body) {
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="Momcozy 独立站公开技术审计报告，按 2026-06-14 内外部数据重审更新。">
   <title>${escapeHtml(title)}</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/shared.css">
   ${pageStyles()}
 </head>
