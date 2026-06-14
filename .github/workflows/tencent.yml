@@ -35,7 +35,7 @@ jobs:
       - name: Generate SHA-256 manifest
         run: (cd _site && find . -type f -print0 | sort -z | xargs -0 sha256sum) > site.sha256
       - name: Upload verified site artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: verified-site-${{ github.sha }}
           path: |
