@@ -14,7 +14,7 @@ This cycle updates the public technical baseline for `2026-06-14` and runs the f
 
 - Internal source used for private validation: `m1/data/momcozy-real-data.xlsx` and derived files in `lute-ai-company-workspace/projects/momcozy-site-audit/m1/data/`.
 - Public evidence source for this cycle: `src/_data/audit.json` + `src/_data/sessions/2026-06-14.json`.
-- Governance: `operating data is used to constrain causality and prioritization only; no private financial KPIs are published`.
+- Governance: `operating data is used to constrain causality and prioritization only; no private business outcomes are published`.
 
 ## Round 1 — Boundary and safety checks
 
@@ -37,7 +37,7 @@ This cycle updates the public technical baseline for `2026-06-14` and runs the f
 - New baseline tag in `meta`: `session-2026-06-14` / `3.3.1`.
 - Verdict updated to reflect route-aware confirmation of LCP invisibility and frontend/third-party risks.
 - Risks now include a route-validated LCP gap and higher route complexity on PDP.
-- No direct revenue/ROI claim added in the public verdict.
+- No direct business-outcome claim added in the public verdict.
 
 ### `/metrics`
 
