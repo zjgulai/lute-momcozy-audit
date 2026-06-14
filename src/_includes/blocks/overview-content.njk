@@ -1,0 +1,48 @@
+<section class="hero">
+  <p class="eyebrow">{{ audit.meta.publication }}</p>
+  <h1>{{ audit.meta.title }}</h1>
+  <p class="lede">{{ audit.summary.verdict }}</p>
+  <dl class="meta-grid">
+    <div><dt>观察时间</dt><dd>{{ audit.meta.observedAt }}</dd></div>
+    <div><dt>范围</dt><dd>{{ audit.meta.scope }}</dd></div>
+    <div><dt>方法</dt><dd>{{ audit.meta.method }}</dd></div>
+  </dl>
+  <aside class="public-cross-note" aria-label="公开跨站点边界说明">
+    <p class="eyebrow">边界声明</p>
+    <p><strong>公开结论：</strong>内部经营数据仅用于约束因果顺序与优先级，不用于发布任何业务业绩结论。当前结论收敛为：客户端体积、第三方稳定性与 LCP 可观测性是近期最直接的工程风险。</p>
+  </aside>
+</section>
+
+<section aria-labelledby="signal-title">
+  <div class="section-heading">
+    <p class="eyebrow">关键快照</p>
+    <h2 id="signal-title">建议立即执行的信号</h2>
+  </div>
+  <div class="split-grid">
+    <article class="panel positive">
+      <h3>已确认的优势</h3>
+      <ul>{% for item in audit.summary.strengths %}<li>{{ item }}</li>{% endfor %}</ul>
+    </article>
+    <article class="panel risk">
+      <h3>当前风险</h3>
+      <ul>{% for item in audit.summary.risks %}<li>{{ item }}</li>{% endfor %}</ul>
+    </article>
+  </div>
+</section>
+
+<section aria-labelledby="recommendations-title">
+  <div class="section-heading">
+    <p class="eyebrow">优先级</p>
+    <h2 id="recommendations-title">带验证闸值的建议</h2>
+  </div>
+  <div class="card-grid">
+    {% for item in audit.recommendations %}
+    <article class="card">
+      <span class="priority">{{ item.priority }}</span>
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.action }}</p>
+      <p class="validation"><strong>验证要求：</strong> {{ item.validation }}</p>
+    </article>
+    {% endfor %}
+  </div>
+</section>

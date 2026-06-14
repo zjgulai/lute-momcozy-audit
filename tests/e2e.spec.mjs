@@ -1,6 +1,15 @@
 import {expect, test} from "@playwright/test";
 
-const pages = ["/", "/metrics/", "/forensics/", "/trends/"];
+const pages = [
+  "/",
+  "/metrics/",
+  "/metrics.html",
+  "/forensics/",
+  "/forensics.html",
+  "/trends/",
+  "/trends.html",
+  "/404.html",
+];
 for (const pathname of pages) {
   test(`${pathname} is stable on desktop and mobile`, async ({browser}) => {
     for (const viewport of [{width: 1440, height: 900}, {width: 390, height: 844}]) {
@@ -13,6 +22,7 @@ for (const pathname of pages) {
       expect(response.status()).toBe(200);
       expect(errors).toEqual([]);
       const result = await page.evaluate(() => {
+        const hasChineseText = (text) => /[一-龥]/.test(text || "");
         const targets = [...document.querySelectorAll("a,button")].filter((element) => {
           const style = getComputedStyle(element);
           return style.visibility !== "hidden" && style.display !== "none";
@@ -21,10 +31,14 @@ for (const pathname of pages) {
           return {width: rect.width, height: rect.height, text: element.textContent.trim()};
         });
         return {
+          docLang: document.documentElement.lang,
+          hasChinesePageText: hasChineseText(document.body.innerText || ""),
           overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
           smallTargets: targets.filter((target) => target.width < 44 || target.height < 44)
         };
       });
+      expect(result.docLang).toBe("zh-CN");
+      expect(result.hasChinesePageText).toBe(true);
       expect(result.overflow).toBeLessThanOrEqual(0);
       expect(result.smallTargets).toEqual([]);
       await page.close();

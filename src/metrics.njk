@@ -1,36 +1,7 @@
 ---
 layout: layout.njk
 permalink: /metrics/index.html
-title: Metrics
-description: Sanitized technical metrics with source and confidence.
+title: 指标
+description: 技术审计指标（含来源与置信度）。
 ---
-<section class="hero compact">
-  <p class="eyebrow">Measured, bounded, sourced</p>
-  <h1>Technical metrics</h1>
-  <p class="lede">Each observation carries its method and confidence. These are directional lab results, not real-user field data.</p>
-  <aside class="public-cross-note" aria-label="Metrics cross-audit conclusion">
-    <p class="eyebrow">Cross-audit conclusion</p>
-    <p><strong>Metrics are evidence, not revenue claims.</strong> The internal refresh was used to reject unsupported payoff shortcuts. This public page keeps only technical metrics with source and confidence; any business effect must be validated outside the public edition.</p>
-  </aside>
-</section>
-<section aria-label="Technical observations">
-  <div class="metric-grid">
-    {% for item in audit.metrics %}
-    <article class="metric-card">
-      <p class="metric-label">{{ item.label }}</p>
-      <p class="metric-value">{{ item.value }} <span>{{ item.unit }}</span></p>
-      <p>{{ item.interpretation }}</p>
-      <dl class="evidence">
-        <div><dt>Source</dt><dd>{{ item.source }}</dd></div>
-        <div><dt>Confidence</dt><dd><span class="confidence {{ item.confidence }}">{{ item.confidence }}</span></dd></div>
-      </dl>
-    </article>
-    {% endfor %}
-  </div>
-</section>
-<section aria-labelledby="glossary-title">
-  <div class="section-heading"><p class="eyebrow">Shared language</p><h2 id="glossary-title">Glossary</h2></div>
-  <div class="glossary-grid">
-    {% for item in audit.glossary %}<article class="panel"><h3>{{ item.term }}</h3><p>{{ item.definition }}</p></article>{% endfor %}
-  </div>
-</section>
+{% include "blocks/metrics-content.njk" %}

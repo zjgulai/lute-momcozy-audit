@@ -1,0 +1,30 @@
+<section class="hero compact">
+  <p class="eyebrow">有边界、可复核、可追溯</p>
+  <h1>技术指标</h1>
+  <p class="lede">每条指标都提供采集方法与置信度。这些仅为实验室结果，不代表真实用户场景的全部分布。</p>
+    <aside class="public-cross-note" aria-label="指标跨审计结论">
+    <p class="eyebrow">审计边界</p>
+    <p><strong>指标用于技术归因，不可等同于商业收益。</strong>内部运营数据只用于剔除不支持的收益口径假设，公开页仅保留带来源与置信度的技术指标，业务影响须在公共范围外验证。</p>
+  </aside>
+</section>
+<section aria-label="技术指标观察">
+  <div class="metric-grid">
+    {% for item in audit.metrics %}
+    <article class="metric-card">
+      <p class="metric-label">{{ item.label }}</p>
+      <p class="metric-value">{{ item.value }} <span>{{ item.unit }}</span></p>
+      <p>{{ item.interpretation }}</p>
+      <dl class="evidence">
+        <div><dt>来源</dt><dd>{{ item.source }}</dd></div>
+        <div><dt>置信度</dt><dd><span class="confidence {{ item.confidence }}">{{ item.confidence }}</span></dd></div>
+      </dl>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+<section aria-labelledby="glossary-title">
+  <div class="section-heading"><p class="eyebrow">统一口径</p><h2 id="glossary-title">术语表</h2></div>
+  <div class="glossary-grid">
+    {% for item in audit.glossary %}<article class="panel"><h3>{{ item.term }}</h3><p>{{ item.definition }}</p></article>{% endfor %}
+  </div>
+</section>
