@@ -1,0 +1,72 @@
+name: Monthly Performance Collection
+
+on:
+  schedule:
+    - cron: "0 2 1 * *"  # 02:00 UTC on the 1st of every month
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: "Override target URL (defaults to secret AUDIT_TARGET_URL)"
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: Dry-run validate uptime cron template
+        run: npm run test:uptime-cron
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ hashFiles('package-lock.json') }}
+      - run: npx playwright install --with-deps chromium
+      - name: Collect performance session
+        env:
+          AUDIT_TARGET_URL: ${{ inputs.target_url || secrets.AUDIT_TARGET_URL }}
+        run: node scripts/collect.mjs
+      - name: Check if new session was written
+        id: check
+        run: |
+          if git diff --quiet src/_data/sessions/; then
+            echo "new_session=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "new_session=true" >> "$GITHUB_OUTPUT"
+            NEW_FILE=$(git diff --name-only src/_data/sessions/ | tail -n 1)
+            DATE="${NEW_FILE##*/}"
+            echo "date=${DATE%.json}" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Generate collection PR summary
+        if: steps.check.outputs.new_session == 'true'
+        env:
+          AUDIT_OUTPUT_DIR: src/_data/sessions
+          AUDIT_SESSION_PATH: src/_data/sessions/${{ steps.check.outputs.date }}.json
+        run: node scripts/generate-collect-summary.mjs > .github/collect-summary.md
+      - name: Open PR with new session data
+        if: steps.check.outputs.new_session == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DATE="${{ steps.check.outputs.date }}"
+          BRANCH="collect/session-${DATE}"
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add src/_data/sessions/
+          git commit -m "collect: add performance session ${DATE}"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "Performance snapshot ${DATE}" \
+            --body-file .github/collect-summary.md \
+            --base main \
+            --head "$BRANCH"

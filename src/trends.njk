@@ -1,0 +1,237 @@
+---
+layout: layout.njk
+permalink: /trends/index.html
+title: Trends
+description: Performance trends across all audit sessions.
+---
+<link rel="stylesheet" href="/assets/uplot.min.css">
+
+<section class="hero compact">
+  <p class="eyebrow">Across {{ sessions.length }} sessions</p>
+  <h1>Performance trends</h1>
+  <p class="lede">Each point is one lab session. Direction matters more than any single value.</p>
+  <aside class="public-cross-note" aria-label="Trends cross-audit conclusion">
+    <p class="eyebrow">Cross-audit conclusion</p>
+    <p><strong>Trends are release gates, not business attribution.</strong> Manual and automated sessions are intentionally separated; the public trend line should drive technical rechecks for JS payload, DOM size, third-party failures, and LCP capture, not private revenue estimates.</p>
+  </aside>
+</section>
+
+<section aria-labelledby="trends-charts-title">
+  <div class="section-heading">
+    <p class="eyebrow">Core web vitals over time</p>
+    <h2 id="trends-charts-title">Session-by-session readings</h2>
+  </div>
+
+  <div class="filter-row" role="search" aria-label="Trend filters">
+    <div class="filter-field">
+      <label for="method-filter">Method</label>
+      <select id="method-filter">
+        <option value="all">All methods</option>
+        <option value="automated">Automated only</option>
+        <option value="manual">Manual only</option>
+      </select>
+    </div>
+    <div class="filter-field">
+      <label for="route-filter">Route focus</label>
+      <select id="route-filter">
+        <option value="all">All routes</option>
+      </select>
+    </div>
+  </div>
+
+  <section aria-labelledby="latest-status-title">
+    <div class="section-heading">
+      <p class="eyebrow">Latest automated baseline</p>
+      <h2 id="latest-status-title">Threshold status for selected scope</h2>
+    </div>
+    <div id="latest-threshold-grid" class="status-grid">
+      <p class="status-empty">No automated session available for this scope.</p>
+    </div>
+  </section>
+
+  <div class="trend-grid">
+    <figure class="trend-card" aria-label="Largest Contentful Paint trend">
+      <figcaption>
+        <span class="trend-label">LCP</span>
+        <span class="trend-unit">seconds — lower is better · good &lt; 2.5 s</span>
+      </figcaption>
+      <div id="chart-lcp" class="chart-wrap"></div>
+    </figure>
+
+    <figure class="trend-card" aria-label="First Contentful Paint trend">
+      <figcaption>
+        <span class="trend-label">FCP</span>
+        <span class="trend-unit">seconds — lower is better · good &lt; 1.8 s</span>
+      </figcaption>
+      <div id="chart-fcp" class="chart-wrap"></div>
+    </figure>
+
+    <figure class="trend-card" aria-label="Time to First Byte trend">
+      <figcaption>
+        <span class="trend-label">TTFB</span>
+        <span class="trend-unit">milliseconds — lower is better · good &lt; 800 ms</span>
+      </figcaption>
+      <div id="chart-ttfb" class="chart-wrap"></div>
+    </figure>
+
+    <figure class="trend-card" aria-label="Cumulative Layout Shift trend">
+      <figcaption>
+        <span class="trend-label">CLS</span>
+        <span class="trend-unit">score — lower is better · good &lt; 0.1</span>
+      </figcaption>
+      <div id="chart-cls" class="chart-wrap"></div>
+    </figure>
+
+    <figure class="trend-card" aria-label="Third-party failures trend">
+      <figcaption>
+        <span class="trend-label">3P Failures</span>
+        <span class="trend-unit">count — lower is better · target &lt; 10</span>
+      </figcaption>
+      <div id="chart-3p" class="chart-wrap"></div>
+    </figure>
+
+    <figure class="trend-card" aria-label="Total requests trend">
+      <figcaption>
+        <span class="trend-label">Total Requests</span>
+        <span class="trend-unit">count per session — automated sessions only</span>
+      </figcaption>
+      <div id="chart-requests" class="chart-wrap"></div>
+    </figure>
+
+    <figure class="trend-card" aria-label="JavaScript payload trend">
+      <figcaption>
+        <span class="trend-label">JS Payload</span>
+        <span class="trend-unit">kilobytes — lower is better · budget &lt; 500 KB</span>
+      </figcaption>
+      <div id="chart-js" class="chart-wrap"></div>
+    </figure>
+
+    <figure class="trend-card" aria-label="DOM node count trend">
+      <figcaption>
+        <span class="trend-label">DOM Nodes</span>
+        <span class="trend-unit">count — lower is better · limit &lt; 1,500</span>
+      </figcaption>
+      <div id="chart-dom" class="chart-wrap"></div>
+    </figure>
+  </div>
+</section>
+
+<section aria-labelledby="trends-table-title">
+  <div class="section-heading">
+    <p class="eyebrow">Full record</p>
+    <h2 id="trends-table-title">All sessions</h2>
+  </div>
+  <div class="table-wrap">
+    <table class="sessions-table">
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Method</th>
+          <th scope="col">FCP (s)</th>
+          <th scope="col">TTFB (ms)</th>
+          <th scope="col">CLS</th>
+          <th scope="col">TBT (ms)</th>
+          <th scope="col">JS (KB)</th>
+          <th scope="col">DOM nodes</th>
+          <th scope="col">Requests</th>
+          <th scope="col">3P fail D/M</th>
+          <th scope="col">Confidence</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in sessions | reverse %}
+        {% if s.methodologyBreak %}
+        <tr class="method-break-row">
+          <td colspan="11" class="method-break-cell">
+            <span class="method-break-label">⚠ Methodology change — this marks the first automated headless Chromium baseline; older manual browser observations appear below. Values are not directly comparable.</span>
+          </td>
+        </tr>
+        {% endif %}
+        <tr
+          class="{{ 'row-manual' if not s.isAutomated else 'row-auto' }}{% if s.confidence == 'low' %} row-low-confidence{% endif %} session-row"
+          data-method="{% if s.isAutomated %}automated{% else %}manual{% endif %}"
+          data-route-ids="{{ s.routeIds | join(',') }}"
+        >
+          <td>{{ s.observedAt }}{% if not s.isAutomated %} <span class="method-badge">manual</span>{% endif %}</td>
+          <td class="session-method"><span class="method-badge">{{ "Automated" if s.isAutomated else "Manual" }}</span></td>
+          <td class="num {% if s.metrics.fcp === null %}na{% elif s.metrics.fcp < 1.8 %}good{% elif s.metrics.fcp < 3 %}warn{% else %}bad{% endif %}">{{ s.metrics.fcp if s.metrics.fcp !== null else "N/A" }}</td>
+          <td class="num {% if s.metrics.ttfb === null %}na{% elif s.metrics.ttfb < 800 %}good{% elif s.metrics.ttfb < 1800 %}warn{% else %}bad{% endif %}">{{ s.metrics.ttfb if s.metrics.ttfb !== null else "N/A" }}</td>
+          <td class="num {% if s.metrics.cls < 0.1 %}good{% elif s.metrics.cls < 0.25 %}warn{% else %}bad{% endif %}">{{ s.metrics.cls }}</td>
+          <td class="num {% if s.metrics.tbt === undefined or s.metrics.tbt === null %}na{% elif s.metrics.tbt < 200 %}good{% elif s.metrics.tbt < 600 %}warn{% else %}bad{% endif %}">{{ s.metrics.tbt if s.metrics.tbt !== undefined and s.metrics.tbt !== null else "—" }}</td>
+          <td class="num {% if s.metrics.jsKb === undefined or s.metrics.jsKb === null %}na{% elif s.metrics.jsKb < 500 %}good{% elif s.metrics.jsKb < 1000 %}warn{% else %}bad{% endif %}">{{ s.metrics.jsKb if s.metrics.jsKb !== undefined and s.metrics.jsKb !== null else "—" }}</td>
+          <td class="num {% if s.metrics.domNodes === undefined or s.metrics.domNodes === null %}na{% elif s.metrics.domNodes < 1500 %}good{% elif s.metrics.domNodes < 3000 %}warn{% else %}bad{% endif %}">{{ s.metrics.domNodes if s.metrics.domNodes !== undefined and s.metrics.domNodes !== null else "—" }}</td>
+          <td class="num {% if s.metrics.totalRequests === undefined or s.metrics.totalRequests === null %}na{% elif s.metrics.totalRequests < 200 %}good{% elif s.metrics.totalRequests < 400 %}warn{% else %}bad{% endif %}">{{ s.metrics.totalRequests if s.metrics.totalRequests !== undefined and s.metrics.totalRequests !== null else "—" }}</td>
+          <td class="num {% if s.metrics.thirdPartyFailures < 10 %}good{% elif s.metrics.thirdPartyFailures < 20 %}warn{% else %}bad{% endif %}">{{ s.metrics.thirdPartyFailures }}{% if s.mobile %} / {{ s.mobile.thirdPartyFailures }}{% endif %}</td>
+          <td><span class="confidence {{ s.confidence }}">{{ s.confidence }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section aria-labelledby="trends-delta-title">
+  <div class="section-heading">
+    <p class="eyebrow">Latest vs previous</p>
+    <h2 id="trends-delta-title">Change since last session</h2>
+  </div>
+  {% if sessions.length >= 2 %}
+  {% set latest = sessions[sessions.length - 1] %}
+  {% set prev = sessions[sessions.length - 2] %}
+  <div class="delta-grid">
+    {% set lcpDelta = latest.metrics.lcp - prev.metrics.lcp %}
+    <article class="delta-card {% if latest.metrics.lcp == null or prev.metrics.lcp == null %}delta-neutral{% elif lcpDelta < 0 %}delta-good{% elif lcpDelta > 0 %}delta-bad{% else %}delta-neutral{% endif %}">
+      <p class="delta-label">LCP</p>
+      {% if latest.metrics.lcp == null or prev.metrics.lcp == null %}
+      <p class="delta-value delta-na">N/A</p>
+      <p class="delta-sub">Not captured in headless mode — field data needed</p>
+      {% else %}
+      <p class="delta-value">{{ lcpDelta | deltaSign }}{{ lcpDelta | toFixed(2) }} s</p>
+      <p class="delta-sub">{{ latest.metrics.lcp }} s now · {{ prev.metrics.lcp }} s before</p>
+      {% endif %}
+    </article>
+    {% set fcpDelta = latest.metrics.fcp - prev.metrics.fcp %}
+    <article class="delta-card {% if latest.metrics.fcp == null or prev.metrics.fcp == null %}delta-neutral{% elif fcpDelta < 0 %}delta-good{% elif fcpDelta > 0 %}delta-bad{% else %}delta-neutral{% endif %}">
+      <p class="delta-label">FCP</p>
+      {% if latest.metrics.fcp == null or prev.metrics.fcp == null %}
+      <p class="delta-value delta-na">N/A</p>
+      <p class="delta-sub">Not captured in one of the sessions</p>
+      {% else %}
+      <p class="delta-value">{{ fcpDelta | deltaSign }}{{ fcpDelta | toFixed(2) }} s</p>
+      <p class="delta-sub">{{ latest.metrics.fcp }} s now · {{ prev.metrics.fcp }} s before</p>
+      {% endif %}
+    </article>
+    {% set ttfbDelta = latest.metrics.ttfb - prev.metrics.ttfb %}
+    <article class="delta-card {% if latest.metrics.ttfb == null or prev.metrics.ttfb == null %}delta-neutral{% elif ttfbDelta < 0 %}delta-good{% elif ttfbDelta > 0 %}delta-bad{% else %}delta-neutral{% endif %}">
+      <p class="delta-label">TTFB</p>
+      {% if latest.metrics.ttfb == null or prev.metrics.ttfb == null %}
+      <p class="delta-value delta-na">N/A</p>
+      <p class="delta-sub">Not captured in one of the sessions</p>
+      {% else %}
+      <p class="delta-value">{{ ttfbDelta | deltaSign }}{{ ttfbDelta | toFixed(0) }} ms</p>
+      <p class="delta-sub">{{ latest.metrics.ttfb }} ms now · {{ prev.metrics.ttfb }} ms before</p>
+      {% endif %}
+    </article>
+    {% set clsDelta = latest.metrics.cls - prev.metrics.cls %}
+    <article class="delta-card {% if clsDelta < 0 %}delta-good{% elif clsDelta > 0 %}delta-bad{% else %}delta-neutral{% endif %}">
+      <p class="delta-label">CLS</p>
+      <p class="delta-value">{{ clsDelta | deltaSign }}{{ clsDelta | toFixed(4) }}</p>
+      <p class="delta-sub">{{ latest.metrics.cls }} now · {{ prev.metrics.cls }} before</p>
+    </article>
+    {% if latest.metrics.thirdPartyFailures !== undefined and prev.metrics.thirdPartyFailures !== undefined %}
+    {% set failDelta = latest.metrics.thirdPartyFailures - prev.metrics.thirdPartyFailures %}
+    <article class="delta-card {% if failDelta < 0 %}delta-good{% elif failDelta > 0 %}delta-bad{% else %}delta-neutral{% endif %}">
+      <p class="delta-label">3P Failures</p>
+      <p class="delta-value">{{ failDelta | deltaSign }}{{ failDelta }}</p>
+      <p class="delta-sub">{{ latest.metrics.thirdPartyFailures }} now · {{ prev.metrics.thirdPartyFailures }} before</p>
+    </article>
+    {% endif %}
+  </div>
+  {% else %}
+  <p class="lede">Need at least two sessions to show a delta.</p>
+  {% endif %}
+</section>
+
+<script id="sessions-data" type="application/json">{{ sessions | jsonStringify | safe }}</script>
+<script src="/assets/uplot.min.js"></script>
+<script src="/assets/trends-charts.js"></script>

@@ -1,0 +1,16 @@
+{
+  "sessionId": "session-2026-03-12",
+  "observedAt": "2026-03-12",
+  "collectedBy": "Manual browser observation (non-reproducible)",
+  "targetUrl": "https://momcozy.com",
+  "metrics": {
+    "lcp": 5.41,
+    "fcp": 5.22,
+    "ttfb": 310,
+    "cls": 0.0021,
+    "thirdPartyFailures": 5,
+    "longTasks": 4
+  },
+  "confidence": "low",
+  "notes": "Baseline session before hero image optimisation work. Collected via manual browser observation — values reflect real-browser conditions including cache, extensions and network state, not comparable with automated headless sessions."
+}

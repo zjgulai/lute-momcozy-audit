@@ -1,0 +1,5 @@
+# Production uptime monitor example.
+# Validate without executing network checks:
+# npm run test:uptime-cron
+
+*/5 * * * * cd /opt/momcozy-audit && PUBLIC_URL=https://shopify.lute-tlz-dddd.top UPTIME_STRICT=1 UPTIME_NOTIFY_WARNINGS=1 UPTIME_LOG_FILE=logs/monitor-results.log UPTIME_LOG_MAX_ENTRIES=2016 UPTIME_ALERT_STATE_FILE=logs/uptime-alert-state.json npm run monitor:uptime >> logs/uptime.log 2>&1

@@ -10,14 +10,27 @@ const mime = {
   ".svg": "image/svg+xml"
 };
 
+const securityHeaders = {
+  "content-security-policy": "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; frame-ancestors 'none';",
+  "x-frame-options": "DENY",
+  "x-content-type-options": "nosniff",
+  "referrer-policy": "no-referrer",
+  "permissions-policy": "camera=(), microphone=(), geolocation=()"
+};
+
 function send(response, status, file) {
-  response.writeHead(status, {"content-type": mime[path.extname(file)] || "application/octet-stream"});
-  response.end(fs.readFileSync(file));
+  response.writeHead(status, {
+    "content-type": mime[path.extname(file)] || "application/octet-stream",
+    ...securityHeaders
+  });
+  const stream = fs.createReadStream(file);
+  stream.pipe(response);
 }
 
 const server = http.createServer((request, response) => {
   const url = new URL(request.url, "http://127.0.0.1");
-  if (url.pathname.startsWith("/data/")) {
+  const firstSegment = url.pathname.split("/").filter(Boolean)[0] || "";
+  if (firstSegment === "data" || url.pathname.endsWith(".json")) {
     return send(response, 404, path.join(root, "404.html"));
   }
   let relative = decodeURIComponent(url.pathname).replace(/^\/+/, "");
@@ -32,4 +45,3 @@ const server = http.createServer((request, response) => {
 });
 server.listen(8080, "127.0.0.1");
 for (const signal of ["SIGINT", "SIGTERM"]) process.on(signal, () => server.close(() => process.exit(0)));
-

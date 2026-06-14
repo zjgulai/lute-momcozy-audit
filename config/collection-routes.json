@@ -1,0 +1,17 @@
+{
+  "methodologyVersion": "collector-v3-route-aggregate",
+  "routes": [
+    {
+      "id": "homepage",
+      "label": "Homepage",
+      "path": "/",
+      "primary": true
+    },
+    {
+      "id": "product-detail",
+      "label": "Representative product-detail route",
+      "path": "/products/momcozy-kleanpal-pro-baby-bottle-washer",
+      "primary": false
+    }
+  ]
+}

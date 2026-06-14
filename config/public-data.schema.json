@@ -10,7 +10,11 @@
       "required": ["title", "observedAt", "scope", "method", "publication"],
       "properties": {
         "title": {"type": "string"},
+        "sessionId": {"type": "string", "description": "Unique identifier for the audit session, e.g. session-YYYY-MM-DD"},
+        "auditVersion": {"type": "string", "description": "Semver-style version of this audit report"},
+        "collectedBy": {"type": "string", "description": "How the data was collected (tool, method, operator)"},
         "observedAt": {"type": "string"},
+        "latestObservedAt": {"type": "string", "description": "Date of the most recent session update, if different from observedAt"},
         "scope": {"type": "string"},
         "method": {"type": "string"},
         "publication": {"type": "string"}

@@ -1,0 +1,16 @@
+{
+  "sessionId": "session-2026-04-15",
+  "observedAt": "2026-04-15",
+  "collectedBy": "Manual browser observation (non-reproducible)",
+  "targetUrl": "https://momcozy.com",
+  "metrics": {
+    "lcp": 5.14,
+    "fcp": 5.09,
+    "ttfb": 278,
+    "cls": 0.0015,
+    "thirdPartyFailures": 4,
+    "longTasks": 3
+  },
+  "confidence": "low",
+  "notes": "Mid-cycle check after third-party script deferral. Collected via manual browser observation — not directly comparable with automated headless sessions."
+}

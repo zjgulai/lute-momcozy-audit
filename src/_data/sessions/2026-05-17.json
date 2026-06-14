@@ -1,0 +1,16 @@
+{
+  "sessionId": "session-2026-05-17",
+  "observedAt": "2026-05-17",
+  "collectedBy": "Manual browser observation (non-reproducible)",
+  "targetUrl": "https://momcozy.com",
+  "metrics": {
+    "lcp": 4.92,
+    "fcp": 4.86,
+    "ttfb": 245,
+    "cls": 0.0008,
+    "thirdPartyFailures": 3,
+    "longTasks": 2
+  },
+  "confidence": "low",
+  "notes": "Initial audit session. Single homepage + one PDP journey. Collected via manual browser observation — not comparable with automated headless sessions."
+}
