@@ -1,6 +1,8 @@
 # Optimization TODO
 
-This roadmap tracks the work needed to turn the public audit site into a sturdier recurring monitoring product.
+This roadmap tracks the work needed to turn the private-business audit site into a sturdier recurring monitoring product.
+
+Current release contract: `docs/release-contract.md`
 
 ## Batch 1 - Release Reliability
 

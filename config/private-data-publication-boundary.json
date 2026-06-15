@@ -1,0 +1,19 @@
+{
+  "allowed": [
+    "currency amounts",
+    "ROI",
+    "AOV",
+    "monthly revenue",
+    "overall conversion rate",
+    "historical operating data",
+    "current operating data",
+    "collection data"
+  ],
+  "forbidden": [
+    "private keys",
+    "private filesystem paths",
+    "server addresses",
+    "raw endpoint links",
+    "raw structured data file links"
+  ]
+}

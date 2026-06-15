@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-06-14T12:07:58+00:00",
-  "label": "2026-06-14 内外部交叉审计公开摘要",
-  "classification": "public_safe_summary",
+  "label": "2026-06-14 内外部交叉审计私密经营版",
+  "classification": "private_authenticated_report",
   "internal": {
     "assessment": "Share with caveats",
     "statusCounts": {
@@ -14,7 +14,83 @@
     "currencyStatus": "owner-confirmation-needed",
     "pdpWatchlistCount": 10,
     "naturalSearchRows": 0,
-    "publicBoundary": "内部经营数据仅用于方向性诊断；公开页不发布原始 Excel、金额、收益模型输入或私有明细。"
+    "publicBoundary": "本版本按 owner 指令写入真实经营金额和 KPI；仍禁止写入私钥、服务器地址、私有文件路径和原始数据端点。"
+  },
+  "currentOperations": {
+    "source": "当前经营 workbook",
+    "recordCount": 39514,
+    "trafficWindow": "2025-12-03 → 2026-06-10",
+    "trafficNonzeroDays": 137,
+    "salesWindow": "2025-11-01 → 2026-06-10",
+    "salesNonzeroDays": 205,
+    "traffic": {
+      "totalVisitsWan": 13.5555,
+      "totalVisitorsWan": 9.3609,
+      "avgPv": 2.9093578252369885,
+      "avgStaySec": 247.60923610342667,
+      "bounceRate": 0.5794105713548007,
+      "newVisitorPct": 0
+    },
+    "conversion": {
+      "browseRate": 2.9093578252369885,
+      "addToCartRate": 0.08597248349378481,
+      "checkoutRate": 0.06300763527719376,
+      "conversionRate": 0.024049278890487257,
+      "cartAbandonmentRate": 0.26711858589325554,
+      "couponUseRate": 0,
+      "abandonedRecoveryRate": 0
+    },
+    "sales": {
+      "quantitySold": 9713,
+      "totalSalesWan": 72.071207,
+      "averageOrderValue": 88.22713373828888,
+      "refundRate": 0.009513702191778196,
+      "repurchaseRate": 0.46130030959752316,
+      "attachRate": 0.565095366286729
+    },
+    "warnings": {
+      "recentWarningRows": 29,
+      "customRangeWarningRows": 354,
+      "naturalSearchRows": 0,
+      "currencyStatus": "owner-confirmation-needed"
+    }
+  },
+  "historicalOperations": {
+    "source": "历史经营 JSON · M1 v2.0",
+    "window": "2026-01-01 → 2026-05-15",
+    "periodDays": 135,
+    "months": 4.4353,
+    "traffic": {
+      "totalPvMillion": 207.9,
+      "totalUvMillion": 197,
+      "monthlyPvMillion": 46.87,
+      "monthlyUvMillion": 44.42,
+      "avgPvPerVisitor": 1.79,
+      "avgSessionSec": 86.8,
+      "bounceRate": 0.758,
+      "newVisitorPct": 0.564
+    },
+    "conversion": {
+      "addToCartRate": 0.0367,
+      "checkoutRate": 0.0261,
+      "cartAbandonmentRate": 0.288,
+      "overallCvr": 0.0088,
+      "couponUseRate": 0.42
+    },
+    "sales": {
+      "monthlyRevenueUsd": 11674520,
+      "totalRevenueUsd": 51780000,
+      "averageOrderValueUsd": 119.13,
+      "quantitySold": 547808,
+      "monthlyOrders": 123511,
+      "refundRate": 0.00887,
+      "repurchaseRate": 0.267,
+      "attachRate": 0.337
+    },
+    "notes": [
+      "历史经营窗口与当前 workbook 不是同一口径，不能直接做同口径环比。",
+      "历史值用于恢复完整故事线和验证旧判断，不作为当前未经验证的承诺收益。"
+    ]
   },
   "external": {
     "latestSession": "session-2026-06-14",
@@ -46,8 +122,8 @@
       "id": "C2",
       "issue": "站点主问题不是后端慢。",
       "verdict": "TTFB 与 CLS 不能解释转化摩擦；更可信的技术主因是前端重量、DOM 膨胀、第三方失败和 LCP 不可观测。",
-      "evidence": "公开自动采集显示首页 TTFB 416 / 213ms；首页与 PDP JS 约 1.9MB；最大 DOM 8088；最大第三方失败 56。",
-      "references": ["公开自动采集 session-2026-06-14", "公开审计快照 audit.json"],
+      "evidence": "外部自动采集显示首页 TTFB 416 / 213ms；首页与 PDP JS 约 1.9MB；最大 DOM 8088；最大第三方失败 56。",
+      "references": ["外部自动采集 session-2026-06-14", "审计快照 audit.json"],
       "confidence": "High"
     },
     {
@@ -62,8 +138,8 @@
       "id": "C4",
       "issue": "PDP 应成为下一轮实战队列。",
       "verdict": "内部 watchlist 证明 PDP 值得治理；外部采集目前只有 1 条代表性 PDP，因此不能把该 PDP 的结论扩大为全部商品页结论。",
-      "evidence": "内部 watchlist 包含 10 个 PDP；公开 v3 采集覆盖 homepage 与 product-detail 两条路径。",
-      "references": ["内部经营数据校验摘要 2026-06-14", "公开自动采集 session-2026-06-14"],
+      "evidence": "内部 watchlist 包含 10 个 PDP；外部 v3 采集覆盖 homepage 与 product-detail 两条路径。",
+      "references": ["内部经营数据校验摘要 2026-06-14", "外部自动采集 session-2026-06-14"],
       "confidence": "Medium"
     },
     {
@@ -78,11 +154,616 @@
       "id": "C6",
       "issue": "归因数据本身需要治理。",
       "verdict": "第三方失败、币种待确认和窗口差异共同说明：先修采集与归因质量，再谈预算、渠道或产品策略。",
-      "evidence": "公开自动采集显示第三方失败最高 56；内部校验存在币种确认和观察窗口 caveat。",
-      "references": ["公开自动采集 session-2026-06-14", "内部经营数据校验摘要 2026-06-14"],
+      "evidence": "外部自动采集显示第三方失败最高 56；内部校验存在币种确认和观察窗口 caveat。",
+      "references": ["外部自动采集 session-2026-06-14", "内部经营数据校验摘要 2026-06-14"],
       "confidence": "High"
     }
   ],
+  "legacyRecovery": {
+    "storyline": [
+      "历史站的强项是完整决策链：先判定经营摩擦，再拆流量来源、数据可信度、技术病灶和工程动作。",
+      "当前站的强项是发布安全和自动化采集，但把历史功能压缩成了摘要，导致故事线从“为什么修”直接跳到“修什么”。",
+      "本次回迁保留历史站的分析骨架，用当前经营刷新状态和 2026-06-14 路由采集重新定级。"
+    ],
+    "featureComparison": [
+      {
+        "module": "二级锚点导航",
+        "historical": "历史站可从总览直接跳到业务体检、爬虫诊断、流量归因、Top 15、矩阵、代码与路线图。",
+        "currentGap": "当前站只剩 5 个顶层页面，读者看不到完整决策路径。",
+        "recoveredAs": "恢复首页二级导航，并把每个锚点映射到私密经营版的新模块。"
+      },
+      {
+        "module": "经营体检",
+        "historical": "历史站用经营漏斗证明问题有业务优先级。",
+        "currentGap": "当前站只说明 caveat，没有解释经营数据如何约束技术优先级。",
+        "recoveredAs": "改为真实经营信号地图：展示完整金额/KPI，同时标注窗口和口径边界。"
+      },
+      {
+        "module": "流量归因",
+        "historical": "历史站区分付费搜索、内容型入口、KOL 与自然搜索变现。",
+        "currentGap": "当前站冻结 SEO 结论后，没有保留流量结构问题。",
+        "recoveredAs": "恢复为流量归因回迁表，明确哪些是历史假设、哪些需要新采集。"
+      },
+      {
+        "module": "爬虫与数据可信度",
+        "historical": "历史站把爬虫问题从性能疑问升级为数据可信度问题。",
+        "currentGap": "当前站只保留第三方失败，没有解释为什么归因数据会失真。",
+        "recoveredAs": "恢复 bot / robots / WAF / 归因治理模块；旧流量比例标为历史口径，等待新采集复证。"
+      },
+      {
+        "module": "三类品牌资产",
+        "historical": "历史站解释为什么不能用降价、结账改造等粗暴动作修漏斗。",
+        "currentGap": "当前站没有保留“哪些资产不能被修坏”的约束。",
+        "recoveredAs": "恢复为资产保护地图：订单价值、满意度、购买决心只做定性表达。"
+      },
+      {
+        "module": "Top 15 病灶",
+        "historical": "历史站按问题、证据、工时和收益预期排序。",
+        "currentGap": "当前站只剩 3 张卡片，执行粒度不足。",
+        "recoveredAs": "恢复 15 项病灶，但排序依据改为证据强度、风险和验收门槛。"
+      },
+      {
+        "module": "竞品矩阵",
+        "historical": "历史站用 8 站矩阵说明 Momcozy 应该向谁学什么。",
+        "currentGap": "当前站没有横向参照，建议显得孤立。",
+        "recoveredAs": "恢复为私密经营矩阵；真实经营值进入 KPI 章节，矩阵负责比较策略位置。"
+      },
+      {
+        "module": "PR 代码与 Sprint",
+        "historical": "历史站把建议落到工程片段和 4 个 Sprint。",
+        "currentGap": "当前站只有原则，没有执行卡和验收顺序。",
+        "recoveredAs": "恢复为 PR 实验卡和 4 阶段路线图，强调灰度、回滚、复采。"
+      }
+    ],
+    "operatingSignals": [
+      {
+        "label": "漏斗摩擦仍值得治理",
+        "historicalSignal": "历史经营数据指向访客到购买之间存在明显流失。",
+        "currentRead": "当前 workbook 仍有转化、加购、结账、弃单、销售表现等模块，可支持优先级判断。",
+        "publicUse": "页面写入真实经营率值，并把它们用于修复优先级和实验验收。"
+      },
+      {
+        "label": "经营口径需要 caveat",
+        "historicalSignal": "旧站把旧窗口指标当成确定基线。",
+        "currentRead": "当前刷新结果为 Share with caveats，且流量/销售窗口、币种和自然搜索补数仍需 owner 确认。",
+        "publicUse": "把收益承诺降级为实验假设，避免把技术修复直接等同业务结果。"
+      },
+      {
+        "label": "PDP 队列是下一轮核心",
+        "historicalSignal": "历史数据曾指出多个商品详情页需要单独排查。",
+        "currentRead": "当前内部 watchlist 有 10 个 PDP；外部自动采集仅覆盖 1 条代表性 PDP。",
+        "publicUse": "先用 watchlist 扩采，不把单条 PDP 外推为全站结论。"
+      },
+      {
+        "label": "自然搜索故事暂停刷新",
+        "historicalSignal": "旧站曾把自然搜索与内容型入口纳入增长叙事。",
+        "currentRead": "当前自然搜索关键词表只有表头，没有可用明细行。",
+        "publicUse": "冻结搜索变现判断，等待独立搜索源或新导出补齐。"
+      }
+    ],
+    "trafficAttribution": [
+      {
+        "driver": "付费获客依赖",
+        "historicalSignal": "历史站判断高意图搜索曝光不是自然势能的单一路径。",
+        "currentCheck": "当前站可写入真实占比；第三方失败和归因组件稳定性先于预算判断。",
+        "nextProof": "补齐渠道来源、UTM、广告平台与站内事件一致性校验。"
+      },
+      {
+        "driver": "内容型早期入口",
+        "historicalSignal": "历史站曾识别孕期工具词、百科词等非交易入口。",
+        "currentCheck": "当前自然搜索明细为空，无法继续给关键词下优先级。",
+        "nextProof": "独立拉取搜索源，再判断内容入口是否仍有效。"
+      },
+      {
+        "driver": "KOL 与站外种草",
+        "historicalSignal": "历史站把 KOL 工业化视作流量资产。",
+        "currentCheck": "外部自动采集无法证明站外种草质量，只能看到落地页技术债。",
+        "nextProof": "把 KOL 落地页加入 route collector，并做 PDP 级别对比。"
+      },
+      {
+        "driver": "归因组件稳定性",
+        "historicalSignal": "历史站列出第三方脚本和未知域名。",
+        "currentCheck": "2026-06-14 采集显示第三方失败在首页和 PDP 均复现。",
+        "nextProof": "建立域名 owner、用途、保留理由和失败预算。"
+      }
+    ],
+    "assetMap": [
+      {
+        "asset": "订单价值资产",
+        "protect": "不要用降价或过度促销粗暴换转化。",
+        "currentBoundary": "具体金额与订单价值明细进入私密经营版，但不写原始数据端点。",
+        "action": "优先做 PDP 信任表达、套装解释和首屏行动路径实验。"
+      },
+      {
+        "asset": "用户满意资产",
+        "protect": "不要通过增加退换货摩擦来粉饰指标。",
+        "currentBoundary": "真实售后率值进入私密经营版，并作为资产保护约束。",
+        "action": "把售后信任点前置到高价值 PDP，但用实验验证。"
+      },
+      {
+        "asset": "购买决心资产",
+        "protect": "不要优先重构结账链路，避免破坏已形成意图的用户。",
+        "currentBoundary": "结账和购物车细分值进入私密经营版，并继续与技术采集分层解释。",
+        "action": "先修访客到商品页行动路径，再扩到 cart / checkout 采集。"
+      }
+    ],
+    "botGovernance": [
+      {
+        "area": "Human / bot 口径",
+        "risk": "流量混杂会让转化解读失真。",
+        "publicEvidence": "历史站已把爬虫问题定位为数据可信度问题；当前外部自动采集仍显示归因相关失败。",
+        "nextAction": "在私有 analytics 中开启 human / bot 维度，重新校准漏斗。"
+      },
+      {
+        "area": "robots 分级策略",
+        "risk": "训练型爬虫、搜索型爬虫和 SEO 爬虫不能一刀切。",
+        "publicEvidence": "历史站的策略价值在于分级，而不是单纯阻断。",
+        "nextAction": "保留搜索型入口，限制训练型和价格情报型抓取。"
+      },
+      {
+        "area": "WAF 与价格情报",
+        "risk": "伪装浏览器的价格抓取不一定服从 robots。",
+        "publicEvidence": "当前第三方失败与脚本复杂度支持先做域名治理。",
+        "nextAction": "用 WAF/边缘规则做验证，再观察失败数和归因稳定性。"
+      }
+    ],
+    "diagnosticBacklog": [
+      {
+        "priority": "P0",
+        "item": "LCP 可观测性",
+        "evidence": "4 个路由-视口样本均未产出 LCP。",
+        "acceptance": "首页与 PDP 双视口连续产出 LCP。"
+      },
+      {
+        "priority": "P0",
+        "item": "第三方失败域名治理",
+        "evidence": "首页与 PDP 均出现高失败数。",
+        "acceptance": "按域名记录 owner、用途、保留理由和失败预算。"
+      },
+      {
+        "priority": "P0",
+        "item": "JS 路由预算",
+        "evidence": "首页与 PDP 脚本体积均处高位。",
+        "acceptance": "把非关键脚本延后，并建立路由阈值。"
+      },
+      {
+        "priority": "P0",
+        "item": "DOM 模板裁剪",
+        "evidence": "首页与 PDP 节点规模均处高位。",
+        "acceptance": "拆出首屏内外模块，并复采节点数。"
+      },
+      {
+        "priority": "P1",
+        "item": "PDP 运行时错误",
+        "evidence": "代表性 PDP 有 console/page error。",
+        "acceptance": "错误数、失败请求和脚本初始化顺序同步下降。"
+      },
+      {
+        "priority": "P1",
+        "item": "图片 alt 缺口",
+        "evidence": "商品详情图片存在可访问性缺失。",
+        "acceptance": "PDP 图像 alt 覆盖率进入发布门槛。"
+      },
+      {
+        "priority": "P1",
+        "item": "srcset 与格式策略",
+        "evidence": "首页与 PDP 图片格式覆盖低且缺失响应式信息。",
+        "acceptance": "统一图片 wrapper，复采格式与 srcset。"
+      },
+      {
+        "priority": "P1",
+        "item": "首屏懒加载误用",
+        "evidence": "above-fold 图片仍存在 lazy 风险。",
+        "acceptance": "首屏关键图改为 eager / high priority。"
+      },
+      {
+        "priority": "P1",
+        "item": "iframe 与脚本标签预算",
+        "evidence": "PDP iframe 和 script tag 面积偏大。",
+        "acceptance": "按功能分组删减或延迟。"
+      },
+      {
+        "priority": "P1",
+        "item": "归因组件去重",
+        "evidence": "历史站曾识别多类重复或未知第三方。",
+        "acceptance": "同一用途只保留一个 source of truth。"
+      },
+      {
+        "priority": "P1",
+        "item": "PDP watchlist 扩采",
+        "evidence": "内部队列多于外部采集路径。",
+        "acceptance": "至少覆盖高风险 PDP 队列的双视口采集。"
+      },
+      {
+        "priority": "P2",
+        "item": "cart / checkout 覆盖",
+        "evidence": "当前外部采集未覆盖交易后段。",
+        "acceptance": "新增路径并区分登录/未登录状态。"
+      },
+      {
+        "priority": "P2",
+        "item": "搜索数据补源",
+        "evidence": "当前自然搜索明细为空。",
+        "acceptance": "引入独立搜索源后再恢复搜索叙事。"
+      },
+      {
+        "priority": "P2",
+        "item": "竞品矩阵刷新",
+        "evidence": "历史矩阵有方向价值，但需要新证据确认。",
+        "acceptance": "更新可验证项，同时把真实经营值放进私密经营版。"
+      },
+      {
+        "priority": "P2",
+        "item": "实验看板",
+        "evidence": "旧收益承诺已降级。",
+        "acceptance": "每个修复项绑定实验、复采、回滚和 owner。"
+      }
+    ],
+    "competitorMatrix": [
+      {
+        "dimension": "爬虫分级",
+        "momcozy": "需治理",
+        "reference": "历史站显示竞品有更清晰的 robots 策略。",
+        "lesson": "分开训练型、搜索型、SEO 型和价格情报型抓取。"
+      },
+      {
+        "dimension": "PDP 行动路径",
+        "momcozy": "需扩采",
+        "reference": "历史站把商品页作为关键漏斗节点。",
+        "lesson": "先扩 PDP 队列，再判断模板级问题。"
+      },
+      {
+        "dimension": "第三方脚本治理",
+        "momcozy": "高优先级",
+        "reference": "历史站列出第三方域名与脚本负担。",
+        "lesson": "保留必要归因，延后非关键组件。"
+      },
+      {
+        "dimension": "内容入口变现",
+        "momcozy": "暂停判断",
+        "reference": "历史站有内容型入口假设。",
+        "lesson": "当前搜索明细为空，必须先补数据源。"
+      }
+    ],
+    "playbookCards": [
+      {
+        "title": "PR 实验卡 1 · Hero 可观测",
+        "why": "LCP 现在不是慢，而是不可被稳定观测。",
+        "steps": ["锁定首页与 PDP 的最大首屏元素", "把关键图从背景或延迟结构改为可采样元素", "补优先级和回退方案", "复跑双视口路由采集"],
+        "gate": "连续采集均产出 LCP，且不引入布局偏移。"
+      },
+      {
+        "title": "PR 实验卡 2 · 第三方预算",
+        "why": "第三方失败会同时污染性能、归因和实验读数。",
+        "steps": ["列出失败域名和 owner", "标注用途：支付、评论、广告、热图、客服", "非关键组件延后到用户意图后", "把失败阈值加入 CI"],
+        "gate": "首页与 PDP 失败数降到预算内，且核心埋点不丢。"
+      },
+      {
+        "title": "PR 实验卡 3 · PDP 模板裁剪",
+        "why": "代表性 PDP 已复现 DOM、脚本、iframe 和图片债务。",
+        "steps": ["按首屏、购买区、评论区、推荐区拆分模板", "延后首屏外模块", "补图像 alt 与响应式 wrapper", "扩到 watchlist 队列"],
+        "gate": "PDP 节点数、脚本数、错误数和图片债务同步下降。"
+      },
+      {
+        "title": "PR 实验卡 4 · 搜索补源",
+        "why": "自然搜索明细为空时不能继续讲搜索变现。",
+        "steps": ["补搜索控制台或第三方搜索源", "区分品牌词、问题词、产品词", "把落地页加入采集", "只对可复核词组恢复建议"],
+        "gate": "搜索源有明细行，且与站内行为能对齐。"
+      }
+    ],
+    "roadmap": [
+      {
+        "phase": "Sprint 1",
+        "title": "证据恢复",
+        "focus": "恢复模块、口径边界、二级导航和安全扫描。",
+        "gate": "私密页完整写入真实经营明细，但不泄露密钥、路径和原始端点。"
+      },
+      {
+        "phase": "Sprint 2",
+        "title": "路由扩采",
+        "focus": "把 PDP watchlist、cart 和 checkout 纳入 collector。",
+        "gate": "每条路径均有桌面与移动样本。"
+      },
+      {
+        "phase": "Sprint 3",
+        "title": "工程修复",
+        "focus": "LCP、第三方、JS、DOM、图片与可访问性。",
+        "gate": "每项修复都有复采和回滚记录。"
+      },
+      {
+        "phase": "Sprint 4",
+        "title": "实验验收",
+        "focus": "把经营结果和技术证据并列展示，同时保留口径 caveat。",
+        "gate": "技术改善与经营观察分开归档。"
+      }
+    ]
+  },
+  "decisionArchitecture": {
+    "logicChain": [
+      {
+        "step": "1",
+        "claim": "经营体量让问题值得修，但不能自动证明任何单项修复的收益。",
+        "evidence": "当前 workbook 显示总销售额 72.071207 万、转化率 2.4049%、AOV 88.2271；历史 M1 v2.0 显示总营收 51,780,000 USD、monthly_revenue 11,674,520 USD、overall_cvr 0.88%。",
+        "counterEvidence": "当前流量窗口 137 非零日、销售窗口 205 非零日，历史窗口又是 2026-01-01 → 2026-05-15；币种仍为 owner-confirmation-needed。",
+        "decision": "批准技术债治理进入 P0/P1 队列；不批准把旧收益点估当预算承诺。",
+        "action": "所有修复项必须同时绑定技术指标、经营观察指标、实验或灰度门槛。"
+      },
+      {
+        "step": "2",
+        "claim": "P0 不应投向后端性能项目。",
+        "evidence": "首页 TTFB 为 416 / 213ms，FCP 为 0.58 / 0.34s；同时 JS 约 1.9MB、DOM 最高 8088、第三方失败最高 56、LCP 0/4 样本可观测。",
+        "counterEvidence": "如果继续把问题讲成后端慢，会把工程资源从真实瓶颈移走。",
+        "decision": "不批准 CDN/后端重构作为 P0；批准前端运行时、第三方治理、LCP 可观测性作为 P0。",
+        "action": "建立路由级 JS/DOM/3P/LCP budget，先做 homepage + PDP 双路径复采。"
+      },
+      {
+        "step": "3",
+        "claim": "商品详情页是下一轮实战场，不是总览页的附属样本。",
+        "evidence": "内部 watchlist 有 10 个 PDP；外部采集目前只覆盖 homepage 和 1 条 product-detail。",
+        "counterEvidence": "单条 PDP 只能证明风险存在，不能代表所有 SKU、价格带、套装页或交易链路。",
+        "decision": "不批准用单 PDP 结论替代全站 PDP 判断；批准 10 条 PDP 队列扩采。",
+        "action": "每条 PDP 至少采集桌面/移动、JS、DOM、3P、LCP、console error、核心图片债。"
+      },
+      {
+        "step": "4",
+        "claim": "SEO 变现故事必须冻结，而不是换一种说法继续讲。",
+        "evidence": "当前 workbook 的 natural search keyword rows = 0；历史 SEO 入口仍是旧假设。",
+        "counterEvidence": "没有关键词、落地页、搜索意图和订单/加购对齐，就没有 SEO 收益结论。",
+        "decision": "不批准 SEO ROI、关键词优先级或内容预算建议；只批准搜索数据补源任务。",
+        "action": "补齐搜索控制台或第三方搜索源后，再恢复内容入口判断。"
+      },
+      {
+        "step": "5",
+        "claim": "当前转化率看起来更好，但不能被当成已经胜利。",
+        "evidence": "当前转化率 2.4049%，历史 overall_cvr 0.88%；当前加购率 8.5972%，历史加购率 3.67%。",
+        "counterEvidence": "窗口、币种、human/bot 口径和渠道口径未统一，改善可能来自采集口径变化而非体验改善。",
+        "decision": "不批准用当前漏斗改善给团队发奖或追责；批准把它作为实验 baseline。",
+        "action": "先完成 human/bot、渠道来源、订单口径、退款口径的对账。"
+      },
+      {
+        "step": "6",
+        "claim": "第三方失败不是“前端小问题”，而是归因可信度问题。",
+        "evidence": "首页与 PDP 都复现第三方失败，PDP 为 56 / 55；这些组件往往同时服务广告、归因、客服、评论或实验。",
+        "counterEvidence": "直接删除脚本会让归因断裂；完全不动又会继续污染性能和实验数据。",
+        "decision": "批准第三方 kill-list 和 owner 制；不批准无 owner 的脚本继续无预算运行。",
+        "action": "每个域名必须有 owner、用途、保留理由、加载时机、失败预算和回滚方案。"
+      }
+    ],
+    "hardConclusions": [
+      {
+        "title": "不批准“后端慢”作为主叙事",
+        "why": "TTFB/FCP 不是当前最硬的证据；JS、DOM、第三方失败和 LCP 不可观测才是可复现瓶颈。",
+        "reject": "拒绝把预算投给泛化 CDN、后端重构或没有路由证据的性能项目。",
+        "approve": "批准前端运行时治理、第三方预算、LCP 可观测性、PDP 模板裁剪。",
+        "gate": "复采后 JS/DOM/3P/LCP 四项必须同步改善，且 console/page error 不增加。"
+      },
+      {
+        "title": "不批准 SEO 变现建议",
+        "why": "自然搜索明细为空，历史内容入口假设不能替代当前证据。",
+        "reject": "拒绝继续写关键词收益、SEO ROI 或内容预算优先级。",
+        "approve": "批准搜索源补数、落地页采集、品牌词/问题词/产品词分层。",
+        "gate": "搜索源有明细行，并能与站内行为和订单/加购口径对齐。"
+      },
+      {
+        "title": "不批准全站改版",
+        "why": "经营数据证明问题值得修，但没有证明视觉重做会带来收益。",
+        "reject": "拒绝大范围重设计、结账链路重构或降价促销式修漏斗。",
+        "approve": "批准 PDP 首屏、信任表达、套装解释、非关键模块延迟加载的小步实验。",
+        "gate": "每个实验有灰度范围、回滚条件、复采指标和经营观察窗口。"
+      },
+      {
+        "title": "批准第三方 kill-list 作为第一执行动作",
+        "why": "第三方失败同时影响性能、归因和实验可信度，是最容易造成假结论的污染源。",
+        "reject": "拒绝无 owner、无用途、无失败预算的脚本继续默认加载。",
+        "approve": "批准按域名建立 owner、用途、依赖、加载时机、失败预算、替代方案。",
+        "gate": "首页和 PDP 的第三方失败数进入预算，且核心广告/支付/客服/评论能力不丢。"
+      },
+      {
+        "title": "批准 PDP watchlist 扩采，不批准样本外推",
+        "why": "内部有 10 条 PDP 队列，但外部只有 1 条代表性 PDP。",
+        "reject": "拒绝用单条 PDP 结论覆盖所有商品页或交易链路。",
+        "approve": "批准 10 条 PDP × 双视口 × 多次采样，并追加 cart / checkout 后段。",
+        "gate": "每条路径输出同口径指标，能按模板、价格带、SKU 类型排序风险。"
+      }
+    ],
+    "executionOrders": [
+      {
+        "window": "48 小时",
+        "owner": "前端负责人 + 投放负责人 + 数据负责人",
+        "action": "建立第三方域名 kill-list",
+        "steps": ["导出失败域名", "标注 owner 与业务用途", "区分必须同步加载、可延后、可删除", "给每类脚本设失败预算"],
+        "gate": "没有 owner 的域名不得进入默认加载路径。"
+      },
+      {
+        "window": "3 天",
+        "owner": "采集团队",
+        "action": "把 10 条 PDP watchlist 接入 recurring collector",
+        "steps": ["补 route 配置", "桌面/移动双视口", "每路由至少 3 次采样", "记录 JS/DOM/3P/LCP/error/image debt"],
+        "gate": "不再用单条 PDP 代表全站 PDP。"
+      },
+      {
+        "window": "7 天",
+        "owner": "前端负责人",
+        "action": "完成 LCP 可观测性与首屏资源 PR",
+        "steps": ["锁定最大首屏元素", "关键图 eager/high priority", "首屏外模块延迟", "复采 LCP 与 CLS"],
+        "gate": "homepage 与 PDP 双视口连续产出 LCP，且 CLS 不恶化。"
+      },
+      {
+        "window": "14 天",
+        "owner": "增长负责人 + 数据负责人",
+        "action": "建立经营实验账本",
+        "steps": ["每项技术修复写实验假设", "定义经营观察指标", "设回滚阈值", "区分技术改善与收入因果"],
+        "gate": "没有实验账本的收益结论不得进入决策页。"
+      },
+      {
+        "window": "30 天",
+        "owner": "数据负责人",
+        "action": "补齐归因与搜索源",
+        "steps": ["对账 human/bot 口径", "对齐渠道来源与订单", "补自然搜索关键词与落地页", "复核币种和窗口"],
+        "gate": "SEO、渠道预算和收益归因只在补源后恢复判断。"
+      }
+    ]
+  },
+  "finalAudit": {
+    "pageAudits": [
+      {
+        "page": "index.html",
+        "role": "决策总览页",
+        "question": "读者是否能在 3 分钟内判断：为什么修、先修什么、拒绝什么？",
+        "evidencePresent": "真实经营金额/KPI、历史 M1 v2.0、洞察链路、硬结论、执行战单均已前置。",
+        "conflictCheck": "已把旧收益叙事降级为实验假设；仍需避免顶部或文案出现旧公开口径。",
+        "optimization": "保留强结论前置；新增最终审计入口，让首页成为决策门而不是目录页。",
+        "gate": "首页必须同时出现真实 KPI、洞察链路、硬结论、执行战单和安全边界。"
+      },
+      {
+        "page": "metrics.html",
+        "role": "口径治理页",
+        "question": "每个指标是否说明可用于什么、不可用于什么？",
+        "evidencePresent": "当前 workbook、历史经营 JSON、外部采集指标并列；漏斗表写明不能直接承诺收益。",
+        "conflictCheck": "当前转化率高于历史 overall_cvr，但窗口、币种、human/bot 口径不同，不能写成胜利。",
+        "optimization": "强化三层数据逻辑：经营层排优先级，技术层找病灶，归因层判可信度。",
+        "gate": "任何 ROI、SEO、渠道预算结论必须先通过口径治理页的不可用清单。"
+      },
+      {
+        "page": "forensics.html",
+        "role": "证据链页",
+        "question": "技术病灶是否被证明，而不是被形容？",
+        "evidencePresent": "第三方失败、JS/DOM 膨胀、LCP 不可观测、PDP 代表性不足均有采集证据。",
+        "conflictCheck": "第三方治理不能被写成直接删脚本；PDP 证据不能外推全站。",
+        "optimization": "把证据链页定位为风险定责页：owner、用途、失败预算、回滚窗口必须进入执行。",
+        "gate": "每项技术证据必须能指向一个 owner 或一个补采动作。"
+      },
+      {
+        "page": "trends.html",
+        "role": "趋势与复采页",
+        "question": "趋势是否讲清 M1/M2/M3 的关系，而不是制造假环比？",
+        "evidencePresent": "M3 路由感知采集已并入；旧 M2 首页趋势仅作为历史参照。",
+        "conflictCheck": "趋势页数据最少，不能承担收入、SEO 或全站 PDP 结论。",
+        "optimization": "强化趋势页职责：只证明技术债是否持续、复采是否覆盖更完整路径。",
+        "gate": "趋势页必须拒绝同口径环比幻觉，并明确下一轮新增 PDP/cart/checkout。"
+      },
+      {
+        "page": "cross-audit.html",
+        "role": "最终裁决页",
+        "question": "结论、策略、执行是否形成闭环？",
+        "evidencePresent": "包含故事线、洞察链路、硬结论、经营 KPI、交叉审计、执行战单和路线图。",
+        "conflictCheck": "目前已能承接最终判断，但还需要显式展示矛盾解决表和铁证索引。",
+        "optimization": "新增结论-策略-执行矩阵、矛盾解决表、铁证索引，让读者能追溯每条决策。",
+        "gate": "每个最终结论必须有证据、反证、策略、执行动作和验收 gate。"
+      }
+    ],
+    "crossMatrix": [
+      {
+        "conclusion": "主问题不是后端慢",
+        "evidence": "TTFB 416 / 213ms、FCP 0.58 / 0.34s；同时 JS 约 1.9MB、DOM 8088、第三方失败 56、LCP 0/4。",
+        "strategy": "前端运行时治理、第三方预算、LCP 可观测性、PDP 模板裁剪。",
+        "execution": "7 天内完成 LCP 可观测性与首屏资源 PR；48 小时内建立第三方域名 kill-list。",
+        "contradiction": "若继续投 CDN/后端重构，会偏离证据。",
+        "status": "已解决：后端/CDN被降级，前端运行时进入 P0。"
+      },
+      {
+        "conclusion": "SEO 变现必须冻结",
+        "evidence": "当前 natural search keyword rows = 0；历史 SEO 入口只是旧假设。",
+        "strategy": "只批准搜索补源，不批准关键词收益、SEO ROI、内容预算优先级。",
+        "execution": "30 天内补齐搜索源、落地页、站内行为和订单/加购对齐。",
+        "contradiction": "如果在搜索源为空时继续写 SEO 收益，就是伪证据。",
+        "status": "已解决：SEO 从增长结论降级为补源任务。"
+      },
+      {
+        "conclusion": "PDP 是实战场，但单 PDP 不可外推",
+        "evidence": "内部 watchlist 10 个 PDP；外部采集只有 homepage + 1 条 product-detail。",
+        "strategy": "扩采 10 条 PDP，并追加 cart / checkout 后段。",
+        "execution": "3 天内把 10 条 PDP watchlist 接入 recurring collector。",
+        "contradiction": "用 1 条 PDP 推断所有 SKU、价格带或交易链路会误导排序。",
+        "status": "部分解决：策略和执行已写入，仍缺真实扩采结果。"
+      },
+      {
+        "conclusion": "经营数据证明值得修，不证明单项收益",
+        "evidence": "当前总销售额 72.071207 万、转化率 2.4049%、AOV 88.2271；历史 total revenue 51,780,000 USD。",
+        "strategy": "所有收益判断必须进入实验账本，技术改善与经营观察分开归档。",
+        "execution": "14 天内建立经营实验账本。",
+        "contradiction": "把经营体量直接等同某个技术修复收益，是因果偷换。",
+        "status": "已解决：收益点估被降级为实验假设。"
+      },
+      {
+        "conclusion": "第三方失败是归因可信度问题",
+        "evidence": "首页与 PDP 均复现第三方失败，PDP 为 56 / 55。",
+        "strategy": "建立 owner 制、用途、加载时机、失败预算、回滚方案。",
+        "execution": "48 小时内完成第三方域名 kill-list。",
+        "contradiction": "直接删脚本会破坏归因；完全不动会污染实验读数。",
+        "status": "已解决：从删脚本改为 kill-list + owner + budget。"
+      }
+    ],
+    "contradictions": [
+      {
+        "issue": "私密经营版 vs 旧公开口径措辞",
+        "diagnosis": "站点已写入真实金额/KPI，但导航和首页曾残留旧公开口径语言。",
+        "fix": "统一改为私密经营审计/压缩摘要，避免访问控制和内容级别冲突。",
+        "proof": "最终页面不得出现旧公开口径标签。"
+      },
+      {
+        "issue": "当前转化率更高 vs 不能宣布胜利",
+        "diagnosis": "当前转化率 2.4049% 高于历史 overall_cvr 0.88%，但观察窗口、币种和 human/bot 口径不同。",
+        "fix": "指标口径页明确：当前漏斗只能作实验 baseline，不可做胜利叙事。",
+        "proof": "指标页必须出现“不能怎么用”和“直接承诺收益”禁区。"
+      },
+      {
+        "issue": "第三方治理 vs 归因组件保留",
+        "diagnosis": "第三方失败是强证据，但广告、客服、评论、实验组件可能是业务必要项。",
+        "fix": "把策略从删除脚本改为 kill-list、owner、预算、加载时机和回滚。",
+        "proof": "证据链页和执行战单必须同时出现 owner、失败预算和回滚。"
+      },
+      {
+        "issue": "历史站功能回迁 vs 旧收益承诺失效",
+        "diagnosis": "历史站的骨架有价值，但旧收益预估不能作为当前承诺。",
+        "fix": "保留功能模块，删除收益承诺，把金额/KPI并入口径治理与实验账本。",
+        "proof": "首页和交叉审计页必须明确“不批准把旧收益点估当预算承诺”。"
+      },
+      {
+        "issue": "趋势页数据较少 vs 最终决策口径",
+        "diagnosis": "趋势页只有 5 次采集和 2 条路由，不能承载全站增长结论。",
+        "fix": "趋势页只承担复采与持续性判断，最终裁决放在交叉审计页。",
+        "proof": "趋势页必须说明旧 M2 只是历史参照，M3 只是外部技术证据。"
+      }
+    ],
+    "evidenceLedger": [
+      {
+        "source": "当前经营 workbook",
+        "proves": "当前销售、转化、售后、复购、连带等经营体量和优先级。",
+        "doesNotProve": "不能证明某个技术修复带来多少收入。",
+        "usedBy": "首页、指标口径页、交叉审计页",
+        "gate": "币种、窗口、human/bot 和渠道口径必须继续对账。"
+      },
+      {
+        "source": "历史经营 JSON · M1 v2.0",
+        "proves": "历史业务体检和旧站故事线的来源。",
+        "doesNotProve": "不能作为当前同口径环比或预算承诺。",
+        "usedBy": "首页、指标口径页、功能回迁、交叉矩阵",
+        "gate": "历史值只能作为基线和假设来源。"
+      },
+      {
+        "source": "外部自动采集 session-2026-06-14",
+        "proves": "JS、DOM、第三方失败、LCP 不可观测和 PDP 风险可复现。",
+        "doesNotProve": "不能单独证明收入因果、SEO 价值或全站 PDP 风险排序。",
+        "usedBy": "证据链页、趋势页、交叉审计页",
+        "gate": "必须扩采 10 条 PDP、cart、checkout。"
+      },
+      {
+        "source": "安全扫描与 404 守卫",
+        "proves": "构建产物不暴露密钥、IP、私有路径、原始数据端点。",
+        "doesNotProve": "不能证明腾讯云已完成访问控制。",
+        "usedBy": "全站发布边界",
+        "gate": "部署前仍需 owner 完成访问权限配置。"
+      },
+      {
+        "source": "E2E / a11y / link checks",
+        "proves": "本地生成站在桌面/移动视口可访问、无自动化可访问性违规、链接可用。",
+        "doesNotProve": "不能证明线上站已更新。",
+        "usedBy": "上线前验收",
+        "gate": "部署后必须对腾讯云 URL 再做生产冒烟。"
+      }
+    ]
+  },
   "pageUpdates": [
     {
       "page": "index.html",
@@ -91,7 +772,7 @@
     },
     {
       "page": "metrics.html",
-      "route": "从指标字典改为口径治理：区分可复算、可公开、只能私有验证和暂不能刷新。",
+      "route": "从指标字典改为经营/KPI/采集一体化口径治理：完整写入真实值，同时标注口径限制。",
       "conclusionIds": ["C1", "C3", "C5"]
     },
     {
@@ -106,7 +787,7 @@
     },
     {
       "page": "cross-audit.html",
-      "route": "新增公开安全交叉审计总页，集中呈现每条结论、证据等级和参考依据。",
+      "route": "新增私密交叉审计总页，集中呈现每条结论、证据等级和参考依据。",
       "conclusionIds": ["C1", "C2", "C3", "C4", "C5", "C6"]
     }
   ]

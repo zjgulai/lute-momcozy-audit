@@ -11,9 +11,11 @@
   - For route-limited analysis, only compare with the same route across automated sessions.
   - For `all routes`, ensure top-level values are used as intended.
 - [ ] Sensitive-content gates:
+  - `npm run test:release-contract`
   - `npm run test:source-safety`
   - `npm run test:safety`
-  - No forbidden KPI/path/pattern leakage in changed source or sessions.
+  - Confirm the edition is `private-business`.
+  - No forbidden path/pattern leakage in changed source or sessions.
 - [ ] Structural gates:
   - `npm run test:collection-config`
   - `npm run test:sessions`
@@ -34,6 +36,6 @@ When only `src/_data/sessions/` and/or `CHANGELOG.md` changes:
 1. Keep `src/` and `_data/` scope limited to data updates unless route/config/schema changes are intentional.
 2. State methodology version and route set in PR body/title.
 3. Call out all threshold regressions and the business impact interpretation.
-4. Keep reviewer-visible evidence in one place (`/trends/` + generated collection summary + PR body).
+4. Keep reviewer-visible evidence in one place (`/trends.html` + generated collection summary + PR body).
 5. If methodology changed, avoid direct trend deltas until the new baseline is clearly marked.
 6. If monitor delivery failed, include the failure code and owner action in the release notes.

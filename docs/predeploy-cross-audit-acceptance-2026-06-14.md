@@ -1,8 +1,10 @@
 # Predeploy Cross-Audit Acceptance (2026-06-14)
 
+> Historical note: this document describes the earlier public-sanitized release boundary. The current release boundary is `docs/release-contract.md`.
+
 ## Scope
 
-This cycle updates the public technical baseline for `2026-06-14` and runs the full production-readiness chain for Tencent deployment:
+This historical cycle updated the public technical baseline for `2026-06-14` and ran the full production-readiness chain for Tencent deployment:
 
 - Internal operating data refreshed from the workspace file
 - External collection/session validation

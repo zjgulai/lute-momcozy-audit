@@ -15,7 +15,8 @@ const securityHeaders = {
   "x-frame-options": "DENY",
   "x-content-type-options": "nosniff",
   "referrer-policy": "no-referrer",
-  "permissions-policy": "camera=(), microphone=(), geolocation=()"
+  "permissions-policy": "camera=(), microphone=(), geolocation=()",
+  "cache-control": "no-store, no-cache"
 };
 
 function send(response, status, file) {
@@ -28,7 +29,7 @@ function send(response, status, file) {
 }
 
 const server = http.createServer((request, response) => {
-  const url = new URL(request.url, "http://127.0.0.1");
+  const url = new URL(request.url, "http://localhost");
   const firstSegment = url.pathname.split("/").filter(Boolean)[0] || "";
   if (
     firstSegment === "data" ||
@@ -47,5 +48,5 @@ const server = http.createServer((request, response) => {
   const file = candidates.find((candidate) => candidate.startsWith(root) && fs.existsSync(candidate) && fs.statSync(candidate).isFile());
   return file ? send(response, 200, file) : send(response, 404, path.join(root, "404.html"));
 });
-server.listen(8080, "127.0.0.1");
+server.listen(8080);
 for (const signal of ["SIGINT", "SIGTERM"]) process.on(signal, () => server.close(() => process.exit(0)));

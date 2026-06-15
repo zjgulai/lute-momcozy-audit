@@ -4,6 +4,9 @@ import {fileURLToPath} from "node:url";
 const DEFAULT_CRON_FILE = "ops/uptime-cron.example";
 const REQUIRED_ENV = [
   "PUBLIC_URL",
+  "UPTIME_STRICT",
+  "UPTIME_REQUIRE_NOINDEX",
+  "UPTIME_EXPECT_BODY_MARKERS",
   "UPTIME_LOG_FILE",
   "UPTIME_ALERT_STATE_FILE"
 ];
@@ -101,6 +104,21 @@ function validateCronEntry(entry, lineNumber) {
 
   if (env.PUBLIC_URL && !/^https:\/\/[^/\s]+$/.test(env.PUBLIC_URL)) {
     issues.push(`line ${lineNumber}: PUBLIC_URL must be an https origin without path or trailing slash`);
+  }
+  if (env.UPTIME_STRICT && env.UPTIME_STRICT !== "1") {
+    issues.push(`line ${lineNumber}: UPTIME_STRICT must be 1`);
+  }
+  if (env.UPTIME_REQUIRE_NOINDEX && env.UPTIME_REQUIRE_NOINDEX !== "1") {
+    issues.push(`line ${lineNumber}: UPTIME_REQUIRE_NOINDEX must be 1`);
+  }
+  if (env.UPTIME_EXPECT_BODY_MARKERS) {
+    const markers = env.UPTIME_EXPECT_BODY_MARKERS;
+    const hasLute = markers.includes("路特") || markers.includes("\\u8def\\u7279");
+    const hasMomcozy = markers.includes("Momcozy");
+    const hasPrivateEdition = markers.includes("私密经营") || markers.includes("\\u79c1\\u5bc6\\u7ecf\\u8425");
+    if (!hasLute || !hasMomcozy || !hasPrivateEdition) {
+      issues.push(`line ${lineNumber}: UPTIME_EXPECT_BODY_MARKERS must include route identity and private-business markers`);
+    }
   }
   if (env.UPTIME_LOG_FILE && !env.UPTIME_LOG_FILE.startsWith("logs/")) {
     issues.push(`line ${lineNumber}: UPTIME_LOG_FILE should write under logs/`);

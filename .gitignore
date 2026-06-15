@@ -2,6 +2,8 @@ node_modules/
 _site/
 test-results/
 playwright-report/
+.uptime-monitor-state.json
+artifacts/
 *.pem
 .sisyphus/
 .DS_Store

@@ -5,16 +5,29 @@ import os from "node:os";
 import path from "node:path";
 
 import {
-  computeAlertPolicy,
-  makeWebhookPayload,
-  writeAlertState,
+  DEFAULT_CHECKS,
+  checkContentSignals
+} from "../scripts/uptime/checks.mjs";
+import {DEFAULT_EXPECT_BODY_MARKERS} from "../scripts/uptime/identity.mjs";
+import {
   buildNotifyFailure,
-  pruneAlertState,
-  validateWebhookPayload,
-  computeWebhookRetryDelayMs,
+  computeAlertPolicy,
+  pruneAlertState
+} from "../scripts/uptime/alerts.mjs";
+import {
+  makeWebhookPayload
+} from "../scripts/uptime/webhooks.mjs";
+import {
   fetchWithRetry,
-  postWithRetry
-} from "../scripts/uptime-monitor.mjs";
+  postWithRetry,
+  computeWebhookRetryDelayMs
+} from "../scripts/uptime/fetch.mjs";
+import {
+  writeAlertState
+} from "../scripts/uptime/state.mjs";
+import {
+  validateWebhookPayload
+} from "../scripts/uptime/webhooks.mjs";
 import {
   formatNotifyFailureSummaryMarkdown,
   summarizeNotifyFailuresFromLines
@@ -41,6 +54,15 @@ function withFakeNow(nowMs, fn) {
     Date.now = originalNow;
   }
 }
+
+test("default homepage identity markers require private-business edition", () => {
+  assert.deepEqual(DEFAULT_CHECKS[0].contentContains, DEFAULT_EXPECT_BODY_MARKERS);
+
+  const result = checkContentSignals("路特 AI Momcozy", DEFAULT_CHECKS[0]);
+
+  assert.equal(result.ok, false);
+  assert.equal(result.messages.some((message) => message.includes("私密经营")), true);
+});
 
 test("computeAlertPolicy deduplicates failure notifications within window", () => {
   const failurePayload = {
@@ -395,7 +417,7 @@ test("formatNotifyFailureSummaryMarkdown renders monthly ops summary lines", () 
 
 test("validateCronContent accepts production uptime cron example shape", () => {
   const cron = [
-    "*/5 * * * * cd /opt/momcozy-audit && PUBLIC_URL=https://shopify.lute-tlz-dddd.top UPTIME_STRICT=1 UPTIME_LOG_FILE=logs/monitor-results.log UPTIME_ALERT_STATE_FILE=logs/uptime-alert-state.json npm run monitor:uptime >> logs/uptime.log 2>&1"
+    "*/5 * * * * cd /opt/momcozy-audit && PUBLIC_URL=https://shopify.lute-tlz-dddd.top UPTIME_STRICT=1 UPTIME_REQUIRE_NOINDEX=1 UPTIME_EXPECT_BODY_MARKERS='[\"\\u8def\\u7279\\u0020AI\",\"Momcozy\",\"\\u79c1\\u5bc6\\u7ecf\\u8425\"]' UPTIME_LOG_FILE=logs/monitor-results.log UPTIME_ALERT_STATE_FILE=logs/uptime-alert-state.json npm run monitor:uptime >> logs/uptime.log 2>&1"
   ].join("\n");
 
   const result = validateCronContent(cron);

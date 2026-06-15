@@ -4,10 +4,13 @@
 
 ## Default checks
 
-- `https://<PUBLIC_URL>/` → `200`, plus optional security/noindex checks
-- `https://<PUBLIC_URL>/metrics` (or `/metrics/`) → `200`
-- `https://<PUBLIC_URL>/forensics` (or `/forensics/`) → `200`
-- `https://<PUBLIC_URL>/trends` (or `/trends/`) → `200`
+- `https://<PUBLIC_URL>/` → `200`, plus private-business body markers (`路特 AI`, `Momcozy`, `私密经营`) and optional security/noindex checks
+- `https://<PUBLIC_URL>/metrics` and `https://<PUBLIC_URL>/metrics.html` → `200`
+- `https://<PUBLIC_URL>/metrics/` → `404`
+- `https://<PUBLIC_URL>/forensics` and `https://<PUBLIC_URL>/forensics.html` → `200`
+- `https://<PUBLIC_URL>/forensics/` → `404`
+- `https://<PUBLIC_URL>/trends` and `https://<PUBLIC_URL>/trends.html` → `200`
+- `https://<PUBLIC_URL>/trends/` → `404`
 - `https://<PUBLIC_URL>/not-a-real-page` → `404`
 - `https://<PUBLIC_URL>/private-audit-canary` (or `/private-audit-canary/`) → `403/404`
 
@@ -47,7 +50,7 @@ npm run test:uptime-cron
 - `UPTIME_WEBHOOK_URL`: optional webhook endpoint for failures (POST payload is JSON).
 - `UPTIME_NOTIFY_WARNINGS`: set `1` to notify on warning-only runs.
 - `UPTIME_WEBHOOK_REQUIRE_SUCCESS`: set `1` to fail the script if webhook delivery fails.
-- `UPTIME_EXPECT_BODY_MARKERS`: optional comma-separated or JSON list of required body substrings for homepage.
+- `UPTIME_EXPECT_BODY_MARKERS`: comma-separated or JSON list that overrides the default homepage body markers (`路特 AI`, `Momcozy`, `私密经营`).
 - `UPTIME_EXPECT_HOME_SHA256`: optional SHA-256 checksum expected for homepage body.
 - `UPTIME_WEBHOOK_KIND`: one of `json` (default), `feishu`, `dingtalk`, `slack`.
 - `UPTIME_FETCH_RETRIES`: number of fetch attempts per request when network calls fail (default: `1`, no retry).
@@ -128,7 +131,7 @@ npm run monitor:uptime
 ```
 
 ```bash
-UPTIME_EXPECT_BODY_MARKERS='["Momcozy M1 v2.0"]' \
+UPTIME_EXPECT_BODY_MARKERS='["路特 AI","Momcozy","私密经营"]' \
 PUBLIC_URL=https://shopify.lute-tlz-dddd.top \
 npm run monitor:uptime
 ```
