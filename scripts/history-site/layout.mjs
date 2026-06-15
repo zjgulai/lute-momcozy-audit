@@ -54,6 +54,7 @@ export function pageStyles() {
     .callout-strong, .cross-callout { background: var(--bg-dark); color: #f4f4f4; border-radius: 10px; padding: 22px; margin-top: 22px; }
     .callout-strong p, .cross-callout p { color: #d8d8d8; }
     .cross-table-wrap { overflow-x: auto; max-width: 100%; border: 1px solid var(--border); border-radius: 8px; background: #fff; box-shadow: 0 1px 0 rgba(0,0,0,.02); }
+    .matrix-wrap { overflow-x: auto; max-width: 100%; border: 1px solid var(--border); border-radius: 8px; background: #fff; box-shadow: 0 1px 0 rgba(0,0,0,.02); }
     .cross-table-wrap:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
     .cross-table { min-width: 860px; width: 100%; border-collapse: collapse; font-size: 13px; }
     .cross-table th, .cross-table td { padding: 12px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-light); }
