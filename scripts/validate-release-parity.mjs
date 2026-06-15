@@ -7,7 +7,6 @@ import { contentMinimumTextLength, pageComponentMap } from "./page-structure-con
 
 const localSiteRoot = path.resolve("_site");
 const publicUrl = process.env.PROD_BASE_URL || "https://shopify.lute-tlz-dddd.top";
-const compareWithLocal = process.env.COMPARE_LOCAL !== "0";
 
 function fail(message) {
   console.error(message);
@@ -145,13 +144,11 @@ async function main() {
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({ ignoreHTTPSErrors: true });
   const hasErrors = [];
-  const localInspections = new Map();
 
   for (const routePath of Object.keys(pageComponentMap)) {
     const local = await inspectPage(routePath, context, localUrl(routePath));
-    const remoteUrl = new URL(routePath === "/" ? "/index.html" : routePath, publicUrl).toString();
+    const remoteUrl = new URL(routePath === "/" ? "/" : routePath, publicUrl).toString();
     const remote = await inspectPage(routePath, context, remoteUrl);
-    localInspections.set(routePath, local);
 
     const routeIssues = compare(local, remote);
     for (const id of local.misses) {
@@ -172,10 +169,6 @@ async function main() {
     console.log(`[parity] ${routePath}`);
     console.log(`  local: status=${local.rawStatus}, sections=${local.sectionCount}, anchors=${local.sideNavLinks}`);
     console.log(`  prod:  status=${remote.rawStatus}, sections=${remote.sectionCount}, anchors=${remote.sideNavLinks}`);
-  }
-
-  if (compareWithLocal && localInspections.size > 0) {
-    console.log(`[parity] local build snapshots captured: ${localInspections.size}`);
   }
 
   await context.close();

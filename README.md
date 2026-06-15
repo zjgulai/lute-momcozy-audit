@@ -11,6 +11,7 @@ Private-business technical and operating audit of the Momcozy storefront — als
 ```bash
 npm ci
 npm test        # build + schema + source safety + sessions + build safety + links + e2e + a11y
+npm run test:release-parity   # optional pre-release local-vs-production structure parity check
 npm run serve   # local preview at http://localhost:8080
 ```
 
@@ -90,6 +91,11 @@ Requires GitHub Secret: `AUDIT_TARGET_URL=https://momcozy.com`
 `npm run test:source-safety` scans publication inputs for still-forbidden patterns before deployment.
 
 `npm run test:safety` scans `_site/` for still-forbidden patterns: private paths, server addresses, private keys, and raw private endpoint patterns.
+
+`npm run test:release-parity` compares local built artifacts against production pages for:
+- required section anchors and sidebar anchors,
+- minimum section content quality,
+- empty tables inside required sections.
 
 Private-business edition allows real operating amounts and KPI labels in generated report pages. It still forbids secrets, private filesystem paths, server addresses, and raw data endpoint references.
 
