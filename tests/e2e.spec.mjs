@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import {expect, test} from "@playwright/test";
+import {contentMinimumTextLength, pageComponentMap} from "../scripts/page-structure-contract.mjs";
 
 const releaseContract = JSON.parse(fs.readFileSync(new URL("../config/release-contract.json", import.meta.url), "utf8"));
 const publicCrossAudit = JSON.parse(fs.readFileSync(new URL("../src/_data/public-cross-audit.json", import.meta.url), "utf8"));
@@ -287,84 +288,8 @@ test("private business edition exposes business KPIs but no raw secrets", async 
   expect(text).toContain("72.07万");
 });
 
-const componentMap = {
-  "/": [
-    "hero",
-    "storyline",
-    "insight-chain",
-    "hard-conclusions",
-    "final-audit",
-    "diagnostic-bridge",
-    "cross-matrix",
-    "contradictions",
-    "feature-compare",
-    "health",
-    "operating-bridge",
-    "business-kpi",
-    "business-kpi-trend",
-    "traffic-attribution",
-    "asset-attribution",
-    "bot-audit",
-    "cross-audit",
-    "top15",
-    "matrix",
-    "decisions",
-    "code",
-    "roadmap",
-  ],
-  "/metrics.html": [
-    "hero",
-    "final-audit",
-    "diagnostic-bridge",
-    "operating-bridge",
-    "business-kpi",
-    "business-kpi-trend",
-    "funnel",
-    "traffic-attribution",
-    "cross-audit",
-    "metric-dictionary",
-  ],
-  "/forensics.html": [
-    "scene",
-    "final-audit",
-    "diagnostic-bridge",
-    "bot-audit",
-    "cross-audit",
-    "fatal",
-    "top15",
-    "pdp",
-  ],
-  "/trends.html": [
-    "hero",
-    "final-audit",
-    "diagnostic-bridge",
-    "cross-audit",
-    "latest-v3",
-  ],
-  "/cross-audit.html": [
-    "hero",
-    "final-audit",
-    "diagnostic-bridge",
-    "storyline",
-    "insight-chain",
-    "hard-conclusions",
-    "cross-matrix",
-    "contradictions",
-    "feature-compare",
-    "operating-bridge",
-    "business-kpi",
-    "business-kpi-trend",
-    "cross-audit",
-    "matrix",
-    "competitor-recollect",
-    "execution-orders",
-    "code",
-    "roadmap",
-  ],
-};
-
 test("key report pages expose their documented structural components", async ({page}) => {
-  for (const [path, ids] of Object.entries(componentMap)) {
+  for (const [path, ids] of Object.entries(pageComponentMap)) {
     await page.goto(path);
     for (const id of ids) {
       const section = page.locator(`#${id}`);
@@ -378,7 +303,7 @@ test("key report pages expose their documented structural components", async ({p
           tableCount
         };
       });
-      expect(sectionState.hasText, `Section #${id} on ${path} has no visible text`).toBeGreaterThan(20);
+      expect(sectionState.hasText, `Section #${id} on ${path} has no visible text`).toBeGreaterThan(contentMinimumTextLength);
       if (sectionState.tableCount > 0) {
         const rowCount = await page.locator(`#${id} table tbody tr`).count();
         expect(rowCount, `Section #${id} table is empty on ${path}`).toBeGreaterThan(0);
