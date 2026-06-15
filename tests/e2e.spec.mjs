@@ -286,3 +286,95 @@ test("private business edition exposes business KPIs but no raw secrets", async 
   expect(text).toContain("AOV");
   expect(text).toContain("72.07万");
 });
+
+const componentMap = {
+  "/": [
+    "hero",
+    "storyline",
+    "insight-chain",
+    "hard-conclusions",
+    "final-audit",
+    "diagnostic-bridge",
+    "cross-matrix",
+    "contradictions",
+    "feature-compare",
+    "health",
+    "operating-bridge",
+    "business-kpi",
+    "business-kpi-trend",
+    "traffic-attribution",
+    "asset-attribution",
+    "bot-audit",
+    "cross-audit",
+    "top15",
+    "matrix",
+    "decisions",
+    "code",
+    "roadmap",
+  ],
+  "/metrics.html": [
+    "hero",
+    "final-audit",
+    "diagnostic-bridge",
+    "operating-bridge",
+    "business-kpi",
+    "business-kpi-trend",
+    "funnel",
+    "traffic-attribution",
+    "cross-audit",
+    "metric-dictionary",
+  ],
+  "/forensics.html": [
+    "scene",
+    "final-audit",
+    "diagnostic-bridge",
+    "bot-audit",
+    "cross-audit",
+    "fatal",
+    "top15",
+    "pdp",
+  ],
+  "/trends.html": [
+    "hero",
+    "final-audit",
+    "diagnostic-bridge",
+    "cross-audit",
+    "latest-v3",
+  ],
+  "/cross-audit.html": [
+    "hero",
+    "final-audit",
+    "diagnostic-bridge",
+    "storyline",
+    "insight-chain",
+    "hard-conclusions",
+    "cross-matrix",
+    "contradictions",
+    "feature-compare",
+    "operating-bridge",
+    "business-kpi",
+    "business-kpi-trend",
+    "cross-audit",
+    "matrix",
+    "competitor-recollect",
+    "execution-orders",
+    "code",
+    "roadmap",
+  ],
+};
+
+test("key report pages expose their documented structural components", async ({page}) => {
+  for (const [path, ids] of Object.entries(componentMap)) {
+    await page.goto(path);
+    for (const id of ids) {
+      const count = await page.locator(`#${id}`).count();
+      expect(count, `Missing section #${id} on ${path}`).toBe(1);
+    }
+    const sectionCount = await page.locator(".section").count();
+    expect(sectionCount, `No section components on ${path}`).toBeGreaterThanOrEqual(ids.length - 2);
+    expect(
+      await page.locator(".side-nav__link").count(),
+      `Missing side nav links on ${path}`,
+    ).toBeGreaterThanOrEqual(3);
+  }
+});
