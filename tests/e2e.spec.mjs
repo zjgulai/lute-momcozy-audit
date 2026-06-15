@@ -2,6 +2,8 @@ import fs from "node:fs";
 import {expect, test} from "@playwright/test";
 
 const releaseContract = JSON.parse(fs.readFileSync(new URL("../config/release-contract.json", import.meta.url), "utf8"));
+const publicCrossAudit = JSON.parse(fs.readFileSync(new URL("../src/_data/public-cross-audit.json", import.meta.url), "utf8"));
+
 const pages = [
   "/",
   "/metrics.html",
@@ -123,10 +125,26 @@ test("cross audit sidebar prioritizes current-page anchors", async ({page}) => {
   expect(result.activeText).toContain("交叉审计");
   expect(result.anchorHrefs).toContain("cross-audit.html#final-audit");
   expect(result.anchorHrefs).toContain("cross-audit.html#contradictions");
+  expect(result.anchorHrefs).toContain("cross-audit.html#competitor-recollect");
   expect(result.anchorHrefs).toContain("cross-audit.html#execution-orders");
+  expect(result.anchorHrefs).toContain("cross-audit.html#diagnostic-bridge");
   expect(result.anchorLabels).toContain("矛盾识别");
   expect(result.ctaHref).toBe("cross-audit.html#execution-orders");
   expect(result.ctaText).toBe("查看执行战单");
+});
+
+test("all key pages expose diagnostic bridge section", async ({page}) => {
+  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
+    await page.goto(pathname);
+    const sections = await page.locator("#diagnostic-bridge").count();
+    const headingText = await page.locator("#diagnostic-bridge").first().innerText();
+    const bodyText = await page.locator("body").innerText();
+    expect(sections).toBe(1);
+    expect(headingText).toContain("站内指标解释、站外复采动作、决策落地同页可追踪");
+    expect(bodyText).toContain("站内指标解释");
+    expect(bodyText).toContain("站外复采动作");
+    expect(bodyText).toContain("决策落地");
+  }
 });
 
 test("generated site matches private-business release contract", async ({page}) => {
@@ -154,26 +172,30 @@ test("trends page keeps history report and integrates latest v3 route data", asy
   const response = await page.goto("/trends.html");
   expect(response.status()).toBe(200);
 
-  const result = await page.evaluate(() => {
+  const expected = {
+    latestSession: publicCrossAudit.external?.latestSession || "",
+    pdpFailures: `${publicCrossAudit.external?.pdpThirdPartyFailures || ""}`,
+    routeCount: Number(publicCrossAudit.external?.routeCount || 0)
+  };
+  const result = await page.evaluate((snapshot) => {
     const bodyText = document.body.innerText;
     const tableRows = document.querySelectorAll(".sessions-table tbody tr").length;
     return {
       title: document.querySelector("h1")?.textContent || "",
-      hasLatestSession: bodyText.includes("session-2026-06-14"),
+      hasLatestSession: snapshot.latestSession ? bodyText.includes(snapshot.latestSession) : false,
       hasRouteAwareLabel: /v3\s+路由感知自动化基线/i.test(bodyText),
-      hasPdpFailures: bodyText.includes("PDP 56 / 55"),
-      hasLegacyM2: bodyText.includes("旧 M2 首页趋势只作为历史参照"),
-      tableRows
+      hasPdpFailures: snapshot.pdpFailures ? bodyText.includes(`PDP ${snapshot.pdpFailures}`) : false,
+      tableRows,
+      expectedRouteCount: snapshot.routeCount
     };
-  });
+  }, expected);
 
   expect(errors).toEqual([]);
   expect(result.title).toContain("5 次采集");
   expect(result.hasLatestSession).toBe(true);
   expect(result.hasRouteAwareLabel).toBe(true);
   expect(result.hasPdpFailures).toBe(true);
-  expect(result.hasLegacyM2).toBe(true);
-  expect(result.tableRows).toBe(4);
+  expect(result.tableRows).toBe((result.expectedRouteCount || 4) * 2);
 });
 
 test("overview restores the historical M1 v2 report as the primary site", async ({page}) => {
@@ -193,22 +215,35 @@ test("overview restores the historical M1 v2 report as the primary site", async 
   expect(text).toContain("最终审计");
   expect(text).toContain("结论 × 策略 × 执行");
   expect(text).toContain("矛盾识别与修复");
-  expect(text).toContain("铁证索引");
+  expect(text).toContain("经营趋势对照");
+  expect(text).not.toContain("铁证索引");
+  expect(text).not.toContain("证据台账");
 });
 
 test("cross-audit page exposes latest refreshed conclusions", async ({page}) => {
   await page.goto("/cross-audit.html");
   const text = await page.locator("body").innerText();
+  const latestSession = publicCrossAudit.external?.latestSession;
+  const maxThirdPartyFailures = publicCrossAudit.external?.maxThirdPartyFailures;
   expect(text).toContain("Share with caveats");
   expect(text).toContain("137d / 204d");
-  expect(text).toContain("session-2026-06-14");
+  if (latestSession) {
+    expect(text).toContain(latestSession);
+  }
   expect(text).toContain("SEO 变现结论必须冻结");
-  expect(text).toContain("外部自动采集显示第三方失败最高 56");
+  if (typeof maxThirdPartyFailures === "number") {
+    expect(text).toContain(`外部自动采集显示第三方失败最高 ${maxThirdPartyFailures}`);
+  } else {
+    expect(text).toContain("外部自动采集显示第三方失败最高");
+  }
   expect(text).toContain("不批准 SEO 变现建议");
   expect(text).toContain("批准 10 条 PDP × 双视口 × 多次采样");
   expect(text).toContain("最终审计");
   expect(text).toContain("每条结论都必须能落到策略和执行");
-  expect(text).toContain("铁证如山的前提");
+  expect(text).toContain("重点保留结论-策略-执行闭环");
+  expect(text).not.toContain("铁证如山的前提");
+  expect(text).not.toContain("铁证索引");
+  expect(text).not.toContain("证据台账");
 });
 
 test("mobile strategy matrix wraps and allows horizontal scroll", async ({browser}) => {

@@ -53,6 +53,7 @@ export function pageStyles() {
     .card-meta, .cross-meta { font-size: 12px; color: var(--text-secondary); margin-top: 6px; line-height: 1.55; }
     .callout-strong, .cross-callout { background: var(--bg-dark); color: #f4f4f4; border-radius: 10px; padding: 22px; margin-top: 22px; }
     .callout-strong p, .cross-callout p { color: #d8d8d8; }
+    .cross-callout .card-label { color: #f8dbe3; }
     .cross-table-wrap { overflow-x: auto; max-width: 100%; border: 1px solid var(--border); border-radius: 8px; background: #fff; box-shadow: 0 1px 0 rgba(0,0,0,.02); }
     .matrix-wrap { overflow-x: auto; max-width: 100%; border: 1px solid var(--border); border-radius: 8px; background: #fff; box-shadow: 0 1px 0 rgba(0,0,0,.02); }
     .cross-table-wrap:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -145,6 +146,7 @@ export function nav(active) {
         ["index.html#insight-chain", "洞察链路"],
         ["index.html#hard-conclusions", "硬结论"],
         ["index.html#final-audit", "最终审计"],
+        ["index.html#diagnostic-bridge", "站内外诊断桥接"],
         ["index.html#operating-bridge", "经营信号"],
         ["index.html#traffic-attribution", "流量归因"],
         ["index.html#asset-attribution", "资产保护"],
@@ -163,6 +165,7 @@ export function nav(active) {
       anchors: [
         ["metrics.html#hero", "指标结论"],
         ["metrics.html#final-audit", "最终审计"],
+        ["metrics.html#diagnostic-bridge", "站内外诊断桥接"],
         ["metrics.html#operating-bridge", "经营信号"],
         ["metrics.html#business-kpi", "真实 KPI"],
         ["metrics.html#funnel", "口径治理"],
@@ -178,6 +181,7 @@ export function nav(active) {
       anchors: [
         ["forensics.html#scene", "证据总览"],
         ["forensics.html#final-audit", "最终审计"],
+        ["forensics.html#diagnostic-bridge", "站内外诊断桥接"],
         ["forensics.html#bot-audit", "爬虫治理"],
         ["forensics.html#cross-audit", "重审结论"],
         ["forensics.html#fatal", "第三方失败"],
@@ -192,6 +196,7 @@ export function nav(active) {
       anchors: [
         ["trends.html#hero", "趋势结论"],
         ["trends.html#final-audit", "最终审计"],
+        ["trends.html#diagnostic-bridge", "站内外诊断桥接"],
         ["trends.html#cross-audit", "重审结论"],
         ["trends.html#latest-v3", "最新采集"]
       ]
@@ -202,17 +207,18 @@ export function nav(active) {
       ctaLabel: "查看执行战单",
       anchors: [
         ["cross-audit.html#final-audit", "最终审计"],
+        ["cross-audit.html#diagnostic-bridge", "站内外诊断桥接"],
         ["cross-audit.html#storyline", "故事线"],
         ["cross-audit.html#insight-chain", "洞察链路"],
         ["cross-audit.html#hard-conclusions", "硬结论"],
         ["cross-audit.html#cross-matrix", "策略矩阵"],
         ["cross-audit.html#contradictions", "矛盾识别"],
-        ["cross-audit.html#evidence-ledger", "证据台账"],
         ["cross-audit.html#feature-compare", "功能对比"],
         ["cross-audit.html#operating-bridge", "经营信号"],
         ["cross-audit.html#business-kpi", "真实 KPI"],
         ["cross-audit.html#cross-audit", "重审结论"],
         ["cross-audit.html#matrix", "矩阵回迁"],
+        ["cross-audit.html#competitor-recollect", "竞品重采"],
         ["cross-audit.html#execution-orders", "执行战单"],
         ["cross-audit.html#code", "PR 实验卡"],
         ["cross-audit.html#roadmap", "Sprint 路线图"]
@@ -264,14 +270,15 @@ export function footer() {
   </footer>`;
 }
 
-export function page(title, active, body) {
+export function page(title, active, body, metaDescription = "Momcozy 独立站私密经营审计报告") {
+  const sanitizedDescription = escapeHtml(metaDescription);
   return `<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
-  <meta name="description" content="Momcozy 独立站私密经营审计报告，按当前经营数据、历史经营数据与 2026-06-14 自动采集重审更新。">
+  <meta name="description" content="${sanitizedDescription}">
   <title>${escapeHtml(title)}</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/shared.css">

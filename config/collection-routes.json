@@ -12,6 +12,18 @@
       "label": "Representative product-detail route",
       "path": "/products/momcozy-kleanpal-pro-baby-bottle-washer",
       "primary": false
+    },
+    {
+      "id": "cart",
+      "label": "Shopping cart page",
+      "path": "/cart",
+      "primary": false
+    },
+    {
+      "id": "checkout",
+      "label": "Checkout page",
+      "path": "/checkout",
+      "primary": false
     }
   ]
 }

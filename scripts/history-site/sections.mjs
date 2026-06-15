@@ -13,6 +13,10 @@ export function sourcePills(references) {
   return references.map((reference) => `<span class="pill">${escapeHtml(reference)}</span>`).join("");
 }
 
+function observedSessionDate(data) {
+  return data.external?.latestSession?.replace("session-", "") || "";
+}
+
 export function conclusionRows(conclusions) {
   return conclusions.map((item) => `<tr>
     <td><strong>${escapeHtml(item.id)}</strong></td>
@@ -21,6 +25,16 @@ export function conclusionRows(conclusions) {
     <td>${escapeHtml(item.confidence)}</td>
     <td>${sourcePills(item.references)}</td>
   </tr>`).join("");
+}
+
+function formatTrendDelta(current, historical) {
+  if (!Number.isFinite(current) || !Number.isFinite(historical) || historical === 0) return "口径/单位待统一后比较";
+  const pctDelta = ((current - historical) / historical) * 100;
+  if (!Number.isFinite(pctDelta)) return "口径/单位待统一后比较";
+  const abs = Math.abs(pctDelta).toFixed(1);
+  if (pctDelta > 0) return `上升 +${abs}%`;
+  if (pctDelta < 0) return `下降 -${abs}%`;
+  return "持平 0.0%";
 }
 
 export function selectedConclusions(data, pageName) {
@@ -59,10 +73,11 @@ export function crossAuditCards(data) {
 }
 
 export function crossAuditSection(data, pageName) {
+  const externalDate = data.external?.latestSession?.replace("session-", "") || "";
   return `<section class="section section--gray" id="cross-audit">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">2026-06-14 · 内外部数据刷新</div>
+        <div class="section__eyebrow">${escapeHtml(externalDate)} · 内外部数据刷新</div>
         <h2 class="section__title">本页结论已按最新经营数据重审</h2>
         <p class="section__sub">${escapeHtml(pageRoute(data, pageName))}</p>
       </div>
@@ -105,8 +120,7 @@ export function finalAuditData(data) {
   return data.finalAudit || {
     pageAudits: [],
     crossMatrix: [],
-    contradictions: [],
-    evidenceLedger: []
+    contradictions: []
   };
 }
 
@@ -135,6 +149,42 @@ export function pageAuditSection(data, pageName) {
             <td>${escapeHtml(item.gate)}</td>
           </tr></tbody>
         </table>
+      </div>
+    </div>
+  </section>`;
+}
+
+export function diagnosticBridgeSection(data, pageName) {
+  const update = data.pageUpdates.find((item) => item.page === pageName);
+  const auditItem = pageAuditItem(data, pageName);
+  const insideNote = `当前 workbook ${fixed(data.currentOperations.sales.totalSalesWan, 2)}万 · 转化率 ${pct(data.currentOperations.conversion.conversionRate)} · AOV ${fixed(data.currentOperations.sales.averageOrderValue, 2)}，但流量窗口 ${data.currentOperations.trafficWindow}、销售窗口 ${data.currentOperations.salesWindow}与历史口径并不一致，读数用于优先级判断，不作为单点收益承诺。`;
+  const outsideNote = `外部采集 ${escapeHtml(data.external.latestSession)} 覆盖 ${data.external.routeCount} 条路径，JS ${data.currentOperations ? "约 1.9MB" : "1.9MB+"}、DOM ${data.external.maxDomNodes.toLocaleString("en-US")}、第三方失败 ${data.external.maxThirdPartyFailures}，LCP 可观测率 ${data.external.lcpObservedSamples}/${data.external.lcpTotalSamples}，复采动作以“站点可复核”为边界。`;
+  const decisionLine = auditItem?.optimization || "不批准无 owner、无复采、无回滚条件的建议；只保留能落到动作的决策。";
+  const bridgeLine = update?.route || "本页按当前经营与外部复采共同写入决策边界。";
+
+  return `<section class="section" id="diagnostic-bridge">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">站内外诊断桥接</div>
+        <h2 class="section__title">站内指标解释、站外复采动作、决策落地同页可追踪</h2>
+        <p class="section__sub">这段是“可读性优先”的执行摘要：先明确站内指标含义，再定义站外复核动作，最后只保留可落地策略。</p>
+      </div>
+      <div class="route-grid">
+        <div class="route-card">
+          <h3>站内指标解释</h3>
+          <p>${insideNote}</p>
+          <p><strong>不可替代结论：</strong>${escapeHtml(auditItem?.question || "指标不能直接替代实验收益结论。")}</p>
+        </div>
+        <div class="route-card">
+          <h3>站外复采动作</h3>
+          <p>${outsideNote}</p>
+          <p><strong>站外约束：</strong>${escapeHtml(data.internal.publicBoundary)}</p>
+        </div>
+        <div class="route-card">
+          <h3>决策落地</h3>
+          <p>${decisionLine}</p>
+          <p><strong>执行口径：</strong>${escapeHtml(bridgeLine)}</p>
+        </div>
       </div>
     </div>
   </section>`;
@@ -189,39 +239,14 @@ export function contradictionsSection(data) {
   </section>`;
 }
 
-export function evidenceLedgerSection(data) {
-  const rows = finalAuditData(data).evidenceLedger.map((item) => `<tr>
-    <td><strong>${escapeHtml(item.source)}</strong></td>
-    <td>${escapeHtml(item.proves)}</td>
-    <td>${escapeHtml(item.doesNotProve)}</td>
-    <td>${escapeHtml(item.usedBy)}</td>
-    <td>${escapeHtml(item.gate)}</td>
-  </tr>`).join("");
-  return `<section class="section" id="evidence-ledger">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">铁证索引</div>
-        <h2 class="section__title">铁证如山的前提：每个证据都写清它不能证明什么</h2>
-        <p class="section__sub">证据边界比数字本身更重要。这里把经营、历史、采集、安全和测试证据分层，防止把相关性写成果因。</p>
-      </div>
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>证据源</th><th>能证明</th><th>不能证明</th><th>使用页面</th><th>下一 gate</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
-    </div>
-  </section>`;
-}
-
 export function storylineSection(data) {
   const items = legacyData(data).storyline;
   return `<section class="section" id="storyline">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">故事线重建</div>
-        <h2 class="section__title">不是简单搬回旧站，而是把旧站的决策链找回来</h2>
-        <p class="section__sub">历史站讲清了“为什么修、先修什么、如何验收”。当前私密版需要保留这条链路，同时把真实经营数字和自动采集证据放在同一个决策框架里。</p>
+        <div class="section__eyebrow">沿用老故事线</div>
+        <h2 class="section__title">先判断经营摩擦，再落地技术修复，再验收</h2>
+        <p class="section__sub">沿用历史站的决策顺序：经营优先级、流量归因、数据可信度、技术病灶和执行路线。当前私密版保留这条链路，并用最新经营与采集数据补齐结论边界。</p>
       </div>
       <div class="story-grid">
         ${items.map((item, index) => `<div class="story-card"><div class="story-card__num">${index + 1}</div><p>${escapeHtml(item)}</p></div>`).join("")}
@@ -352,12 +377,78 @@ export function operatingBridgeSection(data) {
 export function businessKpiSection(data) {
   const current = data.currentOperations;
   const history = data.historicalOperations;
+
+  const trendRows = [
+    {
+      label: "核心转化",
+      current: pct(current.conversion.conversionRate),
+      historical: pct(history.conversion.overallCvr),
+      trend: formatTrendDelta(current.conversion.conversionRate, history.conversion.overallCvr),
+      trendClass: "",
+      note: "当前与历史都是比例口径，可直接用于方向比较。"
+    },
+    {
+      label: "加购率",
+      current: pct(current.conversion.addToCartRate),
+      historical: pct(history.conversion.addToCartRate),
+      trend: formatTrendDelta(current.conversion.addToCartRate, history.conversion.addToCartRate),
+      trendClass: "",
+      note: "当前明显放大，但仍需确认流量来源/人群口径是否一致。"
+    },
+    {
+      label: "发起结账率",
+      current: pct(current.conversion.checkoutRate),
+      historical: pct(history.conversion.checkoutRate),
+      trend: formatTrendDelta(current.conversion.checkoutRate, history.conversion.checkoutRate),
+      trendClass: "",
+      note: "可参考；同一口径成立时才承诺改善。"
+    },
+    {
+      label: "跳出率",
+      current: pct(current.traffic.bounceRate),
+      historical: pct(history.traffic.bounceRate),
+      trend: formatTrendDelta(current.traffic.bounceRate, history.traffic.bounceRate),
+      trendClass: "",
+      note: "方向是有效信号，建议与会话深度和页面性能联动判断。"
+    },
+    {
+      label: "平均停留时长",
+      current: `${fixed(current.traffic.avgStaySec, 1)}s`,
+      historical: `${fixed(history.traffic.avgSessionSec, 1)}s`,
+      trend: formatTrendDelta(current.traffic.avgStaySec, history.traffic.avgSessionSec),
+      trendClass: "",
+      note: "与停留质量结合 console/page error 复采验证。"
+    },
+    {
+      label: "退款率",
+      current: pct(current.sales.refundRate),
+      historical: pct(history.sales.refundRate),
+      trend: formatTrendDelta(current.sales.refundRate, history.sales.refundRate),
+      trendClass: "",
+      note: "不能拿短窗波动做策略终局，需跨窗口复核。"
+    },
+    {
+      label: "AOV（金额）",
+      current: fixed(current.sales.averageOrderValue, 2),
+      historical: fixed(history.sales.averageOrderValueUsd, 2),
+      trend: "口径/币种待统一后比较",
+      note: "当前/历史币种与口径不同，不做同比结论。"
+    },
+    {
+      label: "销售规模（金额）",
+      current: `${fixed(current.sales.totalSalesWan, 2)}万`,
+      historical: `${fixed(history.sales.totalRevenueUsd, 0)} USD`,
+      trend: "口径/币种待统一后比较",
+      note: "当前销售快照与历史 M1 v2.0 的量纲不同，仅用于上下文，不作为收益因果依据。"
+    }
+  ];
+
   return `<section class="section section--gray" id="business-kpi">
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">真实经营 KPI · 私密版</div>
-        <h2 class="section__title">当前经营表与历史经营 JSON 全量回写</h2>
-        <p class="section__sub">以下指标按 owner 最新指令写入页面。当前 workbook 与历史 M1 v2.0 的观察窗口、来源和单位不同，所以这里先并列展示，再用技术采集解释该优先修什么。</p>
+        <h2 class="section__title">当前经营表与历史经营 JSON 的最新版本回写</h2>
+        <p class="section__sub">以下指标按 owner 最新指令写入页面。当前 workbook 与历史 M1 v2.0 不是同口径，不做假同比；每个洞察都绑定“站内外复核动作”。</p>
       </div>
       <div class="metric-grid">
         <div class="metric-card metric-card--success"><div class="card-label">当前总销售额</div><div class="card-value">${fixed(current.sales.totalSalesWan, 2)}万</div><div class="card-meta">源表原单位；币种状态：${escapeHtml(current.warnings.currencyStatus)}</div></div>
@@ -379,6 +470,20 @@ export function businessKpiSection(data) {
           </tbody>
         </table>
       </div>
+
+      <section class="section" id="business-kpi-trend" style="padding-top:24px;">
+        <div class="section__head">
+          <div class="section__eyebrow">经营趋势对照</div>
+          <h2 class="section__title">指标趋势先做方向判定，再谈预算承诺</h2>
+          <p class="section__sub">站内外审计应先证明“趋势方向”，再通过实验账本证明“是否带来收益”。下面只保留可对齐口径的指标方向。</p>
+        </div>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>指标</th><th>当前值</th><th>历史值</th><th>方向</th><th>说明</th></tr></thead>
+            <tbody>${trendRows.map((item) => `<tr><td><strong>${escapeHtml(item.label)}</strong></td><td>${item.current}</td><td>${item.historical}</td><td>${escapeHtml(item.trend)}</td><td>${escapeHtml(item.note)}</td></tr>`).join("")}</tbody>
+          </table>
+        </div>
+      </section>
     </div>
   </section>`;
 }
@@ -470,19 +575,67 @@ export function competitorMatrixSection(data) {
     <td class="momcozy">${escapeHtml(item.momcozy)}</td>
     <td>${escapeHtml(item.reference)}</td>
     <td>${escapeHtml(item.lesson)}</td>
+    <td>${escapeHtml(item.recollectStatus || "待重采")}</td>
   </tr>`).join("");
   return `<section class="section section--gray" id="matrix">
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">8 站矩阵回迁</div>
         <h2 class="section__title">横向参照保留为策略矩阵，并纳入经营 caveat</h2>
-        <p class="section__sub">历史矩阵的价值是让建议不孤立。当前版回迁爬虫、PDP、第三方、内容入口等策略维度；真实经营值进入 KPI 章节，矩阵负责比较位置和动作。</p>
+        <p class="section__sub">历史矩阵的价值是让建议不孤立。当前矩阵作为方向性对照，竞品侧数据已标记为“待重采”，本轮先把重采任务排入执行清单，再恢复成分值化对标。</p>
+      </div>
+      <div class="deprecated">竞品数据当前为历史观察标注，必须重新采集“主页 / PDP / cart / checkout / 站外来源页”才能进入最终对标。
       </div>
       <div class="matrix-wrap">
         <table class="matrix-mini">
-          <thead><tr><th>维度</th><th class="momcozy">Momcozy 当前状态</th><th>历史参照</th><th>应学什么</th></tr></thead>
+          <thead><tr><th>维度</th><th class="momcozy">Momcozy 当前状态</th><th>竞品参照</th><th>应学什么</th><th>竞品数据状态</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
+      </div>
+    </div>
+  </section>`;
+}
+
+export function competitorRecollectPlanSection(data) {
+  const plan = data.competitorRecollectPlan;
+  if (!plan) return "";
+
+  const routes = (plan.routeExpansion || []).map((item) => `<tr>
+    <td>${escapeHtml(item.route)}</td>
+    <td>${escapeHtml(item.label)}</td>
+    <td>${escapeHtml(item.requirement)}</td>
+  </tr>`).join("");
+
+  const commands = (plan.commands || []).map((command) => `<li><code>${escapeHtml(command)}</code></li>`).join("");
+  const rules = (plan.executionRules || []).map((rule) => `<li>${escapeHtml(rule)}</li>`).join("");
+
+  return `<section class="section" id="competitor-recollect">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">竞品重采复核计划</div>
+        <h2 class="section__title">把‘待重采’改为‘可验收动作’</h2>
+        <p class="section__sub">Owner: ${escapeHtml(plan.owner)}。目标：先补齐站内链路口径，再让竞品对照有同口径样本。</p>
+      </div>
+      <div class="deprecated">${escapeHtml(plan.goal)}；执行窗口：${escapeHtml(plan.executionWindow)}。</div>
+      <div class="cross-table-wrap" tabindex="0">
+        <table class="cross-table">
+          <thead><tr><th>路由ID</th><th>说明</th><th>复采要求</th></tr></thead>
+          <tbody>${routes}</tbody>
+        </table>
+      </div>
+      <div class="route-grid" style="margin-top: 16px;">
+        <div class="route-card">
+          <h3>执行命令（下一步）</h3>
+          <ol>${commands}</ol>
+        </div>
+        <div class="route-card">
+          <h3>执行约束</h3>
+          <ol>${rules}</ol>
+        </div>
+      </div>
+      <div class="cross-callout" role="note" aria-label="竞品重采验收门槛">
+        <div class="card-label">验收门槛</div>
+        <p>${escapeHtml(plan.acceptanceGate)}</p>
       </div>
     </div>
   </section>`;
@@ -531,13 +684,14 @@ export function roadmapSection(data) {
 }
 
 export function hero(data) {
+  const sessionLabel = observedSessionDate(data);
   return `<section class="hero" id="hero">
     <div class="container">
       <div class="hero__grid">
         <div>
           <span class="hero__badge">M1 v2.0 历史骨架 · 私密经营数据重审版</span>
           <h1 class="hero__title">真实经营数据回归，<br><span class="hl">技术债故事线闭环</span>。</h1>
-          <p class="hero__lead"><strong>先把话说透：</strong>本版不再是压缩摘要，而是把当前 workbook、历史经营 JSON 与 2026-06-14 自动采集放在同一个审计故事里。旧站的业务体检、流量归因、爬虫可信度、资产保护、Top 15 和 PR 路线图都要回来。</p>
+          <p class="hero__lead"><strong>先把话说透：</strong>本版不再是压缩摘要，而是把当前 workbook、历史经营 JSON 与 ${sessionLabel || "最新"} 自动采集放在同一个审计故事里。旧站的业务体检、流量归因、爬虫可信度、资产保护、Top 15 和 PR 路线图都要回来。</p>
           <p class="hero__lead">当前经营表显示总销售额 ${fixed(data.currentOperations.sales.totalSalesWan, 2)}万、转化率 ${pct(data.currentOperations.conversion.conversionRate)}、AOV ${fixed(data.currentOperations.sales.averageOrderValue, 2)}；历史 M1 v2.0 显示总营收 ${usdMillion(data.historicalOperations.sales.totalRevenueUsd)}、monthly_revenue ${usdMillion(data.historicalOperations.sales.monthlyRevenueUsd)}、overall_cvr ${pct(data.historicalOperations.conversion.overallCvr)}。自动采集则证明首页与代表性 PDP 仍暴露约 1.9MB JS、最高 ${data.external.maxDomNodes.toLocaleString("en-US")} DOM 节点、最高 ${data.external.maxThirdPartyFailures} 次第三方失败。</p>
           <div class="hero__meta">
             <span>经营刷新 · ${data.internal.statusCounts.PASS} PASS / ${data.internal.statusCounts.WARN} WARN / ${data.internal.statusCounts.FAIL} FAIL</span>
@@ -562,9 +716,9 @@ export function overviewBody(data) {
   ${logicChainSection(data)}
   ${hardConclusionsSection(data)}
   ${pageAuditSection(data, "index.html")}
+  ${diagnosticBridgeSection(data, "index.html")}
   ${crossMatrixSection(data)}
   ${contradictionsSection(data)}
-  ${evidenceLedgerSection(data)}
   ${featureComparisonSection(data)}
   <section class="section" id="health">
     <div class="container">
@@ -604,6 +758,7 @@ export function metricsBody(data) {
     </div>
   </section>
   ${pageAuditSection(data, "metrics.html")}
+  ${diagnosticBridgeSection(data, "metrics.html")}
   ${operatingBridgeSection(data)}
   ${businessKpiSection(data)}
   <section class="section section--gray" id="funnel">
@@ -636,8 +791,8 @@ export function metricsBody(data) {
         <p class="section__sub">本页同时发布经营金额、转化漏斗、售后/复购指标与自动化技术观测；密钥、私有路径、服务器地址和原始数据端点仍不进入站点。</p>
       </div>
       <div class="metric-grid">
-        <div class="metric-card metric-card--success"><div class="card-label">TTFB</div><div class="card-value">416 / 213ms</div><div class="card-meta">首页桌面 / 移动；不是当前主因</div></div>
-        <div class="metric-card metric-card--danger"><div class="card-label">JS</div><div class="card-value">1.9MB+</div><div class="card-meta">首页与 PDP 均处高位</div></div>
+        <div class="metric-card metric-card--success"><div class="card-label">TTFB</div><div class="card-value">${data.external.homepageTtfbDesktopMs} / ${data.external.homepageTtfbMobileMs}ms</div><div class="card-meta">首页桌面 / 移动；不是当前主因</div></div>
+        <div class="metric-card metric-card--danger"><div class="card-label">JS</div><div class="card-value">约 ${(Math.round(data.external.homepageJsKb / 1024 * 10) / 10).toFixed(1)}MB</div><div class="card-meta">首页与 PDP 均处高位</div></div>
         <div class="metric-card metric-card--danger"><div class="card-label">DOM</div><div class="card-value">${data.external.maxDomNodes.toLocaleString("en-US")}</div><div class="card-meta">最大观测节点数</div></div>
         <div class="metric-card metric-card--warn"><div class="card-label">LCP</div><div class="card-value">${data.external.lcpObservedSamples}/${data.external.lcpTotalSamples}</div><div class="card-meta">样本未可观测，需补采</div></div>
       </div>
@@ -648,13 +803,14 @@ export function metricsBody(data) {
 export function forensicsBody(data) {
   return `<section class="hero" id="scene">
     <div class="container">
-      <span class="hero__badge">III · 证据链重审 · 2026-06-14</span>
+      <span class="hero__badge">III · 证据链重审 · ${escapeHtml(observedSessionDate(data) || "最新")}</span>
       <h1 class="hero__title">证据仍尖锐，<br><span class="hl">因果必须收紧。</span></h1>
       <p class="hero__lead">本页保留历史法医取证的“现场化”表达，但把旧版“修复即收益”的表达改成证据等级：第三方失败、JS/DOM 膨胀、LCP 不可观测可以复采验证；收入影响只能在私有实验中验证。</p>
       ${crossAuditCards(data)}
     </div>
   </section>
   ${pageAuditSection(data, "forensics.html")}
+  ${diagnosticBridgeSection(data, "forensics.html")}
   ${botGovernanceSection(data)}
   ${crossAuditSection(data, "forensics.html")}
   <section class="section" id="fatal">
@@ -693,7 +849,11 @@ export function latestRows(session) {
     ["首页", "desktop", routeMetric(session, "homepage", "desktop")],
     ["首页", "mobile", routeMetric(session, "homepage", "mobile")],
     ["代表性 PDP", "desktop", routeMetric(session, "product-detail", "desktop")],
-    ["代表性 PDP", "mobile", routeMetric(session, "product-detail", "mobile")]
+    ["代表性 PDP", "mobile", routeMetric(session, "product-detail", "mobile")],
+    ["购物车", "desktop", routeMetric(session, "cart", "desktop")],
+    ["购物车", "mobile", routeMetric(session, "cart", "mobile")],
+    ["结账", "desktop", routeMetric(session, "checkout", "desktop")],
+    ["结账", "mobile", routeMetric(session, "checkout", "mobile")]
   ];
   for (const [, , metrics] of rows) {
     if (!metrics) throw new Error("Latest route-aware session is missing required route metrics");
@@ -724,13 +884,14 @@ export function trendsBody(data, session) {
     </div>
   </section>
   ${pageAuditSection(data, "trends.html")}
+  ${diagnosticBridgeSection(data, "trends.html")}
   ${crossAuditSection(data, "trends.html")}
   <section class="section" id="latest-v3">
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">最新融合 · v3 路由感知自动化基线</div>
-        <h2 class="section__title">2026-06-14：趋势页已并入最新外部采集</h2>
-        <p class="section__sub">v3 采集覆盖 homepage / product-detail × 桌面/移动双视口；旧 M2 首页趋势只作为历史参照，不再被当作最新结论。</p>
+        <h2 class="section__title">${escapeHtml(session.observedAt)}：趋势页已并入最新外部采集</h2>
+        <p class="section__sub">v3 采集覆盖 homepage / product-detail / cart / checkout × 桌面/移动双视口；旧 M2 首页趋势只作为历史参照，不再被当作最新结论。</p>
       </div>
       <div class="metric-grid">
         <div class="metric-card metric-card--success"><div class="card-label">最新 session</div><div class="card-value">${escapeHtml(session.observedAt)}</div><div class="card-meta">${escapeHtml(session.methodologyVersion)}</div></div>
@@ -746,33 +907,35 @@ export function trendsBody(data, session) {
       </div>
       <div class="callout-strong">
         <div class="card-label" style="color:#fbbf24;">融合结论</div>
-        <p>最新数据没有推翻历史站的主判断，只是把问题从首页推进到“首页 + 商品详情路径均复现”：客户端体积最大 ${Math.round(maxJs / 1024 * 10) / 10}MB、DOM 最大 ${maxDom.toLocaleString("en-US")} 节点、第三方失败最大 ${maxFailures}，仍是核心技术债。</p>
+        <p>最新数据没有推翻历史站的主判断，只是把问题从首页推进到“homepage/product-detail/cart/checkout 路径均复现”：客户端体积最大 ${Math.round(maxJs / 1024 * 10) / 10}MB、DOM 最大 ${maxDom.toLocaleString("en-US")} 节点、第三方失败最大 ${maxFailures}，仍是核心技术债。</p>
       </div>
     </div>
   </section>`;
 }
 
 export function crossAuditBody(data) {
+  const sessionLabel = observedSessionDate(data);
   return `<section class="hero" id="hero">
     <div class="container">
-      <span class="hero__badge">V · 2026-06-14 · 内外部数据重审</span>
+      <span class="hero__badge">V · ${escapeHtml(sessionLabel || "latest")} · 内外部数据重审</span>
       <h1 class="hero__title">历史报告为骨架，<br><span class="hl">最新数据改结论。</span></h1>
       <p class="hero__lead">本页集中呈现私密经营版的交叉审计结论。它来自私有经营数据刷新和外部自动采集的交叉验证，但不发布原始经营表、原始数据端点或不可审计的收益模型输入。</p>
       ${crossAuditCards(data)}
     </div>
   </section>
   ${pageAuditSection(data, "cross-audit.html")}
+  ${diagnosticBridgeSection(data, "cross-audit.html")}
   ${storylineSection(data)}
   ${logicChainSection(data)}
   ${hardConclusionsSection(data)}
   ${crossMatrixSection(data)}
   ${contradictionsSection(data)}
-  ${evidenceLedgerSection(data)}
   ${featureComparisonSection(data)}
   ${operatingBridgeSection(data)}
   ${businessKpiSection(data)}
   ${crossAuditSection(data, "cross-audit.html")}
   ${competitorMatrixSection(data)}
+  ${competitorRecollectPlanSection(data)}
   ${executionOrdersSection(data, "execution-orders")}
   ${playbookSection(data)}
   ${roadmapSection(data)}`;

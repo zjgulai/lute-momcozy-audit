@@ -10,8 +10,13 @@ import {
   trendsBody
 } from "./sections.mjs";
 
-export function writePage(outputDir, file, title, active, body) {
-  fs.writeFileSync(path.join(outputDir, file), page(title, active, body), "utf8");
+function buildMetaDescription(data, session) {
+  const sessionDate = session?.sessionId ? session.sessionId.replace("session-", "") : "最新";
+  return `Momcozy 独立站私密经营审计报告，按当前经营数据、历史经营数据与 ${sessionDate} 自动采集重审更新。`;
+}
+
+export function writePage(outputDir, file, title, active, body, metaDescription = buildMetaDescription(null, null)) {
+  fs.writeFileSync(path.join(outputDir, file), page(title, active, body, metaDescription), "utf8");
 }
 
 export function write404(outputDir) {
@@ -26,10 +31,10 @@ export function write404(outputDir) {
 }
 
 export function writeHistoryPages({outputDir, data, session}) {
-  writePage(outputDir, "index.html", "I · 总览 — Momcozy 审计报告", "index", overviewBody(data));
-  writePage(outputDir, "metrics.html", "II · 指标口径 — Momcozy 审计报告", "metrics", metricsBody(data));
-  writePage(outputDir, "forensics.html", "III · 证据链 — Momcozy 审计报告", "forensics", forensicsBody(data));
-  writePage(outputDir, "trends.html", "IV · 性能趋势 — Momcozy 审计报告", "trends", trendsBody(data, session));
-  writePage(outputDir, "cross-audit.html", "V · 交叉审计 — Momcozy 审计报告", "cross", crossAuditBody(data));
+  const metaDescription = buildMetaDescription(data, session);
+  writePage(outputDir, "index.html", "I · 总览 — Momcozy 审计报告", "index", overviewBody(data), metaDescription);
+  writePage(outputDir, "metrics.html", "II · 指标口径 — Momcozy 审计报告", "metrics", metricsBody(data), metaDescription);
+  writePage(outputDir, "forensics.html", "III · 证据链 — Momcozy 审计报告", "forensics", forensicsBody(data), metaDescription);
+  writePage(outputDir, "trends.html", "IV · 性能趋势 — Momcozy 审计报告", "trends", trendsBody(data, session), metaDescription);
+  writePage(outputDir, "cross-audit.html", "V · 交叉审计 — Momcozy 审计报告", "cross", crossAuditBody(data), metaDescription);
 }
-
