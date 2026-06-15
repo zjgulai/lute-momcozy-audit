@@ -211,6 +211,22 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
   expect(text).toContain("铁证如山的前提");
 });
 
+test("mobile strategy matrix wraps and allows horizontal scroll", async ({browser}) => {
+  const mobile = await browser.newPage({viewport: {width: 390, height: 844}});
+  await mobile.goto("/cross-audit.html");
+  const matrix = mobile.locator(".matrix-wrap");
+  await expect(matrix).toBeVisible();
+  const metrics = await matrix.evaluate((el) => {
+    return {
+      overflowX: getComputedStyle(el).overflowX,
+      hasScroller: el.scrollWidth > el.clientWidth
+    };
+  });
+  expect(metrics.overflowX).toBe("auto");
+  expect(metrics.hasScroller).toBe(true);
+  await mobile.close();
+});
+
 test("each primary page exposes a final audit check", async ({page}) => {
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
     await page.goto(pathname);
