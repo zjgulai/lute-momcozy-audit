@@ -7,6 +7,7 @@ import { contentMinimumTextLength, pageComponentMap } from "./page-structure-con
 
 const localSiteRoot = path.resolve("_site");
 const publicUrl = process.env.PROD_BASE_URL || "https://shopify.lute-tlz-dddd.top";
+const reportPath = process.env.RELEASE_PARITY_REPORT_PATH || "";
 
 function fail(message) {
   console.error(message);
@@ -144,6 +145,9 @@ async function main() {
   const browser = await chromium.launch({ headless: true });
   const context = await browser.newContext({ ignoreHTTPSErrors: true });
   const hasErrors = [];
+  const routeReports = [];
+  let localSectionTotal = 0;
+  let remoteSectionTotal = 0;
 
   for (const routePath of Object.keys(pageComponentMap)) {
     const local = await inspectPage(routePath, context, localUrl(routePath));
@@ -157,6 +161,26 @@ async function main() {
     for (const id of remote.misses) {
       routeIssues.push(`prod quality issue ${id}`);
     }
+    localSectionTotal += local.sectionCount;
+    remoteSectionTotal += remote.sectionCount;
+
+    routeReports.push({
+      routePath,
+      local: {
+        url: local.url,
+        status: local.rawStatus,
+        sectionCount: local.sectionCount,
+        sideNavLinks: local.sideNavLinks,
+      },
+      prod: {
+        url: remote.url,
+        status: remote.rawStatus,
+        sectionCount: remote.sectionCount,
+        sideNavLinks: remote.sideNavLinks,
+      },
+      issues: routeIssues,
+    });
+
     if (routeIssues.length) {
       hasErrors.push({
         route: routePath,
@@ -173,6 +197,28 @@ async function main() {
 
   await context.close();
   await browser.close();
+
+  const report = {
+    generatedAt: new Date().toISOString(),
+    publicUrl,
+    localSiteRoot,
+    routeCount: Object.keys(pageComponentMap).length,
+    totalSections: {
+      local: localSectionTotal,
+      prod: remoteSectionTotal,
+    },
+    routes: routeReports,
+    summary: {
+      ok: hasErrors.length === 0,
+      issueCount: hasErrors.length,
+    },
+  };
+
+  if (reportPath) {
+    fs.mkdirSync(path.dirname(reportPath), {recursive: true});
+    fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
+    console.log(`[parity] report written to ${reportPath}`);
+  }
 
   if (hasErrors.length > 0) {
     for (const item of hasErrors) {
