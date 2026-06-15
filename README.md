@@ -99,6 +99,7 @@ Requires GitHub Secret: `AUDIT_TARGET_URL=https://momcozy.com`
 
 It also accepts:
 - `RELEASE_PARITY_REPORT_PATH`: writes a JSON report for CI evidence (for example `artifacts/release-parity-<sha>.json`).
+- `RELEASE_PARITY_SECTIONS`: when set to `0`, the report excludes per-section component states. Default is enabled.
 
 Private-business edition allows real operating amounts and KPI labels in generated report pages. It still forbids secrets, private filesystem paths, server addresses, and raw data endpoint references.
 

@@ -8,6 +8,7 @@ import { contentMinimumTextLength, pageComponentMap } from "./page-structure-con
 const localSiteRoot = path.resolve("_site");
 const publicUrl = process.env.PROD_BASE_URL || "https://shopify.lute-tlz-dddd.top";
 const reportPath = process.env.RELEASE_PARITY_REPORT_PATH || "";
+const includeComponentStates = process.env.RELEASE_PARITY_SECTIONS === "0" ? false : true;
 
 function fail(message) {
   console.error(message);
@@ -21,10 +22,6 @@ function htmlPath(routePath) {
 
 function localUrl(routePath) {
   return pathToFileURL(htmlPath(routePath)).href;
-}
-
-function normalizeHtml(html) {
-  return html.replace(/\s+/g, " ").trim();
 }
 
 async function inspectPage(routePath, context, url) {
@@ -89,7 +86,6 @@ async function inspectPage(routePath, context, url) {
 
   sideNavLinks = await page.locator(".side-nav__anchor").count();
   sectionCount = await page.locator(".section").count();
-  const body = normalizeHtml(await page.locator("body").innerText());
 
   await page.close();
   return {
@@ -98,10 +94,25 @@ async function inspectPage(routePath, context, url) {
     sectionStates,
     sectionCount,
     sideNavLinks,
-    body,
     misses,
     rawStatus: url.startsWith("file://") ? 200 : response.status(),
   };
+}
+
+function pickRequiredSections(sectionStates, required) {
+  const rows = [];
+  for (const id of required) {
+    const section = sectionStates[id];
+    rows.push({
+      id,
+      present: !!section?.present,
+      textLength: section?.textLength ?? 0,
+      tableCount: section?.tableCount ?? 0,
+      maxTableRows: section?.maxTableRows ?? 0,
+      count: section?.count ?? 0,
+    });
+  }
+  return rows;
 }
 
 function compare(localInspection, remoteInspection) {
@@ -153,6 +164,7 @@ async function main() {
     const local = await inspectPage(routePath, context, localUrl(routePath));
     const remoteUrl = new URL(routePath === "/" ? "/" : routePath, publicUrl).toString();
     const remote = await inspectPage(routePath, context, remoteUrl);
+    const required = pageComponentMap[routePath];
 
     const routeIssues = compare(local, remote);
     for (const id of local.misses) {
@@ -171,12 +183,14 @@ async function main() {
         status: local.rawStatus,
         sectionCount: local.sectionCount,
         sideNavLinks: local.sideNavLinks,
+        sections: includeComponentStates ? pickRequiredSections(local.sectionStates, required) : undefined,
       },
       prod: {
         url: remote.url,
         status: remote.rawStatus,
         sectionCount: remote.sectionCount,
         sideNavLinks: remote.sideNavLinks,
+        sections: includeComponentStates ? pickRequiredSections(remote.sectionStates, required) : undefined,
       },
       issues: routeIssues,
     });
