@@ -111,17 +111,41 @@ jobs:
           header_value() {
             local url=$1
             local header=$2
-            local value
-            curl --connect-timeout 5 --max-time 20 -sS -I "$url" \
-              > /tmp/header.txt
-            set +o pipefail
-            value="$(tr -d '\r' < /tmp/header.txt | awk -v h="$header" 'BEGIN{IGNORECASE=1} $0 ~ ("^" h ":") { sub(/^.*: /, ""); print; exit }')"
-            rm -f /tmp/header.txt
-            set -o pipefail
+            local header_lc="${header,,}"
+            local line
+            local value=""
+            local tmp_headers="/tmp/headers.$$"
+            curl --connect-timeout 5 --max-time 20 -sS -I "$url" > "$tmp_headers"
+            while IFS= read -r line; do
+              line="${line%$'\r'}"
+              if [[ "${line,,}" == "${header_lc}:"* ]]; then
+                value="${line#*:}"
+                value="${value#"${value%%[![:space:]]*}"}"
+                break
+              fi
+            done < "$tmp_headers"
+            rm -f "$tmp_headers"
+            test -n "$value"
             printf '%s' "$value"
           }
           status_code() {
             curl --connect-timeout 5 --max-time 20 -sS -o /dev/null -w '%{http_code}' "$1"
+          }
+          contains() {
+            local haystack=$1
+            local needle=$2
+            case "$haystack" in
+              *"$needle"*) return 0;;
+              *) return 1;;
+            esac
+          }
+          contains_ci() {
+            local haystack=${1,,}
+            local needle=${2,,}
+            case "$haystack" in
+              *"$needle"*) return 0;;
+              *) return 1;;
+            esac
           }
           expect_header() {
             local url=$1
@@ -129,15 +153,14 @@ jobs:
             local expected=$3
             local value
             value="$(header_value "$url" "$header")"
-            test -n "$value"
-            printf '%s\n' "$value" | grep -qi "$expected"
+            contains_ci "$value" "$expected"
           }
           expect_cache_control() {
             local url=$1
             local value
             value="$(header_value "$url" "cache-control")"
-            test -n "$value"
-            printf '%s\n' "$value" | grep -Eqi '(^|[[:space:];,])no-(store|cache)([[:space:];,]|$)'
+            value="${value,,}"
+            contains "$value" "no-store" || contains "$value" "no-cache"
           }
           expect_headers() {
             expect_header "$1" "content-security-policy" "default-src 'self'"
@@ -153,14 +176,15 @@ jobs:
             local robots
             local robots_body
             body="$(curl --connect-timeout 5 --max-time 20 -sS "$url")"
-            if printf '%s\n' "$body" | grep -q '<meta name=\"robots\" content=\"noindex, nofollow\"'; then
+            if [[ "$body" == *'<meta name="robots" content="noindex, nofollow"'* ]]; then
               return 0
             fi
             robots="$(curl --connect-timeout 5 --max-time 20 -sS -o /dev/null -w '%{http_code}' "${url}robots.txt")"
             if [ "$robots" = "200" ]; then
               robots_body="$(curl --connect-timeout 5 --max-time 20 -sS "${url}robots.txt")"
-              printf '%s\n' "$robots_body" | grep -q '^Disallow: /$'
-              return 0
+              if [[ "$robots_body" == *"Disallow: /"* ]]; then
+                return 0
+              fi
             fi
             echo "WARNING: noindex metadata missing on $url; continuing with non-blocking policy check" >&2
           }
@@ -168,10 +192,10 @@ jobs:
             local url=$1
             local body
             body="$(curl --connect-timeout 5 --max-time 20 -sS "$url")"
-            printf '%s\n' "$body" | grep -q 'lang="zh-CN"'
-            printf '%s\n' "$body" | grep -q "路特 AI"
-            printf '%s\n' "$body" | grep -q "Momcozy"
-            printf '%s\n' "$body" | grep -q "私密经营"
+            contains "$body" 'lang="zh-CN"'
+            contains "$body" "路特 AI"
+            contains "$body" "Momcozy"
+            contains "$body" "私密经营"
           }
           expect_private_path_blocked() {
             local url=$1
