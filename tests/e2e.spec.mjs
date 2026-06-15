@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import {expect, test} from "@playwright/test";
+import {contentMinimumTextLength, pageComponentMap} from "../scripts/page-structure-contract.mjs";
 
 const releaseContract = JSON.parse(fs.readFileSync(new URL("../config/release-contract.json", import.meta.url), "utf8"));
 const publicCrossAudit = JSON.parse(fs.readFileSync(new URL("../src/_data/public-cross-audit.json", import.meta.url), "utf8"));
@@ -285,4 +286,34 @@ test("private business edition exposes business KPIs but no raw secrets", async 
   expect(text).toContain("overall_cvr");
   expect(text).toContain("AOV");
   expect(text).toContain("72.07万");
+});
+
+test("key report pages expose their documented structural components", async ({page}) => {
+  for (const [path, ids] of Object.entries(pageComponentMap)) {
+    await page.goto(path);
+    for (const id of ids) {
+      const section = page.locator(`#${id}`);
+      const count = await section.count();
+      expect(count, `Missing section #${id} on ${path}`).toBe(1);
+      const sectionState = await section.evaluate((el) => {
+        const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+        const tableCount = el.querySelectorAll("table").length;
+        return {
+          hasText: text.length,
+          tableCount
+        };
+      });
+      expect(sectionState.hasText, `Section #${id} on ${path} has no visible text`).toBeGreaterThan(contentMinimumTextLength);
+      if (sectionState.tableCount > 0) {
+        const rowCount = await page.locator(`#${id} table tbody tr`).count();
+        expect(rowCount, `Section #${id} table is empty on ${path}`).toBeGreaterThan(0);
+      }
+    }
+    const sectionCount = await page.locator(".section").count();
+    expect(sectionCount, `No section components on ${path}`).toBeGreaterThanOrEqual(ids.length - 2);
+    expect(
+      await page.locator(".side-nav__link").count(),
+      `Missing side nav links on ${path}`,
+    ).toBeGreaterThanOrEqual(3);
+  }
 });

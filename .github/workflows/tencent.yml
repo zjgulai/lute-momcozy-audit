@@ -32,6 +32,16 @@ jobs:
           key: playwright-chromium-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
       - run: npm test
+      - name: Validate local build structure parity against production
+        env:
+          PROD_BASE_URL: ${{ secrets.PUBLIC_URL }}
+        run: |
+          PUBLIC_URL="${PROD_BASE_URL}"
+          if [ -z "$PUBLIC_URL" ]; then
+            PUBLIC_URL="https://shopify.lute-tlz-dddd.top"
+          fi
+          mkdir -p artifacts
+          PROD_BASE_URL="$PUBLIC_URL" RELEASE_PARITY_REPORT_PATH="artifacts/release-parity-${GITHUB_SHA}.json" npm run test:release-parity
       - name: Generate SHA-256 manifest
         run: (cd _site && find . -type f -print0 | sort -z | xargs -0 sha256sum) > site.sha256
       - name: Upload verified site artifact
@@ -39,6 +49,7 @@ jobs:
         with:
           name: verified-site-${{ github.sha }}
           path: |
+            artifacts/release-parity-${{ github.sha }}.json
             _site/
             site.sha256
           include-hidden-files: true
