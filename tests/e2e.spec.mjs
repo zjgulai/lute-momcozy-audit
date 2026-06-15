@@ -367,8 +367,22 @@ test("key report pages expose their documented structural components", async ({p
   for (const [path, ids] of Object.entries(componentMap)) {
     await page.goto(path);
     for (const id of ids) {
-      const count = await page.locator(`#${id}`).count();
+      const section = page.locator(`#${id}`);
+      const count = await section.count();
       expect(count, `Missing section #${id} on ${path}`).toBe(1);
+      const sectionState = await section.evaluate((el) => {
+        const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+        const tableCount = el.querySelectorAll("table").length;
+        return {
+          hasText: text.length,
+          tableCount
+        };
+      });
+      expect(sectionState.hasText, `Section #${id} on ${path} has no visible text`).toBeGreaterThan(20);
+      if (sectionState.tableCount > 0) {
+        const rowCount = await page.locator(`#${id} table tbody tr`).count();
+        expect(rowCount, `Section #${id} table is empty on ${path}`).toBeGreaterThan(0);
+      }
     }
     const sectionCount = await page.locator(".section").count();
     expect(sectionCount, `No section components on ${path}`).toBeGreaterThanOrEqual(ids.length - 2);
