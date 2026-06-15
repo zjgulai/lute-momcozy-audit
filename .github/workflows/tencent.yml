@@ -111,9 +111,14 @@ jobs:
           header_value() {
             local url=$1
             local header=$2
+            local value
             curl --connect-timeout 5 --max-time 20 -sS -I "$url" \
-              | tr -d '\r' \
-              | awk -v h="$header" 'BEGIN{IGNORECASE=1} $0 ~ ("^" h ":") { sub(/^.*: /, ""); print; exit }'
+              > /tmp/header.txt
+            set +o pipefail
+            value="$(tr -d '\r' < /tmp/header.txt | awk -v h="$header" 'BEGIN{IGNORECASE=1} $0 ~ ("^" h ":") { sub(/^.*: /, ""); print; exit }')"
+            rm -f /tmp/header.txt
+            set -o pipefail
+            printf '%s' "$value"
           }
           status_code() {
             curl --connect-timeout 5 --max-time 20 -sS -o /dev/null -w '%{http_code}' "$1"
