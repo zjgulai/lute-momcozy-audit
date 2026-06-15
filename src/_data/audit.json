@@ -1,17 +1,17 @@
 {
   "meta": {
     "title": "Momcozy 门店技术审计",
-    "sessionId": "session-2026-06-14",
+    "sessionId": "session-2026-06-15",
     "auditVersion": "3.3.1",
     "collectedBy": "Playwright 自动采集（v3 路由聚合）",
-    "observedAt": "2026 年 6 月 14 日",
-    "latestObservedAt": "2026 年 6 月 14 日",
-    "scope": "公开版门店首页与一条代表性商品详情路径；桌面端与移动端双视口",
+    "observedAt": "2026 年 6 月 15 日",
+    "latestObservedAt": "2026 年 6 月 15 日",
+    "scope": "桌面端与移动端双视口下的 4 条路由（homepage、product-detail、cart、checkout）联合采样",
     "method": "Playwright 路由感知自动采集，含双视口与路由聚合",
     "publication": "脱敏公开版"
   },
   "summary": {
-    "verdict": "2026-06-14 自动化基线与历史结论一致：门店端瓶颈仍然主要集中在客户端体积、DOM 规模和第三方稳定性；在实验室条件下 CLS 保持稳定、首屏速度较快，但首页与商品详情的 LCP 仍不可观测。路由感知采集中，首页与商品详情均复现了相同失效面，说明问题是路径级结构性，不是偶发点位。",
+    "verdict": "2026-06-15 自动化基线与历史结论一致：门店端瓶颈仍然主要集中在客户端体积、DOM 规模和第三方稳定性；在实验室条件下 CLS 保持稳定、首屏速度较快，但首页与商品详情的 LCP 仍不可观测。路由感知采集中，首页与商品详情均复现了相同失效面，说明问题是路径级结构性，不是偶发点位。",
     "strengths": [
       "路由感知采集已在单次运行中覆盖首页与商品详情（桌面+移动）",
       "TTFB 在抽样路由的桌面与移动端均处于可接受区间",
@@ -20,7 +20,7 @@
     ],
     "risks": [
       "LCP 在最新路由与视口样本中均未可观测，实验室链路仍缺少可用的首屏核心序列",
-      "第三方请求失败仍偏高（每条样本 45–56），会放大归因、个性化与埋点结果偏差",
+      "第三方请求失败仍偏高（每条样本 45–57），会放大归因、个性化与埋点结果偏差",
       "技术上限仍超阈：路径样本 JS 体积约 1.9 MB、DOM 节点约 7.3k",
       "商品详情路径的失败与复杂度更高（脚本标签 342、iframe 32，控制台及页面错误）且图片与可访问性债务未消化",
       "报告仅给出技术边界与可执行建议，不得直接外推业务营收因果关系"
@@ -32,39 +32,39 @@
       "value": 0,
       "unit": "路由-视口样本百分比",
       "interpretation": "2026-06-14 自动样本未观测到任何 LCP 值（首页与商品详情各 2 个视口）。路由聚合运行显示 4 个样本均触发 lcp_unobserved_in_timeout，因此当前路由仍非 Headless 模式下稳定的 LCP 来源。",
-      "source": "Playwright PerformanceObserver，session-2026-06-14 路由聚合",
+      "source": "Playwright PerformanceObserver，session-2026-06-15 路由聚合",
       "confidence": "low"
     },
     {
       "label": "FCP（首页，桌面）",
-      "value": 0.58,
+      "value": 0.36,
       "unit": "秒",
       "interpretation": "首页桌面端 FCP 为 0.58 秒，较此前手工基线更快，说明首屏初始像素不再是主要瓶颈。",
-      "source": "Chromium 首次绘制时序，session-2026-06-14 首页桌面",
+      "source": "Chromium 首次绘制时序，session-2026-06-15 首页桌面",
       "confidence": "medium"
     },
     {
       "label": "FCP（首页，移动）",
-      "value": 0.34,
+      "value": 0.36,
       "unit": "秒",
       "interpretation": "首页移动端 FCP 为 0.34 秒，在当前实验条件下表现快速，显著优于常见 1.8 秒参考线。",
-      "source": "Chromium 首次绘制时序，session-2026-06-14 首页移动",
+      "source": "Chromium 首次绘制时序，session-2026-06-15 首页移动",
       "confidence": "medium"
     },
     {
       "label": "服务器响应（首页，桌面）",
-      "value": 416,
+      "value": 273,
       "unit": "毫秒",
       "interpretation": "首页桌面端 TTFB 416ms，移动端 213ms，均位于抽样范围内的可接受边界。",
-      "source": "Navigation Timing，session-2026-06-14 首页桌面 + 移动",
+      "source": "Navigation Timing，session-2026-06-15 首页桌面 + 移动",
       "confidence": "medium"
     },
     {
       "label": "服务器响应（商品详情，移动）",
-      "value": 298,
+      "value": 299,
       "unit": "毫秒",
       "interpretation": "商品详情移动端 TTFB 为 298ms，说明更深路径的服务端响应本身不是主要速度上限来源。",
-      "source": "Navigation Timing，session-2026-06-14 代表性商品详情移动",
+      "source": "Navigation Timing，session-2026-06-15 代表性商品详情移动",
       "confidence": "medium"
     },
     {
@@ -72,23 +72,23 @@
       "value": 0,
       "unit": "分数",
       "interpretation": "最新采样路由与视口下 CLS 持续为 0，说明初始渲染窗口未出现显著布局偏移。",
-      "source": "Chromium 布局偏移观测，session-2026-06-14 路由集",
+      "source": "Chromium 布局偏移观测，session-2026-06-15 路由集",
       "confidence": "high"
     },
     {
       "label": "JavaScript 体积（首页）",
-      "value": 1904,
+      "value": 1906,
       "unit": "KB",
       "interpretation": "首页脚本下载量仍为 1.9 MB（移动端 1.905 MB），超过 500 KB 目标约 3.8 倍。",
-      "source": "Resource Timing API（initiatorType=script）transferSize 合计，session-2026-06-14 首页",
+      "source": "Resource Timing API（initiatorType=script）transferSize 合计，session-2026-06-15 首页",
       "confidence": "high"
     },
     {
       "label": "DOM 节点（首页）",
-      "value": 7356,
+      "value": 7375,
       "unit": "个",
       "interpretation": "首页 DOM 节点仍在 7k 以上（桌面 7356，移动 8088），对低端设备的渲染与脚本成本仍有显著压力。",
-      "source": "document.querySelectorAll 长度统计，session-2026-06-14 首页路径",
+      "source": "document.querySelectorAll 长度统计，session-2026-06-15 首页路径",
       "confidence": "high"
     },
     {
@@ -96,89 +96,89 @@
       "value": 45,
       "unit": "请求",
       "interpretation": "首页记录到桌面与移动均约 45 次失败（桌面 45，移动 44），明显高于 <10 的工程预算，可能抑制埋点或功能初始化一致性。",
-      "source": "Playwright requestfailed 事件，session-2026-06-14 首页",
+      "source": "Playwright requestfailed 事件，session-2026-06-15 首页",
       "confidence": "high"
     },
     {
       "label": "第三方失败（商品详情）",
-      "value": 56,
+      "value": 57,
       "unit": "请求",
       "interpretation": "商品详情路径新增失败压力（56/55），说明失效并非首页特异性，而是跨路径稳态问题。",
-      "source": "Playwright requestfailed 事件，session-2026-06-14 商品详情",
+      "source": "Playwright requestfailed 事件，session-2026-06-15 商品详情",
       "confidence": "high"
     },
     {
       "label": "商品详情加载完成时间",
-      "value": 4.94,
+      "value": 5.18,
       "unit": "秒",
       "interpretation": "商品详情桌面端 load 事件约 4.94 秒，虽优于老版本手工基线，但仍显著高于转化关键路径的理想区间。",
-      "source": "loadEventMs 测量，session-2026-06-14 商品详情桌面",
+      "source": "loadEventMs 测量，session-2026-06-15 商品详情桌面",
       "confidence": "low"
     },
     {
       "label": "商品详情图片格式覆盖率",
-      "value": 11.08,
+      "value": 11.11,
       "unit": "百分比",
       "interpretation": "商品详情桌面端 WebP 覆盖率 11.08%，首页低于 1%。格式策略具有路径敏感性，当前仍处于较低水平。",
-      "source": "图片扫描，session-2026-06-14 商品详情与首页",
+      "source": "图片扫描，session-2026-06-15 商品详情与首页",
       "confidence": "low"
     },
     {
       "label": "商品详情图片缺失 alt",
-      "value": 40,
+      "value": 39,
       "unit": "张",
       "interpretation": "代表性商品详情样本中至少有 40 张图片缺失 alt 属性，属于高价值路径上的可访问性回归风险。",
-      "source": "图片可访问性扫描，session-2026-06-14 商品详情",
+      "source": "图片可访问性扫描，session-2026-06-15 商品详情",
       "confidence": "low"
     }
   ],
   "forensics": [
     {
       "label": "第三方请求失败观测",
-      "value": 56,
+      "value": 57,
       "unit": "请求",
       "interpretation": "2026-06-14 中最大观测值为商品详情桌面 56 次失败，首页为 45 次。与旧手工基线（3）不可横向比较，说明可对照的结构性失败率已显著抬升。",
-      "source": "Playwright requestfailed 事件，session-2026-06-14",
+      "source": "Playwright requestfailed 事件，session-2026-06-15",
       "confidence": "high"
     },
     {
       "label": "长任务（long tasks）",
-      "value": 3,
+      "value": 4,
       "unit": "任务",
       "interpretation": "主线程压力可观但未爆发性上升（2–3）。TBT 在实验室里偏低，可能受第三方失败提前中断脚本执行影响。",
-      "source": "Chromium long-task 指标，session-2026-06-14 路由集",
+      "source": "Chromium long-task 指标，session-2026-06-15 路由集",
       "confidence": "low"
     },
     {
       "label": "JavaScript 体积（最新）",
-      "value": 1942,
+      "value": 1922,
       "unit": "KB",
       "interpretation": "商品详情桌面端最新观测为 1.942 MB，首页约 1.904 MB。说明脚本体积问题并非单一路径异常。",
-      "source": "Resource Timing API（initiatorType=script）transferSize 合计，session-2026-06-14 路由集",
+      "source": "Resource Timing API（initiatorType=script）transferSize 合计，session-2026-06-15 路由集",
       "confidence": "high"
     },
     {
       "label": "DOM 节点（最新）",
-      "value": 8088,
+      "value": 8108,
       "unit": "个",
       "interpretation": "首页移动端达到 8,088 个节点，商品详情移动端 8,073，路由级增长与历史手工观察一致。",
-      "source": "document.querySelectorAll 长度统计，session-2026-06-14",
+      "source": "document.querySelectorAll 长度统计，session-2026-06-15",
       "confidence": "high"
     },
     {
       "label": "LCP 可观测风险",
-      "value": 4,
+      "value": 8,
       "unit": "样本",
       "interpretation": "4 个样本（2 路由 × 2 视口）全部未产出 LCP，说明问题更可能源于 Hero 与背景结构，而非单纯带宽因素。",
-      "source": "Playwright PerformanceObserver，session-2026-06-14 路由聚合",
+      "source": "Playwright PerformanceObserver，session-2026-06-15 路由聚合",
       "confidence": "high"
     },
     {
       "label": "审计覆盖路径",
-      "value": 2,
+      "value": 4,
       "unit": "条",
       "interpretation": "最新自动覆盖范围已含首页与一条代表性商品详情，仍未覆盖购物车、结账、搜索等核心转化链路。",
-      "source": "Session 路径映射，session-2026-06-14",
+      "source": "Session 路径映射，session-2026-06-15",
       "confidence": "high"
     },
     {
@@ -186,23 +186,23 @@
       "value": 342,
       "unit": "脚本标签",
       "interpretation": "代表性商品详情含 342 个脚本标签、32 个 iframe，加载顺序与错误传播面较大。",
-      "source": "DOM 清单，session-2026-06-14 商品详情",
+      "source": "DOM 清单，session-2026-06-15 商品详情",
       "confidence": "low"
     },
     {
       "label": "商品详情运行时错误",
-      "value": 15,
+      "value": 12,
       "unit": "次",
       "interpretation": "商品详情中控制台与页面错误合计 15 次（桌面 6，移动 9）。尚需 INP 或 RUM 追踪映射业务影响，但该项已构成明确工程风险。",
-      "source": "Console/Page Error 采集，session-2026-06-14 商品详情",
+      "source": "Console/Page Error 采集，session-2026-06-15 商品详情",
       "confidence": "low"
     },
     {
       "label": "图片可访问性缺口",
-      "value": 45,
+      "value": 43,
       "unit": "张",
       "interpretation": "桌面样本中首页与商品详情合并仍有 45 张图片缺失可访问标识；结合商品详情路径缺失图像标签，属于真实可修复债务。",
-      "source": "图片审计，session-2026-06-14 路由集",
+      "source": "图片审计，session-2026-06-15 路由集",
       "confidence": "low"
     }
   ],
