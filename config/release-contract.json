@@ -1,0 +1,18 @@
+{
+  "edition": "private-business",
+  "requiredMarkers": ["路特 AI", "Momcozy", "私密经营", "真实金额", "真实 KPI"],
+  "forbiddenMarkers": ["公开审计", "公开摘要", "nav-top"],
+  "pages": [
+    {"path": "/", "status": 200, "markers": ["真实经营数据回归", "side-nav"]},
+    {"path": "/metrics.html", "status": 200, "markers": ["指标字典", "真实经营 KPI"]},
+    {"path": "/metrics/", "status": 404, "markers": []},
+    {"path": "/forensics.html", "status": 200, "markers": ["证据链", "第三方失败"]},
+    {"path": "/forensics/", "status": 404, "markers": []},
+    {"path": "/trends.html", "status": 200, "markers": ["性能趋势", "session-2026-06-14"]},
+    {"path": "/trends/", "status": 404, "markers": []},
+    {"path": "/cross-audit.html", "status": 200, "markers": ["本页锚点", "执行战单"]},
+    {"path": "/not-a-real-page", "status": 404, "markers": []}
+  ],
+  "canonicalRoutes": ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"],
+  "acceptedAliases": ["/metrics", "/forensics", "/trends"]
+}

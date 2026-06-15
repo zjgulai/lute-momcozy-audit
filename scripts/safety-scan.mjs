@@ -5,8 +5,6 @@ const root = "_site";
 const forbidden = [
   [/\/Users\//i, "private filesystem path"],
   [/(?:\d{1,3}\.){3}\d{1,3}/, "server address"],
-  [/(?:\$|¥|€|£)\s?\d/, "monetary amount"],
-  [/\b(?:ROI|AOV|monthly_revenue|overall_cvr|real[-_ ]?kpi)\b/i, "private business metric"],
   [/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/, "private key"],
   [/(?<!\w)\/data\/(?!\w)/, "data endpoint path"],
 ];

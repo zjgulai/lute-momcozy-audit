@@ -1,9 +1,9 @@
 # Lute Momcozy Audit
 
-Public, sanitized technical audit of the Momcozy storefront — a periodic performance monitoring product.
+Private-business technical and operating audit of the Momcozy storefront — also a periodic performance monitoring product.
 
 **Production**: https://shopify.lute-tlz-dddd.top
-**Audit version**: 3.3.1
+**Release contract**: private-business (`docs/release-contract.md`)
 **Last session**: 2026-06-14 (automated, route-aware)
 
 ## Quick Start
@@ -11,7 +11,7 @@ Public, sanitized technical audit of the Momcozy storefront — a periodic perfo
 ```bash
 npm ci
 npm test        # build + schema + source safety + sessions + build safety + links + e2e + a11y
-npm run serve   # local preview at http://127.0.0.1:8080
+npm run serve   # local preview at http://localhost:8080
 ```
 
 ## Requirements
@@ -21,23 +21,37 @@ npm run serve   # local preview at http://127.0.0.1:8080
 
 ## Pages
 
-| Route | Template | Description |
+| Canonical route | Generated from | Description |
 |---|---|---|
-| `/` | `src/index.njk` | Overview — verdict, strengths, risks, recommendations |
-| `/metrics/` | `src/metrics.njk` | 11 technical metrics including vitals, JS payload, DOM, requests, image coverage, and product-detail legacy evidence |
-| `/forensics/` | `src/forensics.njk` | Evidence trail and audit limitations |
-| `/trends/` | `src/trends.njk` | uPlot charts + session table + delta cards |
-| `/404.html` | `src/404.njk` | Not-found page |
+| `/` | `scripts/build-history-site.mjs` | Overview — private-business storyline, operating KPIs, evidence chain, and execution plan |
+| `/metrics.html` | `scripts/build-history-site.mjs` | Metrics — operating KPI caveats plus route-aware technical metrics |
+| `/forensics.html` | `scripts/build-history-site.mjs` | Forensics — evidence trail, third-party failure analysis, and audit limits |
+| `/trends.html` | `scripts/build-history-site.mjs` | Trends — latest route-aware collection and methodology caveats |
+| `/cross-audit.html` | `scripts/build-history-site.mjs` | Cross-audit — contradictions, final audit, strategy matrix, and execution orders |
+| `/404.html` | `scripts/build-history-site.mjs` | Not-found page |
+
+Slashless aliases such as `/metrics`, `/forensics`, and `/trends` may work through the local/static server. The `.html` routes above are the source-of-truth routes for documentation, testing, and release identity checks.
 
 ## Data Architecture
 
-### audit.json — single-snapshot source for Overview/Metrics/Forensics
+### Active build source
 
-One file, schema-validated, all pages driven from it. Update when publishing a new audit cycle.
+`scripts/build-history-site.mjs` is the production build entrypoint. It reads `src/_data/public-cross-audit.json`, combines it with the latest session file, copies `history_static/assets/`, and writes `_site/`.
+
+Legacy Eleventy templates are still present for historical context, but they are not the active production build path.
+
+### public-cross-audit.json — private-business report source
+
+This is the current generated-site source for the private-business edition. It may include real amounts, real KPI labels, historical operating data, current operating data, collection data, and function-comparison conclusions approved by the owner.
+
+### audit.json — technical snapshot validation source
+
+`src/_data/audit.json` remains schema-validated and is used by validation scripts to keep latest technical findings aligned with the newest automated session.
 
 ### sessions/ — time-series archive for Trends
 
-One JSON file per collection run (`YYYY-MM-DD.json`). The `sessions.js` Eleventy data file reads and sorts them automatically, injecting `isAutomated` and `methodologyBreak` flags.
+One JSON file per collection run (`YYYY-MM-DD.json`). The latest collection session is
+resolved by `scripts/build-history-site.mjs` from `observedAt` and then fed through schema checks and threshold/route adapters.
 
 **Session format v2** (from 2026-06-10): dual viewport, new metrics (TBT, DOM nodes, JS KB, total requests), mobile block, auto-computed confidence.
 
@@ -71,16 +85,20 @@ Requires GitHub Secret: `AUDIT_TARGET_URL=https://momcozy.com`
 
 ## Safety Scan
 
-`npm run test:source-safety` scans public source inputs (`src/` and `docs/`) for forbidden patterns before publication.
+`npm run test:release-contract` verifies that the generated `_site/` matches the private-business release identity.
 
-`npm run test:safety` scans `_site/` for forbidden patterns:
-private paths, server addresses, monetary amounts, business KPIs,
-private keys, and raw private endpoint patterns.
+`npm run test:source-safety` scans publication inputs for still-forbidden patterns before deployment.
+
+`npm run test:safety` scans `_site/` for still-forbidden patterns: private paths, server addresses, private keys, and raw private endpoint patterns.
+
+Private-business edition allows real operating amounts and KPI labels in generated report pages. It still forbids secrets, private filesystem paths, server addresses, and raw data endpoint references.
 
 ## Current Roadmap
 
 The active optimization roadmap is tracked in `docs/optimization-todo.md`.
 Batch 1-15 are implemented.
+
+The active release-consistency debt plan is tracked in `docs/superpowers/plans/2026-06-15-debt-release-consistency-governance.md`.
 
 ## Review Workflow
 
@@ -137,7 +155,7 @@ Optional environment flags:
 - `UPTIME_REQUIRE_NOINDEX=1`: noindex check must pass or script exits non-zero.
 - `UPTIME_CHECKS_JSON='[{"name":"home","paths":["/"],"expectedStatus":[200],"requireSecurityHeaders":true}]'`: override check set.
 - `UPTIME_EXPECT_TITLE_CONTAINS`: optional homepage title marker to verify target identity.
-- `UPTIME_EXPECT_BODY_MARKERS`: optional comma-separated list or JSON array of required homepage body substrings.
+- `UPTIME_EXPECT_BODY_MARKERS`: comma-separated list or JSON array that overrides the default homepage identity markers (`路特 AI`, `Momcozy`, `私密经营`).
 - `UPTIME_EXPECT_HOME_SHA256`: optional homepage body SHA256 checksum for deploy identity.
 - `UPTIME_FETCH_RETRIES`: number of fetch attempts per request when the network call fails (default: `1`).
 - `UPTIME_FETCH_RETRY_DELAY_MS`: delay in milliseconds between retry attempts (default: `500`).

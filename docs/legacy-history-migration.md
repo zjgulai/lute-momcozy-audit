@@ -1,10 +1,12 @@
 # Legacy History Migration
 
-This note records how useful material from the retired history project was folded into the current sanitized Eleventy audit product.
+> Historical note: this document describes the earlier public-sanitized release boundary. The current release boundary is `docs/release-contract.md`.
+
+This note records how useful material from the retired history project was folded into the then-current public-sanitized Eleventy audit product.
 
 ## Relationship Between Projects
 
-The history project was an older static report package. It mixed public technical observations with private business context, static HTML pages, screenshots, and raw working files. The current project is the maintained public monitoring surface. It publishes schema-validated audit data, recurring session files, accessibility checks, link checks, and safety scanning.
+The history project was an older static report package. It mixed public technical observations with private business context, static HTML pages, screenshots, and raw working files. At the time of migration, this repository was maintained as the public monitoring surface. That release boundary is superseded by `docs/release-contract.md`.
 
 The current project is the canonical home after this migration.
 

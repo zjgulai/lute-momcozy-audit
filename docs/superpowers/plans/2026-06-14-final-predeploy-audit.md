@@ -1,5 +1,7 @@
 # Final Predeploy Audit Implementation Plan
 
+> Historical note: this plan implements the earlier public-sanitized release boundary. The current release boundary is `docs/release-contract.md`.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Complete a five-round launch-readiness audit before Tencent Cloud deployment.

@@ -2,4 +2,4 @@
 # Validate without executing network checks:
 # npm run test:uptime-cron
 
-*/5 * * * * cd /opt/momcozy-audit && PUBLIC_URL=https://shopify.lute-tlz-dddd.top UPTIME_STRICT=1 UPTIME_NOTIFY_WARNINGS=1 UPTIME_LOG_FILE=logs/monitor-results.log UPTIME_LOG_MAX_ENTRIES=2016 UPTIME_ALERT_STATE_FILE=logs/uptime-alert-state.json npm run monitor:uptime >> logs/uptime.log 2>&1
+*/5 * * * * cd /opt/momcozy-audit && PUBLIC_URL=https://shopify.lute-tlz-dddd.top UPTIME_STRICT=1 UPTIME_REQUIRE_NOINDEX=1 UPTIME_EXPECT_BODY_MARKERS='["\u8def\u7279\u0020AI","Momcozy","\u79c1\u5bc6\u7ecf\u8425"]' UPTIME_NOTIFY_WARNINGS=1 UPTIME_LOG_FILE=logs/monitor-results.log UPTIME_LOG_MAX_ENTRIES=2016 UPTIME_ALERT_STATE_FILE=logs/uptime-alert-state.json npm run monitor:uptime >> logs/uptime.log 2>&1
