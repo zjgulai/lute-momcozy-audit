@@ -375,12 +375,12 @@ export function featureComparisonSection(data) {
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">功能对比 · current vs history</div>
-        <h2 class="section__title">历史站缺失功能回迁清单</h2>
-        <p class="section__sub">对比线上腾讯云当前站与 GitHub 历史站后，最有价值的是分析模块和执行模块如何承接真实经营值与新采集证据。本表把缺口、回迁方式和安全边界一并固化。</p>
+        <h2 class="section__title">历史站高价值功能恢复清单</h2>
+        <p class="section__sub">对比线上腾讯云当前站与 GitHub 历史站后，最有价值的是分析模块和执行模块如何承接真实经营值与新采集证据。本表把缺口、恢复方式和安全边界一并固化。</p>
       </div>
       <div class="cross-table-wrap" tabindex="0">
         <table class="feature-table">
-          <thead><tr><th>历史功能</th><th>历史站价值</th><th>当前缺口</th><th>本次回迁方式</th></tr></thead>
+          <thead><tr><th>历史功能</th><th>历史站价值</th><th>当前缺口</th><th>本次恢复方式</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -534,13 +534,13 @@ export function trafficAttributionSection(data) {
   return `<section class="section section--gray" id="traffic-attribution">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">流量归因回迁</div>
-        <h2 class="section__title">流量结构问题要保留，但不能继续用旧口径下结论</h2>
-        <p class="section__sub">历史站把流量来源拆得很细，这是有价值的。但当前自然搜索明细为空，第三方失败又会污染归因，因此这部分回迁为“待补证据的归因路线图”。</p>
+        <div class="section__eyebrow">渠道质量诊断</div>
+        <h2 class="section__title">先修归因可信度，再决定预算和 SEO 动作</h2>
+        <p class="section__sub">历史站拆过流量来源，价值在于提醒团队不要只看总访问量。当前自然搜索明细为空，第三方失败又会污染广告、评论、客服和实验归因；因此本段只保留可执行的渠道诊断动作，不再沿用旧窗口下的收益判断。</p>
       </div>
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
-          <thead><tr><th>归因驱动</th><th>历史信号</th><th>当前校验</th><th>下一步证据</th></tr></thead>
+          <thead><tr><th>归因驱动</th><th>历史信号</th><th>当前校验</th><th>可执行校验动作</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -578,7 +578,7 @@ export function botGovernanceSection(data) {
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">爬虫与数据可信度</div>
-        <h2 class="section__title">爬虫问题回迁为归因可信度治理</h2>
+        <h2 class="section__title">爬虫问题纳入归因可信度治理</h2>
         <p class="section__sub">历史站把“爬虫是否拖慢页面”推进到“流量口径是否可信”。当前版本保留这个判断，并把旧流量比例标为历史口径，等待新采集复证。</p>
       </div>
       <div class="route-grid">${cards}</div>
@@ -596,7 +596,7 @@ export function diagnosticBacklogSection(data) {
   return `<section class="section" id="top15">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">Top 15 病灶 · 回迁版</div>
+        <div class="section__eyebrow">Top 15 病灶</div>
         <h2 class="section__title">15 项问题按证据强度和验收门槛重排</h2>
         <p class="section__sub">旧站的 Top 15 回来了，但排序不再依据旧收益预估，而是依据可复现程度、路径风险和能否复采验收。</p>
       </div>
@@ -616,7 +616,7 @@ export function competitorMatrixSection(data) {
   return `<section class="section section--gray" id="matrix">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">8 站矩阵回迁</div>
+        <div class="section__eyebrow">8 站竞品矩阵</div>
         <h2 class="section__title">横向参照保留为策略矩阵，并纳入经营 caveat</h2>
         <p class="section__sub">历史矩阵的价值是让建议不孤立。当前矩阵作为方向性对照，竞品侧数据已标记为“待重采”，本轮先把重采任务排入执行清单，再恢复成分值化对标。</p>
       </div>
