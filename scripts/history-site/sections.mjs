@@ -17,6 +17,42 @@ function observedSessionDate(data) {
   return data.external?.latestSession?.replace("session-", "") || "";
 }
 
+function statusLabelFromState(state) {
+  if (state === "done") return "已完成";
+  if (state === "in_progress") return "进行中";
+  if (state === "blocked") return "阻塞";
+  return "待重采";
+}
+
+function collectStatusMeta(status) {
+  if (!status || typeof status === "string") return "";
+  const parts = [
+    status.owner ? `负责人：${status.owner}` : null,
+    status.dueBy ? `截止：${status.dueBy}` : null,
+    status.state ? `状态：${statusLabelFromState(status.state)}` : null
+  ].filter(Boolean);
+  return parts.length ? `<div class="evidence-note">${parts.map((item) => escapeHtml(item)).join(" · ")}</div>` : "";
+}
+
+function renderRecollectStatus(status) {
+  if (!status) return `<span class="badge badge--p2">待重采</span>`;
+  if (typeof status === "string") {
+    return `<span class="badge badge--p2">待重采</span><div class="evidence-note">${escapeHtml(status)}</div>`;
+  }
+
+  const stateLabel = statusLabelFromState(status.state);
+  const stateClass = status.state === "done" ? "badge--safe" : (status.state === "in_progress" ? "badge--p1" : "badge--p2");
+  const actionItems = Array.isArray(status.actions) ? status.actions : [];
+  const evidenceItems = Array.isArray(status.evidence) ? status.evidence : [];
+
+  return `
+    <span class="badge ${stateClass}">${escapeHtml(stateLabel)}</span>
+    ${status.summary ? `<div>${escapeHtml(status.summary)}</div>` : ""}
+    ${collectStatusMeta(status)}
+    ${actionItems.length ? `<ul>${actionItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : ""}
+    ${evidenceItems.length ? `<div class="evidence-note">校验项：${evidenceItems.map((item) => escapeHtml(item)).join("，")}</div>` : ""}`;
+}
+
 export function conclusionRows(conclusions) {
   return conclusions.map((item) => `<tr>
     <td><strong>${escapeHtml(item.id)}</strong></td>
@@ -575,7 +611,7 @@ export function competitorMatrixSection(data) {
     <td class="momcozy">${escapeHtml(item.momcozy)}</td>
     <td>${escapeHtml(item.reference)}</td>
     <td>${escapeHtml(item.lesson)}</td>
-    <td>${escapeHtml(item.recollectStatus || "待重采")}</td>
+    <td>${renderRecollectStatus(item.recollectStatus)}</td>
   </tr>`).join("");
   return `<section class="section section--gray" id="matrix">
     <div class="container">
@@ -606,6 +642,19 @@ export function competitorRecollectPlanSection(data) {
     <td>${escapeHtml(item.requirement)}</td>
   </tr>`).join("");
 
+  const tasks = (plan.tasks || []).map((task) => `<tr>
+    <td>${escapeHtml(task.taskId || "")}</td>
+    <td>${escapeHtml(task.title || "")}</td>
+    <td>${escapeHtml(task.owner || "")}</td>
+    <td>${escapeHtml(statusLabelFromState(task.state || "todo"))}</td>
+    <td>${escapeHtml(task.dueBy || "")}</td>
+    <td>${(Array.isArray(task.deliverables) && task.deliverables.length > 0) ? `<ul>${task.deliverables.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : ""}</td>
+  </tr>`).join("");
+
+  const executionContext = [plan.goal, plan.executionWindow ? `执行窗口：${plan.executionWindow}` : ""]
+    .filter(Boolean)
+    .join("；");
+
   const commands = (plan.commands || []).map((command) => `<li><code>${escapeHtml(command)}</code></li>`).join("");
   const rules = (plan.executionRules || []).map((rule) => `<li>${escapeHtml(rule)}</li>`).join("");
 
@@ -616,13 +665,19 @@ export function competitorRecollectPlanSection(data) {
         <h2 class="section__title">把‘待重采’改为‘可验收动作’</h2>
         <p class="section__sub">Owner: ${escapeHtml(plan.owner)}。目标：先补齐站内链路口径，再让竞品对照有同口径样本。</p>
       </div>
-      <div class="deprecated">${escapeHtml(plan.goal)}；执行窗口：${escapeHtml(plan.executionWindow)}。</div>
+      <div class="deprecated">${escapeHtml(executionContext)}。</div>
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
           <thead><tr><th>路由ID</th><th>说明</th><th>复采要求</th></tr></thead>
           <tbody>${routes}</tbody>
         </table>
       </div>
+      ${tasks ? `<div class="cross-table-wrap" style="margin-top: 16px;" tabindex="0">
+        <table class="cross-table">
+          <thead><tr><th>任务ID</th><th>任务</th><th>负责人</th><th>状态</th><th>截止</th><th>交付项</th></tr></thead>
+          <tbody>${tasks}</tbody>
+        </table>
+      </div>` : ""}
       <div class="route-grid" style="margin-top: 16px;">
         <div class="route-card">
           <h3>执行命令（下一步）</h3>
