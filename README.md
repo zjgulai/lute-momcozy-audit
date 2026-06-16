@@ -171,7 +171,7 @@ The command opens the production site in Chromium across desktop, tablet, and mo
 
 Use `PRODUCTION_LAYOUT_BASE_URL` or `PUBLIC_URL` to audit a different deployment target, and `PRODUCTION_LAYOUT_OUTPUT_DIR` to choose a deterministic report path.
 
-Tencent deployment also runs this audit automatically after the external smoke tests. The workflow uploads the screenshots and diagnostics as the `production-layout-audit-<sha>` Actions artifact, so each production release has visual evidence attached to the run.
+Tencent deployment also runs this audit automatically after the external smoke tests. The workflow writes the audit excerpt and artifact entry into the GitHub Actions run summary, then uploads the screenshots and diagnostics as the `production-layout-audit-<sha>` Actions artifact, so each production release has visual evidence attached to the run.
 
 ### GitHub Pages (automatic)
 Push to `main` → `pages.yml` builds, tests, and deploys.
