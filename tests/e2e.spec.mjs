@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import {expect, test} from "@playwright/test";
-import {contentMinimumTextLength, pageComponentMap} from "../scripts/page-structure-contract.mjs";
+import {contentMinimumTextLength, pageComponentMap, pageNavigationContract} from "../scripts/page-structure-contract.mjs";
 
 const releaseContract = JSON.parse(fs.readFileSync(new URL("../config/release-contract.json", import.meta.url), "utf8"));
 const publicCrossAudit = JSON.parse(fs.readFileSync(new URL("../src/_data/public-cross-audit.json", import.meta.url), "utf8"));
@@ -134,18 +134,28 @@ test("cross audit sidebar prioritizes current-page anchors", async ({page}) => {
   expect(result.ctaText).toBe("查看执行战单");
 });
 
-test("channel diagnosis terminology is consistent in sidebar and content", async ({page}) => {
-  for (const pathname of ["/", "/metrics.html"]) {
+test("sidebar anchors match the page navigation contract", async ({page}) => {
+  for (const [pathname, expectedAnchors] of Object.entries(pageNavigationContract)) {
     await page.goto(pathname);
-    const result = await page.evaluate(() => ({
-      anchorLabels: Array.from(document.querySelectorAll(".side-nav__anchor")).map((anchor) => anchor.textContent.trim()),
-      sectionEyebrow: document.querySelector("#traffic-attribution .section__eyebrow")?.textContent.trim() || "",
-      sectionTitle: document.querySelector("#traffic-attribution .section__title")?.textContent.trim() || "",
-    }));
-    expect(result.anchorLabels).toContain("渠道诊断");
-    expect(result.anchorLabels).not.toContain("流量归因");
-    expect(result.sectionEyebrow).toBe("渠道质量诊断");
-    expect(result.sectionTitle).toBe("先修归因可信度，再决定预算和 SEO 动作");
+    const actualAnchors = await page.evaluate(() => Array.from(document.querySelectorAll(".side-nav__anchor")).map((anchor) => ({
+      href: anchor.getAttribute("href"),
+      label: anchor.textContent.trim(),
+    })));
+    expect(actualAnchors, `${pathname} side-nav anchors`).toEqual(expectedAnchors.map(({href, label}) => ({href, label})));
+    for (const {href, label, targetId, markers} of expectedAnchors) {
+      const sectionState = await page.locator(`#${targetId}`).evaluate((section, expectedMarkers) => {
+        const eyebrow = section.querySelector(".section__eyebrow")?.textContent?.trim() || "";
+        const title = section.querySelector(".section__title, h1")?.textContent?.replace(/\s+/g, " ").trim() || "";
+        const text = section.textContent?.replace(/\s+/g, " ").trim() || "";
+        return {
+          eyebrow,
+          title,
+          markersPresent: expectedMarkers.map((marker) => text.includes(marker)),
+        };
+      }, markers);
+      expect(sectionState.markersPresent, `${pathname} ${href} ${label} target text`).toEqual(markers.map(() => true));
+      expect(`${sectionState.eyebrow} ${sectionState.title}`.trim().length, `${pathname} ${href} ${label} target heading`).toBeGreaterThan(0);
+    }
   }
 });
 
