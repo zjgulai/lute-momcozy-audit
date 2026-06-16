@@ -405,28 +405,56 @@
         "momcozy": "需治理",
         "reference": "历史站显示竞品有更清晰的 robots 策略。",
         "lesson": "分开训练型、搜索型、SEO 型和价格情报型抓取。",
-        "recollectStatus": "待重采 · 站点 robots 分层样本与竞品样本未同步更新。"
+        "recollectStatus": {
+          "state": "todo",
+          "summary": "站点 robots 分层样本与竞品样本未同步更新。",
+          "owner": "采集团队",
+          "dueBy": "2026-06-22",
+          "actions": ["补充 robots 分层样本", "补齐竞品 robots 口径", "重跑 crawl 差异对账"],
+          "evidence": ["crawl 日志", "样本抽样截图", "路由覆盖清单"]
+        }
       },
       {
         "dimension": "PDP 行动路径",
         "momcozy": "需扩采",
         "reference": "历史站把商品页作为关键漏斗节点。",
         "lesson": "先扩 PDP 队列，再判断模板级问题。",
-        "recollectStatus": "待重采 · 需补 PDP/watchlist + cart + checkout。"
+        "recollectStatus": {
+          "state": "todo",
+          "summary": "需补 PDP/watchlist + cart + checkout。",
+          "owner": "增长负责人",
+          "dueBy": "2026-06-24",
+          "actions": ["补齐 PDP watchlist 模块", "补齐 cart 与 checkout 路由", "生成多维度样本对照"],
+          "evidence": ["10 条 PDP 复采样本", "PDP 与交易链路样本对齐表", "失败率对账表"]
+        }
       },
       {
         "dimension": "第三方脚本治理",
         "momcozy": "高优先级",
         "reference": "历史站列出第三方域名与脚本负担。",
         "lesson": "保留必要归因，延后非关键组件。",
-        "recollectStatus": "待重采 · 需对照 57/54 失败样本的竞品版本。"
+        "recollectStatus": {
+          "state": "in_progress",
+          "summary": "需对照 57/54 失败样本的竞品版本。",
+          "owner": "前端负责人",
+          "dueBy": "2026-06-28",
+          "actions": ["对齐竞品脚本失败样本", "建立 owner / 用途 / 预算表", "确定可延后加载清单"],
+          "evidence": ["第三方失败趋势", "脚本分组矩阵", "归因完整性核对"]
+        }
       },
       {
         "dimension": "内容入口变现",
         "momcozy": "暂停判断",
         "reference": "历史站有内容型入口假设。",
         "lesson": "当前搜索明细为空，必须先补数据源。",
-        "recollectStatus": "待重采 · 先补独立搜索源和落地页样本。"
+        "recollectStatus": {
+          "state": "todo",
+          "summary": "先补独立搜索源和落地页样本。",
+          "owner": "数据负责人",
+          "dueBy": "2026-06-30",
+          "actions": ["补齐独立搜索源", "补入落地页样本", "对齐品牌词/问题词/产品词口径"],
+          "evidence": ["搜索词条覆盖表", "落地页点击与转化映射", "复采版本清单"]
+        }
       }
     ],
     "playbookCards": [
@@ -486,6 +514,40 @@
     "goal": "把‘待重采’从状态标签升级为可落地动作：先复核自站路由口径，再恢复竞品横向对标。",
     "owner": "采集团队 + 前端负责人 + 数据负责人 + 增长负责人",
     "executionWindow": "7 天起步，30 天形成第一版可复核竞品对比。",
+    "tasks": [
+      {
+        "taskId": "C-01",
+        "title": "统一采集口径与样本定义",
+        "owner": "数据负责人",
+        "state": "in_progress",
+        "dueBy": "2026-06-22",
+        "deliverables": ["route 配置与样本口径说明", "methodology 变更说明", "执行命令和验收清单"]
+      },
+      {
+        "taskId": "C-02",
+        "title": "补齐 PDP/watchlist 与交易链路采样",
+        "owner": "增长负责人",
+        "state": "pending",
+        "dueBy": "2026-06-24",
+        "deliverables": ["补充 cart/checkout 路由", "watchlist 十条 PDP + cookie 分段复采", "路由级指标回写"]
+      },
+      {
+        "taskId": "C-03",
+        "title": "补齐第三方脚本治理证据",
+        "owner": "前端负责人",
+        "state": "pending",
+        "dueBy": "2026-06-28",
+        "deliverables": ["竞品脚本失败映射", "失败域名 owner 清单", "脚本加载时机分层建议"]
+      },
+      {
+        "taskId": "C-04",
+        "title": "恢复自然搜索对照样本",
+        "owner": "增长负责人",
+        "state": "pending",
+        "dueBy": "2026-06-30",
+        "deliverables": ["独立搜索源接入", "品牌词/问题词/产品词样本", "搜索样本与落地页归因核对"]
+      }
+    ],
     "commands": [
       "AUDIT_TARGET_URL=https://momcozy.com npm run collect",
       "AUDIT_ROUTE_CONFIG=config/collection-routes.json npm run collect",

@@ -247,6 +247,20 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
   expect(text).not.toContain("证据台账");
 });
 
+test("cross-audit exposes executable competitor recollect plan", async ({page}) => {
+  await page.goto("/cross-audit.html");
+  await page.locator("#competitor-recollect").scrollIntoViewIfNeeded();
+  const executionSection = await page.locator("#competitor-recollect").textContent();
+  expect(executionSection).toContain("把‘待重采’改为‘可验收动作’");
+  expect(executionSection).toContain("C-01");
+  expect(executionSection).toContain("统一采集口径与样本定义");
+  expect(executionSection).toContain("采集团队");
+  expect(executionSection).toContain("2026-06-22");
+  expect(executionSection).toContain("任务");
+  expect(executionSection).toContain("route 配置与样本口径说明");
+  expect(executionSection).toContain("交付项");
+});
+
 test("mobile strategy matrix wraps and allows horizontal scroll", async ({browser}) => {
   const mobile = await browser.newPage({viewport: {width: 390, height: 844}});
   await mobile.goto("/cross-audit.html");

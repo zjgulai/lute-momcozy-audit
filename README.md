@@ -11,6 +11,8 @@ Private-business technical and operating audit of the Momcozy storefront — als
 ```bash
 npm ci
 npm test        # build + schema + source safety + sessions + build safety + links + e2e + a11y
+npm run test:competitor-plan # validate competitor recollect statuses and task execution plan
+npm run release:checklist # generate a pre-release evidence checklist in artifacts/
 npm run test:release-parity   # optional pre-release local-vs-production structure parity check
 npm run serve   # local preview at http://localhost:8080
 ```
@@ -66,8 +68,9 @@ resolved by `scripts/build-history-site.mjs` from `observedAt` and then fed thro
 
 1. Edit `src/_data/audit.json`
 2. `npm run test:allowlist` — validate schema
-3. `npm test` — full suite
-4. Commit and push
+3. `npm run test:competitor-plan` — verify `public-cross-audit.json` competitor recollect status/task plan integrity
+4. `npm test` — full suite
+5. Commit and push
 
 ### Add a new session (manual)
 
@@ -123,6 +126,30 @@ For manual review of data-only PRs and release-note conventions, follow `docs/re
 
 ## Deployment
 
+### Pre-release evidence checklist
+
+Before pushing a release branch or `main`, run:
+
+```bash
+npm run release:checklist
+```
+
+The command writes a Markdown evidence package under `artifacts/` with:
+
+- current branch and commit,
+- latest session and release-contract context,
+- full local `npm test` status,
+- local-vs-production release parity status,
+- production uptime / route-contract status,
+- a release-note draft and manual deploy checklist.
+
+Use `npm run release:checklist -- --quick` when you only need a lightweight local gate before deeper CI validation. Optional flags:
+
+- `--skip-parity`: skip production structure parity.
+- `--skip-monitor`: skip production uptime checks.
+- `RELEASE_CHECKLIST_PUBLIC_URL`: override the production URL.
+- `RELEASE_CHECKLIST_OUTPUT`: write the checklist to a specific Markdown path.
+
 ### GitHub Pages (automatic)
 Push to `main` → `pages.yml` builds, tests, and deploys.
 
@@ -139,6 +166,17 @@ Required repository secrets:
 | `DEPLOY_USER` | `ubuntu` |
 | `PUBLIC_URL` | `https://shopify.lute-tlz-dddd.top` |
 | `AUDIT_TARGET_URL` | `https://momcozy.com` |
+
+## Competitor recollect plan checks
+
+竞品复采计划使用 `src/_data/public-cross-audit.json` 中的 `competitorMatrix` 与 `competitorRecollectPlan` 两类数据支撑。
+`npm run test:competitor-plan` 会对以下内容做约束：
+
+- `competitorMatrix[*].recollectStatus` 的结构与状态值（`todo` / `pending` / `in_progress` / `blocked` / `done`）校验
+- 计划任务 `competitorRecollectPlan.tasks` 的字段完整性、任务 ID 去重、状态值
+- `commands` 字段为非空字符串列表（如有）
+
+本仓库的 `npm test` 已将该校验固化到统一管道，避免“网站结构正常、但任务台账未闭环”的发布风险。
 
 ### External uptime monitoring (outside GitHub Actions)
 
