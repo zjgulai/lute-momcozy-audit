@@ -134,6 +134,21 @@ test("cross audit sidebar prioritizes current-page anchors", async ({page}) => {
   expect(result.ctaText).toBe("查看执行战单");
 });
 
+test("channel diagnosis terminology is consistent in sidebar and content", async ({page}) => {
+  for (const pathname of ["/", "/metrics.html"]) {
+    await page.goto(pathname);
+    const result = await page.evaluate(() => ({
+      anchorLabels: Array.from(document.querySelectorAll(".side-nav__anchor")).map((anchor) => anchor.textContent.trim()),
+      sectionEyebrow: document.querySelector("#traffic-attribution .section__eyebrow")?.textContent.trim() || "",
+      sectionTitle: document.querySelector("#traffic-attribution .section__title")?.textContent.trim() || "",
+    }));
+    expect(result.anchorLabels).toContain("渠道诊断");
+    expect(result.anchorLabels).not.toContain("流量归因");
+    expect(result.sectionEyebrow).toBe("渠道质量诊断");
+    expect(result.sectionTitle).toBe("先修归因可信度，再决定预算和 SEO 动作");
+  }
+});
+
 test("all key pages expose diagnostic bridge section", async ({page}) => {
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
     await page.goto(pathname);
@@ -251,7 +266,7 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
 });
 
 test("primary pages do not expose internal evidence-index wording", async ({page}) => {
-  const bannedTerms = ["回迁", "铁证索引", "证据台账", "铁证如山", "旧口径下结论", "待补证据的归因路线图"];
+  const bannedTerms = ["回迁", "铁证索引", "证据台账", "铁证如山", "旧口径下结论", "待补证据的归因路线图", "证据索引层", "索引层"];
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
     await page.goto(pathname);
     const text = await page.locator("body").innerText();

@@ -282,7 +282,7 @@ export function storylineSection(data) {
       <div class="section__head">
         <div class="section__eyebrow">沿用老故事线</div>
         <h2 class="section__title">先判断经营摩擦，再落地技术修复，再验收</h2>
-        <p class="section__sub">沿用历史站的决策顺序：经营优先级、流量归因、数据可信度、技术病灶和执行路线。当前私密版保留这条链路，并用最新经营与采集数据补齐结论边界。</p>
+        <p class="section__sub">沿用历史站的决策顺序：经营优先级、渠道归因、数据可信度、技术病灶和执行路线。当前私密版保留这条链路，并用最新经营与采集数据补齐结论边界。</p>
       </div>
       <div class="story-grid">
         ${items.map((item, index) => `<div class="story-card"><div class="story-card__num">${index + 1}</div><p>${escapeHtml(item)}</p></div>`).join("")}
@@ -746,7 +746,7 @@ export function hero(data) {
         <div>
           <span class="hero__badge">M1 v2.0 历史骨架 · 私密经营数据重审版</span>
           <h1 class="hero__title">真实经营数据回归，<br><span class="hl">技术债故事线闭环</span>。</h1>
-          <p class="hero__lead"><strong>先把话说透：</strong>本版不再是压缩摘要，而是把当前 workbook、历史经营 JSON 与 ${sessionLabel || "最新"} 自动采集放在同一个审计故事里。旧站的业务体检、流量归因、爬虫可信度、资产保护、Top 15 和 PR 路线图都要回来。</p>
+          <p class="hero__lead"><strong>先把话说透：</strong>本版不再是压缩摘要，而是把当前 workbook、历史经营 JSON 与 ${sessionLabel || "最新"} 自动采集放在同一个审计故事里。旧站的业务体检、渠道归因、爬虫可信度、资产保护、Top 15 和 PR 路线图都要回来。</p>
           <p class="hero__lead">当前经营表显示总销售额 ${fixed(data.currentOperations.sales.totalSalesWan, 2)}万、转化率 ${pct(data.currentOperations.conversion.conversionRate)}、AOV ${fixed(data.currentOperations.sales.averageOrderValue, 2)}；历史 M1 v2.0 显示总营收 ${usdMillion(data.historicalOperations.sales.totalRevenueUsd)}、monthly_revenue ${usdMillion(data.historicalOperations.sales.monthlyRevenueUsd)}、overall_cvr ${pct(data.historicalOperations.conversion.overallCvr)}。自动采集则证明首页与代表性 PDP 仍暴露约 1.9MB JS、最高 ${data.external.maxDomNodes.toLocaleString("en-US")} DOM 节点、最高 ${data.external.maxThirdPartyFailures} 次第三方失败。</p>
           <div class="hero__meta">
             <span>经营刷新 · ${data.internal.statusCounts.PASS} PASS / ${data.internal.statusCounts.WARN} WARN / ${data.internal.statusCounts.FAIL} FAIL</span>
