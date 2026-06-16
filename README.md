@@ -12,6 +12,7 @@ Private-business technical and operating audit of the Momcozy storefront — als
 npm ci
 npm test        # build + schema + source safety + sessions + build safety + links + e2e + a11y
 npm run test:competitor-plan # validate competitor recollect statuses and task execution plan
+npm run release:checklist # generate a pre-release evidence checklist in artifacts/
 npm run test:release-parity   # optional pre-release local-vs-production structure parity check
 npm run serve   # local preview at http://localhost:8080
 ```
@@ -124,6 +125,30 @@ Monthly CI collection builds a PR with an auto-generated summary at `.github/col
 For manual review of data-only PRs and release-note conventions, follow `docs/review-workflow.md`.
 
 ## Deployment
+
+### Pre-release evidence checklist
+
+Before pushing a release branch or `main`, run:
+
+```bash
+npm run release:checklist
+```
+
+The command writes a Markdown evidence package under `artifacts/` with:
+
+- current branch and commit,
+- latest session and release-contract context,
+- full local `npm test` status,
+- local-vs-production release parity status,
+- production uptime / route-contract status,
+- a release-note draft and manual deploy checklist.
+
+Use `npm run release:checklist -- --quick` when you only need a lightweight local gate before deeper CI validation. Optional flags:
+
+- `--skip-parity`: skip production structure parity.
+- `--skip-monitor`: skip production uptime checks.
+- `RELEASE_CHECKLIST_PUBLIC_URL`: override the production URL.
+- `RELEASE_CHECKLIST_OUTPUT`: write the checklist to a specific Markdown path.
 
 ### GitHub Pages (automatic)
 Push to `main` → `pages.yml` builds, tests, and deploys.

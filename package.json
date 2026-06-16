@@ -10,6 +10,7 @@
     "serve": "node scripts/serve.mjs",
     "monitor:uptime": "node scripts/uptime-monitor.mjs",
     "monitor:notify-summary": "node scripts/summarize-notify-failures.mjs",
+    "release:checklist": "node scripts/generate-release-checklist.mjs",
     "test:allowlist": "node scripts/validate-public-data.mjs",
     "test:competitor-plan": "node scripts/validate-competitor-recollect-plan.mjs",
     "test:release-contract": "node scripts/validate-release-contract.mjs",
