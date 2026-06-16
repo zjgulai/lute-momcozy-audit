@@ -148,6 +148,8 @@ Use `npm run release:checklist -- --quick` when you only need a lightweight loca
 
 - `--skip-parity`: skip production structure parity.
 - `--skip-monitor`: skip production uptime checks.
+- `--github-run-id=<tencent-run-id>` or `RELEASE_CHECKLIST_GITHUB_RUN_ID`: verify that a completed Tencent workflow run for the current commit produced both `verified-site-<sha>` and `production-layout-audit-<sha>` artifacts.
+- `RELEASE_CHECKLIST_GITHUB_REPO`: override the GitHub repository slug used for artifact verification.
 - `RELEASE_CHECKLIST_PUBLIC_URL`: override the production URL.
 - `RELEASE_CHECKLIST_OUTPUT`: write the checklist to a specific Markdown path.
 

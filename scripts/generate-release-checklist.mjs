@@ -6,8 +6,20 @@ const args = new Set(process.argv.slice(2));
 const quickMode = args.has("--quick") || process.env.RELEASE_CHECKLIST_QUICK === "1";
 const skipParity = args.has("--skip-parity") || process.env.RELEASE_CHECKLIST_SKIP_PARITY === "1";
 const skipMonitor = args.has("--skip-monitor") || process.env.RELEASE_CHECKLIST_SKIP_MONITOR === "1";
+const githubRunId = argValue("--github-run-id") || process.env.RELEASE_CHECKLIST_GITHUB_RUN_ID || "";
 const publicUrl = process.env.RELEASE_CHECKLIST_PUBLIC_URL || process.env.PUBLIC_URL || "https://shopify.lute-tlz-dddd.top";
 const outputPath = process.env.RELEASE_CHECKLIST_OUTPUT || path.join("artifacts", `release-checklist-${new Date().toISOString().replace(/[:.]/g, "-")}.md`);
+
+function argValue(name) {
+  const rawArgs = process.argv.slice(2);
+  const prefix = `${name}=`;
+  for (let index = 0; index < rawArgs.length; index += 1) {
+    const value = rawArgs[index];
+    if (value.startsWith(prefix)) return value.slice(prefix.length);
+    if (value === name && rawArgs[index + 1] && !rawArgs[index + 1].startsWith("--")) return rawArgs[index + 1];
+  }
+  return "";
+}
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -19,6 +31,18 @@ function git(argsList, fallback = "") {
   } catch {
     return fallback;
   }
+}
+
+function repoSlugFromRemote(remoteUrl) {
+  const normalized = String(remoteUrl || "").trim().replace(/\.git$/, "");
+  const match = normalized.match(/github\.com[:/]([^/]+)\/([^/]+)$/);
+  return match ? `${match[1]}/${match[2]}` : "";
+}
+
+function githubRepoSlug() {
+  return process.env.RELEASE_CHECKLIST_GITHUB_REPO
+    || process.env.GITHUB_REPOSITORY
+    || repoSlugFromRemote(git(["config", "--get", "remote.origin.url"], ""));
 }
 
 function latestSession() {
@@ -79,7 +103,82 @@ function runCheck(check) {
   };
 }
 
-function checksForMode() {
+function runGithubArtifactCheck({runId, repo, commitFull}) {
+  const startedAt = Date.now();
+  const command = `gh api repos/${repo}/actions/runs/${runId}/artifacts`;
+  console.log("[release-checklist] GitHub Actions release artifacts");
+  if (!repo) {
+    return {
+      name: "GitHub Actions release artifacts",
+      command,
+      status: "FAIL",
+      exitCode: 1,
+      durationMs: Date.now() - startedAt,
+      summary: "(no output)",
+      error: "GitHub repository slug is unknown; set RELEASE_CHECKLIST_GITHUB_REPO=owner/repo",
+    };
+  }
+
+  const runResult = spawnSync("gh", [
+    "api",
+    `repos/${repo}/actions/runs/${runId}`,
+    "--jq",
+    "[.status, .conclusion, .head_sha, .html_url] | @tsv",
+  ], {encoding: "utf8", timeout: 60_000});
+  if (runResult.error || runResult.status !== 0) {
+    return {
+      name: "GitHub Actions release artifacts",
+      command,
+      status: "FAIL",
+      exitCode: runResult.status,
+      durationMs: Date.now() - startedAt,
+      summary: summarizeOutput(runResult.stdout, runResult.stderr, "FAIL"),
+      error: runResult.error ? sanitize(runResult.error.message) : "failed to read GitHub Actions run metadata",
+    };
+  }
+
+  const [runStatus, conclusion, headSha, runUrl] = String(runResult.stdout || "").trim().split("\t");
+  const artifactResult = spawnSync("gh", [
+    "api",
+    `repos/${repo}/actions/runs/${runId}/artifacts`,
+    "--jq",
+    ".artifacts[] | [.name, .size_in_bytes, .expired] | @tsv",
+  ], {encoding: "utf8", timeout: 60_000});
+  const artifacts = new Map(String(artifactResult.stdout || "")
+    .trim()
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .map((line) => {
+      const [name, size, expired] = line.split("\t");
+      return [name, {size: Number(size), expired: expired === "true"}];
+    }));
+  const expected = [`verified-site-${commitFull}`, `production-layout-audit-${commitFull}`];
+  const missing = expected.filter((name) => !artifacts.has(name));
+  const invalid = expected.filter((name) => artifacts.has(name) && (artifacts.get(name).expired || artifacts.get(name).size <= 0));
+  const failures = [];
+  if (artifactResult.error || artifactResult.status !== 0) failures.push("failed to read artifact list");
+  if (runStatus !== "completed") failures.push(`run status is ${runStatus || "unknown"}`);
+  if (conclusion !== "success") failures.push(`run conclusion is ${conclusion || "unknown"}`);
+  if (headSha !== commitFull) failures.push(`run head sha ${headSha || "unknown"} does not match ${commitFull}`);
+  if (missing.length) failures.push(`missing artifact(s): ${missing.join(", ")}`);
+  if (invalid.length) failures.push(`invalid artifact(s): ${invalid.join(", ")}`);
+
+  const artifactSummary = expected.map((name) => {
+    const artifact = artifacts.get(name);
+    return artifact ? `${name} (${artifact.size} bytes)` : `${name} (missing)`;
+  }).join("<br>");
+  return {
+    name: "GitHub Actions release artifacts",
+    command,
+    status: failures.length ? "FAIL" : "PASS",
+    exitCode: failures.length ? 1 : 0,
+    durationMs: Date.now() - startedAt,
+    summary: `run=${runId}; ${runStatus}/${conclusion}; head=${headSha?.slice(0, 7) || "unknown"}; ${runUrl || "no run URL"}<br>${artifactSummary}`,
+    error: failures.join("; "),
+  };
+}
+
+function checksForMode({repo, commitFull}) {
   const localGate = quickMode
     ? [
         {name: "Build", command: "npm", args: ["run", "build"]},
@@ -115,6 +214,14 @@ function checksForMode() {
       timeoutMs: 120_000,
     });
   }
+  if (githubRunId) {
+    checks.push({
+      kind: "githubArtifacts",
+      runId: githubRunId,
+      repo,
+      commitFull,
+    });
+  }
   return checks;
 }
 
@@ -131,6 +238,7 @@ function formatMs(ms) {
 function releaseNoteDraft({audit, session, contract, taskCount}) {
   const routes = Array.isArray(audit.external?.routes) ? audit.external.routes.join(", ") : "unknown";
   const localGateLabel = quickMode ? "quick local gates" : "full local suite";
+  const artifactGate = githubRunId ? ", GitHub Actions release artifacts" : "";
   return [
     "## Release note draft",
     "",
@@ -138,7 +246,7 @@ function releaseNoteDraft({audit, session, contract, taskCount}) {
     `- Report label: ${audit.label || "unknown"}`,
     `- Latest session: ${audit.external?.latestSession || session?.sessionId || "unknown"}; route count: ${audit.external?.routeCount ?? session?.routes?.length ?? "unknown"}; routes: ${routes}`,
     `- Competitor recollect plan: ${taskCount} tracked task(s), with status, owner, deadline, and deliverables validated before release.`,
-    `- Release gates: ${localGateLabel}, local-production structure parity, and production uptime route contract are captured in this checklist.`,
+    `- Release gates: ${localGateLabel}, local-production structure parity, production uptime route contract${artifactGate} are captured in this checklist.`,
     "",
   ].join("\n");
 }
@@ -182,6 +290,7 @@ function renderMarkdown({results, audit, session, contract, branch, commit, stat
     "- [ ] Confirm the workspace is clean after committing release changes.",
     "- [ ] Push to `main` only after local gates pass.",
     "- [ ] Confirm GitHub Pages and Tencent workflows both finish successfully.",
+    "- [ ] After Tencent deploy, run `npm run release:checklist -- --github-run-id=<tencent-run-id>` to verify the release artifacts.",
     "- [ ] Re-run `npm run test:release-parity` after production deploy if content changed.",
     "- [ ] Re-run `PUBLIC_URL=https://shopify.lute-tlz-dddd.top npm run monitor:uptime` after production deploy.",
     "",
@@ -195,9 +304,14 @@ const contract = readJson("config/release-contract.json");
 const session = latestSession();
 const branch = git(["rev-parse", "--abbrev-ref", "HEAD"], "unknown");
 const commit = git(["rev-parse", "--short", "HEAD"], "unknown");
+const commitFull = git(["rev-parse", "HEAD"], "unknown");
+const repo = githubRepoSlug();
 const status = git(["status", "--short"], "");
 const dirty = status.trim().length > 0;
-const results = checksForMode().map(runCheck);
+const results = checksForMode({repo, commitFull}).map((check) => {
+  if (check.kind === "githubArtifacts") return runGithubArtifactCheck(check);
+  return runCheck(check);
+});
 const markdown = renderMarkdown({results, audit, session, contract, branch, commit, status, dirty, generatedAt});
 
 fs.mkdirSync(path.dirname(outputPath), {recursive: true});

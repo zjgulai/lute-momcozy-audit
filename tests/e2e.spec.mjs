@@ -207,7 +207,8 @@ test("overview restores the historical M1 v2 report as the primary site", async 
   expect(text).toContain("Top 15 病灶");
   expect(text).toContain("决策建议");
   expect(text).toContain("真实经营数据回归");
-  expect(text).toContain("流量归因回迁");
+  expect(text).toContain("渠道质量诊断");
+  expect(text).toContain("先修归因可信度，再决定预算和 SEO 动作");
   expect(text).toContain("爬虫与数据可信度");
   expect(text).toContain("每个结论必须能回答");
   expect(text).toContain("不批准“后端慢”作为主叙事");
@@ -217,6 +218,7 @@ test("overview restores the historical M1 v2 report as the primary site", async 
   expect(text).toContain("结论 × 策略 × 执行");
   expect(text).toContain("矛盾识别与修复");
   expect(text).toContain("经营趋势对照");
+  expect(text).not.toContain("回迁");
   expect(text).not.toContain("铁证索引");
   expect(text).not.toContain("证据台账");
 });
@@ -242,9 +244,21 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
   expect(text).toContain("最终审计");
   expect(text).toContain("每条结论都必须能落到策略和执行");
   expect(text).toContain("重点保留结论-策略-执行闭环");
+  expect(text).not.toContain("回迁");
   expect(text).not.toContain("铁证如山的前提");
   expect(text).not.toContain("铁证索引");
   expect(text).not.toContain("证据台账");
+});
+
+test("primary pages do not expose internal evidence-index wording", async ({page}) => {
+  const bannedTerms = ["回迁", "铁证索引", "证据台账", "铁证如山", "旧口径下结论", "待补证据的归因路线图"];
+  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
+    await page.goto(pathname);
+    const text = await page.locator("body").innerText();
+    for (const term of bannedTerms) {
+      expect(text, `${pathname} should not expose ${term}`).not.toContain(term);
+    }
+  }
 });
 
 test("cross-audit exposes executable competitor recollect plan", async ({page}) => {
