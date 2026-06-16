@@ -267,7 +267,7 @@ jobs:
           PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
         run: |
           status_code() {
-            curl --connect-timeout 5 --max-time 20 -sS -o /dev/null -w '%{http_code}' "$1"
+            curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 10 --max-time 30 -sS -o /dev/null -w '%{http_code}' "$1"
           }
           expect_code() {
             test "$(status_code "$2")" = "$1"
@@ -275,7 +275,7 @@ jobs:
           expect_chinese_page() {
             local url=$1
             local body
-            body="$(curl --connect-timeout 5 --max-time 20 -sS "$url")"
+            body="$(curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 10 --max-time 30 -sS "$url")"
             printf '%s\n' "$body" | grep -q 'lang="zh-CN"'
             printf '%s\n' "$body" | grep -q "路特 AI"
             printf '%s\n' "$body" | grep -q "Momcozy"
@@ -303,6 +303,7 @@ jobs:
           private_code="$(status_code "${PUBLIC_URL}/private-audit-canary")"
           test "$private_code" = "403" -o "$private_code" = "404"
       - name: Production visual component audit
+        if: always()
         env:
           PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
         run: |
