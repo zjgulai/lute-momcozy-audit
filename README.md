@@ -13,6 +13,7 @@ npm ci
 npm test        # build + schema + source safety + sessions + build safety + links + e2e + a11y
 npm run test:competitor-plan # validate competitor recollect statuses and task execution plan
 npm run release:checklist # generate a pre-release evidence checklist in artifacts/
+npm run audit:production-layout # browser-based production visual/component audit with screenshots
 npm run test:release-parity   # optional pre-release local-vs-production structure parity check
 npm run serve   # local preview at http://localhost:8080
 ```
@@ -149,6 +150,26 @@ Use `npm run release:checklist -- --quick` when you only need a lightweight loca
 - `--skip-monitor`: skip production uptime checks.
 - `RELEASE_CHECKLIST_PUBLIC_URL`: override the production URL.
 - `RELEASE_CHECKLIST_OUTPUT`: write the checklist to a specific Markdown path.
+
+### Post-deploy visual component audit
+
+After Tencent deployment finishes, run:
+
+```bash
+npm run audit:production-layout
+```
+
+The command opens the production site in Chromium across desktop, tablet, and mobile viewports. It writes screenshots plus JSON/Markdown diagnostics under `artifacts/`, covering:
+
+- page status and console/page errors,
+- document-level horizontal overflow,
+- desktop left sidebar positioning and mobile responsive nav,
+- sidebar anchor targets,
+- table scroller behavior,
+- visible text overflow in headings, nav, buttons, badges, and KPI cards,
+- the `cross-audit.html#competitor-recollect` route table and task table.
+
+Use `PRODUCTION_LAYOUT_BASE_URL` or `PUBLIC_URL` to audit a different deployment target, and `PRODUCTION_LAYOUT_OUTPUT_DIR` to choose a deterministic report path.
 
 ### GitHub Pages (automatic)
 Push to `main` → `pages.yml` builds, tests, and deploys.
