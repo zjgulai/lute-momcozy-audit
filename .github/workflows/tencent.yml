@@ -310,6 +310,27 @@ jobs:
           PRODUCTION_LAYOUT_BASE_URL="$PUBLIC_URL" \
             PRODUCTION_LAYOUT_OUTPUT_DIR="artifacts/production-layout-${GITHUB_SHA}" \
             npm run audit:production-layout
+      - name: Write production visual audit summary
+        if: always()
+        env:
+          PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
+          AUDIT_DIR: artifacts/production-layout-${{ github.sha }}
+          AUDIT_ARTIFACT_NAME: production-layout-audit-${{ github.sha }}
+        run: |
+          {
+            echo "## Production visual component audit"
+            echo ""
+            echo "- Public URL: ${PUBLIC_URL:-not configured}"
+            echo "- Artifact: \`${AUDIT_ARTIFACT_NAME}\`"
+            echo "- Artifact list: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}#artifacts"
+            echo "- Report file inside artifact: \`production-layout-audit.md\`"
+            echo ""
+            if [ -f "${AUDIT_DIR}/production-layout-audit.md" ]; then
+              sed -n '1,34p' "${AUDIT_DIR}/production-layout-audit.md"
+            else
+              echo "Production visual audit report was not generated."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
       - name: Upload production visual audit evidence
         if: always()
         uses: actions/upload-artifact@v7
