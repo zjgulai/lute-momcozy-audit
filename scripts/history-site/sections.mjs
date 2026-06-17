@@ -461,8 +461,30 @@ export function thirdPartyGovernanceSection(data) {
 export function segmentSamplingSection(data) {
   const plan = data.segmentSamplingPlan;
   if (!plan?.segments?.length) return "";
+  const pilot = plan.publicPilot;
   const commands = (plan.commands || []).map((command) => `<li><code>${escapeHtml(command)}</code></li>`).join("");
   const gates = (plan.acceptanceGates || []).map((gate) => `<li>${escapeHtml(gate)}</li>`).join("");
+  const pilotReads = (pilot?.decisionRead || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  const pilotRows = (pilot?.rows || []).map((item) => `<tr>
+    <td><strong>${escapeHtml(item.segment)}</strong><div class="evidence-note">${escapeHtml(item.routeId)}</div></td>
+    <td>${escapeHtml(item.maxFcp)}</td>
+    <td>${escapeHtml(item.maxTtfb)}</td>
+    <td>${escapeHtml(item.maxJsKb)}</td>
+    <td>${integer(item.maxThirdPartyFailures)}</td>
+    <td>${integer(item.maxRuntimeErrors)}</td>
+    <td>${escapeHtml(item.interpretation)}</td>
+  </tr>`).join("");
+  const pilotBlock = pilot?.rows?.length ? `
+      <div class="deprecated">
+        <strong>公开匿名 pilot：</strong>${escapeHtml(pilot.observedAt)} · ${escapeHtml(pilot.methodologyVersion)} · confidence ${escapeHtml(pilot.confidence)}。${escapeHtml(pilot.scope)}
+        ${pilotReads ? `<ol>${pilotReads}</ol>` : ""}
+      </div>
+      <div class="cross-table-wrap" tabindex="0">
+        <table class="cross-table">
+          <thead><tr><th>Segment</th><th>Max FCP</th><th>Max TTFB</th><th>Max JS</th><th>Max 3P 失败</th><th>Max 错误</th><th>诊断读取</th></tr></thead>
+          <tbody>${pilotRows}</tbody>
+        </table>
+      </div>` : "";
   const rows = plan.segments.map((item) => `<tr>
     <td><strong>${escapeHtml(item.segment)}</strong><div class="evidence-note">${escapeHtml(item.routePack)}</div></td>
     <td>${escapeHtml(statusLabelFromState(item.state === "ready" ? "done" : "blocked"))}<div class="evidence-note">${escapeHtml(item.state)}</div></td>
@@ -477,6 +499,7 @@ export function segmentSamplingSection(data) {
         <p class="section__sub">${escapeHtml(plan.summary)}</p>
       </div>
       <div class="deprecated"><strong>方法版本：</strong>${escapeHtml(plan.methodologyVersion)}<ol>${gates}</ol></div>
+      ${pilotBlock}
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
           <thead><tr><th>Segment</th><th>状态</th><th>要回答的问题</th><th>决策用途</th></tr></thead>

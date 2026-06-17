@@ -313,6 +313,12 @@ test("cross-audit exposes executable competitor recollect plan", async ({page}) 
 
   const segmentSection = await page.locator("#segment-sampling").textContent();
   expect(segmentSection).toContain("分段复采 · UTM / 状态 / Checkout");
+  expect(segmentSection).toContain("公开匿名 pilot");
+  expect(segmentSection).toContain("PDP UTM 是当前最先治理的公开风险面");
+  expect(segmentSection).toContain("KOL / creator UTM PDP");
+  expect(segmentSection).toContain("1.45s");
+  expect(segmentSection).toContain("92");
+  expect(segmentSection).toContain("真实 checkout 仍必须等 owner storage state 后重采");
   expect(segmentSection).toContain("collection-routes-segmented-public");
   expect(segmentSection).toContain("owner browser state");
   expect(segmentSection).toContain("AUDIT_STORAGE_STATE=<owner-provided-playwright-state>");
