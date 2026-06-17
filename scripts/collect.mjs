@@ -15,9 +15,15 @@ const DATE = process.env.AUDIT_SESSION_DATE || [
   String(now.getMonth() + 1).padStart(2, "0"),
   String(now.getDate()).padStart(2, "0")
 ].join("-");
-const SESSION_ID = `session-${DATE}`;
+const SESSION_LABEL = (process.env.AUDIT_SESSION_LABEL || "").trim();
+if (SESSION_LABEL && !/^[a-z0-9-]+$/.test(SESSION_LABEL)) {
+  console.error("AUDIT_SESSION_LABEL must use lowercase letters, numbers, and hyphens");
+  process.exit(1);
+}
+const SESSION_KEY = SESSION_LABEL ? `${DATE}-${SESSION_LABEL}` : DATE;
+const SESSION_ID = `session-${SESSION_KEY}`;
 const OUT_DIR = process.env.AUDIT_OUTPUT_DIR || "src/_data/sessions";
-const OUT_PATH = path.resolve(OUT_DIR, `${DATE}.json`);
+const OUT_PATH = path.resolve(OUT_DIR, `${SESSION_KEY}.json`);
 const ROUTE_CONFIG_PATH = process.env.AUDIT_ROUTE_CONFIG || "config/collection-routes.json";
 const ROUTE_CONFIG = readRouteConfig(ROUTE_CONFIG_PATH);
 const METHODOLOGY_VERSION = ROUTE_CONFIG.methodologyVersion || "collector-v3-route-aggregate";
@@ -28,7 +34,7 @@ const REQUESTED_ROUTE_IDS = (process.env.AUDIT_ROUTE_IDS || "")
   .filter(Boolean);
 
 if (fs.existsSync(OUT_PATH)) {
-  console.log(`Session ${DATE} already exists at ${OUT_PATH}, skipping.`);
+  console.log(`Session ${SESSION_ID} already exists at ${OUT_PATH}, skipping.`);
   process.exit(0);
 }
 
@@ -287,6 +293,7 @@ function writeSession({routes}) {
   const session = {
     sessionId:   SESSION_ID,
     observedAt:  DATE,
+    ...(SESSION_LABEL ? {sessionLabel: SESSION_LABEL} : {}),
     methodologyVersion: METHODOLOGY_VERSION,
     collectedBy: "collect.mjs Playwright automated observation",
     targetUrl:   TARGET_URL,

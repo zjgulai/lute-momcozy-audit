@@ -218,15 +218,21 @@ Required repository secrets:
 ```bash
 AUDIT_TARGET_URL=https://momcozy.com \
 AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-public.json \
+AUDIT_OUTPUT_DIR=src/_data/segment-sessions \
 AUDIT_SESSION_DATE=YYYY-MM-DD \
+AUDIT_SESSION_LABEL=segmented-public-r1 \
 npm run collect
 
 AUDIT_TARGET_URL=https://momcozy.com \
 AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-auth-template.json \
+AUDIT_OUTPUT_DIR=src/_data/segment-sessions \
 AUDIT_STORAGE_STATE=<owner-provided-playwright-state> \
 AUDIT_SESSION_DATE=YYYY-MM-DD \
+AUDIT_SESSION_LABEL=segmented-owner-r1 \
 npm run collect
 ```
+
+`src/_data/sessions` 只承载主趋势采集；分段复采必须写入 `src/_data/segment-sessions`，并使用 `AUDIT_SESSION_LABEL` 生成 `YYYY-MM-DD-label.json`，避免同日多次复采互相覆盖或污染 latest session。归档后运行 `npm run test:segment-sessions`。
 
 `AUDIT_STORAGE_STATE` 只在本地 Playwright context 中读取；session 与报告只记录公开 segment label，不记录 state 文件路径、账号、token 或 cookie 值。没有 `AUDIT_STORAGE_STATE` 时，`requiresStorageState: true` 的 route 会 fail fast，避免把未登录样本误写成登录态样本。
 - `commands` 字段为非空字符串列表（如有）

@@ -1114,45 +1114,45 @@
     "summary": "下一轮复采不再只按页面类型采样，而是按入口来源、浏览器状态、购物车状态和 checkout 可达性拆样本。公开匿名段可以立即跑；登录态和真实购物车段必须由 owner 提供 Playwright storage state，报告只记录公开 label，不记录文件路径、账号、token 或 cookie 值。",
     "methodologyVersion": "collector-v3-segmented-2026-06",
     "publicPilot": {
-      "sessionId": "session-2026-06-16",
-      "observedAt": "2026-06-16",
+      "sessionId": "session-2026-06-17-segmented-public-r1",
+      "observedAt": "2026-06-17",
       "methodologyVersion": "collector-v3-segmented-public-2026-06",
       "confidence": "low",
-      "scope": "公开匿名 single-run pilot；6 条 route x desktop/mobile。用于发现分段风险，不作为趋势结论，也不代表登录态、真实购物车或真实 checkout。",
+      "scope": "公开匿名 archived pilot；6 条 route x desktop/mobile。用于发现分段风险，不作为趋势结论，也不代表登录态、真实购物车或真实 checkout。",
       "decisionRead": [
-        "PDP UTM 是当前最先治理的公开风险面：KOL M5 与 email S12 的第三方失败峰值均到 92，约为首页 control 的 2 倍。",
-        "首页 paid-social UTM 在单次样本中没有明显增加 JS 体积或第三方失败，说明不能继续用“流量入口变了”解释所有问题。",
-        "KOL M5 PDP mobile 的 FCP 到 1.45s，且运行错误 9；这更像 PDP 模板/商品页资源和归因脚本叠加后的执行问题。",
+        "PDP UTM 是当前最先治理的公开风险面：KOL M5 与 email S12 的第三方失败峰值均到 93，约为首页 control 的 2 倍。",
+        "首页 paid-social UTM 在归档样本中没有明显增加 JS 体积或第三方失败，说明不能继续用“流量入口变了”解释所有问题。",
+        "KOL M5 PDP 的 JS 峰值 2212KB、运行错误 9；上一轮 mobile FCP 尖峰未在本轮复现，因此 FCP 只保留为待确认风险，不作为稳定结论。",
         "空购物车与 public checkout gate 只能说明公开门槛和空状态；真实 checkout 仍必须等 owner storage state 后重采。"
       ],
       "rows": [
         {
           "segment": "KOL / creator UTM PDP",
           "routeId": "pdp-m5-kol-utm",
-          "maxFcp": "1.45s",
+          "maxFcp": "0.52s",
           "maxTtfb": "244ms",
-          "maxJsKb": "2215KB",
-          "maxThirdPartyFailures": 92,
+          "maxJsKb": "2212KB",
+          "maxThirdPartyFailures": 93,
           "maxRuntimeErrors": 9,
-          "interpretation": "最重的公开分段：PDP 商品页资源 + creator 入口归因链路叠加，优先做轻量 PDP 首屏和按需加载。"
+          "interpretation": "最重的公开分段：PDP 商品页资源 + creator 入口归因链路叠加，优先做轻量 PDP 首屏和第三方按需加载。"
         },
         {
           "segment": "email UTM PDP",
           "routeId": "pdp-s12-email-utm",
-          "maxFcp": "0.50s",
-          "maxTtfb": "299ms",
+          "maxFcp": "0.42s",
+          "maxTtfb": "304ms",
           "maxJsKb": "1929KB",
-          "maxThirdPartyFailures": 92,
+          "maxThirdPartyFailures": 93,
           "maxRuntimeErrors": 7,
           "interpretation": "第三方失败与 KOL PDP 同级，但 JS/FCP 低于 M5；说明 PDP 层共性问题存在，商品页差异也存在。"
         },
         {
           "segment": "organic/direct anonymous",
           "routeId": "homepage-organic-control",
-          "maxFcp": "0.48s",
-          "maxTtfb": "290ms",
+          "maxFcp": "0.76s",
+          "maxTtfb": "569ms",
           "maxJsKb": "1903KB",
-          "maxThirdPartyFailures": 47,
+          "maxThirdPartyFailures": 45,
           "maxRuntimeErrors": 6,
           "interpretation": "公开首页控制组已经有高第三方失败；治理不能只盯投放参数，首页基础脚本预算也要收紧。"
         },
@@ -1160,7 +1160,7 @@
           "segment": "paid social UTM",
           "routeId": "homepage-paid-social-utm",
           "maxFcp": "0.46s",
-          "maxTtfb": "333ms",
+          "maxTtfb": "248ms",
           "maxJsKb": "1903KB",
           "maxThirdPartyFailures": 46,
           "maxRuntimeErrors": 6,
@@ -1169,28 +1169,28 @@
         {
           "segment": "checkout anonymous gate",
           "routeId": "checkout-anonymous-gate",
-          "maxFcp": "0.38s",
-          "maxTtfb": "207ms",
+          "maxFcp": "0.31s",
+          "maxTtfb": "205ms",
           "maxJsKb": "1903KB",
           "maxThirdPartyFailures": 45,
-          "maxRuntimeErrors": 5,
+          "maxRuntimeErrors": 7,
           "interpretation": "公开 checkout gate 仍加载首页量级 JS 与第三方失败；但它不是真实 checkout 完成链路。"
         },
         {
           "segment": "empty cart anonymous",
           "routeId": "cart-empty-anonymous",
-          "maxFcp": "0.86s",
-          "maxTtfb": "776ms",
+          "maxFcp": "0.52s",
+          "maxTtfb": "425ms",
           "maxJsKb": "1842KB",
-          "maxThirdPartyFailures": 35,
-          "maxRuntimeErrors": 7,
-          "interpretation": "空购物车第三方失败较低，但 desktop TTFB 峰值最高；需要单独看 cart 模板服务端和重定向逻辑。"
+          "maxThirdPartyFailures": 33,
+          "maxRuntimeErrors": 4,
+          "interpretation": "空购物车第三方失败较低，未复现上一轮 TTFB 尖峰；继续作为 checkout owner-state 的对照组。"
         }
       ]
     },
     "commands": [
-      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-public.json AUDIT_SESSION_DATE=YYYY-MM-DD npm run collect",
-      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-auth-template.json AUDIT_STORAGE_STATE=<owner-provided-playwright-state> AUDIT_SESSION_DATE=YYYY-MM-DD npm run collect"
+      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-public.json AUDIT_OUTPUT_DIR=src/_data/segment-sessions AUDIT_SESSION_DATE=YYYY-MM-DD AUDIT_SESSION_LABEL=segmented-public-rN npm run collect",
+      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-auth-template.json AUDIT_OUTPUT_DIR=src/_data/segment-sessions AUDIT_STORAGE_STATE=<owner-provided-playwright-state> AUDIT_SESSION_DATE=YYYY-MM-DD AUDIT_SESSION_LABEL=segmented-owner-rN npm run collect"
     ],
     "acceptanceGates": [
       "每个 segment 至少 3 次复采后才进入趋势判断；单次样本只用于发现风险。",
