@@ -127,6 +127,7 @@ test("cross audit sidebar prioritizes current-page anchors", async ({page}) => {
   expect(result.anchorHrefs).toContain("cross-audit.html#final-audit");
   expect(result.anchorHrefs).toContain("cross-audit.html#contradictions");
   expect(result.anchorHrefs).toContain("cross-audit.html#competitor-recollect");
+  expect(result.anchorHrefs).toContain("cross-audit.html#third-party-governance");
   expect(result.anchorHrefs).toContain("cross-audit.html#execution-orders");
   expect(result.anchorHrefs).toContain("cross-audit.html#diagnostic-bridge");
   expect(result.anchorLabels).toContain("矛盾识别");
@@ -261,7 +262,7 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
   expect(text).toContain("SEO 变现结论必须冻结");
   if (typeof maxThirdPartyFailures === "number") {
     expect(text).toContain(`Momcozy PDP watchlist 最高第三方失败 ${maxThirdPartyFailures}`);
-    expect(text).toContain("竞品首轮最高第三方失败 36");
+    expect(text).toContain("竞品复采二轮最高第三方失败 42");
   } else {
     expect(text).toContain("Momcozy PDP watchlist 最高第三方失败");
   }
@@ -292,7 +293,7 @@ test("cross-audit exposes executable competitor recollect plan", async ({page}) 
   await page.locator("#competitor-recollect").scrollIntoViewIfNeeded();
   const executionSection = await page.locator("#competitor-recollect").textContent();
   expect(executionSection).toContain("把‘待重采’改为‘可验收动作’");
-  expect(executionSection).toContain("竞品首轮重采摘要");
+  expect(executionSection).toContain("竞品复采摘要");
   expect(executionSection).toContain("6 站、18 个公开页面、24 个视口样本");
   expect(executionSection).toContain("C-01");
   expect(executionSection).toContain("统一采集口径与样本定义");
@@ -304,10 +305,15 @@ test("cross-audit exposes executable competitor recollect plan", async ({page}) 
   expect(executionSection).toContain("交付项");
 
   const matrixSection = await page.locator("#matrix").textContent();
-  expect(matrixSection).toContain("竞品矩阵 · 6 站首轮重采");
+  expect(matrixSection).toContain("竞品矩阵 · 6 站复采样本");
   expect(matrixSection).toContain("Baby Brezza");
   expect(matrixSection).toContain("BabyBuddha");
   expect(matrixSection).toContain("最高 3P 失败");
+
+  const governanceSection = await page.locator("#third-party-governance").textContent();
+  expect(governanceSection).toContain("Owner / 用途 / 预算");
+  expect(governanceSection).toContain("未知 owner / 未知用途脚本");
+  expect(governanceSection).toContain("失败预算");
 });
 
 test("mobile strategy matrix wraps and allows horizontal scroll", async ({browser}) => {

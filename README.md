@@ -204,7 +204,7 @@ Required repository secrets:
 
 ## Competitor recollect plan checks
 
-竞品复采计划使用 `src/_data/public-cross-audit.json` 中的 `legacyRecovery.competitorMatrix` 与 `competitorRecollectPlan` 两类数据支撑；竞品首轮证据使用 `src/_data/competitors/2026-06-17.json` 支撑。
+竞品复采计划使用 `src/_data/public-cross-audit.json` 中的 `legacyRecovery.competitorMatrix`、`competitorRecollectPlan` 与 `thirdPartyGovernance` 数据支撑；竞品复采证据使用 `src/_data/competitors/2026-06-17.json` 和 `src/_data/competitors/2026-06-18.json` 支撑。
 `npm run test:competitor-plan` 与 `npm run test:competitor-snapshots` 会对以下内容做约束：
 
 - `legacyRecovery.competitorMatrix[*]` 的维度、Momcozy 状态、竞品参照、学习项和 `recollectStatus` 结构校验
