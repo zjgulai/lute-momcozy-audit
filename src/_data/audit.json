@@ -11,7 +11,7 @@
     "publication": "脱敏公开版"
   },
   "summary": {
-    "verdict": "2026-06-17 PDP watchlist 自动化基线强化了历史结论：瓶颈仍集中在客户端体积、DOM 规模、第三方稳定性和 LCP 不可观测。新增 10 条 PDP 后，问题不再是单条商品页偶发，而是多个 SKU、套装和交易链路均可复现的路径级结构性风险。",
+    "verdict": "2026-06-17 PDP watchlist 自动化基线强化了历史结论：瓶颈仍集中在客户端体积、DOM 规模、第三方稳定性和 LCP 不可观测。新增 13 条 PDP 后，问题不再是单条商品页偶发，而是多个 SKU、套装和交易链路均可复现的路径级结构性风险。",
     "strengths": [
       "路由感知采集已覆盖 homepage、10 条 PDP watchlist、cart、checkout（桌面+移动）",
       "TTFB 在首页桌面与移动端仍处于可接受区间，后端不是 P0 主叙事",
@@ -20,8 +20,8 @@
     ],
     "risks": [
       "LCP 在最新 26 个路由-视口样本中均未可观测，首屏核心元素仍缺可验证序列",
-      "第三方请求失败最高 91（pdp-m5-smart mobile），会放大归因、个性化与埋点偏差",
-      "技术上限仍超阈：PDP watchlist JS 最高 2214 KB、DOM 最高 11729",
+      "第三方请求失败最高 92（pdp-m5-smart mobile），会放大归因、个性化与埋点偏差",
+      "技术上限仍超阈：PDP watchlist JS 最高 2212 KB、DOM 最高 11742",
       "PDP watchlist 中运行时错误和图片债务集中，最高错误 13、缺失 alt 77",
       "报告仅给出技术边界与可执行建议，不得直接外推业务营收因果关系"
     ]
@@ -53,15 +53,15 @@
     },
     {
       "label": "服务器响应（首页，桌面）",
-      "value": 247,
+      "value": 235,
       "unit": "毫秒",
-      "interpretation": "首页桌面端 TTFB 247ms，移动端 214ms，均不是当前 P0 主因。",
+      "interpretation": "首页桌面端 TTFB 235ms，移动端 216ms，均不是当前 P0 主因。",
       "source": "Navigation Timing，session-2026-06-17 首页桌面 + 移动",
       "confidence": "medium"
     },
     {
       "label": "服务器响应（PDP watchlist 最差）",
-      "value": 666,
+      "value": 598,
       "unit": "毫秒",
       "interpretation": "PDP watchlist 最差 TTFB 为 666ms（pdp-pump-clean-bundle desktop），但相较 JS/3P/DOM 仍不是主瓶颈。",
       "source": "Navigation Timing，session-2026-06-17 PDP watchlist",
@@ -79,15 +79,15 @@
       "label": "JavaScript 体积（首页）",
       "value": 1903,
       "unit": "KB",
-      "interpretation": "首页脚本下载量仍为 1903KB；PDP watchlist 最高 2214KB，超过 500KB 目标约 4.4 倍。",
+      "interpretation": "首页脚本下载量仍为 1903KB；PDP watchlist 最高 2212KB，超过 500KB 目标约 4.4 倍。",
       "source": "Resource Timing API（initiatorType=script）transferSize 合计，session-2026-06-17",
       "confidence": "high"
     },
     {
       "label": "DOM 节点（首页）",
-      "value": 8106,
+      "value": 8184,
       "unit": "个",
-      "interpretation": "首页移动端 DOM 节点 8106；PDP watchlist 最高 11729（pdp-mobile-flow mobile），对低端设备仍有显著压力。",
+      "interpretation": "首页移动端 DOM 节点 8184；PDP watchlist 最高 11742（pdp-mobile-flow mobile），对低端设备仍有显著压力。",
       "source": "document.querySelectorAll 长度统计，session-2026-06-17",
       "confidence": "high"
     },
@@ -101,17 +101,17 @@
     },
     {
       "label": "第三方失败（PDP watchlist）",
-      "value": 91,
+      "value": 92,
       "unit": "请求",
-      "interpretation": "PDP watchlist 最高 91 次失败（pdp-m5-smart mobile），证明失效不是单 PDP 偶发。",
+      "interpretation": "PDP watchlist 最高 92 次失败（pdp-m5-smart mobile），证明失效不是单 PDP 偶发。",
       "source": "Playwright requestfailed 事件，session-2026-06-17 PDP watchlist",
       "confidence": "high"
     },
     {
       "label": "PDP watchlist 加载完成时间",
-      "value": 15.4,
+      "value": 16.77,
       "unit": "秒",
-      "interpretation": "PDP watchlist 最慢 load 事件约 15.40 秒（pdp-m5-smart desktop），转化关键路径仍有明显尾部风险。",
+      "interpretation": "PDP watchlist 最慢 load 事件约 16.77 秒（pdp-m5-smart desktop），转化关键路径仍有明显尾部风险。",
       "source": "loadEventMs 测量，session-2026-06-17 PDP watchlist",
       "confidence": "low"
     },
@@ -125,9 +125,9 @@
     },
     {
       "label": "PDP watchlist 图片缺失 alt",
-      "value": 77,
+      "value": 76,
       "unit": "张",
-      "interpretation": "PDP watchlist 最高 77 张图片缺失 alt（pdp-tuckgo-stroller mobile），属于高价值路径上的可访问性债务。",
+      "interpretation": "PDP watchlist 最高 76 张图片缺失 alt（pdp-tuckgo-stroller mobile），属于高价值路径上的可访问性债务。",
       "source": "图片可访问性扫描，session-2026-06-17 PDP watchlist",
       "confidence": "low"
     }
@@ -135,33 +135,33 @@
   "forensics": [
     {
       "label": "第三方请求失败观测",
-      "value": 91,
+      "value": 92,
       "unit": "请求",
-      "interpretation": "session-2026-06-17 中最大观测值为 pdp-m5-smart mobile 的 91 次失败，homepage、PDP watchlist、cart、checkout 均有复现。",
+      "interpretation": "session-2026-06-17 中最大观测值为 pdp-m5-smart mobile 的 92 次失败，homepage、PDP watchlist、cart、checkout 均有复现。",
       "source": "Playwright requestfailed 事件，session-2026-06-17",
       "confidence": "high"
     },
     {
       "label": "长任务（long tasks）",
-      "value": 9,
+      "value": 6,
       "unit": "任务",
-      "interpretation": "最大 long task 计数为 9（pdp-mobile-flow desktop）。TBT 仍偏低，可能受第三方失败提前中断脚本执行影响。",
+      "interpretation": "最大 long task 计数为 6（pdp-mobile-flow desktop）。TBT 仍偏低，可能受第三方失败提前中断脚本执行影响。",
       "source": "Chromium long-task 指标，session-2026-06-17 路由集",
       "confidence": "low"
     },
     {
       "label": "JavaScript 体积（最新）",
-      "value": 2214,
+      "value": 2212,
       "unit": "KB",
-      "interpretation": "PDP watchlist 最高 2214KB（pdp-m5-smart mobile），首页约 1903KB。脚本体积问题跨商品页复现。",
+      "interpretation": "PDP watchlist 最高 2212KB（pdp-m5-smart mobile），首页约 1903KB。脚本体积问题跨商品页复现。",
       "source": "Resource Timing API（initiatorType=script）transferSize 合计，session-2026-06-17",
       "confidence": "high"
     },
     {
       "label": "DOM 节点（最新）",
-      "value": 11729,
+      "value": 11742,
       "unit": "个",
-      "interpretation": "最大 DOM 节点数为 11729（pdp-mobile-flow mobile），明显高于首页基线。",
+      "interpretation": "最大 DOM 节点数为 11742（pdp-mobile-flow mobile），明显高于首页基线。",
       "source": "document.querySelectorAll 长度统计，session-2026-06-17",
       "confidence": "high"
     },
@@ -183,7 +183,7 @@
     },
     {
       "label": "PDP watchlist DOM 规模",
-      "value": 416,
+      "value": 424,
       "unit": "脚本标签",
       "interpretation": "PDP watchlist 最高 416 个脚本标签、33 个 iframe，加载顺序与错误传播面较大。",
       "source": "DOM 清单，session-2026-06-17 PDP watchlist",
@@ -191,17 +191,17 @@
     },
     {
       "label": "PDP watchlist 运行时错误",
-      "value": 13,
+      "value": 12,
       "unit": "次",
-      "interpretation": "PDP watchlist 中控制台与页面错误最高 13 次（pdp-pump-clean-bundle desktop）。尚需 INP 或 RUM 追踪映射业务影响，但该项已构成明确工程风险。",
+      "interpretation": "PDP watchlist 中控制台与页面错误最高 12 次（pdp-pump-clean-bundle desktop）。尚需 INP 或 RUM 追踪映射业务影响，但该项已构成明确工程风险。",
       "source": "Console/Page Error 采集，session-2026-06-17 PDP watchlist",
       "confidence": "low"
     },
     {
       "label": "图片可访问性缺口",
-      "value": 77,
+      "value": 76,
       "unit": "张",
-      "interpretation": "最新样本中最高 77 张图片缺失 alt（pdp-tuckgo-stroller mobile），属于真实可修复债务。",
+      "interpretation": "最新样本中最高 76 张图片缺失 alt（pdp-tuckgo-stroller mobile），属于真实可修复债务。",
       "source": "图片审计，session-2026-06-17 路由集",
       "confidence": "low"
     }

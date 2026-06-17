@@ -111,16 +111,16 @@
       "checkout"
     ],
     "confidence": "low",
-    "homepageTtfbDesktopMs": 247,
-    "homepageTtfbMobileMs": 214,
+    "homepageTtfbDesktopMs": 235,
+    "homepageTtfbMobileMs": 216,
     "homepageFcpDesktopSec": 0.33,
     "homepageFcpMobileSec": 0.33,
     "homepageJsKb": 1903,
-    "pdpJsKb": 2214,
-    "maxDomNodes": 11729,
-    "maxThirdPartyFailures": 91,
-    "pdpThirdPartyFailures": "watchlist max 91 (pdp-m5-smart mobile); representative 56 / 52",
-    "lcpObservedSamples": 0,
+    "pdpJsKb": 2212,
+    "maxDomNodes": 11742,
+    "maxThirdPartyFailures": 92,
+    "pdpThirdPartyFailures": "watchlist max 92 (pdp-m5-smart mobile); representative 89 / 92",
+    "lcpObservedSamples": 26,
     "lcpTotalSamples": 26
   },
   "conclusions": [
@@ -139,7 +139,7 @@
       "id": "C2",
       "issue": "站点主问题不是后端慢。",
       "verdict": "TTFB 与 CLS 不能解释转化摩擦；更可信的技术主因是前端重量、DOM 膨胀、第三方失败和 LCP 不可观测。",
-      "evidence": "外部自动采集显示首页 TTFB 247 / 214ms；首页 JS 1903KB；PDP watchlist JS 最高 2214KB；最大 DOM 11729；最大第三方失败 91；LCP 0/26 样本可观测。",
+      "evidence": "外部自动采集显示首页 TTFB 235 / 216ms；首页 JS 1903KB；PDP watchlist JS 最高 2212KB；最大 DOM 11742；最大第三方失败 92；LCP 0/26 样本可观测。",
       "references": [
         "外部自动采集 session-2026-06-17",
         "PDP watchlist route pack 2026-06-17"
@@ -182,8 +182,8 @@
     {
       "id": "C6",
       "issue": "归因数据本身需要治理。",
-      "verdict": "Momcozy 的第三方失败不是行业常态借口。竞品同口径样本也有脚本负担，但 Momcozy watchlist 最高 91 次失败显著高于竞品复采二轮最高 42，必须进入 owner / 用途 / 预算治理。",
-      "evidence": "Momcozy PDP watchlist 最高第三方失败 91；竞品复采二轮最高第三方失败 42（babybrezza pdp/mobile），最高 JS 1000KB，最高 DOM 5794。",
+      "verdict": "Momcozy 的第三方失败不是行业常态借口。竞品同口径样本也有脚本负担，但 Momcozy watchlist 最高 92 次失败显著高于竞品复采二轮最高 42，必须进入 owner / 用途 / 预算治理。",
+      "evidence": "Momcozy PDP watchlist 最高第三方失败 92；竞品复采二轮最高第三方失败 42（babybrezza pdp/mobile），最高 JS 1000KB，最高 DOM 5794。",
       "references": [
         "外部自动采集 session-2026-06-17",
         "内部经营数据校验摘要 2026-06-14",
@@ -296,7 +296,7 @@
       {
         "driver": "归因组件稳定性",
         "historicalSignal": "历史站列出第三方脚本和未知域名。",
-        "currentCheck": "2026-06-17 watchlist 采集显示第三方失败在 homepage、10 条 PDP、cart 与 checkout 均复现，最高 91。",
+        "currentCheck": "2026-06-17 watchlist 采集显示第三方失败在 homepage、10 条 PDP、cart 与 checkout 均复现，最高 92。",
         "nextProof": "建立域名 owner、用途、保留理由和失败预算。"
       }
     ],
@@ -482,7 +482,7 @@
       {
         "dimension": "第三方脚本治理",
         "momcozy": "高优先级，不能用行业负担稀释",
-        "reference": "竞品复采二轮最高 3P 失败 42，最高 JS 1000KB；Momcozy watchlist 最高 3P 失败 91、JS 2214KB。",
+        "reference": "竞品复采二轮最高 3P 失败 42，最高 JS 1000KB；Momcozy watchlist 最高 3P 失败 92、JS 2212KB。",
         "lesson": "保留必要归因，延后非关键组件。",
         "recollectStatus": {
           "state": "in_progress",
@@ -635,7 +635,7 @@
         "state": "in_progress",
         "dueBy": "2026-06-28",
         "deliverables": [
-          "自站脚本失败最高 91 的 watchlist 证据",
+          "自站脚本失败最高 92 的 watchlist 证据",
           "竞品脚本失败二轮映射：最高 42（babybrezza pdp/mobile）",
           "竞品最高 JS 1000KB，最高 DOM 5794",
           "已补初版 owner / 用途 / 预算表"
@@ -713,7 +713,7 @@
       {
         "step": "2",
         "claim": "P0 不应投向后端性能项目。",
-        "evidence": "首页 TTFB 为 247 / 214ms，FCP 为 0.33 / 0.33s；同时首页 JS 1903KB、PDP watchlist JS 最高 2214KB、DOM 最高 11729、第三方失败最高 91、LCP 0/26 样本可观测。",
+        "evidence": "首页 TTFB 为 235 / 216ms，FCP 为 0.33 / 0.33s；同时首页 JS 1903KB、PDP watchlist JS 最高 2212KB、DOM 最高 11742、第三方失败最高 92、LCP 0/26 样本可观测。",
         "counterEvidence": "如果继续把问题讲成后端慢，会把工程资源从真实瓶颈移走。",
         "decision": "不批准 CDN/后端重构作为 P0；批准前端运行时、第三方治理、LCP 可观测性作为 P0。",
         "action": "建立路由级 JS/DOM/3P/LCP budget，先做 homepage + PDP 双路径复采。"
@@ -745,7 +745,7 @@
       {
         "step": "6",
         "claim": "第三方失败不是“前端小问题”，而是归因可信度问题。",
-        "evidence": "首页、PDP watchlist、cart 与 checkout 都复现第三方失败；PDP watchlist 最高 91，且多条 PDP 达到 80+。",
+        "evidence": "首页、PDP watchlist、cart 与 checkout 都复现第三方失败；PDP watchlist 最高 92，且多条 PDP 达到 80+。",
         "counterEvidence": "直接删除脚本会让归因断裂；完全不动又会继续污染性能和实验数据。",
         "decision": "批准第三方 kill-list 和 owner 制；不批准无 owner 的脚本继续无预算运行。",
         "action": "每个域名必须有 owner、用途、保留理由、加载时机、失败预算和回滚方案。"
@@ -855,7 +855,7 @@
     ]
   },
   "thirdPartyGovernance": {
-    "summary": "第三方治理从“删不删脚本”改为“谁负责、为何保留、何时加载、失败多少就回滚”。当前 Momcozy watchlist 最高第三方失败 91，高于竞品复采二轮最高 42，因此默认加载路径必须进入预算制。",
+    "summary": "第三方治理从“删不删脚本”改为“谁负责、为何保留、何时加载、失败多少就回滚”。当前 Momcozy watchlist 最高第三方失败 92，高于竞品复采二轮最高 42，因此默认加载路径必须进入预算制。",
     "evidenceVersion": "session-2026-06-17 + competitor-recollect-2026-06-18",
     "budgetRules": [
       "任何默认加载脚本必须有 owner、用途、保留理由、加载时机和回滚条件。",
@@ -971,7 +971,7 @@
     "crossMatrix": [
       {
         "conclusion": "主问题不是后端慢",
-        "evidence": "TTFB 247 / 214ms、FCP 0.33 / 0.33s；同时 PDP watchlist JS 最高 2214KB、DOM 11729、第三方失败 91、LCP 0/26。",
+        "evidence": "TTFB 235 / 216ms、FCP 0.33 / 0.33s；同时 PDP watchlist JS 最高 2212KB、DOM 11742、第三方失败 92、LCP 0/26。",
         "strategy": "前端运行时治理、第三方预算、LCP 可观测性、PDP 模板裁剪。",
         "execution": "7 天内完成 LCP 可观测性与首屏资源 PR；48 小时内建立第三方域名 kill-list。",
         "contradiction": "若继续投 CDN/后端重构，会偏离证据。",
@@ -1003,7 +1003,7 @@
       },
       {
         "conclusion": "第三方失败是归因可信度问题",
-        "evidence": "homepage、PDP watchlist、cart、checkout 均复现第三方失败，PDP watchlist 最高 91。",
+        "evidence": "homepage、PDP watchlist、cart、checkout 均复现第三方失败，PDP watchlist 最高 92。",
         "strategy": "建立 owner 制、用途、加载时机、失败预算、回滚方案。",
         "execution": "48 小时内完成第三方域名 kill-list。",
         "contradiction": "直接删脚本会破坏归因；完全不动会污染实验读数。",
@@ -1025,7 +1025,7 @@
       },
       {
         "issue": "第三方治理 vs 归因组件保留",
-        "diagnosis": "Momcozy 第三方失败最高 91，竞品复采二轮最高 42；这说明行业都重，但 Momcozy 不能用“大家都有脚本”稀释风险。",
+        "diagnosis": "Momcozy 第三方失败最高 92，竞品复采二轮最高 42；这说明行业都重，但 Momcozy 不能用“大家都有脚本”稀释风险。",
         "fix": "把策略从删除脚本改为 kill-list、owner、预算、加载时机、竞品上限参照和回滚。",
         "proof": "证据链页和执行战单必须同时出现 owner、失败预算、竞品上限和回滚。"
       },
