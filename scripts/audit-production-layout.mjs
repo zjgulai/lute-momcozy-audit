@@ -16,6 +16,7 @@ const pages = [
 
 const viewports = [
   {label: "desktop", width: 1440, height: 900},
+  {label: "desktop-short", width: 1280, height: 768},
   {label: "tablet", width: 820, height: 1180},
   {label: "mobile", width: 390, height: 844},
 ];
@@ -53,6 +54,7 @@ function markdownReport({generatedAt, checks}) {
 
 function buildIssues({responseStatus, consoleErrors, pageErrors, state, pageKey, viewportLabel}) {
   const issues = [];
+  const isDesktop = viewportLabel.startsWith("desktop");
   if (responseStatus !== 200) issues.push(`status ${responseStatus}`);
   if (consoleErrors.length) issues.push(`console errors: ${consoleErrors.length}`);
   if (pageErrors.length) issues.push(`page errors: ${pageErrors.length}`);
@@ -61,9 +63,13 @@ function buildIssues({responseStatus, consoleErrors, pageErrors, state, pageKey,
   if (!state.hasBrand) issues.push("missing brand text");
   if (state.docOverflow > 0) issues.push(`document overflow ${state.docOverflow}px`);
   if (state.activeLinks !== 1) issues.push(`active nav links ${state.activeLinks}`);
-  if (viewportLabel === "desktop" && state.navPosition !== "fixed") issues.push(`desktop nav position ${state.navPosition}`);
-  if (viewportLabel !== "desktop" && state.navPosition !== "relative") issues.push(`${viewportLabel} nav position ${state.navPosition}`);
+  if (isDesktop && state.navPosition !== "fixed") issues.push(`${viewportLabel} nav position ${state.navPosition}`);
+  if (!isDesktop && state.navPosition !== "relative") issues.push(`${viewportLabel} nav position ${state.navPosition}`);
   if (state.sideNavOverlap) issues.push("sidebar overlaps content");
+  if (state.sideNavInternalOverlap) issues.push("sidebar internal overlap");
+  if (state.sideNavAnchorScroll?.canScroll && !["auto", "scroll"].includes(state.sideNavAnchorScroll.overflowY)) {
+    issues.push(`sidebar anchors not scrollable (${state.sideNavAnchorScroll.overflowY})`);
+  }
   if (state.missingAnchorTargets.length) issues.push(`missing anchor targets ${state.missingAnchorTargets.map((item) => item.href).join(", ")}`);
   if (state.tableIssues.length) issues.push(`table scroller issues ${state.tableIssues.length}`);
   if (state.textOverflowIssues.length) issues.push(`text overflow issues ${state.textOverflowIssues.length}`);
@@ -114,8 +120,15 @@ async function inspectPage(page, {pageInfo, viewport}) {
     };
     const sideNav = document.querySelector(".side-nav");
     const shell = document.querySelector(".content-shell");
+    const anchorsEl = document.querySelector(".side-nav__anchors");
+    const ctaEl = document.querySelector(".side-nav__cta");
+    const footEl = document.querySelector(".side-nav__foot");
     const sidebarRect = sideNav?.getBoundingClientRect();
     const shellRect = shell?.getBoundingClientRect();
+    const anchorsRect = anchorsEl?.getBoundingClientRect();
+    const ctaRect = ctaEl?.getBoundingClientRect();
+    const footRect = footEl?.getBoundingClientRect();
+    const isDesktop = viewportLabel.startsWith("desktop");
     const tableIssues = Array.from(document.querySelectorAll(".cross-table-wrap, .matrix-wrap, .sessions-wrap"))
       .map((el, index) => {
         const style = getComputedStyle(el);
@@ -164,7 +177,16 @@ async function inspectPage(page, {pageInfo, viewport}) {
       activeLinks: document.querySelectorAll(".side-nav__link--active").length,
       sideNav: rect(sideNav),
       shell: rect(shell),
-      sideNavOverlap: viewportLabel === "desktop" && sidebarRect && shellRect ? sidebarRect.right > shellRect.left + 2 : false,
+      sideNavOverlap: isDesktop && sidebarRect && shellRect ? sidebarRect.right > shellRect.left + 2 : false,
+      sideNavInternalOverlap: isDesktop && anchorsRect && ctaRect && footRect
+        ? anchorsRect.bottom > ctaRect.top + 1 || anchorsRect.bottom > footRect.top + 1
+        : false,
+      sideNavAnchorScroll: anchorsEl ? {
+        overflowY: getComputedStyle(anchorsEl).overflowY,
+        canScroll: anchorsEl.scrollHeight > anchorsEl.clientHeight,
+        clientHeight: Math.round(anchorsEl.clientHeight),
+        scrollHeight: Math.round(anchorsEl.scrollHeight),
+      } : null,
       sideNavAnchors: sideNavAnchors.length,
       sectionCount: document.querySelectorAll(".section").length,
       missingAnchorTargets,
