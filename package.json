@@ -38,7 +38,6 @@
     "test:release-parity": "node scripts/validate-release-parity.mjs"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^3.1.2",
     "@axe-core/playwright": "^4.10.2",
     "@playwright/test": "^1.61.0",
     "ajv": "^8.17.1",
