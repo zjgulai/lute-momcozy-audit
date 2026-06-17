@@ -98,6 +98,25 @@ npm test
 
 owner 登录态、真实购物车和 checkout 分段必须额外设置 `AUDIT_STORAGE_STATE=<owner-provided-playwright-state>`；不得把无登录样本写成 owner-state 样本。
 
+### 准备 owner storage state（本地私密文件）
+
+owner state 必须存放在仓库目录外；脚本会拒绝仓库内路径，只输出 cookie/localStorage 计数摘要，不输出文件路径、账号、cookie 值或 localStorage 值。
+
+```bash
+AUDIT_TARGET_URL=https://momcozy.com \
+AUDIT_STORAGE_STATE=<absolute-path-outside-repo> \
+npm run owner-state:capture
+
+AUDIT_STORAGE_STATE=<absolute-path-outside-repo> \
+npm run owner-state:check
+
+OWNER_SEGMENT_RUN_LABEL=r1 \
+AUDIT_SESSION_DATE=YYYY-MM-DD \
+npm run owner-state:command
+```
+
+拿到 owner state 后，再执行 `owner-state:command` 输出的采集命令；采集完成后必须跑 `npm run test:segment-sessions`、`npm run segment:aggregate`、`npm run test:segment-aggregation` 和 `npm test`。
+
 ### 新增采集 session（CI 定时）
 
 每月 1 日 UTC 02:00 由 collect.yml 自动触发，采集后开 PR，人工 review 后 merge 发布。
