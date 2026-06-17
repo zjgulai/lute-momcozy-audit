@@ -143,6 +143,71 @@ export function legacyData(data) {
   };
 }
 
+function competitorSnapshot(data) {
+  return data.competitorSnapshot || null;
+}
+
+function statusText(status) {
+  if (status >= 200 && status < 400) return `${status} 可达`;
+  if (status === 0) return "访问失败";
+  return `${status} 不可达`;
+}
+
+function maxCompetitorMetric(competitor, metric) {
+  let best = null;
+  for (const page of competitor.pages || []) {
+    for (const viewport of page.viewports || []) {
+      const value = viewport.metrics?.[metric];
+      if (!Number.isFinite(value)) continue;
+      if (!best || value > best.value) {
+        best = {value, routeId: page.routeId, viewport: viewport.label};
+      }
+    }
+  }
+  return best;
+}
+
+function competitorEvidenceTable(snapshot) {
+  if (!snapshot?.competitors?.length) return "";
+  const rows = snapshot.competitors.map((competitor) => {
+    const pdp = (competitor.pages || []).find((page) => page.routeId === "pdp");
+    const cart = (competitor.pages || []).find((page) => page.routeId === "cart");
+    const maxJs = maxCompetitorMetric(competitor, "jsKb");
+    const maxFailures = maxCompetitorMetric(competitor, "thirdPartyFailures");
+    const maxDom = maxCompetitorMetric(competitor, "domNodes");
+    const botPolicyCount = Object.values(competitor.robots?.botPolicies || {}).filter((value) => value !== "unspecified").length;
+    return `<tr>
+      <td><strong>${escapeHtml(competitor.label)}</strong><div class="evidence-note">${escapeHtml(competitor.category)}</div></td>
+      <td>${escapeHtml(statusText(pdp?.status || 0))}</td>
+      <td>${escapeHtml(statusText(cart?.status || 0))}</td>
+      <td class="num">${maxJs ? integer(maxJs.value) : "N/A"}<div class="evidence-note">${maxJs ? `${escapeHtml(maxJs.routeId)} / ${escapeHtml(maxJs.viewport)}` : ""}</div></td>
+      <td class="num">${maxFailures ? integer(maxFailures.value) : "N/A"}<div class="evidence-note">${maxFailures ? `${escapeHtml(maxFailures.routeId)} / ${escapeHtml(maxFailures.viewport)}` : ""}</div></td>
+      <td class="num">${maxDom ? integer(maxDom.value) : "N/A"}<div class="evidence-note">${maxDom ? `${escapeHtml(maxDom.routeId)} / ${escapeHtml(maxDom.viewport)}` : ""}</div></td>
+      <td>${escapeHtml(statusText(competitor.robots?.status || 0))}<div class="evidence-note">Sitemap ${integer(competitor.robots?.sitemapCount || 0)} · named bot policy ${integer(botPolicyCount)}</div></td>
+    </tr>`;
+  }).join("");
+  return `<div class="cross-table-wrap" style="margin-top: 16px;" tabindex="0">
+    <table class="cross-table">
+      <thead><tr><th>竞品</th><th>PDP</th><th>Cart</th><th>最高 JS KB</th><th>最高 3P 失败</th><th>最高 DOM</th><th>Robots 摘要</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  </div>`;
+}
+
+function competitorSnapshotCallout(snapshot) {
+  if (!snapshot?.summary) return "竞品数据当前为历史观察标注，必须重新采集“主页 / PDP / cart / checkout / 站外来源页”才能进入最终对标。";
+  const summary = snapshot.summary;
+  const maxFailures = summary.maxThirdPartyFailures;
+  const maxJs = summary.maxJsKb;
+  const maxDom = summary.maxDomNodes;
+  return [
+    `竞品首轮重采 ${escapeHtml(snapshot.observedAt)} 已归档：${integer(summary.competitorCount)} 站、${integer(summary.sampledPageCount)} 个公开页面、${integer(summary.viewportSampleCount)} 个视口样本。`,
+    `PDP 可达 ${integer(summary.reachablePdpCount)}/${integer(summary.competitorCount)}，cart 可达 ${integer(summary.reachableCartCount)}/${integer(summary.competitorCount)}。`,
+    `最高第三方失败 ${integer(maxFailures?.value || 0)}（${escapeHtml(maxFailures?.competitorId || "N/A")} ${escapeHtml(maxFailures?.routeId || "")}/${escapeHtml(maxFailures?.viewport || "")}），最高 JS ${integer(maxJs?.value || 0)}KB，最高 DOM ${integer(maxDom?.value || 0)}。`,
+    "这能支撑脚本风险排序，但还不能替代多次复采、入口参数和 checkout 实际状态。"
+  ].join(" ");
+}
+
 export function decisionData(data) {
   return data.decisionArchitecture || {
     logicChain: [],
@@ -605,6 +670,7 @@ export function diagnosticBacklogSection(data) {
 }
 
 export function competitorMatrixSection(data) {
+  const snapshot = competitorSnapshot(data);
   const rows = legacyData(data).competitorMatrix.map((item) => `<tr>
     <td><strong>${escapeHtml(item.dimension)}</strong></td>
     <td class="momcozy">${escapeHtml(item.momcozy)}</td>
@@ -615,18 +681,18 @@ export function competitorMatrixSection(data) {
   return `<section class="section section--gray" id="matrix">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">8 站竞品矩阵</div>
+        <div class="section__eyebrow">竞品矩阵 · 6 站首轮重采</div>
         <h2 class="section__title">横向参照保留为策略矩阵，并纳入经营 caveat</h2>
-        <p class="section__sub">历史矩阵的价值是让建议不孤立。当前矩阵作为方向性对照，竞品侧数据已标记为“待重采”，本轮先把重采任务排入执行清单，再恢复成分值化对标。</p>
+        <p class="section__sub">历史矩阵的价值是让建议不孤立。当前矩阵已经接入竞品首轮重采，但仍只用于风险排序和假设收敛，不能直接恢复成最终分值化对标。</p>
       </div>
-      <div class="deprecated">竞品数据当前为历史观察标注，必须重新采集“主页 / PDP / cart / checkout / 站外来源页”才能进入最终对标。
-      </div>
+      <div class="deprecated">${competitorSnapshotCallout(snapshot)}</div>
       <div class="matrix-wrap">
         <table class="matrix-mini">
           <thead><tr><th>维度</th><th class="momcozy">Momcozy 当前状态</th><th>竞品参照</th><th>应学什么</th><th>竞品数据状态</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
+      ${competitorEvidenceTable(snapshot)}
     </div>
   </section>`;
 }
@@ -634,6 +700,7 @@ export function competitorMatrixSection(data) {
 export function competitorRecollectPlanSection(data) {
   const plan = data.competitorRecollectPlan;
   if (!plan) return "";
+  const snapshot = competitorSnapshot(data);
 
   const routes = (plan.routeExpansion || []).map((item) => `<tr>
     <td>${escapeHtml(item.route)}</td>
@@ -664,7 +731,11 @@ export function competitorRecollectPlanSection(data) {
         <h2 class="section__title">把‘待重采’改为‘可验收动作’</h2>
         <p class="section__sub">Owner: ${escapeHtml(plan.owner)}。目标：先补齐站内链路口径，再让竞品对照有同口径样本。</p>
       </div>
-      <div class="deprecated">${escapeHtml(executionContext)}。</div>
+      <div class="deprecated">${escapeHtml(executionContext)}</div>
+      ${snapshot ? `<div class="cross-callout" role="note" aria-label="竞品首轮重采摘要">
+        <div class="card-label">竞品首轮重采摘要</div>
+        <p>${competitorSnapshotCallout(snapshot)}</p>
+      </div>` : ""}
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
           <thead><tr><th>路由ID</th><th>说明</th><th>复采要求</th></tr></thead>

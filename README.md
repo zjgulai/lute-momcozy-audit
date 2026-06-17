@@ -5,6 +5,7 @@ Private-business technical and operating audit of the Momcozy storefront — als
 **Production**: https://shopify.lute-tlz-dddd.top
 **Release contract**: private-business (`docs/release-contract.md`)
 **Last session**: 2026-06-17 (automated, PDP watchlist route-aware)
+**Last competitor snapshot**: 2026-06-17 (6 public competitor sites, homepage/PDP/cart availability, 24 viewport samples)
 
 ## Quick Start
 
@@ -12,6 +13,8 @@ Private-business technical and operating audit of the Momcozy storefront — als
 npm ci
 npm test        # build + schema + source safety + sessions + build safety + links + e2e + a11y
 npm run test:competitor-plan # validate competitor recollect statuses and task execution plan
+npm run collect:competitors  # collect public competitor homepage/PDP/cart evidence without side effects
+npm run test:competitor-snapshots # validate archived competitor snapshots
 npm run release:checklist # generate a pre-release evidence checklist in artifacts/
 npm run audit:production-layout # browser-based production visual/component audit with screenshots
 npm run test:release-parity   # optional pre-release local-vs-production structure parity check
@@ -63,6 +66,12 @@ resolved by `scripts/build-history-site.mjs` from `observedAt` and then fed thro
 
 **Session format v1** (before 2026-05-17): manual browser, no mobile block, confidence: low. Not directly comparable to v2.
 
+### competitors/ — public competitor evidence archive
+
+One JSON file per competitor recollect run (`YYYY-MM-DD.json`). The current 2026-06-17 snapshot covers Willow, Elvie, BabyBuddha, Lansinoh, Baby Brezza, and Spectra Baby USA.
+
+The competitor collector samples public homepage and PDP pages in desktop/mobile viewports, probes public cart URL status, and summarizes robots.txt policy. It deliberately does not log in, add products to cart, submit checkout, submit forms, or persist raw request URLs.
+
 ## Updating Audit Data
 
 ### Manual snapshot update
@@ -70,8 +79,9 @@ resolved by `scripts/build-history-site.mjs` from `observedAt` and then fed thro
 1. Edit `src/_data/audit.json`
 2. `npm run test:allowlist` — validate schema
 3. `npm run test:competitor-plan` — verify `public-cross-audit.json` competitor recollect status/task plan integrity
-4. `npm test` — full suite
-5. Commit and push
+4. `npm run test:competitor-snapshots` — verify archived competitor evidence when competitor claims are edited
+5. `npm test` — full suite
+6. Commit and push
 
 ### Add a new session (manual)
 
@@ -194,13 +204,15 @@ Required repository secrets:
 
 ## Competitor recollect plan checks
 
-竞品复采计划使用 `src/_data/public-cross-audit.json` 中的 `legacyRecovery.competitorMatrix` 与 `competitorRecollectPlan` 两类数据支撑。
-`npm run test:competitor-plan` 会对以下内容做约束：
+竞品复采计划使用 `src/_data/public-cross-audit.json` 中的 `legacyRecovery.competitorMatrix` 与 `competitorRecollectPlan` 两类数据支撑；竞品首轮证据使用 `src/_data/competitors/2026-06-17.json` 支撑。
+`npm run test:competitor-plan` 与 `npm run test:competitor-snapshots` 会对以下内容做约束：
 
 - `legacyRecovery.competitorMatrix[*]` 的维度、Momcozy 状态、竞品参照、学习项和 `recollectStatus` 结构校验
 - `recollectStatus.state` 的状态值（`todo` / `pending` / `in_progress` / `blocked` / `done`）校验
 - 计划任务 `competitorRecollectPlan.tasks` 的字段完整性、任务 ID 去重、状态值
 - `commands` 字段为非空字符串列表（如有）
+- 竞品快照至少包含 4 个竞品、4 个可达 PDP、12 个视口样本，并输出最高第三方失败、最高 JS、最高 DOM 证据
+- 快照不得包含 raw robots text、raw request URL 或 resource URL 明细
 
 本仓库的 `npm test` 已将该校验固化到统一管道，避免“网站结构正常、但任务台账未闭环”的发布风险。
 
@@ -274,7 +286,7 @@ nginx config: `/opt/ai-video/deploy/lighthouse/nginx.conf` — the `shopify.lute
 
 **Do not edit `ops/nginx/momcozy-audit.conf` as a production operation** — it is a reference copy only.
 
-## Key Findings (2026-06-17 PDP watchlist baseline)
+## Key Findings (2026-06-17 PDP watchlist + competitor recollect baseline)
 
 | Metric | Value | Status |
 |---|---|---|
@@ -290,5 +302,10 @@ nginx config: `/opt/ai-video/deploy/lighthouse/nginx.conf` — the `shopify.lute
 | 3P failures desktop | 91 (PDP watchlist max) | **Critical** |
 | 3P failures mobile | 91 (PDP watchlist max) | **Critical** |
 | LCP | 0 / 26 observable samples | Not observable (hero/PDP lead asset path) |
+| Competitor sample | 6 sites / 18 public pages / 24 viewport samples | First comparable baseline |
+| Competitor PDP reachability | 6 / 6 reachable | Good first gate |
+| Competitor cart reachability | 5 / 6 reachable | Caveat: Elvie public cart URL 404 |
+| Competitor max 3P failures | 36 (Baby Brezza PDP desktop) | Momcozy max 91 is worse |
+| Competitor max JS | 1,000 KB (BabyBuddha PDP desktop) | Momcozy max 2,214 KB is worse |
 
-Top P0 actions: reduce JS payload from 1.9–2.2 MB, fix up to 91 third-party failures, make hero/PDP lead assets LCP-eligible, and turn the 10-PDP watchlist into repeated segmented samples rather than a single-run conclusion.
+Top P0 actions: reduce JS payload from 1.9–2.2 MB, fix up to 91 third-party failures, make hero/PDP lead assets LCP-eligible, and turn the self + competitor first-run samples into repeated segmented samples rather than final-score conclusions.
