@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-15T09:00:00+00:00",
-  "label": "2026-06-15 内外部交叉审计私密经营版",
+  "generatedAt": "2026-06-17T02:30:00+00:00",
+  "label": "2026-06-17 内外部交叉审计私密经营版 · PDP watchlist 首轮",
   "classification": "private_authenticated_report",
   "internal": {
     "assessment": "Share with caveats",
@@ -93,21 +93,35 @@
     ]
   },
   "external": {
-    "latestSession": "session-2026-06-15",
-    "routeCount": 4,
-    "routes": ["homepage", "product-detail", "cart", "checkout"],
+    "latestSession": "session-2026-06-17",
+    "routeCount": 13,
+    "routes": [
+      "homepage",
+      "pdp-kleanpal-pro",
+      "pdp-air-1",
+      "pdp-mobile-style",
+      "pdp-m5-smart",
+      "pdp-mobile-flow",
+      "pdp-s12-pro",
+      "pdp-v1-pro",
+      "pdp-automeal",
+      "pdp-tuckgo-stroller",
+      "pdp-pump-clean-bundle",
+      "cart",
+      "checkout"
+    ],
     "confidence": "low",
-    "homepageTtfbDesktopMs": 273,
-    "homepageTtfbMobileMs": 275,
-    "homepageFcpDesktopSec": 0.36,
-    "homepageFcpMobileSec": 0.36,
-    "homepageJsKb": 1906,
-    "pdpJsKb": 1916,
-    "maxDomNodes": 8108,
-    "maxThirdPartyFailures": 57,
-    "pdpThirdPartyFailures": "57 / 54",
+    "homepageTtfbDesktopMs": 247,
+    "homepageTtfbMobileMs": 214,
+    "homepageFcpDesktopSec": 0.33,
+    "homepageFcpMobileSec": 0.33,
+    "homepageJsKb": 1903,
+    "pdpJsKb": 2214,
+    "maxDomNodes": 11729,
+    "maxThirdPartyFailures": 91,
+    "pdpThirdPartyFailures": "watchlist max 91 (pdp-m5-smart mobile); representative 56 / 52",
     "lcpObservedSamples": 0,
-    "lcpTotalSamples": 8
+    "lcpTotalSamples": 26
   },
   "conclusions": [
     {
@@ -115,15 +129,21 @@
       "issue": "旧版收益点估不能继续作为决策基线。",
       "verdict": "旧报告中基于旧窗口、旧口径的高收益叙事必须降级为历史假设；当前只允许作为实验假设，不允许作为承诺收益。",
       "evidence": "内部校验为 Share with caveats；经营数据存在 137 天流量窗口与 204 天销售窗口不一致，且币种需要 owner 确认。",
-      "references": ["内部经营数据校验摘要 2026-06-14", "收益模型治理记录 2026-06-14"],
+      "references": [
+        "内部经营数据校验摘要 2026-06-14",
+        "收益模型治理记录 2026-06-14"
+      ],
       "confidence": "High"
     },
     {
       "id": "C2",
       "issue": "站点主问题不是后端慢。",
       "verdict": "TTFB 与 CLS 不能解释转化摩擦；更可信的技术主因是前端重量、DOM 膨胀、第三方失败和 LCP 不可观测。",
-      "evidence": "外部自动采集显示首页 TTFB 273 / 275ms；首页与 PDP JS 约 1.9MB；最大 DOM 8108；最大第三方失败 57。",
-      "references": ["外部自动采集 session-2026-06-15", "审计快照 audit.json"],
+      "evidence": "外部自动采集显示首页 TTFB 247 / 214ms；首页 JS 1903KB；PDP watchlist JS 最高 2214KB；最大 DOM 11729；最大第三方失败 91；LCP 0/26 样本可观测。",
+      "references": [
+        "外部自动采集 session-2026-06-17",
+        "PDP watchlist route pack 2026-06-17"
+      ],
       "confidence": "High"
     },
     {
@@ -131,15 +151,21 @@
       "issue": "经营漏斗支持优先级，但不支持直接收入因果。",
       "verdict": "内部漏斗可复算，说明修复方向有业务价值；但每个技术项的收入影响必须通过 A/B 或分阶段上线验证。",
       "evidence": "内部校验中漏斗分母与阶段计数通过；收益模型被标记为未验证假设。",
-      "references": ["内部经营数据校验摘要 2026-06-14", "收益模型治理记录 2026-06-14"],
+      "references": [
+        "内部经营数据校验摘要 2026-06-14",
+        "收益模型治理记录 2026-06-14"
+      ],
       "confidence": "High"
     },
     {
       "id": "C4",
       "issue": "PDP 应成为下一轮实战队列。",
       "verdict": "内部 watchlist 证明 PDP 值得治理；外部采集已将 PDP 与转化链路补齐 cart / checkout，后续重点转向 watchlist 扩采而非单条外推。",
-      "evidence": "内部 watchlist 包含 10 个 PDP；外部 v3 采集覆盖 homepage、product-detail、cart、checkout 四条路径。",
-    "references": ["内部经营数据校验摘要 2026-06-14", "外部自动采集 session-2026-06-15"],
+      "evidence": "内部 watchlist 包含 10 个 PDP；外部 session-2026-06-17 已完成 10 条 PDP + cart + checkout 的双视口首轮采集。",
+      "references": [
+        "内部经营数据校验摘要 2026-06-14",
+        "外部自动采集 session-2026-06-17"
+      ],
       "confidence": "Medium"
     },
     {
@@ -147,23 +173,28 @@
       "issue": "SEO 变现结论必须冻结。",
       "verdict": "当前 Excel 没有自然搜索关键词行，旧版 SEO 收益或关键词优先级不能继续刷新，只能等待独立搜索源补齐。",
       "evidence": "内部校验显示 natural search keyword rows = 0。",
-      "references": ["内部经营数据校验摘要 2026-06-14"],
+      "references": [
+        "内部经营数据校验摘要 2026-06-14"
+      ],
       "confidence": "High"
     },
     {
       "id": "C6",
       "issue": "归因数据本身需要治理。",
       "verdict": "第三方失败、币种待确认和窗口差异共同说明：先修采集与归因质量，再谈预算、渠道或产品策略。",
-      "evidence": "外部自动采集显示第三方失败最高 57；内部校验存在币种确认和观察窗口 caveat。",
-    "references": ["外部自动采集 session-2026-06-15", "内部经营数据校验摘要 2026-06-14"],
+      "evidence": "外部自动采集显示第三方失败最高 91，PDP watchlist 高风险集中在 pdp-m5-smart mobile；内部校验仍存在币种确认和观察窗口 caveat。",
+      "references": [
+        "外部自动采集 session-2026-06-17",
+        "内部经营数据校验摘要 2026-06-14"
+      ],
       "confidence": "High"
     }
   ],
   "legacyRecovery": {
     "storyline": [
       "历史站的强项是完整决策链：先判定经营摩擦，再拆流量来源、数据可信度、技术病灶和工程动作。",
-      "当前站的强项是发布安全和自动化采集，但把历史功能压缩成了摘要，导致故事线从“为什么修”直接跳到“修什么”。",
-      "本次保留历史站的分析骨架，用当前经营刷新状态和 2026-06-15 路由采集重新定级。"
+      "当前站的强项是发布安全和自动化采集；2026-06-17 已把 PDP watchlist 首轮接回故事线，问题从“有没有证据”变成“如何复采排序”。",
+      "本次保留历史站的分析骨架，用当前经营刷新状态和 2026-06-17 PDP watchlist 路由采集重新定级。"
     ],
     "featureComparison": [
       {
@@ -231,8 +262,8 @@
       {
         "label": "PDP 队列是下一轮核心",
         "historicalSignal": "历史数据曾指出多个商品详情页需要单独排查。",
-        "currentRead": "当前内部 watchlist 有 10 个 PDP；外部自动采集仅覆盖 1 条代表性 PDP。",
-        "publicUse": "先用 watchlist 扩采，不把单条 PDP 外推为全站结论。"
+        "currentRead": "当前内部 watchlist 有 10 个 PDP；外部自动采集已完成 10 条 PDP、cart、checkout 和 homepage 的双视口首轮。",
+        "publicUse": "PDP 结论从单点观察升级为 watchlist 首轮证据，但仍需多次复采和分组后才能外推。"
       },
       {
         "label": "自然搜索故事暂停刷新",
@@ -257,13 +288,13 @@
       {
         "driver": "KOL 与站外种草",
         "historicalSignal": "历史站把 KOL 工业化视作流量资产。",
-        "currentCheck": "外部自动采集无法证明站外种草质量，只能看到落地页技术债。",
-        "nextProof": "把 KOL 落地页加入 route collector，并做 PDP 级别对比。"
+        "currentCheck": "外部自动采集已覆盖 10 条 PDP watchlist，但尚未覆盖 KOL 专属落地页来源参数。",
+        "nextProof": "把 KOL landing / UTM 参数页加入专项 route config，并与 PDP watchlist 做入口质量对比。"
       },
       {
         "driver": "归因组件稳定性",
         "historicalSignal": "历史站列出第三方脚本和未知域名。",
-        "currentCheck": "2026-06-15 采集显示第三方失败在首页、PDP、cart 与 checkout 均复现。",
+        "currentCheck": "2026-06-17 watchlist 采集显示第三方失败在 homepage、10 条 PDP、cart 与 checkout 均复现，最高 91。",
         "nextProof": "建立域名 owner、用途、保留理由和失败预算。"
       }
     ],
@@ -371,14 +402,14 @@
       {
         "priority": "P1",
         "item": "PDP watchlist 扩采",
-        "evidence": "内部队列多于外部采集路径。",
-        "acceptance": "至少覆盖高风险 PDP 队列的双视口采集。"
+        "evidence": "10 条 PDP watchlist 已完成双视口首轮采集。",
+        "acceptance": "继续完成至少 3 次同口径复采，并按模板、SKU 类型、价格带分组。"
       },
       {
         "priority": "P2",
         "item": "cart / checkout 覆盖",
-        "evidence": "当前外部采集未覆盖交易后段。",
-        "acceptance": "新增路径并区分登录/未登录状态。"
+        "evidence": "cart 与 checkout 已进入默认采集和 2026-06-17 watchlist route pack。",
+        "acceptance": "下一步区分登录/未登录、空购物车/有商品、cookie 分段状态。"
       },
       {
         "priority": "P2",
@@ -389,7 +420,7 @@
       {
         "priority": "P2",
         "item": "竞品矩阵刷新",
-        "evidence": "历史矩阵有方向价值，但需要新证据确认。",
+        "evidence": "自站 watchlist 口径已补齐首轮，竞品侧仍需同口径脚本/robots/落地页重采。",
         "acceptance": "更新可验证项，同时把真实经营值放进私密经营版。"
       },
       {
@@ -410,22 +441,38 @@
           "summary": "站点 robots 分层样本与竞品样本未同步更新。",
           "owner": "采集团队",
           "dueBy": "2026-06-22",
-          "actions": ["补充 robots 分层样本", "补齐竞品 robots 口径", "重跑 crawl 差异对账"],
-          "evidence": ["crawl 日志", "样本抽样截图", "路由覆盖清单"]
+          "actions": [
+            "补充 robots 分层样本",
+            "补齐竞品 robots 口径",
+            "重跑 crawl 差异对账"
+          ],
+          "evidence": [
+            "crawl 日志",
+            "样本抽样截图",
+            "路由覆盖清单"
+          ]
         }
       },
       {
         "dimension": "PDP 行动路径",
-        "momcozy": "需扩采",
+        "momcozy": "首轮已扩采",
         "reference": "历史站把商品页作为关键漏斗节点。",
         "lesson": "先扩 PDP 队列，再判断模板级问题。",
         "recollectStatus": {
-          "state": "todo",
-          "summary": "需补 PDP/watchlist + cart + checkout。",
+          "state": "in_progress",
+          "summary": "10 条 PDP watchlist + cart + checkout 已完成首轮双视口采集；仍缺多次复采和竞品同口径样本。",
           "owner": "增长负责人",
           "dueBy": "2026-06-24",
-          "actions": ["补齐 PDP watchlist 模块", "补齐 cart 与 checkout 路由", "生成多维度样本对照"],
-          "evidence": ["10 条 PDP 复采样本", "PDP 与交易链路样本对齐表", "失败率对账表"]
+          "actions": [
+            "完成至少 3 次同口径复采",
+            "加入 KOL landing / UTM 参数页",
+            "生成 PDP 与交易链路样本对齐表"
+          ],
+          "evidence": [
+            "2026-06-17 watchlist session",
+            "13 路由 / 26 视口",
+            "PDP 最高第三方失败 91"
+          ]
         }
       },
       {
@@ -435,11 +482,19 @@
         "lesson": "保留必要归因，延后非关键组件。",
         "recollectStatus": {
           "state": "in_progress",
-          "summary": "需对照 57/54 失败样本的竞品版本。",
+          "summary": "自站 watchlist 已复现最高 91 次第三方失败；竞品侧仍需补同口径脚本失败样本。",
           "owner": "前端负责人",
           "dueBy": "2026-06-28",
-          "actions": ["对齐竞品脚本失败样本", "建立 owner / 用途 / 预算表", "确定可延后加载清单"],
-          "evidence": ["第三方失败趋势", "脚本分组矩阵", "归因完整性核对"]
+          "actions": [
+            "对齐竞品脚本失败样本",
+            "建立 owner / 用途 / 预算表",
+            "确定可延后加载清单"
+          ],
+          "evidence": [
+            "2026-06-17 watchlist session",
+            "脚本失败 top route 清单",
+            "归因完整性核对"
+          ]
         }
       },
       {
@@ -452,8 +507,16 @@
           "summary": "先补独立搜索源和落地页样本。",
           "owner": "数据负责人",
           "dueBy": "2026-06-30",
-          "actions": ["补齐独立搜索源", "补入落地页样本", "对齐品牌词/问题词/产品词口径"],
-          "evidence": ["搜索词条覆盖表", "落地页点击与转化映射", "复采版本清单"]
+          "actions": [
+            "补齐独立搜索源",
+            "补入落地页样本",
+            "对齐品牌词/问题词/产品词口径"
+          ],
+          "evidence": [
+            "搜索词条覆盖表",
+            "落地页点击与转化映射",
+            "复采版本清单"
+          ]
         }
       }
     ],
@@ -461,25 +524,45 @@
       {
         "title": "PR 实验卡 1 · Hero 可观测",
         "why": "LCP 现在不是慢，而是不可被稳定观测。",
-        "steps": ["锁定首页与 PDP 的最大首屏元素", "把关键图从背景或延迟结构改为可采样元素", "补优先级和回退方案", "复跑双视口路由采集"],
+        "steps": [
+          "锁定首页与 PDP 的最大首屏元素",
+          "把关键图从背景或延迟结构改为可采样元素",
+          "补优先级和回退方案",
+          "复跑双视口路由采集"
+        ],
         "gate": "连续采集均产出 LCP，且不引入布局偏移。"
       },
       {
         "title": "PR 实验卡 2 · 第三方预算",
         "why": "第三方失败会同时污染性能、归因和实验读数。",
-        "steps": ["列出失败域名和 owner", "标注用途：支付、评论、广告、热图、客服", "非关键组件延后到用户意图后", "把失败阈值加入 CI"],
+        "steps": [
+          "列出失败域名和 owner",
+          "标注用途：支付、评论、广告、热图、客服",
+          "非关键组件延后到用户意图后",
+          "把失败阈值加入 CI"
+        ],
         "gate": "首页与 PDP 失败数降到预算内，且核心埋点不丢。"
       },
       {
         "title": "PR 实验卡 3 · PDP 模板裁剪",
         "why": "代表性 PDP 已复现 DOM、脚本、iframe 和图片债务。",
-        "steps": ["按首屏、购买区、评论区、推荐区拆分模板", "延后首屏外模块", "补图像 alt 与响应式 wrapper", "扩到 watchlist 队列"],
+        "steps": [
+          "按首屏、购买区、评论区、推荐区拆分模板",
+          "延后首屏外模块",
+          "补图像 alt 与响应式 wrapper",
+          "扩到 watchlist 队列"
+        ],
         "gate": "PDP 节点数、脚本数、错误数和图片债务同步下降。"
       },
       {
         "title": "PR 实验卡 4 · 搜索补源",
         "why": "自然搜索明细为空时不能继续讲搜索变现。",
-        "steps": ["补搜索控制台或第三方搜索源", "区分品牌词、问题词、产品词", "把落地页加入采集", "只对可复核词组恢复建议"],
+        "steps": [
+          "补搜索控制台或第三方搜索源",
+          "区分品牌词、问题词、产品词",
+          "把落地页加入采集",
+          "只对可复核词组恢复建议"
+        ],
         "gate": "搜索源有明细行，且与站内行为能对齐。"
       }
     ],
@@ -492,9 +575,9 @@
       },
       {
         "phase": "Sprint 2",
-        "title": "路由扩采",
-        "focus": "把 PDP watchlist、cart 和 checkout 纳入 collector。",
-        "gate": "每条路径均有桌面与移动样本。"
+        "title": "路由扩采与复采",
+        "focus": "PDP watchlist、cart 和 checkout 已进入 collector；下一步补 KOL landing 与至少 3 次复采。",
+        "gate": "每条路径都有桌面/移动样本、复采次数、入口类型和失败预算。"
       },
       {
         "phase": "Sprint 3",
@@ -519,25 +602,37 @@
         "taskId": "C-01",
         "title": "统一采集口径与样本定义",
         "owner": "数据负责人",
-        "state": "in_progress",
+        "state": "done",
         "dueBy": "2026-06-22",
-        "deliverables": ["route 配置与样本口径说明", "methodology 变更说明", "执行命令和验收清单"]
+        "deliverables": [
+          "默认 route 配置 + PDP watchlist route pack",
+          "collector-v3-pdp-watchlist-2026-06 方法说明",
+          "执行命令、子集复跑和验收清单"
+        ]
       },
       {
         "taskId": "C-02",
         "title": "补齐 PDP/watchlist 与交易链路采样",
         "owner": "增长负责人",
-        "state": "pending",
+        "state": "in_progress",
         "dueBy": "2026-06-24",
-        "deliverables": ["补充 cart/checkout 路由", "watchlist 十条 PDP + cookie 分段复采", "路由级指标回写"]
+        "deliverables": [
+          "10 条 PDP watchlist + cart/checkout 首轮采集",
+          "仍需 cookie / 登录状态 / 入口参数分段复采",
+          "路由级指标已写入 session-2026-06-17"
+        ]
       },
       {
         "taskId": "C-03",
         "title": "补齐第三方脚本治理证据",
         "owner": "前端负责人",
-        "state": "pending",
+        "state": "in_progress",
         "dueBy": "2026-06-28",
-        "deliverables": ["竞品脚本失败映射", "失败域名 owner 清单", "脚本加载时机分层建议"]
+        "deliverables": [
+          "自站脚本失败最高 91 的 watchlist 证据",
+          "待补竞品脚本失败映射",
+          "待补 owner / 用途 / 预算表"
+        ]
       },
       {
         "taskId": "C-04",
@@ -545,12 +640,18 @@
         "owner": "增长负责人",
         "state": "pending",
         "dueBy": "2026-06-30",
-        "deliverables": ["独立搜索源接入", "品牌词/问题词/产品词样本", "搜索样本与落地页归因核对"]
+        "deliverables": [
+          "独立搜索源接入",
+          "品牌词/问题词/产品词样本",
+          "搜索样本与落地页归因核对"
+        ]
       }
     ],
     "commands": [
       "AUDIT_TARGET_URL=https://momcozy.com npm run collect",
-      "AUDIT_ROUTE_CONFIG=config/collection-routes.json npm run collect",
+      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-pdp-watchlist.json npm run collect",
+      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-pdp-watchlist.json AUDIT_ROUTE_IDS=pdp-m5-smart,pdp-mobile-flow,pdp-s12-pro npm run collect",
+      "npm run test:collection-config",
       "npm run test:sessions",
       "npm run build",
       "npm run test:e2e"
@@ -558,31 +659,36 @@
     "routeExpansion": [
       {
         "route": "homepage",
-        "label": "站外来源页 + 主页",
-        "requirement": "每条路由需补采桌面与移动，产出 LCP/FCP/js/DOM/3P 口径。"
+        "label": "主页控制路径",
+        "requirement": "默认采集保留 homepage，用于和 PDP/cart/checkout 对照。"
       },
       {
-        "route": "product-detail",
-        "label": "代表性 PDP",
-        "requirement": "现有单点 PDP 不可外推；至少保留 watchlist 中的关键 SKU 模块。"
+        "route": "pdp-watchlist",
+        "label": "10 条 PDP watchlist",
+        "requirement": "已完成首轮双视口采集；下一步至少 3 次复采，并按模板、SKU 类型、价格带分组。"
       },
       {
         "route": "cart",
         "label": "购物车页",
-        "requirement": "补齐 cart 交易前链路样本，确认 cookie/session 与按钮可达性。"
+        "requirement": "已进入默认与 watchlist route pack；下一步区分空购物车/有商品和 cookie 状态。"
       },
       {
         "route": "checkout",
         "label": "结账页",
-        "requirement": "补齐 checkout 成交前样本，建立订单提交失败率与阻断点。"
+        "requirement": "已进入默认与 watchlist route pack；下一步区分登录/未登录和支付路径可达性。"
+      },
+      {
+        "route": "kol-landing",
+        "label": "KOL / UTM 落地页",
+        "requirement": "尚未覆盖；必须补入口参数页，否则不能恢复站外种草 ROI 结论。"
       }
     ],
     "executionRules": [
-      "禁止继续用旧竞品对照表直接下结论；必须等待新增路由与竞品样本归档后再调整优先级。",
+      "禁止继续用旧竞品对照表直接下结论；自站 watchlist 已有首轮证据，但竞品样本归档前不能恢复分值化对标。",
       "任何对比结论都要绑定复核版本（采集日期、样本数、视口）与验收门槛。",
-      "PDP 外推仅在 watchlist 分组（10 条）采样完毕后生效；否则仅保留观察级别。"
+      "PDP 外推仅在 watchlist 分组完成至少 3 次复采后生效；当前 2026-06-17 结果只升级为首轮证据。"
     ],
-    "acceptanceGate": "竞品矩阵必须在 30 天内给出新的“可比分值版”，并附可追溯证据（路由、视口、采样次数、脚本失败预算）。"
+    "acceptanceGate": "竞品矩阵必须在 30 天内给出新的“可比分值版”，并附可追溯证据（路由、视口、采样次数、脚本失败预算、KOL/UTM入口样本）。"
   },
   "decisionArchitecture": {
     "logicChain": [
@@ -597,7 +703,7 @@
       {
         "step": "2",
         "claim": "P0 不应投向后端性能项目。",
-        "evidence": "首页 TTFB 为 273 / 275ms，FCP 为 0.36 / 0.36s；同时 JS 约 1.9MB、DOM 最高 8108、第三方失败最高 57、LCP 0/8 样本可观测。",
+        "evidence": "首页 TTFB 为 247 / 214ms，FCP 为 0.33 / 0.33s；同时首页 JS 1903KB、PDP watchlist JS 最高 2214KB、DOM 最高 11729、第三方失败最高 91、LCP 0/26 样本可观测。",
         "counterEvidence": "如果继续把问题讲成后端慢，会把工程资源从真实瓶颈移走。",
         "decision": "不批准 CDN/后端重构作为 P0；批准前端运行时、第三方治理、LCP 可观测性作为 P0。",
         "action": "建立路由级 JS/DOM/3P/LCP budget，先做 homepage + PDP 双路径复采。"
@@ -605,10 +711,10 @@
       {
         "step": "3",
         "claim": "商品详情页是下一轮实战场，不是总览页的附属样本。",
-        "evidence": "内部 watchlist 有 10 个 PDP；外部采集目前只覆盖 homepage 和 1 条 product-detail。",
-        "counterEvidence": "单条 PDP 只能证明风险存在，不能代表所有 SKU、价格带、套装页或交易链路。",
-        "decision": "不批准用单 PDP 结论替代全站 PDP 判断；批准 10 条 PDP 队列扩采。",
-        "action": "每条 PDP 至少采集桌面/移动、JS、DOM、3P、LCP、console error、核心图片债。"
+        "evidence": "内部 watchlist 有 10 个 PDP；外部 session-2026-06-17 已完成 10 条 PDP + cart + checkout 的双视口首轮采集。",
+        "counterEvidence": "首轮采集证明风险跨 SKU 复现，但还不能替代多次复采、入口分段和竞品同口径样本。",
+        "decision": "不批准继续用单 PDP 外推；批准 watchlist 多次复采和 KOL landing 扩展。",
+        "action": "对高风险 PDP（M5、Mobile Flow、S12 Pro）优先复跑，并补 KOL/UTM 落地页。"
       },
       {
         "step": "4",
@@ -629,7 +735,7 @@
       {
         "step": "6",
         "claim": "第三方失败不是“前端小问题”，而是归因可信度问题。",
-        "evidence": "首页与 PDP 都复现第三方失败，PDP 为 57 / 54；这些组件往往同时服务广告、归因、客服、评论或实验。",
+        "evidence": "首页、PDP watchlist、cart 与 checkout 都复现第三方失败；PDP watchlist 最高 91，且多条 PDP 达到 80+。",
         "counterEvidence": "直接删除脚本会让归因断裂；完全不动又会继续污染性能和实验数据。",
         "decision": "批准第三方 kill-list 和 owner 制；不批准无 owner 的脚本继续无预算运行。",
         "action": "每个域名必须有 owner、用途、保留理由、加载时机、失败预算和回滚方案。"
@@ -666,10 +772,10 @@
       },
       {
         "title": "批准 PDP watchlist 扩采，不批准样本外推",
-        "why": "内部有 10 条 PDP 队列，但外部只有 1 条代表性 PDP。",
-        "reject": "拒绝用单条 PDP 结论覆盖所有商品页或交易链路。",
-        "approve": "批准 10 条 PDP × 双视口 × 多次采样，并追加 cart / checkout 后段。",
-        "gate": "每条路径输出同口径指标，能按模板、价格带、SKU 类型排序风险。"
+        "why": "10 条 PDP watchlist 已完成首轮，但仍缺多次复采、入口参数和竞品同口径样本。",
+        "reject": "拒绝把首轮 watchlist 直接写成全站 PDP 结论或竞品结论。",
+        "approve": "批准高风险 PDP 优先复跑、KOL/UTM landing 扩展、竞品脚本失败映射。",
+        "gate": "每条路径至少 3 次采样，能按模板、价格带、SKU 类型、入口来源排序风险。"
       }
     ],
     "executionOrders": [
@@ -677,35 +783,61 @@
         "window": "48 小时",
         "owner": "前端负责人 + 投放负责人 + 数据负责人",
         "action": "建立第三方域名 kill-list",
-        "steps": ["导出失败域名", "标注 owner 与业务用途", "区分必须同步加载、可延后、可删除", "给每类脚本设失败预算"],
+        "steps": [
+          "导出失败域名",
+          "标注 owner 与业务用途",
+          "区分必须同步加载、可延后、可删除",
+          "给每类脚本设失败预算"
+        ],
         "gate": "没有 owner 的域名不得进入默认加载路径。"
       },
       {
         "window": "3 天",
         "owner": "采集团队",
-        "action": "把 10 条 PDP watchlist 接入 recurring collector",
-        "steps": ["补 route 配置", "桌面/移动双视口", "每路由至少 3 次采样", "记录 JS/DOM/3P/LCP/error/image debt"],
-        "gate": "不再用单条 PDP 代表全站 PDP。"
+        "action": "完成 PDP watchlist 复采闭环",
+        "steps": [
+          "保留 watchlist route pack",
+          "优先复跑 M5 / Mobile Flow / S12 Pro",
+          "补 KOL landing / UTM 参数页",
+          "每路由至少 3 次采样",
+          "记录 JS/DOM/3P/LCP/error/image debt"
+        ],
+        "gate": "不再用单条 PDP 代表全站 PDP；首轮证据必须升级成多次复采与分组排序。"
       },
       {
         "window": "7 天",
         "owner": "前端负责人",
         "action": "完成 LCP 可观测性与首屏资源 PR",
-        "steps": ["锁定最大首屏元素", "关键图 eager/high priority", "首屏外模块延迟", "复采 LCP 与 CLS"],
+        "steps": [
+          "锁定最大首屏元素",
+          "关键图 eager/high priority",
+          "首屏外模块延迟",
+          "复采 LCP 与 CLS"
+        ],
         "gate": "homepage 与 PDP 双视口连续产出 LCP，且 CLS 不恶化。"
       },
       {
         "window": "14 天",
         "owner": "增长负责人 + 数据负责人",
         "action": "建立经营实验账本",
-        "steps": ["每项技术修复写实验假设", "定义经营观察指标", "设回滚阈值", "区分技术改善与收入因果"],
+        "steps": [
+          "每项技术修复写实验假设",
+          "定义经营观察指标",
+          "设回滚阈值",
+          "区分技术改善与收入因果"
+        ],
         "gate": "没有实验账本的收益结论不得进入决策页。"
       },
       {
         "window": "30 天",
         "owner": "数据负责人",
         "action": "补齐归因与搜索源",
-        "steps": ["对账 human/bot 口径", "对齐渠道来源与订单", "补自然搜索关键词与落地页", "复核币种和窗口"],
+        "steps": [
+          "对账 human/bot 口径",
+          "对齐渠道来源与订单",
+          "补自然搜索关键词与落地页",
+          "复核币种和窗口"
+        ],
         "gate": "SEO、渠道预算和收益归因只在补源后恢复判断。"
       }
     ]
@@ -761,7 +893,7 @@
     "crossMatrix": [
       {
         "conclusion": "主问题不是后端慢",
-        "evidence": "TTFB 273 / 275ms、FCP 0.36 / 0.36s；同时 JS 约 1.9MB、DOM 8108、第三方失败 57、LCP 0/8。",
+        "evidence": "TTFB 247 / 214ms、FCP 0.33 / 0.33s；同时 PDP watchlist JS 最高 2214KB、DOM 11729、第三方失败 91、LCP 0/26。",
         "strategy": "前端运行时治理、第三方预算、LCP 可观测性、PDP 模板裁剪。",
         "execution": "7 天内完成 LCP 可观测性与首屏资源 PR；48 小时内建立第三方域名 kill-list。",
         "contradiction": "若继续投 CDN/后端重构，会偏离证据。",
@@ -777,11 +909,11 @@
       },
       {
         "conclusion": "PDP 是实战场，但单 PDP 不可外推",
-        "evidence": "内部 watchlist 10 个 PDP；外部采集只有 homepage + 1 条 product-detail。",
+        "evidence": "内部 watchlist 10 个 PDP；外部 session-2026-06-17 已完成 10 条 PDP + cart + checkout 双视口首轮。",
         "strategy": "扩采 10 条 PDP，并追加 cart / checkout 后段。",
-        "execution": "3 天内把 10 条 PDP watchlist 接入 recurring collector。",
+        "execution": "下一步对高风险 PDP 至少 3 次复采，并追加 KOL/UTM landing。",
         "contradiction": "用 1 条 PDP 推断所有 SKU、价格带或交易链路会误导排序。",
-        "status": "部分解决：策略和执行已写入，仍缺真实扩采结果。"
+        "status": "已推进：首轮 watchlist 完成；仍缺多次复采和竞品同口径对照。"
       },
       {
         "conclusion": "经营数据证明值得修，不证明单项收益",
@@ -793,7 +925,7 @@
       },
       {
         "conclusion": "第三方失败是归因可信度问题",
-        "evidence": "首页与 PDP 均复现第三方失败，PDP 为 57 / 54。",
+        "evidence": "homepage、PDP watchlist、cart、checkout 均复现第三方失败，PDP watchlist 最高 91。",
         "strategy": "建立 owner 制、用途、加载时机、失败预算、回滚方案。",
         "execution": "48 小时内完成第三方域名 kill-list。",
         "contradiction": "直接删脚本会破坏归因；完全不动会污染实验读数。",
@@ -827,8 +959,8 @@
       },
       {
         "issue": "趋势页数据较少 vs 最终决策口径",
-        "diagnosis": "趋势页只有 5 次采集和 2 条路由，不能承载全站增长结论。",
-        "fix": "趋势页只承担复采与持续性判断，最终裁决放在交叉审计页。",
+        "diagnosis": "趋势页现在有 7 次 session 和最新 13 条路由，但仍不能承载收入、SEO 或全站 PDP 终局结论。",
+        "fix": "趋势页承担复采与持续性判断，最终裁决仍放在交叉审计页，并标出 watchlist 首轮与多次复采差异。",
         "proof": "趋势页必须说明旧 M2 只是历史参照，M3 只是外部技术证据。"
       }
     ]
@@ -837,27 +969,50 @@
     {
       "page": "index.html",
       "route": "从旧版高收益叙事改为旧基线失效、技术债仍成立、收益必须实验化。",
-      "conclusionIds": ["C1", "C2", "C3"]
+      "conclusionIds": [
+        "C1",
+        "C2",
+        "C3"
+      ]
     },
     {
       "page": "metrics.html",
       "route": "从指标字典改为经营/KPI/采集一体化口径治理：完整写入真实值，同时标注口径限制。",
-      "conclusionIds": ["C1", "C3", "C5"]
+      "conclusionIds": [
+        "C1",
+        "C3",
+        "C5"
+      ]
     },
     {
       "page": "forensics.html",
       "route": "从单点故障现场改为证据等级页：保留物证，避免把代表性 PDP 扩大成全部 PDP 收入因果。",
-      "conclusionIds": ["C2", "C4", "C6"]
+      "conclusionIds": [
+        "C2",
+        "C4",
+        "C6"
+      ]
     },
     {
       "page": "trends.html",
       "route": "从 M2 首页趋势扩展为 M3 路由感知趋势，并把经营 caveat 与外部技术证据交叉呈现。",
-      "conclusionIds": ["C2", "C4", "C6"]
+      "conclusionIds": [
+        "C2",
+        "C4",
+        "C6"
+      ]
     },
     {
       "page": "cross-audit.html",
       "route": "新增私密交叉审计总页，集中呈现每条结论、证据等级和参考依据。",
-      "conclusionIds": ["C1", "C2", "C3", "C4", "C5", "C6"]
+      "conclusionIds": [
+        "C1",
+        "C2",
+        "C3",
+        "C4",
+        "C5",
+        "C6"
+      ]
     }
   ]
 }

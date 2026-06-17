@@ -1,0 +1,83 @@
+{
+  "methodologyVersion": "collector-v3-pdp-watchlist-2026-06",
+  "routes": [
+    {
+      "id": "homepage",
+      "label": "Homepage control route",
+      "path": "/",
+      "primary": true
+    },
+    {
+      "id": "pdp-kleanpal-pro",
+      "label": "PDP watchlist: KleanPal Pro bottle washer",
+      "path": "/products/momcozy-kleanpal-pro-baby-bottle-washer",
+      "primary": false
+    },
+    {
+      "id": "pdp-air-1",
+      "label": "PDP watchlist: Air 1 breast pump",
+      "path": "/products/momcozy-air-1-ultra-slim-breast-pump",
+      "primary": false
+    },
+    {
+      "id": "pdp-mobile-style",
+      "label": "PDP watchlist: Mobile Style breast pump",
+      "path": "/products/momcozy-mobile-style-hands-free-breast-pump",
+      "primary": false
+    },
+    {
+      "id": "pdp-m5-smart",
+      "label": "PDP watchlist: M5 smart wearable breast pump",
+      "path": "/products/m5-smart-wearable-breast-pump-upgraded-with-app-control",
+      "primary": false
+    },
+    {
+      "id": "pdp-mobile-flow",
+      "label": "PDP watchlist: Mobile Flow breast pump",
+      "path": "/products/momcozy-mobile-flow-hands-free-breast-pump",
+      "primary": false
+    },
+    {
+      "id": "pdp-s12-pro",
+      "label": "PDP watchlist: S12 Pro wearable breast pump",
+      "path": "/products/s12-pro-quick-wearable-breast-pump",
+      "primary": false
+    },
+    {
+      "id": "pdp-v1-pro",
+      "label": "PDP watchlist: V1 Pro hospital grade wearable breast pump",
+      "path": "/products/v1-pro-hospital-grade-wearable-breast-pump",
+      "primary": false
+    },
+    {
+      "id": "pdp-automeal",
+      "label": "PDP watchlist: AutoMeal baby food maker",
+      "path": "/products/momcozy-automeal-baby-food-maker",
+      "primary": false
+    },
+    {
+      "id": "pdp-tuckgo-stroller",
+      "label": "PDP watchlist: TuckGo lightweight stroller",
+      "path": "/products/momcozy-tuckgo-lightweight-stroller",
+      "primary": false
+    },
+    {
+      "id": "pdp-pump-clean-bundle",
+      "label": "PDP watchlist: Pump and clean bundle",
+      "path": "/products/pump-clean-bundle-m9-hands-free-breast-pump-and-kleanpal-pro-baby-bottle-washer-and-sterilizer",
+      "primary": false
+    },
+    {
+      "id": "cart",
+      "label": "Shopping cart control route",
+      "path": "/cart",
+      "primary": false
+    },
+    {
+      "id": "checkout",
+      "label": "Checkout control route",
+      "path": "/checkout",
+      "primary": false
+    }
+  ]
+}

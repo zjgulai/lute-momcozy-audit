@@ -4,7 +4,6 @@ import {
   integer,
   maxMetric,
   pct,
-  routeMetric,
   usd,
   usdMillion
 } from "./format.mjs";
@@ -886,36 +885,34 @@ export function forensicsBody(data) {
   <section class="section section--gray" id="pdp">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">证据 2 · PDP 代表性不足</div>
-        <h2 class="section__title">代表性 PDP 不能代表所有商品页</h2>
-        <p class="section__sub">内部 watchlist 有 ${data.internal.pdpWatchlistCount} 个 PDP，外部采集目前只有 homepage 与 product-detail 两条路径。下一轮必须按队列扩采。</p>
+        <div class="section__eyebrow">证据 2 · PDP watchlist 首轮</div>
+        <h2 class="section__title">首轮 watchlist 已证明跨商品复现，但仍不能外推</h2>
+        <p class="section__sub">内部 watchlist 有 ${data.internal.pdpWatchlistCount} 个 PDP，外部采集已覆盖 ${data.external.routeCount} 条路径。现在的问题不再是“有没有 PDP 证据”，而是必须用多次复采、入口分段和竞品同口径样本排序风险。</p>
       </div>
       <div class="callout callout--danger">
-        <div class="callout__label">当前缺口</div>
-        <div class="callout__title">没有覆盖 cart / checkout / 多 PDP 队列，就不能完成全站闭环验收。</div>
-        <div class="callout__body">这不是形式问题。单条 PDP 只能说明风险复现，不能证明所有 PDP 的风险排序，也不能证明最终交易链路影响。</div>
+        <div class="callout__label">当前边界</div>
+        <div class="callout__title">已有 cart / checkout / 10 PDP 首轮，但还不能写成全站 PDP 终局。</div>
+        <div class="callout__body">首轮采集证明风险跨商品复现；多次复采、KOL/UTM 入口参数、登录/未登录和竞品同口径对照仍是下一步 gate。</div>
       </div>
     </div>
   </section>`;
 }
 
 export function latestRows(session) {
-  const rows = [
-    ["首页", "desktop", routeMetric(session, "homepage", "desktop")],
-    ["首页", "mobile", routeMetric(session, "homepage", "mobile")],
-    ["代表性 PDP", "desktop", routeMetric(session, "product-detail", "desktop")],
-    ["代表性 PDP", "mobile", routeMetric(session, "product-detail", "mobile")],
-    ["购物车", "desktop", routeMetric(session, "cart", "desktop")],
-    ["购物车", "mobile", routeMetric(session, "cart", "mobile")],
-    ["结账", "desktop", routeMetric(session, "checkout", "desktop")],
-    ["结账", "mobile", routeMetric(session, "checkout", "mobile")]
-  ];
+  const rows = (session.routes || []).flatMap((route) =>
+    (route.viewports || []).map((viewport) => [
+      routeLabelForTable(route),
+      viewport.label,
+      viewport.metrics
+    ])
+  );
+  if (rows.length === 0) throw new Error("Latest route-aware session is missing route rows");
   for (const [, , metrics] of rows) {
     if (!metrics) throw new Error("Latest route-aware session is missing required route metrics");
   }
   return rows.map(([route, viewport, metrics]) => `<tr>
-    <td>${route}</td>
-    <td>${viewport}</td>
+    <td>${escapeHtml(route)}</td>
+    <td>${escapeHtml(viewport)}</td>
     <td class="num good">${metrics.fcp}</td>
     <td class="num good">${metrics.ttfb}</td>
     <td class="num good">${metrics.cls}</td>
@@ -926,6 +923,15 @@ export function latestRows(session) {
   </tr>`).join("");
 }
 
+function routeLabelForTable(route) {
+  if (route.routeId === "homepage") return "首页";
+  if (route.routeId === "product-detail") return "代表性 PDP";
+  if (route.routeId?.startsWith("pdp-")) return `PDP watchlist · ${route.routeId}`;
+  if (route.routeId === "cart") return "购物车";
+  if (route.routeId === "checkout") return "结账";
+  return route.label || route.routeId;
+}
+
 export function trendsBody(data, session) {
   const maxJs = maxMetric(session, "jsKb");
   const maxDom = maxMetric(session, "domNodes");
@@ -933,7 +939,7 @@ export function trendsBody(data, session) {
   return `<section class="hero" id="hero">
     <div class="container">
       <span class="hero__badge">IV · 性能趋势 · M1 → M3</span>
-      <h1 class="hero__title">5 次采集，<br><span class="hl">趋势必须和经营 caveat 一起读。</span></h1>
+      <h1 class="hero__title">最新 13 路由采集，<br><span class="hl">趋势必须和经营 caveat 一起读。</span></h1>
       <p class="hero__lead">趋势页已经追加 ${escapeHtml(data.external.latestSession)}。外部采集证明技术债持续存在；内部经营刷新证明收益点估必须实验化。两者合在一起，结论更尖锐：先修可复现技术债，但不要用旧收益承诺包装它。</p>
       ${crossAuditCards(data)}
     </div>
@@ -946,7 +952,7 @@ export function trendsBody(data, session) {
       <div class="section__head">
         <div class="section__eyebrow">最新融合 · v3 路由感知自动化基线</div>
         <h2 class="section__title">${escapeHtml(session.observedAt)}：趋势页已并入最新外部采集</h2>
-        <p class="section__sub">v3 采集覆盖 homepage / product-detail / cart / checkout × 桌面/移动双视口；旧 M2 首页趋势只作为历史参照，不再被当作最新结论。</p>
+        <p class="section__sub">v3 采集已扩展为 homepage / PDP watchlist / cart / checkout × 桌面/移动双视口；旧 M2 首页趋势只作为历史参照，不再被当作最新结论。</p>
       </div>
       <div class="metric-grid">
         <div class="metric-card metric-card--success"><div class="card-label">最新 session</div><div class="card-value">${escapeHtml(session.observedAt)}</div><div class="card-meta">${escapeHtml(session.methodologyVersion)}</div></div>
@@ -962,7 +968,7 @@ export function trendsBody(data, session) {
       </div>
       <div class="callout-strong">
         <div class="card-label" style="color:#fbbf24;">融合结论</div>
-        <p>最新数据没有推翻历史站的主判断，只是把问题从首页推进到“homepage/product-detail/cart/checkout 路径均复现”：客户端体积最大 ${Math.round(maxJs / 1024 * 10) / 10}MB、DOM 最大 ${maxDom.toLocaleString("en-US")} 节点、第三方失败最大 ${maxFailures}，仍是核心技术债。</p>
+        <p>最新数据没有推翻历史站的主判断，只是把问题从首页推进到“homepage/PDP watchlist/cart/checkout 路径均复现”：客户端体积最大 ${Math.round(maxJs / 1024 * 10) / 10}MB、DOM 最大 ${maxDom.toLocaleString("en-US")} 节点、第三方失败最大 ${maxFailures}，仍是核心技术债。</p>
       </div>
     </div>
   </section>`;
