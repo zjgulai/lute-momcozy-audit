@@ -1114,15 +1114,16 @@
     "summary": "下一轮复采不再只按页面类型采样，而是按入口来源、浏览器状态、购物车状态和 checkout 可达性拆样本。公开匿名段可以立即跑；登录态和真实购物车段必须由 owner 提供 Playwright storage state，报告只记录公开 label，不记录文件路径、账号、token 或 cookie 值。",
     "methodologyVersion": "collector-v3-segmented-2026-06",
     "publicPilot": {
-      "sessionId": "session-2026-06-17-segmented-public-r1",
+      "sessionId": "segmented-public-r1-r3",
       "observedAt": "2026-06-17",
       "methodologyVersion": "collector-v3-segmented-public-2026-06",
       "confidence": "low",
-      "scope": "公开匿名 archived pilot；6 条 route x desktop/mobile。用于发现分段风险，不作为趋势结论，也不代表登录态、真实购物车或真实 checkout。",
+      "scope": "公开匿名 3-run archive；3 个 session、6 条 route、36 个 viewport observation。用于确认公开分段风险，不代表登录态、真实购物车或真实 checkout。",
       "decisionRead": [
-        "PDP UTM 是当前最先治理的公开风险面：KOL M5 与 email S12 的第三方失败峰值均到 93，约为首页 control 的 2 倍。",
-        "首页 paid-social UTM 在归档样本中没有明显增加 JS 体积或第三方失败，说明不能继续用“流量入口变了”解释所有问题。",
-        "KOL M5 PDP 的 JS 峰值 2212KB、运行错误 9；上一轮 mobile FCP 尖峰未在本轮复现，因此 FCP 只保留为待确认风险，不作为稳定结论。",
+        "PDP UTM 是当前最先治理的公开风险面：KOL M5 与 email S12 的第三方失败中位数分别为 90.5 / 89.5，约为首页 control 与 public checkout gate 的 2 倍。",
+        "首页 paid-social UTM 与 organic/direct control 的第三方失败中位数几乎相同（45.5 vs 45.5），不能继续用“流量入口变了”解释所有问题。",
+        "KOL M5 PDP 的 JS 中位数 2201.5KB、错误中位数 8.5；这是稳定脚本治理问题，不是一次性 FCP 尖峰。",
+        "首页 control 在 r2 出现 TTFB/FCP 尖峰，但 paid-social 与 PDP 没有同步尖峰；这更像边缘/网络波动，不能替代脚本治理结论。",
         "空购物车与 public checkout gate 只能说明公开门槛和空状态；真实 checkout 仍必须等 owner storage state 后重采。"
       ],
       "rows": [
@@ -1130,51 +1131,51 @@
           "segment": "KOL / creator UTM PDP",
           "routeId": "pdp-m5-kol-utm",
           "maxFcp": "0.52s",
-          "maxTtfb": "244ms",
-          "maxJsKb": "2212KB",
+          "maxTtfb": "279ms",
+          "maxJsKb": "2214KB",
           "maxThirdPartyFailures": 93,
           "maxRuntimeErrors": 9,
-          "interpretation": "最重的公开分段：PDP 商品页资源 + creator 入口归因链路叠加，优先做轻量 PDP 首屏和第三方按需加载。"
+          "interpretation": "三轮稳定最高风险：3P 失败中位数 90.5、JS 中位数 2201.5KB、错误中位数 8.5。优先做 KOL PDP 首屏减载和第三方按需加载。"
         },
         {
           "segment": "email UTM PDP",
           "routeId": "pdp-s12-email-utm",
-          "maxFcp": "0.42s",
+          "maxFcp": "0.46s",
           "maxTtfb": "304ms",
           "maxJsKb": "1929KB",
           "maxThirdPartyFailures": 93,
-          "maxRuntimeErrors": 7,
-          "interpretation": "第三方失败与 KOL PDP 同级，但 JS/FCP 低于 M5；说明 PDP 层共性问题存在，商品页差异也存在。"
+          "maxRuntimeErrors": 8,
+          "interpretation": "PDP 层共性问题：3P 失败中位数 89.5，接近 KOL PDP；JS 低于 M5，说明商品页资源差异与 PDP 归因链路同时存在。"
         },
         {
           "segment": "organic/direct anonymous",
           "routeId": "homepage-organic-control",
-          "maxFcp": "0.76s",
-          "maxTtfb": "569ms",
-          "maxJsKb": "1903KB",
-          "maxThirdPartyFailures": 45,
-          "maxRuntimeErrors": 6,
-          "interpretation": "公开首页控制组已经有高第三方失败；治理不能只盯投放参数，首页基础脚本预算也要收紧。"
+          "maxFcp": "1.60s",
+          "maxTtfb": "1428ms",
+          "maxJsKb": "1918KB",
+          "maxThirdPartyFailures": 49,
+          "maxRuntimeErrors": 7,
+          "interpretation": "首页控制组有一次 r2 TTFB/FCP 尖峰，但 3P 失败中位数 45.5；这是基础预算约束，不是 PDP UTM 高风险的主因。"
         },
         {
           "segment": "paid social UTM",
           "routeId": "homepage-paid-social-utm",
           "maxFcp": "0.46s",
           "maxTtfb": "248ms",
-          "maxJsKb": "1903KB",
-          "maxThirdPartyFailures": 46,
-          "maxRuntimeErrors": 6,
-          "interpretation": "首页 paid-social UTM 与 control 接近，当前没有证据支持把首页问题归因为 UTM 本身。"
+          "maxJsKb": "1918KB",
+          "maxThirdPartyFailures": 48,
+          "maxRuntimeErrors": 7,
+          "interpretation": "与 organic/direct control 基本同级：3P 失败中位数 45.5。首页投放 UTM 不是当前公开样本里的主要增量风险。"
         },
         {
           "segment": "checkout anonymous gate",
           "routeId": "checkout-anonymous-gate",
-          "maxFcp": "0.31s",
-          "maxTtfb": "205ms",
-          "maxJsKb": "1903KB",
-          "maxThirdPartyFailures": 45,
+          "maxFcp": "0.56s",
+          "maxTtfb": "226ms",
+          "maxJsKb": "1904KB",
+          "maxThirdPartyFailures": 46,
           "maxRuntimeErrors": 7,
-          "interpretation": "公开 checkout gate 仍加载首页量级 JS 与第三方失败；但它不是真实 checkout 完成链路。"
+          "interpretation": "public gate 稳定为首页量级：3P 失败中位数 45.5；它只能证明公开门槛，不证明真实 checkout 完成链路。"
         },
         {
           "segment": "empty cart anonymous",
@@ -1184,7 +1185,7 @@
           "maxJsKb": "1842KB",
           "maxThirdPartyFailures": 33,
           "maxRuntimeErrors": 4,
-          "interpretation": "空购物车第三方失败较低，未复现上一轮 TTFB 尖峰；继续作为 checkout owner-state 的对照组。"
+          "interpretation": "最稳定的低风险对照：3P 失败中位数 32.5、错误中位数 4；继续作为 owner-state cart/checkout 的公开对照组。"
         }
       ]
     },
