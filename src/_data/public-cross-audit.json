@@ -1160,7 +1160,7 @@
         {
           "segment": "paid social UTM",
           "routeId": "homepage-paid-social-utm",
-          "maxFcp": "0.46s",
+          "maxFcp": "0.47s",
           "maxTtfb": "248ms",
           "maxJsKb": "1918KB",
           "maxThirdPartyFailures": 48,
