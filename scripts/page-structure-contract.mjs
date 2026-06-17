@@ -131,7 +131,7 @@ export const pageNavigationContract = {
   "/cross-audit.html": [
     nav("cross-audit.html#final-audit", "页面校验", ["决策总表页"]),
     nav("cross-audit.html#diagnostic-bridge", "站内外诊断桥接", ["站内外诊断桥接"]),
-    nav("cross-audit.html#storyline", "故事线", ["沿用老故事线"]),
+    nav("cross-audit.html#storyline", "故事线", ["故事线"]),
     nav("cross-audit.html#insight-chain", "诊断路径", ["经营诊断路径"]),
     nav("cross-audit.html#hard-conclusions", "硬结论", ["预算取舍"]),
     nav("cross-audit.html#cross-matrix", "策略矩阵", ["诊断 × 资源排序 × 验收"]),

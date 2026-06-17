@@ -91,6 +91,28 @@ test("site uses left sidebar navigation on desktop and responsive sidebar on mob
   expect(desktopLayout.anchorLinks).toBeGreaterThanOrEqual(12);
   await desktop.close();
 
+  const shortDesktop = await browser.newPage({viewport: {width: 1280, height: 768}});
+  await shortDesktop.goto("/cross-audit.html");
+  const shortSidebar = await shortDesktop.evaluate(() => {
+    const anchors = document.querySelector(".side-nav__anchors");
+    const cta = document.querySelector(".side-nav__cta");
+    const foot = document.querySelector(".side-nav__foot");
+    const anchorsRect = anchors.getBoundingClientRect();
+    const ctaRect = cta.getBoundingClientRect();
+    const footRect = foot.getBoundingClientRect();
+    return {
+      anchorsOverflowY: getComputedStyle(anchors).overflowY,
+      anchorsCanScroll: anchors.scrollHeight > anchors.clientHeight,
+      overlapsCta: anchorsRect.bottom > ctaRect.top,
+      overlapsFoot: anchorsRect.bottom > footRect.top
+    };
+  });
+  expect(shortSidebar.anchorsOverflowY).toBe("auto");
+  expect(shortSidebar.anchorsCanScroll).toBe(true);
+  expect(shortSidebar.overlapsCta).toBe(false);
+  expect(shortSidebar.overlapsFoot).toBe(false);
+  await shortDesktop.close();
+
   const mobile = await browser.newPage({viewport: {width: 390, height: 844}});
   await mobile.goto("/");
   const mobileLayout = await mobile.evaluate(() => {

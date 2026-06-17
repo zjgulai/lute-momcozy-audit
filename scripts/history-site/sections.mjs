@@ -344,9 +344,10 @@ export function storylineSection(data) {
   return `<section class="section" id="storyline">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">沿用老故事线</div>
-        <h2 class="section__title">先判断经营摩擦，再落地技术修复，再验收</h2>
-        <p class="section__sub">沿用历史站的决策顺序：经营优先级、渠道归因、数据可信度、技术病灶和执行路线。当前私密版保留这条链路，并用最新经营与采集数据补齐结论边界。</p>
+        <div>
+          <div class="section__eyebrow">故事线</div>
+          <p class="section__sub">按经营优先级、渠道归因、数据可信度、技术病灶和执行路线展开；用最新经营与采集数据补齐结论边界。</p>
+        </div>
       </div>
       <div class="story-grid">
         ${items.map((item, index) => `<div class="story-card"><div class="story-card__num">${index + 1}</div><p>${escapeHtml(item)}</p></div>`).join("")}
