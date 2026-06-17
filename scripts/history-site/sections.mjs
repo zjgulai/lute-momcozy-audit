@@ -444,7 +444,7 @@ export function thirdPartyGovernanceSection(data) {
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">第三方治理 · Owner / 用途 / 预算</div>
-        <h2 class="section__title">把 91 次第三方失败拆成可执行的责任表</h2>
+        <h2 class="section__title">把 ${integer(data.external.maxThirdPartyFailures)} 次第三方失败拆成可执行的责任表</h2>
         <p class="section__sub">${escapeHtml(governance.summary)}</p>
       </div>
       <div class="deprecated"><strong>证据版本：</strong>${escapeHtml(governance.evidenceVersion)}<ol>${rules}</ol></div>
