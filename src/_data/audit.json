@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "Momcozy 门店技术审计",
+    "title": "Momcozy 门店技术诊断",
     "sessionId": "session-2026-06-17",
     "auditVersion": "3.4.0",
     "collectedBy": "Playwright 自动采集（v3 PDP watchlist 路由聚合）",
@@ -174,7 +174,7 @@
       "confidence": "high"
     },
     {
-      "label": "审计覆盖路径",
+      "label": "诊断覆盖路径",
       "value": 13,
       "unit": "条",
       "interpretation": "最新自动覆盖范围已含 homepage、10 条 PDP watchlist、cart、checkout。下一步不是再补基础路径，而是做多次复采、入口参数和登录状态分段。",
@@ -202,7 +202,7 @@
       "value": 76,
       "unit": "张",
       "interpretation": "最新样本中最高 76 张图片缺失 alt（pdp-tuckgo-stroller mobile），属于真实可修复债务。",
-      "source": "图片审计，session-2026-06-17 路由集",
+      "source": "图片诊断，session-2026-06-17 路由集",
       "confidence": "low"
     }
   ],
