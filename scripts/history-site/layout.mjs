@@ -5,7 +5,7 @@ export function pageStyles() {
     html, body { max-width: 100%; overflow-x: hidden; background: #f6f6f7; }
     html { scroll-padding-top: 24px; }
     body { color: #18181b; }
-    .side-nav { position: fixed; inset: 0 auto 0 0; width: 292px; background: #111113; color: #f5f5f5; border-right: 1px solid #27272a; z-index: 100; display: flex; flex-direction: column; padding: 22px 18px; overflow-y: auto; }
+    .side-nav { position: fixed; inset: 0 auto 0 0; width: 292px; background: #111113; color: #f5f5f5; border-right: 1px solid #27272a; z-index: 100; display: flex; flex-direction: column; padding: 22px 18px; overflow-y: auto; overflow-x: hidden; }
     .side-nav__brand { display: block; color: #fff; font-size: 20px; font-weight: 850; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 8px; }
     .side-nav__brand span { color: #f0a4b7; }
     .side-nav__kicker { display: inline-flex; align-items: center; width: fit-content; border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.08); color: #f8dbe3; border-radius: 999px; padding: 5px 9px; font-size: 10px; font-weight: 850; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 18px; }
@@ -123,7 +123,7 @@ export function pageStyles() {
     .warn { color: #854d0e; font-weight: 800; }
     .callout--danger .callout__label { color: #7f1d1d; }
     @media (max-width: 1180px) { .side-nav { width: 248px; } .content-shell, .footer { margin-left: 248px; } .hero__grid { grid-template-columns: 1fr; } .section__head { grid-template-columns: 1fr; gap: 10px; } }
-    @media (max-width: 820px) { .side-nav { position: relative; width: auto; min-height: 0; inset: auto; padding: 16px; } .side-nav__status { grid-template-columns: repeat(4, minmax(0, 1fr)); } .side-nav__group { padding: 10px 0; } .side-nav__group--anchors { flex: none; } .side-nav__main, .side-nav__anchors { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 4px; scrollbar-width: none; } .side-nav__main::-webkit-scrollbar, .side-nav__anchors::-webkit-scrollbar { display: none; } .side-nav__link, .side-nav__anchor { white-space: nowrap; margin: 0; flex: 0 0 auto; } .side-nav__cta { text-align: left; width: fit-content; } .side-nav__foot { display: none; } .content-shell, .footer { margin-left: 0; } .container { padding: 0 18px; } .section { padding: 46px 0; } .hero { padding-top: 38px; } }
+    @media (max-width: 820px) { .side-nav { position: relative; width: auto; min-height: 0; inset: auto; padding: 16px; } .side-nav__status { grid-template-columns: repeat(4, minmax(0, 1fr)); } .side-nav__group { padding: 10px 0; min-width: 0; } .side-nav__group--anchors { flex: none; } .side-nav__main, .side-nav__anchors { display: flex; max-width: 100%; min-width: 0; overflow-x: auto; gap: 8px; padding-bottom: 4px; scrollbar-width: none; } .side-nav__main::-webkit-scrollbar, .side-nav__anchors::-webkit-scrollbar { display: none; } .side-nav__link, .side-nav__anchor { white-space: nowrap; margin: 0; flex: 0 0 auto; } .side-nav__cta { text-align: left; width: fit-content; max-width: 100%; } .side-nav__foot { display: none; } .content-shell, .footer { margin-left: 0; } .container { padding: 0 18px; } .section { padding: 46px 0; } .hero { padding-top: 38px; } }
     @media (max-width: 560px) { .side-nav__status { grid-template-columns: repeat(2, minmax(0, 1fr)); } .metric-grid, .cross-grid, .playbook-grid { grid-template-columns: 1fr; } .section__title { font-size: 28px; } .hero__title { font-size: 40px; } }
   </style>`;
 }
@@ -227,7 +227,7 @@ export function nav(active) {
   };
   const anchorConfig = pageAnchors[active] || pageAnchors.index;
   const anchors = anchorConfig.anchors;
-  return `<aside class="side-nav" aria-label="Momcozy 审计报告导航">
+  return `<nav class="side-nav" aria-label="Momcozy 审计报告导航">
     <a href="index.html#hero" class="side-nav__brand">路特 AI <span>×</span><br>Momcozy</a>
     <div class="side-nav__kicker">私密经营审计</div>
     <div class="side-nav__status" aria-label="报告状态">
@@ -250,7 +250,7 @@ export function nav(active) {
     </div>
     <a href="${anchorConfig.ctaHref}" class="side-nav__cta">${anchorConfig.ctaLabel}</a>
     <p class="side-nav__foot">真实金额与 KPI 已写入；密钥、服务器地址、私有路径和原始数据端点仍被排除。</p>
-  </aside>`;
+  </nav>`;
 }
 
 export function footer() {

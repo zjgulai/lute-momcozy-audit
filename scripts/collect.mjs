@@ -21,6 +21,10 @@ const OUT_PATH = path.resolve(OUT_DIR, `${DATE}.json`);
 const ROUTE_CONFIG_PATH = process.env.AUDIT_ROUTE_CONFIG || "config/collection-routes.json";
 const ROUTE_CONFIG = readRouteConfig(ROUTE_CONFIG_PATH);
 const METHODOLOGY_VERSION = ROUTE_CONFIG.methodologyVersion || "collector-v3-route-aggregate";
+const REQUESTED_ROUTE_IDS = (process.env.AUDIT_ROUTE_IDS || "")
+  .split(",")
+  .map((item) => item.trim())
+  .filter(Boolean);
 
 if (fs.existsSync(OUT_PATH)) {
   console.log(`Session ${DATE} already exists at ${OUT_PATH}, skipping.`);
@@ -56,10 +60,16 @@ console.error(`All ${MAX_ATTEMPTS} attempts failed. Last error:`, lastError?.mes
 process.exit(1);
 
 async function collect(browser) {
+  const configuredRoutes = selectRoutes(ROUTE_CONFIG.routes, REQUESTED_ROUTE_IDS);
+  console.log(`[collect] config=${ROUTE_CONFIG_PATH} methodology=${METHODOLOGY_VERSION} routes=${configuredRoutes.length}`);
   const routes = [];
-  for (const route of ROUTE_CONFIG.routes) {
+  for (const [index, route] of configuredRoutes.entries()) {
+    console.log(`[collect] route ${index + 1}/${configuredRoutes.length} ${route.id} desktop start`);
     const desktop = await runViewport(browser, route, 1440, 900, "desktop");
+    logViewportResult(route, desktop);
+    console.log(`[collect] route ${index + 1}/${configuredRoutes.length} ${route.id} mobile start`);
     const mobile  = await runViewport(browser, route, 390,  844, "mobile");
+    logViewportResult(route, mobile);
     routes.push({
       routeId: route.id,
       label: route.label,
@@ -69,6 +79,29 @@ async function collect(browser) {
     });
   }
   return {routes};
+}
+
+function selectRoutes(routes, requestedIds) {
+  if (requestedIds.length === 0) return routes;
+  const routeMap = new Map(routes.map((route) => [route.id, route]));
+  const missing = requestedIds.filter((id) => !routeMap.has(id));
+  if (missing.length > 0) {
+    throw new Error(`AUDIT_ROUTE_IDS includes unknown route(s): ${missing.join(", ")}`);
+  }
+  return requestedIds.map((id) => routeMap.get(id));
+}
+
+function logViewportResult(route, viewport) {
+  const metrics = viewport.metrics;
+  console.log([
+    `[collect] route ${route.id} ${viewport.label} done`,
+    `lcp=${metrics.lcp ?? "N/A"}`,
+    `fcp=${metrics.fcp ?? "N/A"}`,
+    `ttfb=${metrics.ttfb ?? "N/A"}`,
+    `jsKb=${metrics.jsKb ?? "N/A"}`,
+    `3p=${metrics.thirdPartyFailures}`,
+    `errors=${metrics.consoleErrors + metrics.pageErrors}`
+  ].join(" "));
 }
 
 async function runViewport(browser, route, width, height, label) {

@@ -55,8 +55,21 @@ function assertFinding(section, label, expected) {
   assertClose(finding.value, expected, `${section}.${label}`);
 }
 
+function assertAnyFinding(section, labels, expected) {
+  const label = labels.find((item) => data[section].some((finding) => finding.label === item));
+  if (!label) fail(`missing ${section} finding: ${labels.join(" or ")}`);
+  assertFinding(section, label, expected);
+}
+
 function round2(value) {
   return Math.round(value * 100) / 100;
+}
+
+function pickPdpWorst(session, metric) {
+  const candidates = (session.observations || [])
+    .filter((item) => item.routeId?.startsWith("pdp-") && Number.isFinite(item.metrics?.[metric]));
+  if (candidates.length === 0) return null;
+  return candidates.reduce((best, item) => item.metrics[metric] > best.metrics[metric] ? item : best);
 }
 
 const sessions = readSessions();
@@ -73,16 +86,23 @@ if (data.meta.latestObservedAt !== latestDisplayDate || data.meta.observedAt !==
   fail(`audit.json observedAt/latestObservedAt must both be ${latestDisplayDate}`);
 }
 
-if (!latestSession.methodologyVersion?.includes("route-aggregate")) {
+if (!latestSession.methodologyVersion?.startsWith("collector-v3-") || !Array.isArray(latestSession.routes)) {
   fail(`latest session ${latestFile} is not a route aggregate session`);
 }
 
 const homepageDesktop = routeMetric(latestSession, "homepage", "desktop");
 const homepageMobile = routeMetric(latestSession, "homepage", "mobile");
-const productDesktop = routeMetric(latestSession, "product-detail", "desktop");
-const productMobile = routeMetric(latestSession, "product-detail", "mobile");
+let productDesktop = routeMetric(latestSession, "product-detail", "desktop");
+let productMobile = routeMetric(latestSession, "product-detail", "mobile");
+if (!productDesktop || !productMobile) {
+  const worstPdp = pickPdpWorst(latestSession, "thirdPartyFailures");
+  if (worstPdp) {
+    productDesktop = routeMetric(latestSession, worstPdp.routeId, "desktop");
+    productMobile = routeMetric(latestSession, worstPdp.routeId, "mobile");
+  }
+}
 if (!homepageDesktop || !homepageMobile || !productDesktop || !productMobile) {
-  fail(`latest session ${latestFile} is missing homepage/product-detail desktop/mobile observations`);
+  fail(`latest session ${latestFile} is missing homepage and PDP desktop/mobile observations`);
 }
 
 const observedMetrics = allObservationMetrics(latestSession);
@@ -90,25 +110,30 @@ const lcpCoverage = round2(
   observedMetrics.filter((metrics) => typeof metrics.lcp === "number").length / observedMetrics.length * 100
 );
 const maxValue = (metric) => Math.max(...observedMetrics.map((metrics) => metrics[metric]).filter(Number.isFinite));
+const maxHomepageValue = (metric) => Math.max(...[homepageDesktop, homepageMobile].map((metrics) => metrics[metric]).filter(Number.isFinite));
+const maxPdpValue = (metric) => pickPdpWorst(latestSession, metric)?.metrics?.[metric];
+const maxPdpErrors = Math.max(...(latestSession.observations || [])
+  .filter((item) => item.routeId?.startsWith("pdp-"))
+  .map((item) => item.metrics.consoleErrors + item.metrics.pageErrors)
+  .filter(Number.isFinite));
 const lcpUnobserved = observedMetrics.filter((metrics) => metrics.lcp === null).length;
 const productRuntimeErrors =
   productDesktop.consoleErrors + productDesktop.pageErrors +
   productMobile.consoleErrors + productMobile.pageErrors;
-const desktopMissingAlt = homepageDesktop.missingAlt + productDesktop.missingAlt;
 
 assertFinding("metrics", "LCP 可观测覆盖率", lcpCoverage);
 assertFinding("metrics", "FCP（首页，桌面）", homepageDesktop.fcp);
 assertFinding("metrics", "FCP（首页，移动）", homepageMobile.fcp);
 assertFinding("metrics", "服务器响应（首页，桌面）", homepageDesktop.ttfb);
-assertFinding("metrics", "服务器响应（商品详情，移动）", productMobile.ttfb);
+assertAnyFinding("metrics", ["服务器响应（商品详情，移动）", "服务器响应（PDP watchlist 最差）"], maxPdpValue("ttfb") ?? productMobile.ttfb);
 assertFinding("metrics", "布局偏移（CLS）", maxValue("cls"));
 assertFinding("metrics", "JavaScript 体积（首页）", homepageDesktop.jsKb);
-assertFinding("metrics", "DOM 节点（首页）", homepageDesktop.domNodes);
+assertFinding("metrics", "DOM 节点（首页）", maxHomepageValue("domNodes"));
 assertFinding("metrics", "第三方失败（首页）", homepageDesktop.thirdPartyFailures);
-assertFinding("metrics", "第三方失败（商品详情）", productDesktop.thirdPartyFailures);
-assertFinding("metrics", "商品详情加载完成时间", round2(productDesktop.loadEventMs / 1000));
-assertFinding("metrics", "商品详情图片格式覆盖率", productDesktop.imagesWebpPct);
-assertFinding("metrics", "商品详情图片缺失 alt", productDesktop.missingAlt);
+assertAnyFinding("metrics", ["第三方失败（商品详情）", "第三方失败（PDP watchlist）"], maxPdpValue("thirdPartyFailures") ?? productDesktop.thirdPartyFailures);
+assertAnyFinding("metrics", ["商品详情加载完成时间", "PDP watchlist 加载完成时间"], round2((maxPdpValue("loadEventMs") ?? productDesktop.loadEventMs) / 1000));
+assertAnyFinding("metrics", ["商品详情图片格式覆盖率", "PDP watchlist 图片格式覆盖率"], maxPdpValue("imagesWebpPct") ?? productDesktop.imagesWebpPct);
+assertAnyFinding("metrics", ["商品详情图片缺失 alt", "PDP watchlist 图片缺失 alt"], maxPdpValue("missingAlt") ?? productDesktop.missingAlt);
 
 assertFinding("forensics", "第三方请求失败观测", maxValue("thirdPartyFailures"));
 assertFinding("forensics", "长任务（long tasks）", maxValue("longTasks"));
@@ -116,9 +141,9 @@ assertFinding("forensics", "JavaScript 体积（最新）", maxValue("jsKb"));
 assertFinding("forensics", "DOM 节点（最新）", maxValue("domNodes"));
 assertFinding("forensics", "LCP 可观测风险", lcpUnobserved);
 assertFinding("forensics", "审计覆盖路径", latestSession.routes.length);
-assertFinding("forensics", "商品详情 DOM 规模", productDesktop.scriptTags);
-assertFinding("forensics", "商品详情运行时错误", productRuntimeErrors);
-assertFinding("forensics", "图片可访问性缺口", desktopMissingAlt);
+assertAnyFinding("forensics", ["商品详情 DOM 规模", "PDP watchlist DOM 规模"], maxPdpValue("scriptTags") ?? productDesktop.scriptTags);
+assertAnyFinding("forensics", ["商品详情运行时错误", "PDP watchlist 运行时错误"], Number.isFinite(maxPdpErrors) ? maxPdpErrors : productRuntimeErrors);
+assertFinding("forensics", "图片可访问性缺口", maxValue("missingAlt"));
 
 const staleFindings = ["metrics", "forensics"]
   .flatMap((section) => data[section].map((item) => ({section, ...item})))

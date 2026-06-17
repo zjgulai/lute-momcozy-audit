@@ -217,7 +217,7 @@ test("trends page keeps history report and integrates latest v3 route data", asy
   }, expected);
 
   expect(errors).toEqual([]);
-  expect(result.title).toContain("5 次采集");
+  expect(result.title).toContain("最新 13 路由采集");
   expect(result.hasLatestSession).toBe(true);
   expect(result.hasRouteAwareLabel).toBe(true);
   expect(result.hasPdpFailures).toBe(true);
@@ -265,7 +265,7 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
     expect(text).toContain("外部自动采集显示第三方失败最高");
   }
   expect(text).toContain("不批准 SEO 变现建议");
-  expect(text).toContain("批准 10 条 PDP × 双视口 × 多次采样");
+  expect(text).toContain("批准高风险 PDP 优先复跑");
   expect(text).toContain("最终审计");
   expect(text).toContain("每条结论都必须能落到策略和执行");
   expect(text).toContain("重点保留结论-策略-执行闭环");
@@ -296,7 +296,7 @@ test("cross-audit exposes executable competitor recollect plan", async ({page}) 
   expect(executionSection).toContain("采集团队");
   expect(executionSection).toContain("2026-06-22");
   expect(executionSection).toContain("任务");
-  expect(executionSection).toContain("route 配置与样本口径说明");
+  expect(executionSection).toContain("默认 route 配置 + PDP watchlist route pack");
   expect(executionSection).toContain("交付项");
 });
 

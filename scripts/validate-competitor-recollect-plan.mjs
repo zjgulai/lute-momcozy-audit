@@ -16,10 +16,26 @@ function assert(condition, message) {
   }
 }
 
-const competitorMatrix = data.competitorMatrix || [];
-assert(Array.isArray(competitorMatrix), "competitorMatrix must be an array");
+function getCompetitorMatrix(reportData) {
+  if (Array.isArray(reportData.competitorMatrix)) {
+    return {path: "competitorMatrix", rows: reportData.competitorMatrix};
+  }
+  if (Array.isArray(reportData.legacyRecovery?.competitorMatrix)) {
+    return {path: "legacyRecovery.competitorMatrix", rows: reportData.legacyRecovery.competitorMatrix};
+  }
+  return {path: "legacyRecovery.competitorMatrix", rows: null};
+}
 
-for (const item of competitorMatrix) {
+const competitorMatrix = getCompetitorMatrix(data);
+assert(Array.isArray(competitorMatrix.rows), `${competitorMatrix.path} must be an array`);
+assert(competitorMatrix.rows.length > 0, `${competitorMatrix.path} must not be empty`);
+
+for (const item of competitorMatrix.rows) {
+  assert(item && typeof item === "object", `${competitorMatrix.path} item must be an object`);
+  assert(typeof item.dimension === "string" && item.dimension.trim().length > 0, `${competitorMatrix.path} item dimension is required`);
+  assert(typeof item.momcozy === "string" && item.momcozy.trim().length > 0, `${competitorMatrix.path} item momcozy state is required for dimension: ${item.dimension}`);
+  assert(typeof item.reference === "string" && item.reference.trim().length > 0, `${competitorMatrix.path} item reference is required for dimension: ${item.dimension}`);
+  assert(typeof item.lesson === "string" && item.lesson.trim().length > 0, `${competitorMatrix.path} item lesson is required for dimension: ${item.dimension}`);
   const status = item.recollectStatus;
   if (status == null) continue;
 
@@ -27,7 +43,7 @@ for (const item of competitorMatrix) {
     continue;
   }
 
-  assert(typeof status === "object", "competitorMatrix item recollectStatus must be a string, object, or null");
+  assert(typeof status === "object", `${competitorMatrix.path} item recollectStatus must be a string, object, or null`);
   assert(typeof status.state === "string" && validStates.has(status.state), `invalid recollectStatus.state: ${status.state}`);
   assert(typeof status.summary === "string" && status.summary.trim().length > 0, `recollectStatus summary is required for object state in dimension: ${item.dimension}`);
   if (status.dueBy != null) {
@@ -74,4 +90,4 @@ if (plan.commands != null) {
   assert(plan.commands.every((command) => typeof command === "string" && command.trim().length > 0), "competitorRecollectPlan.commands must contain non-empty strings");
 }
 
-console.log(`public-cross-audit competitor recollect plan validated for ${tasks.length} task(s)`);
+console.log(`public-cross-audit competitor recollect plan validated for ${competitorMatrix.rows.length} matrix row(s) and ${tasks.length} task(s)`);

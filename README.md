@@ -4,7 +4,7 @@ Private-business technical and operating audit of the Momcozy storefront — als
 
 **Production**: https://shopify.lute-tlz-dddd.top
 **Release contract**: private-business (`docs/release-contract.md`)
-**Last session**: 2026-06-14 (automated, route-aware)
+**Last session**: 2026-06-17 (automated, PDP watchlist route-aware)
 
 ## Quick Start
 
@@ -59,7 +59,7 @@ resolved by `scripts/build-history-site.mjs` from `observedAt` and then fed thro
 
 **Session format v2** (from 2026-06-10): dual viewport, new metrics (TBT, DOM nodes, JS KB, total requests), mobile block, auto-computed confidence.
 
-**Session format v3 route aggregate** (next automated collection): preserves the v2 top-level homepage fields for the existing Trends page, and also adds `methodologyVersion` plus a `routes[]` array. Routes are defined in `config/collection-routes.json` and currently cover homepage plus one representative product-detail route. Each route stores desktop and mobile aggregate metrics only; raw request URLs are not persisted.
+**Session format v3 route aggregate**: preserves the v2 top-level homepage fields for the existing Trends page, and also adds `methodologyVersion` plus a `routes[]` array. The default route config (`config/collection-routes.json`) covers homepage, representative PDP, cart, and checkout. The watchlist route pack (`config/collection-routes-pdp-watchlist.json`) covers homepage, 10 PDP routes, cart, and checkout. Each route stores desktop and mobile aggregate metrics only; raw request URLs are not persisted.
 
 **Session format v1** (before 2026-05-17): manual browser, no mobile block, confidence: low. Not directly comparable to v2.
 
@@ -194,10 +194,11 @@ Required repository secrets:
 
 ## Competitor recollect plan checks
 
-竞品复采计划使用 `src/_data/public-cross-audit.json` 中的 `competitorMatrix` 与 `competitorRecollectPlan` 两类数据支撑。
+竞品复采计划使用 `src/_data/public-cross-audit.json` 中的 `legacyRecovery.competitorMatrix` 与 `competitorRecollectPlan` 两类数据支撑。
 `npm run test:competitor-plan` 会对以下内容做约束：
 
-- `competitorMatrix[*].recollectStatus` 的结构与状态值（`todo` / `pending` / `in_progress` / `blocked` / `done`）校验
+- `legacyRecovery.competitorMatrix[*]` 的维度、Momcozy 状态、竞品参照、学习项和 `recollectStatus` 结构校验
+- `recollectStatus.state` 的状态值（`todo` / `pending` / `in_progress` / `blocked` / `done`）校验
 - 计划任务 `competitorRecollectPlan.tasks` 的字段完整性、任务 ID 去重、状态值
 - `commands` 字段为非空字符串列表（如有）
 
@@ -273,21 +274,21 @@ nginx config: `/opt/ai-video/deploy/lighthouse/nginx.conf` — the `shopify.lute
 
 **Do not edit `ops/nginx/momcozy-audit.conf` as a production operation** — it is a reference copy only.
 
-## Key Findings (2026-06-14 baseline)
+## Key Findings (2026-06-17 PDP watchlist baseline)
 
 | Metric | Value | Status |
 |---|---|---|
-| FCP desktop | 0.58 s | Good (lab, no throttling) |
-| FCP mobile | 0.34 s | Good (lab, no throttling) |
-| TTFB desktop | 416 ms | Good |
-| TTFB mobile | 213 ms | Good |
+| FCP desktop | 0.33 s (homepage) | Good (lab, no throttling) |
+| FCP mobile | 0.33 s (homepage) | Good (lab, no throttling) |
+| TTFB desktop | 247 ms (homepage) | Good |
+| TTFB mobile | 214 ms (homepage) | Good |
 | CLS | 0 | Perfect |
 | TBT | 0 ms | Lab artifact (3P scripts failed) |
-| JS payload | 1,904 KB (homepage), 1,942 KB (product-detail) | **Critical — 3.8× budget** |
-| DOM nodes | 7,356 (homepage) | **Critical — 4.9× limit** |
-| Total requests | 504 | High |
-| 3P failures desktop | 45 | **Critical** |
-| 3P failures mobile | 44 (homepage), 55 (product-detail) | **Critical** |
-| LCP | N/A (not observable) | Not observable (hero/background path) |
+| JS payload | 1,903 KB (homepage), 2,214 KB (PDP watchlist max) | **Critical — 4.4× budget** |
+| DOM nodes | 11,729 (PDP watchlist max) | **Critical — 7.8× limit** |
+| Total requests | 798 (PDP watchlist max) | High |
+| 3P failures desktop | 91 (PDP watchlist max) | **Critical** |
+| 3P failures mobile | 91 (PDP watchlist max) | **Critical** |
+| LCP | 0 / 26 observable samples | Not observable (hero/PDP lead asset path) |
 
-Top P0 actions: reduce JS payload from 1.9 MB, fix 45–56 third-party failures, make hero an LCP-eligible element and extend route coverage to cart/checkout.
+Top P0 actions: reduce JS payload from 1.9–2.2 MB, fix up to 91 third-party failures, make hero/PDP lead assets LCP-eligible, and turn the 10-PDP watchlist into repeated segmented samples rather than a single-run conclusion.
