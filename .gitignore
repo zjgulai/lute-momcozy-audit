@@ -8,3 +8,5 @@ artifacts/
 .sisyphus/
 .DS_Store
 raw_data/
+.owner-state/
+*.storage-state.json
