@@ -1189,8 +1189,8 @@
       ]
     },
     "commands": [
-      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-public.json AUDIT_OUTPUT_DIR=src/_data/segment-sessions AUDIT_SESSION_DATE=YYYY-MM-DD AUDIT_SESSION_LABEL=segmented-public-rN npm run collect",
-      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-auth-template.json AUDIT_OUTPUT_DIR=src/_data/segment-sessions AUDIT_STORAGE_STATE=<owner-provided-playwright-state> AUDIT_SESSION_DATE=YYYY-MM-DD AUDIT_SESSION_LABEL=segmented-owner-rN npm run collect"
+      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-public.json AUDIT_OUTPUT_DIR=<segment-session-output-dir> AUDIT_SESSION_DATE=YYYY-MM-DD AUDIT_SESSION_LABEL=segmented-public-rN npm run collect",
+      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-auth-template.json AUDIT_OUTPUT_DIR=<segment-session-output-dir> AUDIT_STORAGE_STATE=<owner-provided-playwright-state> AUDIT_SESSION_DATE=YYYY-MM-DD AUDIT_SESSION_LABEL=segmented-owner-rN npm run collect"
     ],
     "acceptanceGates": [
       "每个 segment 至少 3 次复采后才进入趋势判断；单次样本只用于发现风险。",
