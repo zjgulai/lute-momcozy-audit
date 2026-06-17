@@ -476,7 +476,7 @@ export function segmentSamplingSection(data) {
   </tr>`).join("");
   const pilotBlock = pilot?.rows?.length ? `
       <div class="deprecated">
-        <strong>公开匿名 pilot：</strong>${escapeHtml(pilot.observedAt)} · ${escapeHtml(pilot.methodologyVersion)} · confidence ${escapeHtml(pilot.confidence)}。${escapeHtml(pilot.scope)}
+        <strong>公开匿名 pilot：</strong>${escapeHtml(pilot.sessionId || pilot.observedAt)} · ${escapeHtml(pilot.methodologyVersion)} · confidence ${escapeHtml(pilot.confidence)}。${escapeHtml(pilot.scope)}
         ${pilotReads ? `<ol>${pilotReads}</ol>` : ""}
       </div>
       <div class="cross-table-wrap" tabindex="0">

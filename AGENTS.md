@@ -23,6 +23,7 @@ src/_data/
     2026-05-17.json           <- 手工 initial（confidence: low）
     2026-06-10.json           <- 自动化首次基线（confidence: medium，含 mobile block）
     2026-06-14.json           <- 自动化路由增强基线（confidence: medium）
+  segment-sessions/           <- 分段复采归档（YYYY-MM-DD-label.json），不参与主趋势 latest session
 src/assets/
   site.css                <- 全站样式（单文件）
   trends-charts.js        <- uPlot 图表逻辑（self-hosted，CSP 合规）
@@ -43,6 +44,7 @@ scripts/
   collect.mjs             <- Playwright 自动采集（双视口 desktop+mobile，3 次重试）
   validate-public-data.mjs
   validate-sessions.mjs
+  validate-segment-sessions.mjs
   safety-scan.mjs
   check-links.mjs
   serve.mjs
@@ -79,6 +81,22 @@ AUDIT_TARGET_URL=https://momcozy.com npm run collect
 npm run test:sessions
 npm test
 ```
+
+### 新增分段复采 session（手动）
+
+```bash
+AUDIT_TARGET_URL=https://momcozy.com \
+AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-public.json \
+AUDIT_OUTPUT_DIR=src/_data/segment-sessions \
+AUDIT_SESSION_DATE=YYYY-MM-DD \
+AUDIT_SESSION_LABEL=segmented-public-r1 \
+npm run collect
+
+npm run test:segment-sessions
+npm test
+```
+
+owner 登录态、真实购物车和 checkout 分段必须额外设置 `AUDIT_STORAGE_STATE=<owner-provided-playwright-state>`；不得把无登录样本写成 owner-state 样本。
 
 ### 新增采集 session（CI 定时）
 
@@ -118,6 +136,7 @@ npm run build
 npm run collect              # 需设 AUDIT_TARGET_URL
 npm run test:allowlist
 npm run test:sessions
+npm run test:segment-sessions
 npm run test:safety
 npm run test:links
 npm run test:e2e
@@ -142,5 +161,6 @@ npm test                     # 全套
 - recommendations 的 priority 只能取 "P0" / "P1" / "P2"
 - 修改数据后必须先跑 npm run test:allowlist
 - 新增 session 后必须跑 npm run test:sessions
+- 新增 segment-sessions 后必须跑 npm run test:segment-sessions；分段复采不得污染 src/_data/sessions 的主趋势 latest session
 - 禁止直接修改 ops/nginx/momcozy-audit.conf 作为生产操作
   生产 nginx 在 ai_video_nginx 容器内，配置路径: /opt/ai-video/deploy/lighthouse/nginx.conf
