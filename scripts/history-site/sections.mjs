@@ -201,7 +201,7 @@ function competitorSnapshotCallout(snapshot) {
   const maxJs = summary.maxJsKb;
   const maxDom = summary.maxDomNodes;
   return [
-    `竞品首轮重采 ${escapeHtml(snapshot.observedAt)} 已归档：${integer(summary.competitorCount)} 站、${integer(summary.sampledPageCount)} 个公开页面、${integer(summary.viewportSampleCount)} 个视口样本。`,
+    `竞品复采样本 ${escapeHtml(snapshot.observedAt)} 已归档：${integer(summary.competitorCount)} 站、${integer(summary.sampledPageCount)} 个公开页面、${integer(summary.viewportSampleCount)} 个视口样本。`,
     `PDP 可达 ${integer(summary.reachablePdpCount)}/${integer(summary.competitorCount)}，cart 可达 ${integer(summary.reachableCartCount)}/${integer(summary.competitorCount)}。`,
     `最高第三方失败 ${integer(maxFailures?.value || 0)}（${escapeHtml(maxFailures?.competitorId || "N/A")} ${escapeHtml(maxFailures?.routeId || "")}/${escapeHtml(maxFailures?.viewport || "")}），最高 JS ${integer(maxJs?.value || 0)}KB，最高 DOM ${integer(maxDom?.value || 0)}。`,
     "这能支撑脚本风险排序，但还不能替代多次复采、入口参数和 checkout 实际状态。"
@@ -421,6 +421,36 @@ export function executionOrdersSection(data, id = "decisions") {
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
           <thead><tr><th>时间窗</th><th>Owner</th><th>批准动作</th><th>验收 gate</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>`;
+}
+
+export function thirdPartyGovernanceSection(data) {
+  const governance = data.thirdPartyGovernance;
+  if (!governance?.domains?.length) return "";
+  const rules = (governance.budgetRules || []).map((rule) => `<li>${escapeHtml(rule)}</li>`).join("");
+  const rows = governance.domains.map((item) => `<tr>
+    <td><strong>${escapeHtml(item.category)}</strong><div class="evidence-note">${escapeHtml(item.routeScope)}</div></td>
+    <td>${escapeHtml(item.owner)}</td>
+    <td>${escapeHtml(item.purpose)}</td>
+    <td>${escapeHtml(item.loadPolicy)}</td>
+    <td>${escapeHtml(item.failureBudget)}</td>
+    <td>${escapeHtml(item.decision)}</td>
+  </tr>`).join("");
+  return `<section class="section" id="third-party-governance">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">第三方治理 · Owner / 用途 / 预算</div>
+        <h2 class="section__title">把 91 次第三方失败拆成可执行的责任表</h2>
+        <p class="section__sub">${escapeHtml(governance.summary)}</p>
+      </div>
+      <div class="deprecated"><strong>证据版本：</strong>${escapeHtml(governance.evidenceVersion)}<ol>${rules}</ol></div>
+      <div class="cross-table-wrap" tabindex="0">
+        <table class="cross-table">
+          <thead><tr><th>脚本类别</th><th>Owner</th><th>用途</th><th>加载策略</th><th>失败预算</th><th>处置</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -681,9 +711,9 @@ export function competitorMatrixSection(data) {
   return `<section class="section section--gray" id="matrix">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">竞品矩阵 · 6 站首轮重采</div>
+        <div class="section__eyebrow">竞品矩阵 · 6 站复采样本</div>
         <h2 class="section__title">横向参照保留为策略矩阵，并纳入经营 caveat</h2>
-        <p class="section__sub">历史矩阵的价值是让建议不孤立。当前矩阵已经接入竞品首轮重采，但仍只用于风险排序和假设收敛，不能直接恢复成最终分值化对标。</p>
+        <p class="section__sub">历史矩阵的价值是让建议不孤立。当前矩阵已经接入竞品复采样本，但仍只用于风险排序和假设收敛，不能直接恢复成最终分值化对标。</p>
       </div>
       <div class="deprecated">${competitorSnapshotCallout(snapshot)}</div>
       <div class="matrix-wrap">
@@ -732,8 +762,8 @@ export function competitorRecollectPlanSection(data) {
         <p class="section__sub">Owner: ${escapeHtml(plan.owner)}。目标：先补齐站内链路口径，再让竞品对照有同口径样本。</p>
       </div>
       <div class="deprecated">${escapeHtml(executionContext)}</div>
-      ${snapshot ? `<div class="cross-callout" role="note" aria-label="竞品首轮重采摘要">
-        <div class="card-label">竞品首轮重采摘要</div>
+      ${snapshot ? `<div class="cross-callout" role="note" aria-label="竞品复采摘要">
+        <div class="card-label">竞品复采摘要</div>
         <p>${competitorSnapshotCallout(snapshot)}</p>
       </div>` : ""}
       <div class="cross-table-wrap" tabindex="0">
@@ -1068,6 +1098,7 @@ export function crossAuditBody(data) {
   ${crossAuditSection(data, "cross-audit.html")}
   ${competitorMatrixSection(data)}
   ${competitorRecollectPlanSection(data)}
+  ${thirdPartyGovernanceSection(data)}
   ${executionOrdersSection(data, "execution-orders")}
   ${playbookSection(data)}
   ${roadmapSection(data)}`;
