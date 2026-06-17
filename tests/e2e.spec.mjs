@@ -127,6 +127,7 @@ test("cross audit sidebar prioritizes current-page anchors", async ({page}) => {
   expect(result.anchorHrefs).toContain("cross-audit.html#final-audit");
   expect(result.anchorHrefs).toContain("cross-audit.html#contradictions");
   expect(result.anchorHrefs).toContain("cross-audit.html#competitor-recollect");
+  expect(result.anchorHrefs).toContain("cross-audit.html#segment-sampling");
   expect(result.anchorHrefs).toContain("cross-audit.html#third-party-governance");
   expect(result.anchorHrefs).toContain("cross-audit.html#execution-orders");
   expect(result.anchorHrefs).toContain("cross-audit.html#diagnostic-bridge");
@@ -309,6 +310,12 @@ test("cross-audit exposes executable competitor recollect plan", async ({page}) 
   expect(matrixSection).toContain("Baby Brezza");
   expect(matrixSection).toContain("BabyBuddha");
   expect(matrixSection).toContain("最高 3P 失败");
+
+  const segmentSection = await page.locator("#segment-sampling").textContent();
+  expect(segmentSection).toContain("分段复采 · UTM / 状态 / Checkout");
+  expect(segmentSection).toContain("collection-routes-segmented-public");
+  expect(segmentSection).toContain("owner browser state");
+  expect(segmentSection).toContain("AUDIT_STORAGE_STATE=<owner-provided-playwright-state>");
 
   const governanceSection = await page.locator("#third-party-governance").textContent();
   expect(governanceSection).toContain("Owner / 用途 / 预算");

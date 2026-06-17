@@ -1,0 +1,73 @@
+{
+  "methodologyVersion": "collector-v3-segmented-owner-auth-2026-06",
+  "routes": [
+    {
+      "id": "homepage-owner-state",
+      "label": "Segment template: homepage owner-provided browser state",
+      "path": "/",
+      "primary": true,
+      "segment": {
+        "id": "owner-state-homepage",
+        "sourceType": "owner_state_control",
+        "visitorState": "returning_browser_state",
+        "authState": "owner_storage_state_required",
+        "cartState": "owner_state_unknown",
+        "checkoutState": "not_applicable",
+        "samplingMode": "owner-storage-state",
+        "requiresStorageState": true,
+        "riskQuestion": "Whether returning state changes homepage attribution load or error profile."
+      }
+    },
+    {
+      "id": "pdp-m5-owner-state",
+      "label": "Segment template: M5 PDP owner-provided browser state",
+      "path": "/products/m5-smart-wearable-breast-pump-upgraded-with-app-control",
+      "primary": false,
+      "segment": {
+        "id": "owner-state-pdp-m5",
+        "sourceType": "owner_state_pdp",
+        "visitorState": "returning_browser_state",
+        "authState": "owner_storage_state_required",
+        "cartState": "owner_state_unknown",
+        "checkoutState": "not_started",
+        "samplingMode": "owner-storage-state",
+        "requiresStorageState": true,
+        "riskQuestion": "Whether returning state worsens the high-risk PDP script failure profile."
+      }
+    },
+    {
+      "id": "cart-owner-state",
+      "label": "Segment template: cart owner-provided browser state",
+      "path": "/cart",
+      "primary": false,
+      "segment": {
+        "id": "owner-state-cart",
+        "sourceType": "owner_state_cart",
+        "visitorState": "returning_browser_state",
+        "authState": "owner_storage_state_required",
+        "cartState": "owner_state_cart",
+        "checkoutState": "not_started",
+        "samplingMode": "owner-storage-state",
+        "requiresStorageState": true,
+        "riskQuestion": "Whether cart state activates additional non-essential scripts before checkout."
+      }
+    },
+    {
+      "id": "checkout-owner-state",
+      "label": "Segment template: checkout owner-provided browser state",
+      "path": "/checkout",
+      "primary": false,
+      "segment": {
+        "id": "owner-state-checkout",
+        "sourceType": "owner_state_checkout",
+        "visitorState": "returning_browser_state",
+        "authState": "owner_storage_state_required",
+        "cartState": "owner_state_cart",
+        "checkoutState": "checkout_reachability_probe",
+        "samplingMode": "owner-storage-state",
+        "requiresStorageState": true,
+        "riskQuestion": "Whether checkout keeps transaction-critical scripts isolated while suppressing non-critical widgets."
+      }
+    }
+  ]
+}

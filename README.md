@@ -210,6 +210,25 @@ Required repository secrets:
 - `legacyRecovery.competitorMatrix[*]` 的维度、Momcozy 状态、竞品参照、学习项和 `recollectStatus` 结构校验
 - `recollectStatus.state` 的状态值（`todo` / `pending` / `in_progress` / `blocked` / `done`）校验
 - 计划任务 `competitorRecollectPlan.tasks` 的字段完整性、任务 ID 去重、状态值
+
+## Segmented collection packs
+
+下一轮复采拆为公开匿名段和 owner 浏览器状态段：
+
+```bash
+AUDIT_TARGET_URL=https://momcozy.com \
+AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-public.json \
+AUDIT_SESSION_DATE=YYYY-MM-DD \
+npm run collect
+
+AUDIT_TARGET_URL=https://momcozy.com \
+AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-auth-template.json \
+AUDIT_STORAGE_STATE=<owner-provided-playwright-state> \
+AUDIT_SESSION_DATE=YYYY-MM-DD \
+npm run collect
+```
+
+`AUDIT_STORAGE_STATE` 只在本地 Playwright context 中读取；session 与报告只记录公开 segment label，不记录 state 文件路径、账号、token 或 cookie 值。没有 `AUDIT_STORAGE_STATE` 时，`requiresStorageState: true` 的 route 会 fail fast，避免把未登录样本误写成登录态样本。
 - `commands` 字段为非空字符串列表（如有）
 - 竞品快照至少包含 4 个竞品、4 个可达 PDP、12 个视口样本，并输出最高第三方失败、最高 JS、最高 DOM 证据
 - 快照不得包含 raw robots text、raw request URL 或 resource URL 明细

@@ -1,0 +1,101 @@
+{
+  "methodologyVersion": "collector-v3-segmented-public-2026-06",
+  "routes": [
+    {
+      "id": "homepage-organic-control",
+      "label": "Segment: homepage organic/direct anonymous control",
+      "path": "/",
+      "primary": true,
+      "segment": {
+        "id": "organic-direct-anonymous",
+        "sourceType": "organic_or_direct_control",
+        "visitorState": "new_browser",
+        "authState": "logged_out",
+        "cartState": "unknown",
+        "checkoutState": "not_applicable",
+        "samplingMode": "public-anonymous",
+        "riskQuestion": "Baseline homepage weight and third-party attribution pressure without explicit campaign parameters."
+      }
+    },
+    {
+      "id": "homepage-paid-social-utm",
+      "label": "Segment: homepage paid-social UTM anonymous",
+      "path": "/?utm_source=audit_paid_social&utm_medium=cpc&utm_campaign=segmented_probe",
+      "primary": false,
+      "segment": {
+        "id": "paid-social-utm-anonymous",
+        "sourceType": "paid_social_utm",
+        "visitorState": "new_browser",
+        "authState": "logged_out",
+        "cartState": "unknown",
+        "checkoutState": "not_applicable",
+        "samplingMode": "public-utm",
+        "riskQuestion": "Whether campaign parameters increase attribution script load, failures, or runtime errors."
+      }
+    },
+    {
+      "id": "pdp-m5-kol-utm",
+      "label": "Segment: M5 PDP KOL UTM anonymous",
+      "path": "/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?utm_source=audit_kol&utm_medium=creator&utm_campaign=segmented_probe",
+      "primary": false,
+      "segment": {
+        "id": "kol-utm-pdp-anonymous",
+        "sourceType": "kol_utm",
+        "visitorState": "new_browser",
+        "authState": "logged_out",
+        "cartState": "unknown",
+        "checkoutState": "not_applicable",
+        "samplingMode": "public-utm",
+        "riskQuestion": "Whether creator traffic lands on a heavier PDP execution path before add-to-cart."
+      }
+    },
+    {
+      "id": "pdp-s12-email-utm",
+      "label": "Segment: S12 Pro PDP email UTM anonymous",
+      "path": "/products/s12-pro-quick-wearable-breast-pump?utm_source=audit_email&utm_medium=email&utm_campaign=segmented_probe",
+      "primary": false,
+      "segment": {
+        "id": "email-utm-pdp-anonymous",
+        "sourceType": "email_utm",
+        "visitorState": "new_browser",
+        "authState": "logged_out",
+        "cartState": "unknown",
+        "checkoutState": "not_applicable",
+        "samplingMode": "public-utm",
+        "riskQuestion": "Whether CRM entry has a different PDP script and attribution profile."
+      }
+    },
+    {
+      "id": "cart-empty-anonymous",
+      "label": "Segment: empty cart anonymous",
+      "path": "/cart",
+      "primary": false,
+      "segment": {
+        "id": "empty-cart-anonymous",
+        "sourceType": "cart_direct",
+        "visitorState": "new_browser",
+        "authState": "logged_out",
+        "cartState": "empty_cart_expected",
+        "checkoutState": "not_started",
+        "samplingMode": "public-anonymous",
+        "riskQuestion": "Whether empty-cart control still loads attribution, chat, or checkout-adjacent scripts."
+      }
+    },
+    {
+      "id": "checkout-anonymous-gate",
+      "label": "Segment: checkout anonymous gate",
+      "path": "/checkout",
+      "primary": false,
+      "segment": {
+        "id": "checkout-anonymous-gate",
+        "sourceType": "checkout_direct",
+        "visitorState": "new_browser",
+        "authState": "logged_out",
+        "cartState": "empty_cart_expected",
+        "checkoutState": "public_gate_or_redirect_expected",
+        "samplingMode": "public-anonymous",
+        "riskQuestion": "Whether the public checkout gate is reachable and whether it leaks unnecessary non-transaction scripts."
+      }
+    }
+  ]
+}

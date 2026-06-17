@@ -67,6 +67,7 @@
         "label": {"type": "string"},
         "path": {"type": "string", "pattern": "^/"},
         "primary": {"type": "boolean"},
+        "segment": {"$ref": "#/$defs/segment"},
         "viewports": {
           "type": "array",
           "minItems": 1,
@@ -148,8 +149,24 @@
         "routeId":   {"type": "string", "pattern": "^[a-z0-9-]+$"},
         "routeLabel": {"type": "string"},
         "routePath":  {"type": "string"},
+        "segment":    {"$ref": "#/$defs/segment"},
         "viewport":  {"enum": ["desktop", "mobile"]},
         "metrics":   {"$ref": "#/$defs/routeMetrics"}
+      }
+    },
+    "segment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z0-9-]+$"},
+        "sourceType": {"type": "string"},
+        "visitorState": {"type": "string"},
+        "authState": {"type": "string"},
+        "cartState": {"type": "string"},
+        "checkoutState": {"type": "string"},
+        "samplingMode": {"type": "string"},
+        "riskQuestion": {"type": "string"},
+        "requiresStorageState": {"type": "boolean"}
       }
     }
   }

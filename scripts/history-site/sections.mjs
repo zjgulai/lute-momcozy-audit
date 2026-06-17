@@ -458,6 +458,36 @@ export function thirdPartyGovernanceSection(data) {
   </section>`;
 }
 
+export function segmentSamplingSection(data) {
+  const plan = data.segmentSamplingPlan;
+  if (!plan?.segments?.length) return "";
+  const commands = (plan.commands || []).map((command) => `<li><code>${escapeHtml(command)}</code></li>`).join("");
+  const gates = (plan.acceptanceGates || []).map((gate) => `<li>${escapeHtml(gate)}</li>`).join("");
+  const rows = plan.segments.map((item) => `<tr>
+    <td><strong>${escapeHtml(item.segment)}</strong><div class="evidence-note">${escapeHtml(item.routePack)}</div></td>
+    <td>${escapeHtml(statusLabelFromState(item.state === "ready" ? "done" : "blocked"))}<div class="evidence-note">${escapeHtml(item.state)}</div></td>
+    <td>${escapeHtml(item.question)}</td>
+    <td>${escapeHtml(item.decisionUse)}</td>
+  </tr>`).join("");
+  return `<section class="section section--gray" id="segment-sampling">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">分段复采 · UTM / 状态 / Checkout</div>
+        <h2 class="section__title">下一轮采样按入口和交易状态拆开</h2>
+        <p class="section__sub">${escapeHtml(plan.summary)}</p>
+      </div>
+      <div class="deprecated"><strong>方法版本：</strong>${escapeHtml(plan.methodologyVersion)}<ol>${gates}</ol></div>
+      <div class="cross-table-wrap" tabindex="0">
+        <table class="cross-table">
+          <thead><tr><th>Segment</th><th>状态</th><th>要回答的问题</th><th>决策用途</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div class="code-block" style="margin-top: 16px;"><ul>${commands}</ul></div>
+    </div>
+  </section>`;
+}
+
 export function featureComparisonSection(data) {
   const rows = legacyData(data).featureComparison.map((item) => `<tr>
     <td><strong>${escapeHtml(item.module)}</strong></td>
@@ -1098,6 +1128,7 @@ export function crossAuditBody(data) {
   ${crossAuditSection(data, "cross-audit.html")}
   ${competitorMatrixSection(data)}
   ${competitorRecollectPlanSection(data)}
+  ${segmentSamplingSection(data)}
   ${thirdPartyGovernanceSection(data)}
   ${executionOrdersSection(data, "execution-orders")}
   ${playbookSection(data)}
