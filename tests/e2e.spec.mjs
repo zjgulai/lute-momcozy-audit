@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import {expect, test} from "@playwright/test";
-import {contentMinimumTextLength, pageComponentMap} from "../scripts/page-structure-contract.mjs";
+import {contentMinimumTextLength, pageComponentMap, pageNavigationContract} from "../scripts/page-structure-contract.mjs";
 
 const releaseContract = JSON.parse(fs.readFileSync(new URL("../config/release-contract.json", import.meta.url), "utf8"));
 const publicCrossAudit = JSON.parse(fs.readFileSync(new URL("../src/_data/public-cross-audit.json", import.meta.url), "utf8"));
@@ -134,6 +134,31 @@ test("cross audit sidebar prioritizes current-page anchors", async ({page}) => {
   expect(result.ctaText).toBe("查看执行战单");
 });
 
+test("sidebar anchors match the page navigation contract", async ({page}) => {
+  for (const [pathname, expectedAnchors] of Object.entries(pageNavigationContract)) {
+    await page.goto(pathname);
+    const actualAnchors = await page.evaluate(() => Array.from(document.querySelectorAll(".side-nav__anchor")).map((anchor) => ({
+      href: anchor.getAttribute("href"),
+      label: anchor.textContent.trim(),
+    })));
+    expect(actualAnchors, `${pathname} side-nav anchors`).toEqual(expectedAnchors.map(({href, label}) => ({href, label})));
+    for (const {href, label, targetId, markers} of expectedAnchors) {
+      const sectionState = await page.locator(`#${targetId}`).evaluate((section, expectedMarkers) => {
+        const eyebrow = section.querySelector(".section__eyebrow")?.textContent?.trim() || "";
+        const title = section.querySelector(".section__title, h1")?.textContent?.replace(/\s+/g, " ").trim() || "";
+        const text = section.textContent?.replace(/\s+/g, " ").trim() || "";
+        return {
+          eyebrow,
+          title,
+          markersPresent: expectedMarkers.map((marker) => text.includes(marker)),
+        };
+      }, markers);
+      expect(sectionState.markersPresent, `${pathname} ${href} ${label} target text`).toEqual(markers.map(() => true));
+      expect(`${sectionState.eyebrow} ${sectionState.title}`.trim().length, `${pathname} ${href} ${label} target heading`).toBeGreaterThan(0);
+    }
+  }
+});
+
 test("all key pages expose diagnostic bridge section", async ({page}) => {
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
     await page.goto(pathname);
@@ -207,7 +232,8 @@ test("overview restores the historical M1 v2 report as the primary site", async 
   expect(text).toContain("Top 15 病灶");
   expect(text).toContain("决策建议");
   expect(text).toContain("真实经营数据回归");
-  expect(text).toContain("流量归因回迁");
+  expect(text).toContain("渠道质量诊断");
+  expect(text).toContain("先修归因可信度，再决定预算和 SEO 动作");
   expect(text).toContain("爬虫与数据可信度");
   expect(text).toContain("每个结论必须能回答");
   expect(text).toContain("不批准“后端慢”作为主叙事");
@@ -217,6 +243,7 @@ test("overview restores the historical M1 v2 report as the primary site", async 
   expect(text).toContain("结论 × 策略 × 执行");
   expect(text).toContain("矛盾识别与修复");
   expect(text).toContain("经营趋势对照");
+  expect(text).not.toContain("回迁");
   expect(text).not.toContain("铁证索引");
   expect(text).not.toContain("证据台账");
 });
@@ -242,9 +269,21 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
   expect(text).toContain("最终审计");
   expect(text).toContain("每条结论都必须能落到策略和执行");
   expect(text).toContain("重点保留结论-策略-执行闭环");
+  expect(text).not.toContain("回迁");
   expect(text).not.toContain("铁证如山的前提");
   expect(text).not.toContain("铁证索引");
   expect(text).not.toContain("证据台账");
+});
+
+test("primary pages do not expose internal evidence-index wording", async ({page}) => {
+  const bannedTerms = ["回迁", "铁证索引", "证据台账", "铁证如山", "旧口径下结论", "待补证据的归因路线图", "证据索引层", "索引层"];
+  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
+    await page.goto(pathname);
+    const text = await page.locator("body").innerText();
+    for (const term of bannedTerms) {
+      expect(text, `${pathname} should not expose ${term}`).not.toContain(term);
+    }
+  }
 });
 
 test("cross-audit exposes executable competitor recollect plan", async ({page}) => {

@@ -60,6 +60,18 @@ jobs:
     runs-on: ubuntu-latest
     environment: tencent-production
     steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: Cache Playwright browsers
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-chromium-${{ hashFiles('package-lock.json') }}
+      - run: npx playwright install --with-deps chromium
       - name: Download verified site artifact
         uses: actions/download-artifact@v8
         with:
@@ -255,7 +267,7 @@ jobs:
           PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
         run: |
           status_code() {
-            curl --connect-timeout 5 --max-time 20 -sS -o /dev/null -w '%{http_code}' "$1"
+            curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 10 --max-time 30 -sS -o /dev/null -w '%{http_code}' "$1"
           }
           expect_code() {
             test "$(status_code "$2")" = "$1"
@@ -263,7 +275,7 @@ jobs:
           expect_chinese_page() {
             local url=$1
             local body
-            body="$(curl --connect-timeout 5 --max-time 20 -sS "$url")"
+            body="$(curl --retry 3 --retry-delay 2 --retry-all-errors --connect-timeout 10 --max-time 30 -sS "$url")"
             printf '%s\n' "$body" | grep -q 'lang="zh-CN"'
             printf '%s\n' "$body" | grep -q "路特 AI"
             printf '%s\n' "$body" | grep -q "Momcozy"
@@ -290,3 +302,41 @@ jobs:
           expect_code 404 "${PUBLIC_URL}/not-a-real-page"
           private_code="$(status_code "${PUBLIC_URL}/private-audit-canary")"
           test "$private_code" = "403" -o "$private_code" = "404"
+      - name: Production visual component audit
+        if: always()
+        env:
+          PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
+        run: |
+          test -n "$PUBLIC_URL"
+          PRODUCTION_LAYOUT_BASE_URL="$PUBLIC_URL" \
+            PRODUCTION_LAYOUT_OUTPUT_DIR="artifacts/production-layout-${GITHUB_SHA}" \
+            npm run audit:production-layout
+      - name: Write production visual audit summary
+        if: always()
+        env:
+          PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
+          AUDIT_DIR: artifacts/production-layout-${{ github.sha }}
+          AUDIT_ARTIFACT_NAME: production-layout-audit-${{ github.sha }}
+        run: |
+          {
+            echo "## Production visual component audit"
+            echo ""
+            echo "- Public URL: ${PUBLIC_URL:-not configured}"
+            echo "- Artifact: \`${AUDIT_ARTIFACT_NAME}\`"
+            echo "- Artifact list: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}#artifacts"
+            echo "- Report file inside artifact: \`production-layout-audit.md\`"
+            echo ""
+            if [ -f "${AUDIT_DIR}/production-layout-audit.md" ]; then
+              sed -n '1,34p' "${AUDIT_DIR}/production-layout-audit.md"
+            else
+              echo "Production visual audit report was not generated."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload production visual audit evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: production-layout-audit-${{ github.sha }}
+          path: artifacts/production-layout-${{ github.sha }}/
+          if-no-files-found: warn
+          retention-days: 14

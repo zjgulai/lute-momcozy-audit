@@ -74,4 +74,76 @@ export const pageComponentMap = {
   ],
 };
 
+const nav = (href, label, markers) => ({
+  href,
+  label,
+  targetId: href.split("#")[1],
+  markers,
+});
+
+export const pageNavigationContract = {
+  "/": [
+    nav("index.html#feature-compare", "功能对比", ["历史站高价值功能恢复清单"]),
+    nav("index.html#insight-chain", "洞察链路", ["洞察链路"]),
+    nav("index.html#hard-conclusions", "硬结论", ["批判性结论"]),
+    nav("index.html#final-audit", "最终审计", ["最终审计"]),
+    nav("index.html#diagnostic-bridge", "站内外诊断桥接", ["站内外诊断桥接"]),
+    nav("index.html#operating-bridge", "经营信号", ["经营数据负责判断优先级"]),
+    nav("index.html#traffic-attribution", "渠道诊断", ["渠道质量诊断"]),
+    nav("index.html#asset-attribution", "资产保护", ["资产保护地图"]),
+    nav("index.html#bot-audit", "爬虫治理", ["爬虫与数据可信度"]),
+    nav("index.html#top15", "Top 15 病灶", ["Top 15 病灶"]),
+    nav("index.html#matrix", "竞品矩阵", ["8 站竞品矩阵"]),
+    nav("index.html#decisions", "执行战单", ["决策建议"]),
+    nav("index.html#code", "PR 实验卡", ["PR 实验卡"]),
+    nav("index.html#roadmap", "Sprint 路线图", ["Sprint 路线图"]),
+  ],
+  "/metrics.html": [
+    nav("metrics.html#hero", "指标结论", ["先统一口径"]),
+    nav("metrics.html#final-audit", "最终审计", ["口径治理页"]),
+    nav("metrics.html#diagnostic-bridge", "站内外诊断桥接", ["站内外诊断桥接"]),
+    nav("metrics.html#operating-bridge", "经营信号", ["经营数据负责判断优先级"]),
+    nav("metrics.html#business-kpi", "真实 KPI", ["真实经营 KPI"]),
+    nav("metrics.html#funnel", "口径治理", ["口径治理"]),
+    nav("metrics.html#traffic-attribution", "渠道诊断", ["渠道质量诊断"]),
+    nav("metrics.html#cross-audit", "重审结论", ["2026-06-15"]),
+    nav("metrics.html#metric-dictionary", "指标字典", ["指标字典"]),
+  ],
+  "/forensics.html": [
+    nav("forensics.html#scene", "证据总览", ["证据仍尖锐"]),
+    nav("forensics.html#final-audit", "最终审计", ["证据链页"]),
+    nav("forensics.html#diagnostic-bridge", "站内外诊断桥接", ["站内外诊断桥接"]),
+    nav("forensics.html#bot-audit", "爬虫治理", ["爬虫与数据可信度"]),
+    nav("forensics.html#cross-audit", "重审结论", ["2026-06-15"]),
+    nav("forensics.html#fatal", "第三方失败", ["第三方失败"]),
+    nav("forensics.html#top15", "Top 15 病灶", ["Top 15 病灶"]),
+    nav("forensics.html#pdp", "PDP 覆盖", ["PDP 代表性不足"]),
+  ],
+  "/trends.html": [
+    nav("trends.html#hero", "趋势结论", ["5 次采集"]),
+    nav("trends.html#final-audit", "最终审计", ["趋势与复采页"]),
+    nav("trends.html#diagnostic-bridge", "站内外诊断桥接", ["站内外诊断桥接"]),
+    nav("trends.html#cross-audit", "重审结论", ["2026-06-15"]),
+    nav("trends.html#latest-v3", "最新采集", ["v3 路由感知"]),
+  ],
+  "/cross-audit.html": [
+    nav("cross-audit.html#final-audit", "最终审计", ["最终裁决页"]),
+    nav("cross-audit.html#diagnostic-bridge", "站内外诊断桥接", ["站内外诊断桥接"]),
+    nav("cross-audit.html#storyline", "故事线", ["沿用老故事线"]),
+    nav("cross-audit.html#insight-chain", "洞察链路", ["洞察链路"]),
+    nav("cross-audit.html#hard-conclusions", "硬结论", ["批判性结论"]),
+    nav("cross-audit.html#cross-matrix", "策略矩阵", ["结论 × 策略 × 执行"]),
+    nav("cross-audit.html#contradictions", "矛盾识别", ["矛盾识别与修复"]),
+    nav("cross-audit.html#feature-compare", "功能对比", ["历史站高价值功能恢复清单"]),
+    nav("cross-audit.html#operating-bridge", "经营信号", ["经营数据负责判断优先级"]),
+    nav("cross-audit.html#business-kpi", "真实 KPI", ["真实经营 KPI"]),
+    nav("cross-audit.html#cross-audit", "重审结论", ["2026-06-15"]),
+    nav("cross-audit.html#matrix", "竞品矩阵", ["8 站竞品矩阵"]),
+    nav("cross-audit.html#competitor-recollect", "竞品重采", ["竞品重采复核计划"]),
+    nav("cross-audit.html#execution-orders", "执行战单", ["决策建议"]),
+    nav("cross-audit.html#code", "PR 实验卡", ["PR 实验卡"]),
+    nav("cross-audit.html#roadmap", "Sprint 路线图", ["Sprint 路线图"]),
+  ],
+};
+
 export const contentMinimumTextLength = 20;

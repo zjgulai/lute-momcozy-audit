@@ -148,11 +148,11 @@ export function nav(active) {
         ["index.html#final-audit", "最终审计"],
         ["index.html#diagnostic-bridge", "站内外诊断桥接"],
         ["index.html#operating-bridge", "经营信号"],
-        ["index.html#traffic-attribution", "流量归因"],
+        ["index.html#traffic-attribution", "渠道诊断"],
         ["index.html#asset-attribution", "资产保护"],
         ["index.html#bot-audit", "爬虫治理"],
         ["index.html#top15", "Top 15 病灶"],
-        ["index.html#matrix", "矩阵回迁"],
+        ["index.html#matrix", "竞品矩阵"],
         ["index.html#decisions", "执行战单"],
         ["index.html#code", "PR 实验卡"],
         ["index.html#roadmap", "Sprint 路线图"]
@@ -169,7 +169,7 @@ export function nav(active) {
         ["metrics.html#operating-bridge", "经营信号"],
         ["metrics.html#business-kpi", "真实 KPI"],
         ["metrics.html#funnel", "口径治理"],
-        ["metrics.html#traffic-attribution", "流量归因"],
+        ["metrics.html#traffic-attribution", "渠道诊断"],
         ["metrics.html#cross-audit", "重审结论"],
         ["metrics.html#metric-dictionary", "指标字典"]
       ]
@@ -217,7 +217,7 @@ export function nav(active) {
         ["cross-audit.html#operating-bridge", "经营信号"],
         ["cross-audit.html#business-kpi", "真实 KPI"],
         ["cross-audit.html#cross-audit", "重审结论"],
-        ["cross-audit.html#matrix", "矩阵回迁"],
+        ["cross-audit.html#matrix", "竞品矩阵"],
         ["cross-audit.html#competitor-recollect", "竞品重采"],
         ["cross-audit.html#execution-orders", "执行战单"],
         ["cross-audit.html#code", "PR 实验卡"],

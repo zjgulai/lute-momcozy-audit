@@ -148,6 +148,8 @@ Use `npm run release:checklist -- --quick` when you only need a lightweight loca
 
 - `--skip-parity`: skip production structure parity.
 - `--skip-monitor`: skip production uptime checks.
+- `--github-run-id=<tencent-run-id>` or `RELEASE_CHECKLIST_GITHUB_RUN_ID`: verify that a completed Tencent workflow run for the current commit produced both `verified-site-<sha>` and `production-layout-audit-<sha>` artifacts.
+- `RELEASE_CHECKLIST_GITHUB_REPO`: override the GitHub repository slug used for artifact verification.
 - `RELEASE_CHECKLIST_PUBLIC_URL`: override the production URL.
 - `RELEASE_CHECKLIST_OUTPUT`: write the checklist to a specific Markdown path.
 
@@ -170,6 +172,8 @@ The command opens the production site in Chromium across desktop, tablet, and mo
 - the `cross-audit.html#competitor-recollect` route table and task table.
 
 Use `PRODUCTION_LAYOUT_BASE_URL` or `PUBLIC_URL` to audit a different deployment target, and `PRODUCTION_LAYOUT_OUTPUT_DIR` to choose a deterministic report path.
+
+Tencent deployment also runs this audit automatically after the external smoke tests. The workflow writes the audit excerpt and artifact entry into the GitHub Actions run summary, then uploads the screenshots and diagnostics as the `production-layout-audit-<sha>` Actions artifact, so each production release has visual evidence attached to the run.
 
 ### GitHub Pages (automatic)
 Push to `main` → `pages.yml` builds, tests, and deploys.
