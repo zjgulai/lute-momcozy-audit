@@ -14,6 +14,7 @@ const root = process.cwd();
 const outputDir = path.join(root, "_site");
 const assetDir = path.join(root, "history_static/assets");
 const sessionsDir = path.join(root, "src/_data/sessions");
+const competitorsDir = path.join(root, "src/_data/competitors");
 const publicCrossAuditPath = path.join(root, "src/_data/public-cross-audit.json");
 
 cleanOutput(outputDir);
@@ -22,6 +23,9 @@ copyFile(path.join(root, "history_static/.nojekyll"), path.join(outputDir, ".noj
 
 const session = latestSession(sessionsDir, readJson);
 const publicCrossAudit = readJson(publicCrossAuditPath);
+if (fs.existsSync(competitorsDir)) {
+  publicCrossAudit.competitorSnapshot = latestSession(competitorsDir, readJson);
+}
 
 writeHistoryPages({outputDir, data: publicCrossAudit, session});
 write404(outputDir);

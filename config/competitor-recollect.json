@@ -1,0 +1,54 @@
+{
+  "methodologyVersion": "competitor-recollect-v1-2026-06",
+  "samplePolicy": "Public homepage/PDP/cart availability plus desktop/mobile page metrics. No login, add-to-cart, checkout submission, form submission, or raw request URL persistence.",
+  "competitors": [
+    {
+      "id": "willow",
+      "label": "Willow",
+      "category": "wearable breast pump",
+      "homepageUrl": "https://onewillow.com/",
+      "pdpUrl": "https://onewillow.com/products/willow-go-pump-kit",
+      "cartUrl": "https://onewillow.com/cart"
+    },
+    {
+      "id": "elvie",
+      "label": "Elvie",
+      "category": "wearable breast pump",
+      "homepageUrl": "https://www.elvie.com/en-us",
+      "pdpUrl": "https://www.elvie.com/en-us/shop/elvie-pump",
+      "cartUrl": "https://www.elvie.com/en-us/cart"
+    },
+    {
+      "id": "babybuddha",
+      "label": "BabyBuddha",
+      "category": "portable breast pump",
+      "homepageUrl": "https://babybuddhaproducts.com/",
+      "pdpUrl": "https://babybuddhaproducts.com/products/babybuddha%C2%AE-2-0-primary-portable-breast-pump",
+      "cartUrl": "https://babybuddhaproducts.com/cart"
+    },
+    {
+      "id": "lansinoh",
+      "label": "Lansinoh",
+      "category": "wearable breast pump",
+      "homepageUrl": "https://lansinoh.com/",
+      "pdpUrl": "https://lansinoh.com/products/discreet-duo",
+      "cartUrl": "https://lansinoh.com/cart"
+    },
+    {
+      "id": "babybrezza",
+      "label": "Baby Brezza",
+      "category": "bottle washer",
+      "homepageUrl": "https://babybrezza.com/",
+      "pdpUrl": "https://babybrezza.com/products/bottle-washer-pro",
+      "cartUrl": "https://babybrezza.com/cart"
+    },
+    {
+      "id": "spectra",
+      "label": "Spectra Baby USA",
+      "category": "breast pump",
+      "homepageUrl": "https://www.spectrababyusa.com/",
+      "pdpUrl": "https://www.spectrababyusa.com/products/spectra-s1-plus-premier-rechargeable-double-electric-breast-pump",
+      "cartUrl": "https://www.spectrababyusa.com/cart"
+    }
+  ]
+}
