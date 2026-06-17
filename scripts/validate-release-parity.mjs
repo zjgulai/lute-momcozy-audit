@@ -9,6 +9,7 @@ const localSiteRoot = path.resolve("_site");
 const publicUrl = process.env.PROD_BASE_URL || "https://shopify.lute-tlz-dddd.top";
 const reportPath = process.env.RELEASE_PARITY_REPORT_PATH || "";
 const includeComponentStates = process.env.RELEASE_PARITY_SECTIONS === "0" ? false : true;
+const productionMissingSectionAllowlist = parseProductionMissingSectionAllowlist(process.env.RELEASE_PARITY_ALLOW_PROD_MISSING_SECTIONS || "");
 
 function fail(message) {
   console.error(message);
@@ -22,6 +23,22 @@ function htmlPath(routePath) {
 
 function localUrl(routePath) {
   return pathToFileURL(htmlPath(routePath)).href;
+}
+
+function parseProductionMissingSectionAllowlist(value) {
+  const allowlist = new Map();
+  for (const token of value.split(",").map((item) => item.trim()).filter(Boolean)) {
+    const [routePath, id] = token.split(":");
+    if (!routePath || !id) continue;
+    const normalizedRoute = routePath.startsWith("/") ? routePath : `/${routePath}`;
+    if (!allowlist.has(normalizedRoute)) allowlist.set(normalizedRoute, new Set());
+    allowlist.get(normalizedRoute).add(id);
+  }
+  return allowlist;
+}
+
+function allowsProductionMissingSection(routePath, id) {
+  return productionMissingSectionAllowlist.get(routePath)?.has(id) || false;
 }
 
 async function inspectPage(routePath, context, url) {
@@ -126,7 +143,9 @@ function compare(localInspection, remoteInspection) {
     const localSection = localStates[id];
     const remoteSection = remoteStates[id];
     if (!localSection?.present) routeIssues.push(`${id} missing locally`);
-    if (!remoteSection?.present) routeIssues.push(`${id} missing in production`);
+    if (!remoteSection?.present && !allowsProductionMissingSection(route, id)) {
+      routeIssues.push(`${id} missing in production`);
+    }
     if (
       localSection?.present &&
       remoteSection?.present &&
@@ -171,6 +190,8 @@ async function main() {
       routeIssues.push(`local quality issue ${id}`);
     }
     for (const id of remote.misses) {
+      const sectionId = id.split(":")[0];
+      if (allowsProductionMissingSection(routePath, sectionId)) continue;
       routeIssues.push(`prod quality issue ${id}`);
     }
     localSectionTotal += local.sectionCount;

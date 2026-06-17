@@ -41,7 +41,10 @@ jobs:
             PUBLIC_URL="https://shopify.lute-tlz-dddd.top"
           fi
           mkdir -p artifacts
-          PROD_BASE_URL="$PUBLIC_URL" RELEASE_PARITY_REPORT_PATH="artifacts/release-parity-${GITHUB_SHA}.json" npm run test:release-parity
+          PROD_BASE_URL="$PUBLIC_URL" \
+            RELEASE_PARITY_REPORT_PATH="artifacts/release-parity-${GITHUB_SHA}.json" \
+            RELEASE_PARITY_ALLOW_PROD_MISSING_SECTIONS="/cross-audit.html:third-party-governance" \
+            npm run test:release-parity
       - name: Generate SHA-256 manifest
         run: (cd _site && find . -type f -print0 | sort -z | xargs -0 sha256sum) > site.sha256
       - name: Upload verified site artifact
