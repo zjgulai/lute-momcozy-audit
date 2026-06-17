@@ -11,9 +11,6 @@ updates:
         patterns:
           - "@playwright/*"
           - "@axe-core/*"
-      eleventy:
-        patterns:
-          - "@11ty/*"
 
   - package-ecosystem: github-actions
     directory: "/"
