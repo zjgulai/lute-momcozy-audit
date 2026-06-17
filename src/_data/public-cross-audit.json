@@ -1109,5 +1109,70 @@
     "maxThirdPartyFailures": "42 (babybrezza pdp mobile)",
     "maxJsKb": "1000 (babybuddha pdp desktop)",
     "maxDomNodes": "5794 (babybrezza pdp desktop)"
+  },
+  "segmentSamplingPlan": {
+    "summary": "下一轮复采不再只按页面类型采样，而是按入口来源、浏览器状态、购物车状态和 checkout 可达性拆样本。公开匿名段可以立即跑；登录态和真实购物车段必须由 owner 提供 Playwright storage state，报告只记录公开 label，不记录文件路径、账号、token 或 cookie 值。",
+    "methodologyVersion": "collector-v3-segmented-2026-06",
+    "commands": [
+      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-public.json AUDIT_SESSION_DATE=YYYY-MM-DD npm run collect",
+      "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-segmented-auth-template.json AUDIT_STORAGE_STATE=<owner-provided-playwright-state> AUDIT_SESSION_DATE=YYYY-MM-DD npm run collect"
+    ],
+    "acceptanceGates": [
+      "每个 segment 至少 3 次复采后才进入趋势判断；单次样本只用于发现风险。",
+      "公开匿名段不能代表登录、回访、真实购物车或真实 checkout。",
+      "owner browser state 只通过环境变量读取，不写入仓库、不写入报告、不写入 session。",
+      "checkout 结论必须区分 public gate、empty cart、owner cart 和 checkout reachability，不允许混用。"
+    ],
+    "segments": [
+      {
+        "segment": "organic/direct anonymous",
+        "routePack": "collection-routes-segmented-public",
+        "state": "ready",
+        "question": "无显式入口参数时，首页/PDP 的 JS、DOM、3P 失败基线是多少。",
+        "decisionUse": "作为所有 UTM 和 owner-state 样本的控制组。"
+      },
+      {
+        "segment": "paid social UTM",
+        "routePack": "collection-routes-segmented-public",
+        "state": "ready",
+        "question": "投放入口是否触发更多归因脚本、失败或运行时错误。",
+        "decisionUse": "判断投放归因组件是否需要延迟、合并或按活动加载。"
+      },
+      {
+        "segment": "KOL / creator UTM PDP",
+        "routePack": "collection-routes-segmented-public",
+        "state": "ready",
+        "question": "创作者入口是否把高意图流量送进更重的 PDP 执行路径。",
+        "decisionUse": "决定 KOL 落地页是否需要独立轻量模板或 PDP 首屏裁剪。"
+      },
+      {
+        "segment": "email UTM PDP",
+        "routePack": "collection-routes-segmented-public",
+        "state": "ready",
+        "question": "CRM 入口是否和其他入口加载不同追踪链路。",
+        "decisionUse": "决定邮件入口是否需要独立归因预算和落地页监控。"
+      },
+      {
+        "segment": "empty cart anonymous",
+        "routePack": "collection-routes-segmented-public",
+        "state": "ready",
+        "question": "空购物车是否仍加载非必要归因、客服或 checkout-adjacent 脚本。",
+        "decisionUse": "剥离 cart 基线噪音，避免把空状态误判成交易阻塞。"
+      },
+      {
+        "segment": "checkout anonymous gate",
+        "routePack": "collection-routes-segmented-public",
+        "state": "ready",
+        "question": "公开 checkout gate 是否可达，是否提前加载非交易脚本。",
+        "decisionUse": "只判断公开 gate，不判断真实 checkout 完成率。"
+      },
+      {
+        "segment": "owner browser state",
+        "routePack": "collection-routes-segmented-auth-template",
+        "state": "blocked_until_owner_state",
+        "question": "回访、登录或真实购物车状态是否改变 PDP/cart/checkout 的脚本失败和可达性。",
+        "decisionUse": "进入 checkout 真实链路判断；没有 owner state 不允许下交易链路结论。"
+      }
+    ]
   }
 }

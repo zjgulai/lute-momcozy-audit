@@ -219,6 +219,7 @@ export function nav(active) {
         ["cross-audit.html#cross-audit", "重审结论"],
         ["cross-audit.html#matrix", "竞品矩阵"],
         ["cross-audit.html#competitor-recollect", "竞品重采"],
+        ["cross-audit.html#segment-sampling", "分段复采"],
         ["cross-audit.html#third-party-governance", "第三方治理"],
         ["cross-audit.html#execution-orders", "执行战单"],
         ["cross-audit.html#code", "PR 实验卡"],

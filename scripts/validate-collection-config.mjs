@@ -38,6 +38,7 @@ for (const file of routeConfigFiles) {
     if (!route.path || !route.path.startsWith("/") || route.path.includes(".json") || firstSegment === "data") {
       throw new Error(`${file}: route ${route.id} must use a public non-data path`);
     }
+    validateSegment(file, route);
     if (route.primary === true) primaryCount++;
   }
 
@@ -49,3 +50,30 @@ for (const file of routeConfigFiles) {
 }
 
 console.log(`validated ${validated.join(", ")}`);
+
+function validateSegment(file, route) {
+  if (!route.segment) return;
+  const allowed = new Set([
+    "id",
+    "sourceType",
+    "visitorState",
+    "authState",
+    "cartState",
+    "checkoutState",
+    "samplingMode",
+    "riskQuestion",
+    "requiresStorageState"
+  ]);
+  for (const key of Object.keys(route.segment)) {
+    if (!allowed.has(key)) {
+      throw new Error(`${file}: route ${route.id} segment.${key} is not allowed`);
+    }
+  }
+  const serialized = JSON.stringify(route.segment).toLowerCase();
+  const rawDataEndpointMarker = `/${"data"}/`;
+  for (const forbidden of ["token", "secret", "password", ".json", rawDataEndpointMarker]) {
+    if (serialized.includes(forbidden)) {
+      throw new Error(`${file}: route ${route.id} segment contains forbidden sensitive marker ${forbidden}`);
+    }
+  }
+}

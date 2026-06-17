@@ -21,6 +21,7 @@ const OUT_PATH = path.resolve(OUT_DIR, `${DATE}.json`);
 const ROUTE_CONFIG_PATH = process.env.AUDIT_ROUTE_CONFIG || "config/collection-routes.json";
 const ROUTE_CONFIG = readRouteConfig(ROUTE_CONFIG_PATH);
 const METHODOLOGY_VERSION = ROUTE_CONFIG.methodologyVersion || "collector-v3-route-aggregate";
+const STORAGE_STATE_PATH = process.env.AUDIT_STORAGE_STATE || "";
 const REQUESTED_ROUTE_IDS = (process.env.AUDIT_ROUTE_IDS || "")
   .split(",")
   .map((item) => item.trim())
@@ -64,6 +65,9 @@ async function collect(browser) {
   console.log(`[collect] config=${ROUTE_CONFIG_PATH} methodology=${METHODOLOGY_VERSION} routes=${configuredRoutes.length}`);
   const routes = [];
   for (const [index, route] of configuredRoutes.entries()) {
+    if (route.segment?.requiresStorageState && !STORAGE_STATE_PATH) {
+      throw new Error(`Route ${route.id} requires AUDIT_STORAGE_STATE; refusing to collect a false logged-in segment`);
+    }
     console.log(`[collect] route ${index + 1}/${configuredRoutes.length} ${route.id} desktop start`);
     const desktop = await runViewport(browser, route, 1440, 900, "desktop");
     logViewportResult(route, desktop);
@@ -75,6 +79,7 @@ async function collect(browser) {
       label: route.label,
       path: route.path,
       primary: Boolean(route.primary),
+      ...(route.segment ? {segment: sanitizeSegment(route.segment)} : {}),
       viewports: [desktop, mobile]
     });
   }
@@ -105,10 +110,14 @@ function logViewportResult(route, viewport) {
 }
 
 async function runViewport(browser, route, width, height, label) {
-  const context = await browser.newContext({
+  const contextOptions = {
     viewport: {width, height},
     userAgent: "Mozilla/5.0 (compatible; LuteAuditBot/1.0)"
-  });
+  };
+  if (STORAGE_STATE_PATH) {
+    contextOptions.storageState = STORAGE_STATE_PATH;
+  }
+  const context = await browser.newContext(contextOptions);
   const page = await context.newPage();
 
   let thirdPartyFailures = 0;
@@ -308,6 +317,7 @@ function writeSession({routes}) {
         routeId: route.routeId,
         routeLabel: route.label,
         routePath: route.path,
+        ...(route.segment ? {segment: sanitizeSegment(route.segment)} : {}),
         viewport: viewport.label,
         metrics: viewport.metrics
       }))
@@ -356,4 +366,23 @@ function readRouteConfig(file) {
     }
   }
   return config;
+}
+
+function sanitizeSegment(segment) {
+  const allowed = [
+    "id",
+    "sourceType",
+    "visitorState",
+    "authState",
+    "cartState",
+    "checkoutState",
+    "samplingMode",
+    "riskQuestion",
+    "requiresStorageState"
+  ];
+  return Object.fromEntries(
+    allowed
+      .filter((key) => Object.prototype.hasOwnProperty.call(segment, key))
+      .map((key) => [key, segment[key]])
+  );
 }
