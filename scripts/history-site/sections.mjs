@@ -79,7 +79,7 @@ export function selectedConclusions(data, pageName) {
 }
 
 export function pageRoute(data, pageName) {
-  return data.pageUpdates.find((item) => item.page === pageName)?.route || "私密经营版已按最新交叉审计刷新。";
+  return data.pageUpdates.find((item) => item.page === pageName)?.route || "私密经营版已按最新经营诊断刷新。";
 }
 
 export function crossAuditCards(data) {
@@ -234,13 +234,13 @@ export function pageAuditSection(data, pageName) {
   return `<section class="section section--gray" id="final-audit">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">最终审计 · ${escapeHtml(item.role)}</div>
+        <div class="section__eyebrow">页面校验 · ${escapeHtml(item.role)}</div>
         <h2 class="section__title">${escapeHtml(item.question)}</h2>
-        <p class="section__sub">本节用于逐页自检：页面职责、证据覆盖、矛盾检查、优化动作和验收 gate 必须同时存在。</p>
+        <p class="section__sub">本节只回答业务读者关心的三件事：这一页解决什么问题、哪些数据支持、下一步如何验收。</p>
       </div>
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
-          <thead><tr><th>页面职责</th><th>现有证据</th><th>矛盾检查</th><th>优化动作</th><th>验收 gate</th></tr></thead>
+          <thead><tr><th>页面职责</th><th>支撑数据</th><th>限制条件</th><th>下一步优化</th><th>验收门槛</th></tr></thead>
           <tbody><tr>
             <td><strong>${escapeHtml(item.role)}</strong></td>
             <td>${escapeHtml(item.evidencePresent)}</td>
@@ -301,13 +301,13 @@ export function crossMatrixSection(data) {
   return `<section class="section" id="cross-matrix">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">结论 × 策略 × 执行</div>
-        <h2 class="section__title">每条结论都必须能落到策略和执行，不允许停在观点</h2>
-        <p class="section__sub">这张矩阵负责识别内部矛盾：证据不支持的策略降级，执行动作没有 gate 的建议删除。</p>
+        <div class="section__eyebrow">诊断 × 资源排序 × 验收</div>
+        <h2 class="section__title">把诊断结果落到资源排序和验收动作</h2>
+        <p class="section__sub">这张表直接对应 owner、时间窗和验收指标。没有复采和回滚条件的建议不进入本轮排期。</p>
       </div>
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
-          <thead><tr><th>结论</th><th>证据</th><th>策略</th><th>执行</th><th>矛盾诊断</th></tr></thead>
+          <thead><tr><th>诊断结论</th><th>数据依据</th><th>资源方向</th><th>执行动作</th><th>约束</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -325,13 +325,13 @@ export function contradictionsSection(data) {
   return `<section class="section section--gray" id="contradictions">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">矛盾识别与修复</div>
-        <h2 class="section__title">把报告内部冲突直接摊开，不靠模糊措辞遮住</h2>
-        <p class="section__sub">任何和私密经营版、证据强度、因果边界冲突的表达，都必须有明确处理方式。</p>
+        <div class="section__eyebrow">决策冲突处理</div>
+        <h2 class="section__title">把会误导预算的冲突直接处理掉</h2>
+        <p class="section__sub">当前最容易误导团队的是三类冲突：把旧收益当承诺、把单次采集当全站结论、把第三方失败当普通前端问题。</p>
       </div>
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
-          <thead><tr><th>矛盾</th><th>诊断</th><th>修复</th><th>证明方式</th></tr></thead>
+          <thead><tr><th>冲突</th><th>业务风险</th><th>处理方式</th><th>验收方式</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -366,13 +366,13 @@ export function logicChainSection(data) {
   return `<section class="section section--gray" id="insight-chain">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">洞察链路 · 证据 / 反证 / 决策</div>
-        <h2 class="section__title">每个结论必须能回答：凭什么、反证是什么、现在批准什么</h2>
-        <p class="section__sub">本版不再写中庸总结。经营数据负责证明问题值得排队，外部采集负责证明技术病灶可复现，反证负责阻止错误预算。</p>
+        <div class="section__eyebrow">经营诊断路径 · 问题 / 影响 / 动作</div>
+        <h2 class="section__title">为什么先修归因和 PDP，而不是先投后端和 SEO</h2>
+        <p class="section__sub">当前经营数据说明修复值得排队；外部采集说明问题在首页、PDP、cart/checkout 复现；预算只投向能复采、能回滚、能验收的动作。</p>
       </div>
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
-          <thead><tr><th>链路</th><th>判断</th><th>证据</th><th>反证 / 风险</th><th>决策与执行</th></tr></thead>
+          <thead><tr><th>诊断段</th><th>业务判断</th><th>现场数据</th><th>限制 / 风险</th><th>下一步动作</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -387,17 +387,17 @@ export function hardConclusionsSection(data) {
       <p>${escapeHtml(item.why)}</p>
     </div>
     <div class="playbook-card__body">
-      <p><strong>拒绝：</strong>${escapeHtml(item.reject)}</p>
-      <p><strong>批准：</strong>${escapeHtml(item.approve)}</p>
+      <p><strong>暂缓：</strong>${escapeHtml(item.reject)}</p>
+      <p><strong>推进：</strong>${escapeHtml(item.approve)}</p>
       <div class="playbook-gate">验收门槛：${escapeHtml(item.gate)}</div>
     </div>
   </article>`).join("");
   return `<section class="section" id="hard-conclusions">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">批判性结论</div>
-        <h2 class="section__title">先说不批准什么，再说批准什么</h2>
-        <p class="section__sub">真正有用的审计不是“建议优化”，而是阻止团队把钱花在证据不支持的方向上。以下结论直接进入决策门。</p>
+        <div class="section__eyebrow">预算取舍</div>
+        <h2 class="section__title">先冻结错误预算，再推进高确定性修复</h2>
+        <p class="section__sub">这部分不是通用建议，而是把资源从后端重构、SEO 收益承诺和单 PDP 外推中拉回来，集中到归因可信度、PDP 性能和可验收实验。</p>
       </div>
       <div class="playbook-grid">${cards}</div>
     </div>
@@ -416,11 +416,11 @@ export function executionOrdersSection(data, id = "decisions") {
       <div class="section__head">
         <div class="section__eyebrow">决策建议 · 执行战单</div>
         <h2 class="section__title">不做泛泛优化，只批准这 5 个可落地动作</h2>
-        <p class="section__sub">每个动作都有 owner、时间窗、步骤和 gate。没有 owner、没有复采、没有回滚条件的事项，不进入执行队列。</p>
+        <p class="section__sub">每个动作都有 owner、时间窗、步骤和验收门槛。没有 owner、没有复采、没有回滚条件的事项，不进入执行队列。</p>
       </div>
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
-          <thead><tr><th>时间窗</th><th>Owner</th><th>批准动作</th><th>验收 gate</th></tr></thead>
+          <thead><tr><th>时间窗</th><th>Owner</th><th>推进动作</th><th>验收门槛</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
       </div>
@@ -658,7 +658,7 @@ export function businessKpiSection(data) {
         <div class="section__head">
           <div class="section__eyebrow">经营趋势对照</div>
           <h2 class="section__title">指标趋势先做方向判定，再谈预算承诺</h2>
-          <p class="section__sub">站内外审计应先证明“趋势方向”，再通过实验账本证明“是否带来收益”。下面只保留可对齐口径的指标方向。</p>
+          <p class="section__sub">站内外数据先证明“趋势方向”，再通过实验账本证明“是否带来收益”。下面只保留可对齐口径的指标方向。</p>
         </div>
         <div class="cross-table-wrap" tabindex="0">
           <table class="cross-table">
@@ -744,7 +744,7 @@ export function diagnosticBacklogSection(data) {
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">Top 15 病灶</div>
-        <h2 class="section__title">15 项问题按证据强度和验收门槛重排</h2>
+        <h2 class="section__title">15 项问题按数据强度和验收门槛重排</h2>
         <p class="section__sub">旧站的 Top 15 回来了，但排序不再依据旧收益预估，而是依据可复现程度、路径风险和能否复采验收。</p>
       </div>
       <div class="backlog-grid">${rows}</div>
@@ -877,7 +877,7 @@ export function roadmapSection(data) {
     <div class="roadmap-step__phase">${escapeHtml(item.phase)}</div>
     <h3>${escapeHtml(item.title)}</h3>
     <p>${escapeHtml(item.focus)}</p>
-    <p><strong>Gate：</strong>${escapeHtml(item.gate)}</p>
+    <p><strong>验收：</strong>${escapeHtml(item.gate)}</p>
   </div>`).join("");
   return `<section class="section section--gray" id="roadmap">
     <div class="container">
@@ -899,7 +899,7 @@ export function hero(data) {
         <div>
           <span class="hero__badge">M1 v2.0 历史骨架 · 私密经营数据重审版</span>
           <h1 class="hero__title">真实经营数据回归，<br><span class="hl">技术债故事线闭环</span>。</h1>
-          <p class="hero__lead"><strong>先把话说透：</strong>本版不再是压缩摘要，而是把当前 workbook、历史经营 JSON 与 ${sessionLabel || "最新"} 自动采集放在同一个审计故事里。旧站的业务体检、渠道归因、爬虫可信度、资产保护、Top 15 和 PR 路线图都要回来。</p>
+          <p class="hero__lead"><strong>先把话说透：</strong>本版不再是压缩摘要，而是把当前 workbook、历史经营 JSON 与 ${sessionLabel || "最新"} 自动采集放在同一个经营诊断故事里。旧站的业务体检、渠道归因、爬虫可信度、资产保护、Top 15 和 PR 路线图都要回来。</p>
           <p class="hero__lead">当前经营表显示总销售额 ${fixed(data.currentOperations.sales.totalSalesWan, 2)}万、转化率 ${pct(data.currentOperations.conversion.conversionRate)}、AOV ${fixed(data.currentOperations.sales.averageOrderValue, 2)}；历史 M1 v2.0 显示总营收 ${usdMillion(data.historicalOperations.sales.totalRevenueUsd)}、monthly_revenue ${usdMillion(data.historicalOperations.sales.monthlyRevenueUsd)}、overall_cvr ${pct(data.historicalOperations.conversion.overallCvr)}。自动采集则证明首页与代表性 PDP 仍暴露约 1.9MB JS、最高 ${data.external.maxDomNodes.toLocaleString("en-US")} DOM 节点、最高 ${data.external.maxThirdPartyFailures} 次第三方失败。</p>
           <div class="hero__meta">
             <span>经营刷新 · ${data.internal.statusCounts.PASS} PASS / ${data.internal.statusCounts.WARN} WARN / ${data.internal.statusCounts.FAIL} FAIL</span>
@@ -1012,8 +1012,8 @@ export function forensicsBody(data) {
   return `<section class="hero" id="scene">
     <div class="container">
       <span class="hero__badge">III · 证据链重审 · ${escapeHtml(observedSessionDate(data) || "最新")}</span>
-      <h1 class="hero__title">证据仍尖锐，<br><span class="hl">因果必须收紧。</span></h1>
-      <p class="hero__lead">本页保留历史法医取证的“现场化”表达，但把旧版“修复即收益”的表达改成证据等级：第三方失败、JS/DOM 膨胀、LCP 不可观测可以复采验证；收入影响只能在私有实验中验证。</p>
+      <h1 class="hero__title">病灶很明确，<br><span class="hl">因果必须收紧。</span></h1>
+      <p class="hero__lead">本页保留现场化表达，但把旧版“修复即收益”的表达改成复采边界：第三方失败、JS/DOM 膨胀、LCP 不可观测可以复采验证；收入影响只能在私有实验中验证。</p>
       ${crossAuditCards(data)}
     </div>
   </section>
@@ -1134,7 +1134,7 @@ export function crossAuditBody(data) {
     <div class="container">
       <span class="hero__badge">V · ${escapeHtml(sessionLabel || "latest")} · 内外部数据重审</span>
       <h1 class="hero__title">历史报告为骨架，<br><span class="hl">最新数据改结论。</span></h1>
-      <p class="hero__lead">本页集中呈现私密经营版的交叉审计结论。它来自私有经营数据刷新和外部自动采集的交叉验证，但不发布原始经营表、原始数据端点或不可审计的收益模型输入。</p>
+      <p class="hero__lead">本页集中呈现私密经营版的决策总表。它来自私有经营数据刷新和外部自动采集的交叉验证，但不发布原始经营表、原始数据端点或不可复核的收益模型输入。</p>
       ${crossAuditCards(data)}
     </div>
   </section>

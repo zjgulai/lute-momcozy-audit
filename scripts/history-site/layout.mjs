@@ -132,9 +132,9 @@ export function nav(active) {
   const links = [
     ["index.html", "I · 总览", "index"],
     ["metrics.html", "II · 指标口径", "metrics"],
-    ["forensics.html", "III · 证据链", "forensics"],
+    ["forensics.html", "III · 技术病灶", "forensics"],
     ["trends.html", "IV · 性能趋势", "trends"],
-    ["cross-audit.html", "V · 交叉审计", "cross"]
+    ["cross-audit.html", "V · 决策总表", "cross"]
   ];
   const pageAnchors = {
     index: {
@@ -143,9 +143,9 @@ export function nav(active) {
       ctaLabel: "查看执行战单",
       anchors: [
         ["index.html#feature-compare", "功能对比"],
-        ["index.html#insight-chain", "洞察链路"],
+        ["index.html#insight-chain", "诊断路径"],
         ["index.html#hard-conclusions", "硬结论"],
-        ["index.html#final-audit", "最终审计"],
+        ["index.html#final-audit", "页面校验"],
         ["index.html#diagnostic-bridge", "站内外诊断桥接"],
         ["index.html#operating-bridge", "经营信号"],
         ["index.html#traffic-attribution", "渠道诊断"],
@@ -164,7 +164,7 @@ export function nav(active) {
       ctaLabel: "查看口径治理",
       anchors: [
         ["metrics.html#hero", "指标结论"],
-        ["metrics.html#final-audit", "最终审计"],
+        ["metrics.html#final-audit", "页面校验"],
         ["metrics.html#diagnostic-bridge", "站内外诊断桥接"],
         ["metrics.html#operating-bridge", "经营信号"],
         ["metrics.html#business-kpi", "真实 KPI"],
@@ -179,8 +179,8 @@ export function nav(active) {
       ctaHref: "forensics.html#top15",
       ctaLabel: "查看病灶清单",
       anchors: [
-        ["forensics.html#scene", "证据总览"],
-        ["forensics.html#final-audit", "最终审计"],
+        ["forensics.html#scene", "病灶总览"],
+        ["forensics.html#final-audit", "页面校验"],
         ["forensics.html#diagnostic-bridge", "站内外诊断桥接"],
         ["forensics.html#bot-audit", "爬虫治理"],
         ["forensics.html#cross-audit", "重审结论"],
@@ -195,7 +195,7 @@ export function nav(active) {
       ctaLabel: "查看最新采集",
       anchors: [
         ["trends.html#hero", "趋势结论"],
-        ["trends.html#final-audit", "最终审计"],
+        ["trends.html#final-audit", "页面校验"],
         ["trends.html#diagnostic-bridge", "站内外诊断桥接"],
         ["trends.html#cross-audit", "重审结论"],
         ["trends.html#latest-v3", "最新采集"]
@@ -206,13 +206,13 @@ export function nav(active) {
       ctaHref: "cross-audit.html#execution-orders",
       ctaLabel: "查看执行战单",
       anchors: [
-        ["cross-audit.html#final-audit", "最终审计"],
+        ["cross-audit.html#final-audit", "页面校验"],
         ["cross-audit.html#diagnostic-bridge", "站内外诊断桥接"],
         ["cross-audit.html#storyline", "故事线"],
-        ["cross-audit.html#insight-chain", "洞察链路"],
+        ["cross-audit.html#insight-chain", "诊断路径"],
         ["cross-audit.html#hard-conclusions", "硬结论"],
         ["cross-audit.html#cross-matrix", "策略矩阵"],
-        ["cross-audit.html#contradictions", "矛盾识别"],
+        ["cross-audit.html#contradictions", "冲突处理"],
         ["cross-audit.html#feature-compare", "功能对比"],
         ["cross-audit.html#operating-bridge", "经营信号"],
         ["cross-audit.html#business-kpi", "真实 KPI"],
@@ -229,9 +229,9 @@ export function nav(active) {
   };
   const anchorConfig = pageAnchors[active] || pageAnchors.index;
   const anchors = anchorConfig.anchors;
-  return `<nav class="side-nav" aria-label="Momcozy 审计报告导航">
+  return `<nav class="side-nav" aria-label="Momcozy 诊断报告导航">
     <a href="index.html#hero" class="side-nav__brand">路特 AI <span>×</span><br>Momcozy</a>
-    <div class="side-nav__kicker">私密经营审计</div>
+    <div class="side-nav__kicker">Momcozy 经营诊断</div>
     <div class="side-nav__status" aria-label="报告状态">
       <div class="side-stat"><strong>5</strong><span>主页面</span></div>
       <div class="side-stat"><strong>${anchors.length}</strong><span>核心锚点</span></div>
@@ -239,7 +239,7 @@ export function nav(active) {
       <div class="side-stat"><strong>noindex</strong><span>访问边界</span></div>
     </div>
     <div class="side-nav__group">
-      <div class="side-nav__label">主报告</div>
+      <div class="side-nav__label">主诊断</div>
       <div class="side-nav__main">
         ${links.map(([href, label, key], index) => `<a href="${href}" class="side-nav__link${active === key ? " side-nav__link--active" : ""}"><span>${label}</span><small>0${index + 1}</small></a>`).join("")}
       </div>
@@ -267,12 +267,12 @@ export function footer() {
         <div class="footer__col"><div class="footer-heading">验收重点</div><ul><li>中文主线</li><li>私密访问控制</li><li>每页有依据</li></ul></div>
         <div class="footer__col"><div class="footer-heading">下一步</div><ul><li>PDP 队列扩采</li><li>归因质量治理</li><li>实验验收</li></ul></div>
       </div>
-      <div class="footer__bottom">© 2026 路特 AI 公司 · Momcozy 私密经营审计报告 · noindex</div>
+      <div class="footer__bottom">© 2026 路特 AI 公司 · Momcozy 私密经营诊断报告 · noindex</div>
     </div>
   </footer>`;
 }
 
-export function page(title, active, body, metaDescription = "Momcozy 独立站私密经营审计报告") {
+export function page(title, active, body, metaDescription = "Momcozy 独立站私密经营诊断报告") {
   const sanitizedDescription = escapeHtml(metaDescription);
   return `<!doctype html>
 <html lang="zh-CN">

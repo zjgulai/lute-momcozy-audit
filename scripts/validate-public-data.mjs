@@ -140,7 +140,7 @@ assertFinding("forensics", "长任务（long tasks）", maxValue("longTasks"));
 assertFinding("forensics", "JavaScript 体积（最新）", maxValue("jsKb"));
 assertFinding("forensics", "DOM 节点（最新）", maxValue("domNodes"));
 assertFinding("forensics", "LCP 可观测风险", lcpUnobserved);
-assertFinding("forensics", "审计覆盖路径", latestSession.routes.length);
+assertFinding("forensics", "诊断覆盖路径", latestSession.routes.length);
 assertAnyFinding("forensics", ["商品详情 DOM 规模", "PDP watchlist DOM 规模"], maxPdpValue("scriptTags") ?? productDesktop.scriptTags);
 assertAnyFinding("forensics", ["商品详情运行时错误", "PDP watchlist 运行时错误"], Number.isFinite(maxPdpErrors) ? maxPdpErrors : productRuntimeErrors);
 assertFinding("forensics", "图片可访问性缺口", maxValue("missingAlt"));

@@ -123,7 +123,7 @@ test("cross audit sidebar prioritizes current-page anchors", async ({page}) => {
     };
   });
   expect(result.groupLabels).toContain("本页锚点");
-  expect(result.activeText).toContain("交叉审计");
+  expect(result.activeText).toContain("决策总表");
   expect(result.anchorHrefs).toContain("cross-audit.html#final-audit");
   expect(result.anchorHrefs).toContain("cross-audit.html#contradictions");
   expect(result.anchorHrefs).toContain("cross-audit.html#competitor-recollect");
@@ -131,7 +131,7 @@ test("cross audit sidebar prioritizes current-page anchors", async ({page}) => {
   expect(result.anchorHrefs).toContain("cross-audit.html#third-party-governance");
   expect(result.anchorHrefs).toContain("cross-audit.html#execution-orders");
   expect(result.anchorHrefs).toContain("cross-audit.html#diagnostic-bridge");
-  expect(result.anchorLabels).toContain("矛盾识别");
+  expect(result.anchorLabels).toContain("冲突处理");
   expect(result.ctaHref).toBe("cross-audit.html#execution-orders");
   expect(result.ctaText).toBe("查看执行战单");
 });
@@ -237,13 +237,13 @@ test("overview restores the historical M1 v2 report as the primary site", async 
   expect(text).toContain("渠道质量诊断");
   expect(text).toContain("先修归因可信度，再决定预算和 SEO 动作");
   expect(text).toContain("爬虫与数据可信度");
-  expect(text).toContain("每个结论必须能回答");
+  expect(text).toContain("为什么先修归因和 PDP，而不是先投后端和 SEO");
   expect(text).toContain("不批准“后端慢”作为主叙事");
   expect(text).toContain("不做泛泛优化，只批准这 5 个可落地动作");
   expect(text).toContain("建立第三方域名 kill-list");
-  expect(text).toContain("最终审计");
-  expect(text).toContain("结论 × 策略 × 执行");
-  expect(text).toContain("矛盾识别与修复");
+  expect(text).toContain("页面校验");
+  expect(text).toContain("诊断 × 资源排序 × 验收");
+  expect(text).toContain("决策冲突处理");
   expect(text).toContain("经营趋势对照");
   expect(text).not.toContain("回迁");
   expect(text).not.toContain("铁证索引");
@@ -269,9 +269,9 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
   }
   expect(text).toContain("不批准 SEO 变现建议");
   expect(text).toContain("批准高风险 PDP 优先复跑");
-  expect(text).toContain("最终审计");
-  expect(text).toContain("每条结论都必须能落到策略和执行");
-  expect(text).toContain("重点保留结论-策略-执行闭环");
+  expect(text).toContain("页面校验");
+  expect(text).toContain("把诊断结果落到资源排序和验收动作");
+  expect(text).toContain("重点保留诊断结论、资源排序和执行动作闭环");
   expect(text).not.toContain("回迁");
   expect(text).not.toContain("铁证如山的前提");
   expect(text).not.toContain("铁证索引");
@@ -279,7 +279,26 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
 });
 
 test("primary pages do not expose internal evidence-index wording", async ({page}) => {
-  const bannedTerms = ["回迁", "铁证索引", "证据台账", "铁证如山", "旧口径下结论", "待补证据的归因路线图", "证据索引层", "索引层"];
+  const bannedTerms = [
+    "回迁",
+    "铁证索引",
+    "证据台账",
+    "铁证如山",
+    "旧口径下结论",
+    "待补证据的归因路线图",
+    "证据索引层",
+    "索引层",
+    "每个结论必须能回答",
+    "洞察链路",
+    "最终审计",
+    "交叉审计",
+    "私密经营审计",
+    "审计故事",
+    "真正有用的审计",
+    "站内外审计",
+    "不可审计",
+    "验收 gate"
+  ];
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
     await page.goto(pathname);
     const text = await page.locator("body").innerText();
@@ -353,8 +372,8 @@ test("each primary page exposes a final audit check", async ({page}) => {
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
     await page.goto(pathname);
     const text = await page.locator("body").innerText();
-    expect(text).toContain("最终审计");
-    expect(text).toContain("验收 gate");
+    expect(text).toContain("页面校验");
+    expect(text).toContain("验收门槛");
   }
 });
 
