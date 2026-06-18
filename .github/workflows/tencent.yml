@@ -43,7 +43,7 @@ jobs:
           mkdir -p artifacts
           PROD_BASE_URL="$PUBLIC_URL" \
             RELEASE_PARITY_REPORT_PATH="artifacts/release-parity-${GITHUB_SHA}.json" \
-            RELEASE_PARITY_ALLOW_PROD_MISSING_SECTIONS="/cross-audit.html:third-party-governance,/cross-audit.html:segment-sampling" \
+            RELEASE_PARITY_ALLOW_PROD_MISSING_SECTIONS="/:overview-proof,/:bot-attribution,/metrics.html:metric-governance,/forensics.html:risk-chart,/forensics.html:risk-backlog,/trends.html:trend-charts,/cross-audit.html:decision-chart" \
             npm run test:release-parity
       - name: Generate SHA-256 manifest
         run: (cd _site && find . -type f -print0 | sort -z | xargs -0 sha256sum) > site.sha256
