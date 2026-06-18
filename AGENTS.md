@@ -2,8 +2,8 @@
 
 ## 项目定位
 
-本仓库是 **Momcozy 电商站技术审计报告的私密发布平台**，同时也是一个**周期性性能监控产品**。
-当前站点按 owner 指令进入 **私密经营版**：允许在报告页面中写入真实经营金额、真实业务 KPI、历史经营数据和采集数据，用于完整恢复审计故事线。部署前由 owner 负责配置访问控制；AI 仍必须避免泄露密钥、私有路径、服务器地址和原始数据端点。
+本仓库是 **Momcozy 电商站经营洞察报告的私密发布平台**，同时也是一个**周期性性能监控产品**。
+当前站点按 owner 指令进入 **私密经营版**：允许在报告页面中写入真实经营金额、真实业务 KPI、历史经营数据和采集数据，用于完整恢复洞察故事线。部署前由 owner 负责配置访问控制；AI 仍必须避免泄露密钥、私有路径、服务器地址和原始数据端点。
 
 **生产地址**：https://shopify.lute-tlz-dddd.top
 **部署方式**：腾讯云轻量服务器（按 owner 私钥与网络配置管理），接入 ai_video_nginx 容器，文件路径 /opt/momcozy-audit/html/
@@ -12,10 +12,10 @@
 
 ```
 Active build source:
-scripts/build-history-site.mjs + src/_data/public-cross-audit.json + src/_data/sessions + history_static/assets/
+scripts/build-history-site.mjs + scripts/history-site/*.mjs + src/_data/public-cross-audit.json + src/_data/sessions + history_static/assets/
 
 src/_data/
-  audit.json                  <- 最新审计快照（Overview/Metrics/Forensics 页数据源）
+  audit.json                  <- 最新证据快照（历史兼容数据源）
   public-cross-audit.json     <- 私密经营版网站生成输入
   sessions/                   <- 每次采集的独立 JSON 文件（YYYY-MM-DD.json）
     2026-03-12.json           <- 手工 baseline（confidence: low）
@@ -24,9 +24,13 @@ src/_data/
     2026-06-10.json           <- 自动化首次基线（confidence: medium，含 mobile block）
     2026-06-14.json           <- 自动化路由增强基线（confidence: medium）
   segment-sessions/           <- 分段复采归档（YYYY-MM-DD-label.json），不参与主趋势 latest session
-src/assets/
-  site.css                <- 全站样式（单文件）
-  trends-charts.js        <- uPlot 图表逻辑（self-hosted，CSP 合规）
+history_static/assets/
+  shared.css              <- 全站基础变量与公共样式
+  favicon.svg             <- 站点图标
+scripts/history-site/
+  layout.mjs              <- 页面框架、侧边栏与内联页面样式
+  charts.mjs              <- 静态图表组件（bar / coverage / paired metric / Sankey）
+  sections.mjs            <- 五页洞察报告模块
 ```
 
 说明：

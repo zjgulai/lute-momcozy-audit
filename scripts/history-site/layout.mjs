@@ -52,7 +52,6 @@ export function pageStyles() {
     .callout-strong p, .cross-callout p { color: #d8d8d8; }
     .cross-callout .card-label { color: #f8dbe3; }
     .cross-table-wrap { overflow-x: auto; max-width: 100%; border: 1px solid var(--border); border-radius: 8px; background: #fff; box-shadow: 0 1px 0 rgba(0,0,0,.02); }
-    .matrix-wrap { overflow-x: auto; max-width: 100%; border: 1px solid var(--border); border-radius: 8px; background: #fff; box-shadow: 0 1px 0 rgba(0,0,0,.02); }
     .cross-table-wrap:focus { outline: 2px solid var(--accent); outline-offset: 2px; }
     .cross-table { min-width: 860px; width: 100%; border-collapse: collapse; font-size: 13px; }
     .cross-table th, .cross-table td { padding: 12px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border-light); }
@@ -67,20 +66,6 @@ export function pageStyles() {
     .route-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 18px; }
     .route-card h3 { font-size: 17px; margin-bottom: 8px; }
     .route-card p { color: var(--text-secondary); font-size: 14px; line-height: 1.7; }
-    .story-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; margin-top: 20px; }
-    .story-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 18px; }
-    .story-card__num { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-weight: 850; font-size: 13px; margin-bottom: 12px; }
-    .story-card p { color: var(--text-secondary); font-size: 14px; line-height: 1.75; }
-    .feature-table { min-width: 1040px; width: 100%; border-collapse: collapse; font-size: 13px; }
-    .feature-table th, .feature-table td { padding: 13px 14px; border-bottom: 1px solid var(--border-light); vertical-align: top; text-align: left; }
-    .feature-table th { background: var(--bg-dark); color: #fff; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; }
-    .feature-table tr:last-child td { border-bottom: 0; }
-    .signal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
-    .signal-card { background: #fff; border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 8px; padding: 18px; }
-    .signal-card h3 { font-size: 17px; margin-bottom: 10px; }
-    .signal-card dl { display: grid; gap: 10px; margin: 0; }
-    .signal-card dt { font-size: 10px; font-weight: 850; letter-spacing: .1em; text-transform: uppercase; color: #525252; }
-    .signal-card dd { margin: 0; color: var(--text-secondary); font-size: 13px; line-height: 1.7; }
     .backlog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
     .backlog-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 16px; min-height: 176px; }
     .backlog-card h3 { font-size: 16px; line-height: 1.35; margin: 9px 0; }
@@ -90,9 +75,6 @@ export function pageStyles() {
     .badge--p2 { background: #4b5563; color: #fff; }
     .badge--safe { background: var(--success-light); color: var(--success); }
     .backlog-card p { color: var(--text-secondary); font-size: 13px; line-height: 1.65; margin-top: 8px; }
-    .matrix-mini { min-width: 920px; font-size: 13px; }
-    .matrix-mini th, .matrix-mini td { padding: 13px 14px; border-bottom: 1px solid var(--border-light); text-align: left; vertical-align: top; }
-    .matrix-mini th { background: var(--bg-dark); color: #fff; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; }
     .playbook-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; }
     .playbook-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
     .playbook-card__head { padding: 18px 20px; background: var(--bg-dark); color: #fff; }
@@ -102,11 +84,6 @@ export function pageStyles() {
     .playbook-card__body p { color: var(--text-secondary); font-size: 13px; line-height: 1.7; margin: 0 0 10px; }
     .playbook-card ol { margin: 0; padding-left: 20px; color: var(--text-secondary); font-size: 13px; line-height: 1.75; }
     .playbook-gate { margin-top: 14px; border-top: 1px solid var(--border-light); padding-top: 12px; color: var(--accent); font-size: 13px; font-weight: 800; }
-    .roadmap-lite { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-    .roadmap-step { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 18px; position: relative; }
-    .roadmap-step__phase { font-size: 10px; color: var(--accent); font-weight: 850; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 10px; }
-    .roadmap-step h3 { font-size: 18px; margin-bottom: 8px; }
-    .roadmap-step p { color: var(--text-secondary); font-size: 13px; line-height: 1.7; margin-top: 8px; }
     .sessions-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: #fff; }
     .sessions-table { min-width: 900px; font-size: 13px; }
     .sessions-table th, .sessions-table td { padding: 12px 14px; border-bottom: 1px solid var(--border-light); text-align: left; }

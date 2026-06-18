@@ -15,62 +15,12 @@ import {
   usdMillion
 } from "./format.mjs";
 
-export function sourcePills(references) {
-  return references.map((reference) => `<span class="pill">${escapeHtml(reference)}</span>`).join("");
-}
-
 function observedSessionDate(data) {
   return data.external?.latestSession?.replace("session-", "") || "";
 }
 
 function evidenceEyebrow(data) {
   return `最新外部采集 · <span class="evidence-session">${escapeHtml(data.external?.latestSession || "")}</span>`;
-}
-
-function statusLabelFromState(state) {
-  if (state === "done") return "已完成";
-  if (state === "in_progress") return "进行中";
-  if (state === "blocked") return "阻塞";
-  return "待重采";
-}
-
-function collectStatusMeta(status) {
-  if (!status || typeof status === "string") return "";
-  const parts = [
-    status.owner ? `负责人：${status.owner}` : null,
-    status.dueBy ? `截止：${status.dueBy}` : null,
-    status.state ? `状态：${statusLabelFromState(status.state)}` : null
-  ].filter(Boolean);
-  return parts.length ? `<div class="evidence-note">${parts.map((item) => escapeHtml(item)).join(" · ")}</div>` : "";
-}
-
-function renderRecollectStatus(status) {
-  if (!status) return `<span class="badge badge--p2">待重采</span>`;
-  if (typeof status === "string") {
-    return `<span class="badge badge--p2">待重采</span><div class="evidence-note">${escapeHtml(status)}</div>`;
-  }
-
-  const stateLabel = statusLabelFromState(status.state);
-  const stateClass = status.state === "done" ? "badge--safe" : (status.state === "in_progress" ? "badge--p1" : "badge--p2");
-  const actionItems = Array.isArray(status.actions) ? status.actions : [];
-  const evidenceItems = Array.isArray(status.evidence) ? status.evidence : [];
-
-  return `
-    <span class="badge ${stateClass}">${escapeHtml(stateLabel)}</span>
-    ${status.summary ? `<div>${escapeHtml(status.summary)}</div>` : ""}
-    ${collectStatusMeta(status)}
-    ${actionItems.length ? `<ul>${actionItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : ""}
-    ${evidenceItems.length ? `<div class="evidence-note">证据来源：${evidenceItems.map((item) => escapeHtml(item)).join("，")}</div>` : ""}`;
-}
-
-export function conclusionRows(conclusions) {
-  return conclusions.map((item) => `<tr>
-    <td><strong>${escapeHtml(item.id)}</strong></td>
-    <td>${escapeHtml(item.issue)}</td>
-    <td>${escapeHtml(item.verdict)}<div class="evidence-note">证据：${escapeHtml(item.evidence)}</div></td>
-    <td>${escapeHtml(item.confidence)}</td>
-    <td>${sourcePills(item.references)}</td>
-  </tr>`).join("");
 }
 
 function formatTrendDelta(current, historical) {
@@ -81,16 +31,6 @@ function formatTrendDelta(current, historical) {
   if (pctDelta > 0) return `上升 +${abs}%`;
   if (pctDelta < 0) return `下降 -${abs}%`;
   return "持平 0.0%";
-}
-
-export function selectedConclusions(data, pageName) {
-  const update = data.pageUpdates.find((item) => item.page === pageName);
-  const ids = new Set(update?.conclusionIds || data.conclusions.map((item) => item.id));
-  return data.conclusions.filter((item) => ids.has(item.id));
-}
-
-export function pageRoute(data, pageName) {
-  return data.pageUpdates.find((item) => item.page === pageName)?.route || "私密经营版已按最新经营诊断刷新。";
 }
 
 export function crossAuditCards(data) {
@@ -118,27 +58,6 @@ export function crossAuditCards(data) {
   </div>`;
 }
 
-export function crossAuditSection(data, pageName) {
-  const externalDate = data.external?.latestSession?.replace("session-", "") || "";
-  return `<section class="section section--gray" id="cross-audit">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">${escapeHtml(externalDate)} · 最新外部采集 · <span class="evidence-session">${escapeHtml(data.external.latestSession || "")}</span></div>
-        <h2 class="section__title">本页结论已按最新经营数据重审</h2>
-        <p class="section__sub">${escapeHtml(pageRoute(data, pageName))}</p>
-      </div>
-      ${crossAuditCards(data)}
-      <div class="deprecated"><strong>口径提示：</strong>本版本按私密经营版发布真实金额与 KPI；历史窗口、当前 workbook 与自动采集路径不同，不能直接当作同口径环比。</div>
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>ID</th><th>问题</th><th>当前结论与证据</th><th>等级</th><th>参考依据</th></tr></thead>
-          <tbody>${conclusionRows(selectedConclusions(data, pageName))}</tbody>
-        </table>
-      </div>
-    </div>
-  </section>`;
-}
-
 export function legacyData(data) {
   return data.legacyRecovery || {
     storyline: [],
@@ -152,71 +71,6 @@ export function legacyData(data) {
     playbookCards: [],
     roadmap: []
   };
-}
-
-function competitorSnapshot(data) {
-  return data.competitorSnapshot || null;
-}
-
-function statusText(status) {
-  if (status >= 200 && status < 400) return `${status} 可达`;
-  if (status === 0) return "访问失败";
-  return `${status} 不可达`;
-}
-
-function maxCompetitorMetric(competitor, metric) {
-  let best = null;
-  for (const page of competitor.pages || []) {
-    for (const viewport of page.viewports || []) {
-      const value = viewport.metrics?.[metric];
-      if (!Number.isFinite(value)) continue;
-      if (!best || value > best.value) {
-        best = {value, routeId: page.routeId, viewport: viewport.label};
-      }
-    }
-  }
-  return best;
-}
-
-function competitorEvidenceTable(snapshot) {
-  if (!snapshot?.competitors?.length) return "";
-  const rows = snapshot.competitors.map((competitor) => {
-    const pdp = (competitor.pages || []).find((page) => page.routeId === "pdp");
-    const cart = (competitor.pages || []).find((page) => page.routeId === "cart");
-    const maxJs = maxCompetitorMetric(competitor, "jsKb");
-    const maxFailures = maxCompetitorMetric(competitor, "thirdPartyFailures");
-    const maxDom = maxCompetitorMetric(competitor, "domNodes");
-    const botPolicyCount = Object.values(competitor.robots?.botPolicies || {}).filter((value) => value !== "unspecified").length;
-    return `<tr>
-      <td><strong>${escapeHtml(competitor.label)}</strong><div class="evidence-note">${escapeHtml(competitor.category)}</div></td>
-      <td>${escapeHtml(statusText(pdp?.status || 0))}</td>
-      <td>${escapeHtml(statusText(cart?.status || 0))}</td>
-      <td class="num">${maxJs ? integer(maxJs.value) : "N/A"}<div class="evidence-note">${maxJs ? `${escapeHtml(maxJs.routeId)} / ${escapeHtml(maxJs.viewport)}` : ""}</div></td>
-      <td class="num">${maxFailures ? integer(maxFailures.value) : "N/A"}<div class="evidence-note">${maxFailures ? `${escapeHtml(maxFailures.routeId)} / ${escapeHtml(maxFailures.viewport)}` : ""}</div></td>
-      <td class="num">${maxDom ? integer(maxDom.value) : "N/A"}<div class="evidence-note">${maxDom ? `${escapeHtml(maxDom.routeId)} / ${escapeHtml(maxDom.viewport)}` : ""}</div></td>
-      <td>${escapeHtml(statusText(competitor.robots?.status || 0))}<div class="evidence-note">Sitemap ${integer(competitor.robots?.sitemapCount || 0)} · named bot policy ${integer(botPolicyCount)}</div></td>
-    </tr>`;
-  }).join("");
-  return `<div class="cross-table-wrap" style="margin-top: 16px;" tabindex="0">
-    <table class="cross-table">
-      <thead><tr><th>竞品</th><th>PDP</th><th>Cart</th><th>最高 JS KB</th><th>最高 3P 失败</th><th>最高 DOM</th><th>Robots 摘要</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>
-  </div>`;
-}
-
-function competitorSnapshotCallout(snapshot) {
-  if (!snapshot?.summary) return "竞品数据当前为历史观察标注，必须重新采集“主页 / PDP / cart / checkout / 站外来源页”才能进入最终对标。";
-  const summary = snapshot.summary;
-  const maxFailures = summary.maxThirdPartyFailures;
-  const maxJs = summary.maxJsKb;
-  const maxDom = summary.maxDomNodes;
-  return [
-    `竞品复采样本 ${escapeHtml(snapshot.observedAt)} 已归档：${integer(summary.competitorCount)} 站、${integer(summary.sampledPageCount)} 个公开页面、${integer(summary.viewportSampleCount)} 个视口样本。`,
-    `PDP 可达 ${integer(summary.reachablePdpCount)}/${integer(summary.competitorCount)}，cart 可达 ${integer(summary.reachableCartCount)}/${integer(summary.competitorCount)}。`,
-    `最高第三方失败 ${integer(maxFailures?.value || 0)}（${escapeHtml(maxFailures?.competitorId || "N/A")} ${escapeHtml(maxFailures?.routeId || "")}/${escapeHtml(maxFailures?.viewport || "")}），最高 JS ${integer(maxJs?.value || 0)}KB，最高 DOM ${integer(maxDom?.value || 0)}。`,
-    "这能支撑脚本风险排序，但还不能替代多次复采、入口参数和 checkout 实际状态。"
-  ].join(" ");
 }
 
 export function decisionData(data) {
@@ -256,71 +110,6 @@ export function finalAuditData(data) {
     crossMatrix: [],
     contradictions: []
   };
-}
-
-export function pageAuditItem(data, pageName) {
-  return finalAuditData(data).pageAudits.find((item) => item.page === pageName);
-}
-
-export function pageAuditSection(data, pageName) {
-  const item = pageAuditItem(data, pageName);
-  if (!item) return "";
-  return `<section class="section section--gray" id="final-audit">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">页面校验 · ${escapeHtml(item.role)}</div>
-        <p class="section__sub">本节只回答业务读者关心的三件事：这一页解决什么问题、哪些数据支持、下一步如何验收。</p>
-      </div>
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>页面职责</th><th>支撑数据</th><th>限制条件</th><th>下一步优化</th><th>验收门槛</th></tr></thead>
-          <tbody><tr>
-            <td><strong>${escapeHtml(item.role)}</strong></td>
-            <td>${escapeHtml(item.evidencePresent)}</td>
-            <td>${escapeHtml(item.conflictCheck)}</td>
-            <td>${escapeHtml(item.optimization)}</td>
-            <td>${escapeHtml(item.gate)}</td>
-          </tr></tbody>
-        </table>
-      </div>
-    </div>
-  </section>`;
-}
-
-export function diagnosticBridgeSection(data, pageName) {
-  const update = data.pageUpdates.find((item) => item.page === pageName);
-  const auditItem = pageAuditItem(data, pageName);
-  const insideNote = `当前 workbook ${fixed(data.currentOperations.sales.totalSalesWan, 2)}万 · 转化率 ${pct(data.currentOperations.conversion.conversionRate)} · AOV ${fixed(data.currentOperations.sales.averageOrderValue, 2)}，但流量窗口 ${data.currentOperations.trafficWindow}、销售窗口 ${data.currentOperations.salesWindow}与历史口径并不一致，读数用于优先级判断，不作为单点收益承诺。`;
-  const outsideNote = `外部采集 ${escapeHtml(data.external.latestSession)} 覆盖 ${data.external.routeCount} 条路径，JS ${data.currentOperations ? "约 1.9MB" : "1.9MB+"}、DOM ${data.external.maxDomNodes.toLocaleString("en-US")}、第三方失败 ${data.external.maxThirdPartyFailures}，LCP 可观测率 ${data.external.lcpObservedSamples}/${data.external.lcpTotalSamples}，复采动作以“站点可复核”为边界。`;
-  const decisionLine = auditItem?.optimization || "不批准无 owner、无复采、无回滚条件的建议；只保留能落到动作的决策。";
-  const bridgeLine = update?.route || "本页按当前经营与外部复采共同写入决策边界。";
-
-  return `<section class="section" id="diagnostic-bridge">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">站内外诊断桥接</div>
-        <h2 class="section__title">站内指标解释、站外复采动作、决策落地同页可追踪</h2>
-        <p class="section__sub">这段是“可读性优先”的执行摘要：先明确站内指标含义，再定义站外复核动作，最后只保留可落地策略。</p>
-      </div>
-      <div class="route-grid">
-        <div class="route-card">
-          <h3>站内指标解释</h3>
-          <p>${insideNote}</p>
-          <p><strong>不可替代结论：</strong>${escapeHtml(auditItem?.question || "指标不能直接替代实验收益结论。")}</p>
-        </div>
-        <div class="route-card">
-          <h3>站外复采动作</h3>
-          <p>${outsideNote}</p>
-          <p><strong>站外约束：</strong>${escapeHtml(data.internal.publicBoundary)}</p>
-        </div>
-        <div class="route-card">
-          <h3>决策落地</h3>
-          <p>${decisionLine}</p>
-          <p><strong>执行口径：</strong>${escapeHtml(bridgeLine)}</p>
-        </div>
-      </div>
-    </div>
-  </section>`;
 }
 
 export function crossMatrixSection(data) {
@@ -367,23 +156,6 @@ export function contradictionsSection(data) {
           <thead><tr><th>冲突</th><th>业务风险</th><th>处理方式</th><th>验收方式</th></tr></thead>
           <tbody>${rows}</tbody>
         </table>
-      </div>
-    </div>
-  </section>`;
-}
-
-export function storylineSection(data) {
-  const items = legacyData(data).storyline;
-  return `<section class="section" id="storyline">
-    <div class="container">
-      <div class="section__head">
-        <div>
-          <div class="section__eyebrow">故事线</div>
-          <p class="section__sub">按经营优先级、渠道归因、数据可信度、技术病灶和执行路线展开；用最新经营与采集数据补齐结论边界。</p>
-        </div>
-      </div>
-      <div class="story-grid">
-        ${items.map((item, index) => `<div class="story-card"><div class="story-card__num">${index + 1}</div><p>${escapeHtml(item)}</p></div>`).join("")}
       </div>
     </div>
   </section>`;
@@ -458,135 +230,6 @@ export function executionOrdersSection(data, id = "decisions") {
           <tbody>${rows}</tbody>
         </table>
       </div>
-    </div>
-  </section>`;
-}
-
-export function thirdPartyGovernanceSection(data) {
-  const governance = data.thirdPartyGovernance;
-  if (!governance?.domains?.length) return "";
-  const rules = (governance.budgetRules || []).map((rule) => `<li>${escapeHtml(rule)}</li>`).join("");
-  const rows = governance.domains.map((item) => `<tr>
-    <td><strong>${escapeHtml(item.category)}</strong><div class="evidence-note">${escapeHtml(item.routeScope)}</div></td>
-    <td>${escapeHtml(item.owner)}</td>
-    <td>${escapeHtml(item.purpose)}</td>
-    <td>${escapeHtml(item.loadPolicy)}</td>
-    <td>${escapeHtml(item.failureBudget)}</td>
-    <td>${escapeHtml(item.decision)}</td>
-  </tr>`).join("");
-  return `<section class="section" id="third-party-governance">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">第三方治理 · Owner / 用途 / 预算</div>
-        <h2 class="section__title">把 ${integer(data.external.maxThirdPartyFailures)} 次第三方失败拆成可执行的责任表</h2>
-        <p class="section__sub">${escapeHtml(governance.summary)}</p>
-      </div>
-      <div class="deprecated"><strong>证据版本：</strong>${escapeHtml(governance.evidenceVersion)}<ol>${rules}</ol></div>
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>脚本类别</th><th>Owner</th><th>用途</th><th>加载策略</th><th>失败预算</th><th>处置</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
-    </div>
-  </section>`;
-}
-
-export function segmentSamplingSection(data) {
-  const plan = data.segmentSamplingPlan;
-  if (!plan?.segments?.length) return "";
-  const pilot = plan.publicPilot;
-  const commands = (plan.commands || []).map((command) => `<li><code>${escapeHtml(command)}</code></li>`).join("");
-  const gates = (plan.acceptanceGates || []).map((gate) => `<li>${escapeHtml(gate)}</li>`).join("");
-  const pilotReads = (pilot?.decisionRead || []).map((item) => `<li>${escapeHtml(item)}</li>`).join("");
-  const pilotRows = (pilot?.rows || []).map((item) => `<tr>
-    <td><strong>${escapeHtml(item.segment)}</strong><div class="evidence-note">${escapeHtml(item.routeId)}</div></td>
-    <td>${escapeHtml(item.maxFcp)}</td>
-    <td>${escapeHtml(item.maxTtfb)}</td>
-    <td>${escapeHtml(item.maxJsKb)}</td>
-    <td>${integer(item.maxThirdPartyFailures)}</td>
-    <td>${integer(item.maxRuntimeErrors)}</td>
-    <td>${escapeHtml(item.interpretation)}</td>
-  </tr>`).join("");
-  const pilotBlock = pilot?.rows?.length ? `
-      <div class="deprecated">
-        <strong>公开匿名 pilot：</strong>${escapeHtml(pilot.sessionId || pilot.observedAt)} · ${escapeHtml(pilot.methodologyVersion)} · confidence ${escapeHtml(pilot.confidence)}。${escapeHtml(pilot.scope)}
-        ${pilotReads ? `<ol>${pilotReads}</ol>` : ""}
-      </div>
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>Segment</th><th>Max FCP</th><th>Max TTFB</th><th>Max JS</th><th>Max 3P 失败</th><th>Max 错误</th><th>诊断读取</th></tr></thead>
-          <tbody>${pilotRows}</tbody>
-        </table>
-      </div>` : "";
-  const rows = plan.segments.map((item) => `<tr>
-    <td><strong>${escapeHtml(item.segment)}</strong><div class="evidence-note">${escapeHtml(item.routePack)}</div></td>
-    <td>${escapeHtml(statusLabelFromState(item.state === "ready" ? "done" : "blocked"))}<div class="evidence-note">${escapeHtml(item.state)}</div></td>
-    <td>${escapeHtml(item.question)}</td>
-    <td>${escapeHtml(item.decisionUse)}</td>
-  </tr>`).join("");
-  return `<section class="section section--gray" id="segment-sampling">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">分段复采 · UTM / 状态 / Checkout</div>
-        <h2 class="section__title">下一轮采样按入口和交易状态拆开</h2>
-        <p class="section__sub">${escapeHtml(plan.summary)}</p>
-      </div>
-      <div class="deprecated"><strong>方法版本：</strong>${escapeHtml(plan.methodologyVersion)}<ol>${gates}</ol></div>
-      ${pilotBlock}
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>Segment</th><th>状态</th><th>要回答的问题</th><th>决策用途</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
-      <div class="code-block" style="margin-top: 16px;"><ul>${commands}</ul></div>
-    </div>
-  </section>`;
-}
-
-export function featureComparisonSection(data) {
-  const rows = legacyData(data).featureComparison.map((item) => `<tr>
-    <td><strong>${escapeHtml(item.module)}</strong></td>
-    <td>${escapeHtml(item.historical)}</td>
-    <td>${escapeHtml(item.currentGap)}</td>
-    <td>${escapeHtml(item.recoveredAs)}</td>
-  </tr>`).join("");
-  return `<section class="section section--gray" id="feature-compare">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">功能对比 · current vs history</div>
-        <h2 class="section__title">历史站高价值功能恢复清单</h2>
-        <p class="section__sub">对比线上腾讯云当前站与 GitHub 历史站后，最有价值的是分析模块和执行模块如何承接真实经营值与新采集证据。本表把缺口、恢复方式和安全边界一并固化。</p>
-      </div>
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="feature-table">
-          <thead><tr><th>历史功能</th><th>历史站价值</th><th>当前缺口</th><th>本次恢复方式</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
-    </div>
-  </section>`;
-}
-
-export function operatingBridgeSection(data) {
-  const signals = legacyData(data).operatingSignals.map((item) => `<div class="signal-card">
-    <h3>${escapeHtml(item.label)}</h3>
-    <dl>
-      <div><dt>历史信号</dt><dd>${escapeHtml(item.historicalSignal)}</dd></div>
-      <div><dt>当前读取</dt><dd>${escapeHtml(item.currentRead)}</dd></div>
-      <div><dt>经营用途</dt><dd>${escapeHtml(item.publicUse)}</dd></div>
-    </dl>
-  </div>`).join("");
-  return `<section class="section" id="operating-bridge">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">经营数据 × 采集数据</div>
-        <h2 class="section__title">经营数据负责判断优先级，采集数据负责证明病灶</h2>
-        <p class="section__sub">当前 workbook 的作用是校准“哪些问题值得排队”，外部自动采集的作用是证明“这些问题是否可复现”。两类数据不能互相替代。</p>
-      </div>
-      <div class="signal-grid">${signals}</div>
-      <div class="deprecated"><strong>安全边界：</strong>${escapeHtml(data.internal.publicBoundary)}</div>
     </div>
   </section>`;
 }
@@ -729,25 +372,6 @@ export function trafficAttributionSection(data) {
   </section>`;
 }
 
-export function assetAttributionSection(data) {
-  const cards = legacyData(data).assetMap.map((item) => `<div class="route-card">
-    <h3>${escapeHtml(item.asset)}</h3>
-    <p><strong>保护原则：</strong>${escapeHtml(item.protect)}</p>
-    <p><strong>安全边界：</strong>${escapeHtml(item.currentBoundary)}</p>
-    <p><strong>行动方向：</strong>${escapeHtml(item.action)}</p>
-  </div>`).join("");
-  return `<section class="section" id="asset-attribution">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">资产保护地图</div>
-        <h2 class="section__title">历史“三资产归因”保留为决策约束</h2>
-        <p class="section__sub">旧站最有价值的一点是提醒团队：修漏斗不是盲目改价、盲目动结账、盲目砍信任组件。当前私密版保留这些约束，并写入真实经营值。</p>
-      </div>
-      <div class="route-grid">${cards}</div>
-    </div>
-  </section>`;
-}
-
 export function botGovernanceSection(data) {
   const cards = legacyData(data).botGovernance.map((item) => `<div class="route-card">
     <h3>${escapeHtml(item.area)}</h3>
@@ -800,145 +424,6 @@ export function diagnosticBacklogSection(data) {
         <p class="section__sub">本轮只保留能被复采、归属和验收的风险项；排序依据是可复现程度、路径风险和能否进入执行战单。</p>
       </div>
       <div class="backlog-grid">${rows}</div>
-    </div>
-  </section>`;
-}
-
-export function competitorMatrixSection(data) {
-  const snapshot = competitorSnapshot(data);
-  const rows = legacyData(data).competitorMatrix.map((item) => `<tr>
-    <td><strong>${escapeHtml(item.dimension)}</strong></td>
-    <td class="momcozy">${escapeHtml(item.momcozy)}</td>
-    <td>${escapeHtml(item.reference)}</td>
-    <td>${escapeHtml(item.lesson)}</td>
-    <td>${renderRecollectStatus(item.recollectStatus)}</td>
-  </tr>`).join("");
-  return `<section class="section section--gray" id="matrix">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">竞品矩阵 · 6 站复采样本</div>
-        <h2 class="section__title">横向参照保留为策略矩阵，并纳入经营 caveat</h2>
-        <p class="section__sub">历史矩阵的价值是让建议不孤立。当前矩阵已经接入竞品复采样本，但仍只用于风险排序和假设收敛，不能直接恢复成最终分值化对标。</p>
-      </div>
-      <div class="deprecated">${competitorSnapshotCallout(snapshot)}</div>
-      <div class="matrix-wrap">
-        <table class="matrix-mini">
-          <thead><tr><th>维度</th><th class="momcozy">Momcozy 当前状态</th><th>竞品参照</th><th>应学什么</th><th>竞品数据状态</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
-      ${competitorEvidenceTable(snapshot)}
-    </div>
-  </section>`;
-}
-
-export function competitorRecollectPlanSection(data) {
-  const plan = data.competitorRecollectPlan;
-  if (!plan) return "";
-  const snapshot = competitorSnapshot(data);
-
-  const routes = (plan.routeExpansion || []).map((item) => `<tr>
-    <td>${escapeHtml(item.route)}</td>
-    <td>${escapeHtml(item.label)}</td>
-    <td>${escapeHtml(item.requirement)}</td>
-  </tr>`).join("");
-
-  const tasks = (plan.tasks || []).map((task) => `<tr>
-    <td>${escapeHtml(task.taskId || "")}</td>
-    <td>${escapeHtml(task.title || "")}</td>
-    <td>${escapeHtml(task.owner || "")}</td>
-    <td>${escapeHtml(statusLabelFromState(task.state || "todo"))}</td>
-    <td>${escapeHtml(task.dueBy || "")}</td>
-    <td>${(Array.isArray(task.deliverables) && task.deliverables.length > 0) ? `<ul>${task.deliverables.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : ""}</td>
-  </tr>`).join("");
-
-  const executionContext = [plan.goal, plan.executionWindow ? `执行窗口：${plan.executionWindow}` : ""]
-    .filter(Boolean)
-    .join("；");
-
-  const commands = (plan.commands || []).map((command) => `<li><code>${escapeHtml(command)}</code></li>`).join("");
-  const rules = (plan.executionRules || []).map((rule) => `<li>${escapeHtml(rule)}</li>`).join("");
-
-  return `<section class="section" id="competitor-recollect">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">竞品重采复核计划</div>
-        <h2 class="section__title">把‘待重采’改为‘可验收动作’</h2>
-        <p class="section__sub">Owner: ${escapeHtml(plan.owner)}。目标：先补齐站内链路口径，再让竞品对照有同口径样本。</p>
-      </div>
-      <div class="deprecated">${escapeHtml(executionContext)}</div>
-      ${snapshot ? `<div class="cross-callout" role="note" aria-label="竞品复采摘要">
-        <div class="card-label">竞品复采摘要</div>
-        <p>${competitorSnapshotCallout(snapshot)}</p>
-      </div>` : ""}
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>路由ID</th><th>说明</th><th>复采要求</th></tr></thead>
-          <tbody>${routes}</tbody>
-        </table>
-      </div>
-      ${tasks ? `<div class="cross-table-wrap" style="margin-top: 16px;" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>任务ID</th><th>任务</th><th>负责人</th><th>状态</th><th>截止</th><th>交付项</th></tr></thead>
-          <tbody>${tasks}</tbody>
-        </table>
-      </div>` : ""}
-      <div class="route-grid" style="margin-top: 16px;">
-        <div class="route-card">
-          <h3>执行命令（下一步）</h3>
-          <ol>${commands}</ol>
-        </div>
-        <div class="route-card">
-          <h3>执行约束</h3>
-          <ol>${rules}</ol>
-        </div>
-      </div>
-      <div class="cross-callout" role="note" aria-label="竞品重采验收门槛">
-        <div class="card-label">验收门槛</div>
-        <p>${escapeHtml(plan.acceptanceGate)}</p>
-      </div>
-    </div>
-  </section>`;
-}
-
-export function playbookSection(data) {
-  const cards = legacyData(data).playbookCards.map((item) => `<article class="playbook-card">
-    <div class="playbook-card__head">
-      <h3>${escapeHtml(item.title)}</h3>
-      <p>${escapeHtml(item.why)}</p>
-    </div>
-    <div class="playbook-card__body">
-      <ol>${item.steps.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol>
-      <div class="playbook-gate">验收门槛：${escapeHtml(item.gate)}</div>
-    </div>
-  </article>`).join("");
-  return `<section class="section" id="code">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">PR 实验卡</div>
-        <h2 class="section__title">把“15 PR 代码”恢复成可执行实验卡</h2>
-        <p class="section__sub">旧站的代码片段有执行价值，但直接粘贴旧代码风险高。这里改成 PR 卡：目的、步骤、验收和回滚，适合工程团队逐项落地。</p>
-      </div>
-      <div class="playbook-grid">${cards}</div>
-    </div>
-  </section>`;
-}
-
-export function roadmapSection(data) {
-  const cards = legacyData(data).roadmap.map((item) => `<div class="roadmap-step">
-    <div class="roadmap-step__phase">${escapeHtml(item.phase)}</div>
-    <h3>${escapeHtml(item.title)}</h3>
-    <p>${escapeHtml(item.focus)}</p>
-    <p><strong>验收：</strong>${escapeHtml(item.gate)}</p>
-  </div>`).join("");
-  return `<section class="section section--gray" id="roadmap">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">Sprint 路线图</div>
-        <h2 class="section__title">路线图恢复为四段式：证据、扩采、修复、验收</h2>
-        <p class="section__sub">旧路线图的价值是顺序感。当前版把顺序和验收保留，把旧收益承诺替换成复采与实验门槛。</p>
-      </div>
-      <div class="roadmap-lite">${cards}</div>
     </div>
   </section>`;
 }
@@ -1262,7 +747,7 @@ export function trendsBody(data, session) {
   const maxFailures = maxMetric(session, "thirdPartyFailures");
   return `<section class="hero" id="hero">
     <div class="container">
-      <span class="hero__badge">IV · 性能趋势 · M1 → M3</span>
+      <span class="hero__badge">IV · 趋势证据 · 最新采集</span>
       <h1 class="hero__title">最新 13 路由采集，<br><span class="hl">趋势必须和经营 caveat 一起读。</span></h1>
       <p class="hero__lead">趋势页已经追加 ${escapeHtml(data.external.latestSession)}。外部采集证明技术债持续存在；内部经营刷新证明收益点估必须实验化。两者合在一起，结论更尖锐：先修可复现技术债，但不要用旧收益承诺包装它。</p>
       ${crossAuditCards(data)}

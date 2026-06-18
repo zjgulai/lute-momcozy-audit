@@ -1,7 +1,7 @@
 {
   "version": "2026-06-18",
-  "forbiddenNarrativeTerms": ["页面校验", "最终审计", "交叉审计", "审计桥接", "为什么先修", "本节只回答"],
-  "allowedEvidenceTerms": ["复采", "证据版本", "验收", "owner", "诊断报告"],
+  "forbiddenNarrativeTerms": ["页面校验", "最终审计", "交叉审计", "审计桥接", "为什么先修", "本节只回答", "附件", "Top 15"],
+  "allowedEvidenceTerms": ["复采", "证据版本", "验收", "owner", "洞察报告"],
   "maxVisibleSections": {
     "/": 9,
     "/metrics.html": 7,
