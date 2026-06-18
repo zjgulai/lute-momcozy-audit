@@ -1,11 +1,15 @@
 ---
 status: done
-updated_at: 2026-06-18T04:33:20Z
-task: convert pages to insight report and remove oversized section headings
+updated_at: 2026-06-18T05:10:00Z
+task: create complete insight report optimization plan
 ---
 
 ## 已完成
 
+- 已基于深度洞察审计结果制定完整实施计划：`docs/superpowers/plans/2026-06-18-insight-report-optimization.md`。
+- 计划覆盖证据一致性、页面金字塔叙事、结论/论据一致性、数据-图表映射、审计话术清理、模块排版密度、工程债务、文档债务和部署后生产验证。
+- 已把优化拆成 9 个阶段、63 个可执行 checkbox，并指定新增/修改/删除文件、测试命令、提交边界和回滚方式。
+- 已将 P0 顺序锁定为先修 `public-cross-audit.json` 与最新 session 的 LCP 覆盖率冲突，再进行叙事和排版改造。
 - 确认截图中的大字来自 `pageAuditSection()` 对 `finalAudit.pageAudits[].question` 的 `h2.section__title` 渲染。
 - 已从共享模板删除 `#final-audit` 页面校验模块的大号标题渲染，覆盖首页、指标口径、技术病灶、趋势与复采、决策总表等复用页面。
 - 已新增 e2e 回归断言，要求所有主页面的 `#final-audit` 不再出现 `.section__title`。
@@ -29,6 +33,9 @@ task: convert pages to insight report and remove oversized section headings
 
 ## 验证
 
+- `rg -n "TBD|TODO|fill in|similar to|待补|待定|省略|<TENCENT_RUN_ID>|<path>" docs/superpowers/plans/2026-06-18-insight-report-optimization.md`：无匹配。
+- `git diff --check`
+- 文档结构自查：`plan_check_ok {'lines': 1429, 'fences': 154, 'checkboxes': 63}`。
 - `npm run build && npx playwright test tests/e2e.spec.mjs -g "each primary page exposes a final audit check"`：先失败于现有大标题，模板修改后通过。
 - `npm run test:allowlist`
 - `node scripts/page-structure-contract.mjs`
@@ -55,4 +62,4 @@ task: convert pages to insight report and remove oversized section headings
 
 ## 下一步
 
-- 无待办。
+- 等 owner 确认执行方式后，按计划从 Phase 1 `Evidence Integrity Gate` 开始实施；优先使用 branch + PR，避免直接改线上主干。
