@@ -211,7 +211,7 @@ test("trends page keeps history report and integrates latest v3 route data", asy
   expect(response.status()).toBe(200);
 
   const expected = {
-    latestSession: publicCrossAudit.external?.latestSession || "",
+    latestSessionLabel: publicCrossAudit.external?.latestSession ? "外部采集" : "",
     pdpFailures: `${publicCrossAudit.external?.pdpThirdPartyFailures || ""}`,
     routeCount: Number(publicCrossAudit.external?.routeCount || 0)
   };
@@ -220,7 +220,7 @@ test("trends page keeps history report and integrates latest v3 route data", asy
     const tableRows = document.querySelectorAll(".sessions-table tbody tr").length;
     return {
       title: document.querySelector("h1")?.textContent || "",
-      hasLatestSession: snapshot.latestSession ? bodyText.includes(snapshot.latestSession) : false,
+      hasLatestSession: snapshot.latestSessionLabel ? bodyText.includes(snapshot.latestSessionLabel) : false,
       hasRouteAwareLabel: /v3\s+路由感知自动化基线/i.test(bodyText),
       hasPdpFailures: snapshot.pdpFailures ? bodyText.includes(`PDP ${snapshot.pdpFailures}`) : false,
       tableRows,
@@ -262,12 +262,12 @@ test("overview restores the historical M1 v2 report as the primary site", async 
 test("cross-audit page exposes latest refreshed conclusions", async ({page}) => {
   await page.goto("/cross-audit.html");
   const text = await page.locator("body").innerText();
-  const latestSession = publicCrossAudit.external?.latestSession;
+  const latestSessionLabel = publicCrossAudit.external?.latestSession ? "外部采集" : "";
   const maxThirdPartyFailures = publicCrossAudit.external?.maxThirdPartyFailures;
   expect(text).toContain("Share with caveats");
   expect(text).toContain("137d / 204d");
-  if (latestSession) {
-    expect(text).toContain(latestSession);
+  if (latestSessionLabel) {
+    expect(text).toContain(latestSessionLabel);
   }
   expect(text).toContain("SEO 变现结论必须冻结");
   if (typeof maxThirdPartyFailures === "number") {
@@ -314,7 +314,11 @@ test("primary pages do not expose internal evidence-index wording", async ({page
     "趋势是否讲清",
     "结论、策略、执行是否形成闭环",
     "本节只回答",
-    "不可替代结论"
+    "不可替代结论",
+    "session-2026",
+    "competitor-recollect",
+    "watchlist route pack",
+    "校验项"
   ];
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
     await page.goto(pathname);
