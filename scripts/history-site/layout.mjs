@@ -30,6 +30,7 @@ export function pageStyles() {
     .section__head { display: grid; grid-template-columns: minmax(170px, .34fr) minmax(280px, 1fr); gap: 18px; align-items: start; margin-bottom: 22px; }
     .section__title { font-size: 20px; line-height: 1.35; font-weight: 820; letter-spacing: 0; max-width: 780px; }
     .section__sub { max-width: 760px; }
+    .evidence-session { text-transform: none; letter-spacing: 0; }
     .hero { padding: 50px 0 42px; background: linear-gradient(180deg, #fff 0%, #f6f6f7 100%); border-bottom: 1px solid #e8e8eb; }
     .hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 380px); gap: 24px; align-items: stretch; }
     .hero__badge { display: inline-block; background: var(--accent-light); color: var(--accent); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; padding: 7px 14px; border-radius: 999px; margin-bottom: 22px; }

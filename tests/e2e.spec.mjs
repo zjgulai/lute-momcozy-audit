@@ -300,7 +300,9 @@ test("key report pages show readable evidence labels without hiding the source s
     expect(text).toContain("最新外部采集");
     expect(text).toContain(expectedSession);
 
-    const visibleEvidenceLabels = await page.locator(".section__eyebrow:visible").allTextContents();
+    const visibleEvidenceLabels = await page.locator(".section__eyebrow:visible").evaluateAll((labels) =>
+      labels.map((label) => label.innerText)
+    );
     expect(
       visibleEvidenceLabels.some((label) => evidenceLabelPattern.test(label.replace(/\s+/g, " ").trim())),
       `${pathname} evidence label`,
