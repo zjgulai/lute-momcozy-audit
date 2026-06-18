@@ -112,7 +112,7 @@ export function crossAuditSection(data, pageName) {
   return `<section class="section section--gray" id="cross-audit">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">${escapeHtml(externalDate)} · 内外部数据刷新</div>
+        <div class="section__eyebrow">${escapeHtml(externalDate)} · 最新外部采集 · ${escapeHtml(data.external.latestSession || "")}</div>
         <h2 class="section__title">本页结论已按最新经营数据重审</h2>
         <p class="section__sub">${escapeHtml(pageRoute(data, pageName))}</p>
       </div>
@@ -1092,7 +1092,7 @@ export function trendsBody(data, session) {
   <section class="section" id="latest-v3">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">最新融合 · v3 路由感知自动化基线</div>
+        <div class="section__eyebrow">最新外部采集 · ${escapeHtml(session.sessionId)} · v3 路由感知</div>
         <h2 class="section__title">${escapeHtml(session.observedAt)}：趋势页已并入最新外部采集</h2>
         <p class="section__sub">v3 采集已扩展为 homepage / PDP watchlist / cart / checkout × 桌面/移动双视口；旧 M2 首页趋势只作为历史参照，不再被当作最新结论。</p>
       </div>

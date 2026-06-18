@@ -221,7 +221,7 @@ test("trends page keeps history report and integrates latest v3 route data", asy
     return {
       title: document.querySelector("h1")?.textContent || "",
       hasLatestSession: snapshot.latestSessionLabel ? bodyText.includes(snapshot.latestSessionLabel) : false,
-      hasRouteAwareLabel: /v3\s+路由感知自动化基线/i.test(bodyText),
+      hasRouteAwareLabel: /v3\s+路由感知/i.test(bodyText),
       hasPdpFailures: snapshot.pdpFailures ? bodyText.includes(`PDP ${snapshot.pdpFailures}`) : false,
       tableRows,
       expectedRouteCount: snapshot.routeCount
@@ -286,6 +286,15 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
   expect(text).not.toContain("证据台账");
 });
 
+test("key report pages show readable evidence labels without hiding the source session", async ({page}) => {
+  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
+    await page.goto(pathname);
+    const text = await page.locator("body").innerText();
+    expect(text).toContain("最新外部采集");
+    expect(text).toContain(publicCrossAudit.external.latestSession);
+  }
+});
+
 test("primary pages do not expose internal evidence-index wording", async ({page}) => {
   const bannedTerms = [
     "回迁",
@@ -315,7 +324,6 @@ test("primary pages do not expose internal evidence-index wording", async ({page
     "结论、策略、执行是否形成闭环",
     "本节只回答",
     "不可替代结论",
-    "session-2026",
     "competitor-recollect",
     "watchlist route pack",
     "校验项"

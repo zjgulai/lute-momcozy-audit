@@ -1,29 +1,27 @@
 ---
 status: done
-updated_at: 2026-06-18T06:43:12Z
-task: Phase 1 Evidence Integrity Gate review fixes
+updated_at: 2026-06-18T06:58:52Z
+task: Phase 2 Evidence Version Labels
 ---
 
 ## 已完成
 
-- 已修复 review 反馈：`scripts/validate-report-data-consistency.mjs` 不再只扫描 raw JSON 字符串。
-- Validator 现在复用 `scripts/history-site/fs.mjs` 的 `latestSession` / `readJson`。
-- Validator 现在会校验 `public-cross-audit.json` 中仍存在的所有 helper-derived external 字段，包括 `routes`、首页 TTFB/FCP/JS、最大 DOM、最大第三方失败和 LCP 样本计数。
-- Validator 现在会扫描 `_site/index.html`、`_site/metrics.html`、`_site/forensics.html`、`_site/trends.html`、`_site/cross-audit.html` 中所有生成文本 `LCP n/m`，要求全部等于最新 session 派生值，并要求至少出现一次。
-- 已修正 `deriveExternalSessionMetrics()` 的 `routes` 输出：即使 `session.routes` 是 route 对象数组，也只返回 route ID 字符串。
-- 已新增 `tests/session-derived-metrics.test.mjs` 并接入 `test:session-derived-metrics`。
+- 已新增 E2E 断言：五个关键报告页必须同时显示“最新外部采集”和 `publicCrossAudit.external.latestSession`。
+- 已移除 `escapeHtml()` 全局替换中的 `session-2026-06-17` 隐藏规则，保留其他可读化替换。
+- 已在 `crossAuditSection()` eyebrow 显式展示 `最新外部采集 · session-2026-06-17`。
+- 已在 `trendsBody()` 最新 section eyebrow 显式展示 `最新外部采集 · session-2026-06-17 · v3 路由感知`。
+- 已更新相邻 E2E 文案契约，允许可见 session ID，并将趋势页 route-aware 标签断言对齐为 `v3 路由感知`。
 
 ## 验证
 
-- 红灯：`node --test tests/session-derived-metrics.test.mjs` 先失败，暴露 `routes` 返回 route 对象而非 ID 字符串。
-- 红灯：临时把 `_site/index.html` 的一个 `LCP 0/26` 改为 `LCP 26/26` 后，旧 validator 误通过；修复后 validator 能失败并指出 `_site/index.html visible LCP coverage mismatch`。
-- `npm run build`：通过，输出 `built history-primary site with latest trend session session-2026-06-17`。
-- `npm run test:report-data-consistency`：通过，输出 `public-cross-audit external fields and generated HTML match latest session session-2026-06-17`。
-- `npm run test:allowlist`：通过，输出 `public data matches the field allowlist and latest session session-2026-06-17`。
-- `npm run test:sessions`：通过，输出 `validated 7 session file(s)`。
-- `npm run test:session-derived-metrics`：通过，1 个 Node test 通过。
+- 红灯：`npm run build` 通过；`npx playwright test tests/e2e.spec.mjs -g "evidence labels"` 先失败，失败点为页面缺少 `session-2026-06-17`。
+- 绿灯：`npm run build` 通过，输出 `built history-primary site with latest trend session session-2026-06-17`。
+- 绿灯：`npx playwright test tests/e2e.spec.mjs -g "evidence labels"` 通过，1 个测试通过。
+- 绿灯：`npx playwright test tests/e2e.spec.mjs` 通过，23 个测试通过。
+- 绿灯：`npm run test:release-parity` 通过，5 个关键路由结构与质量检查通过。
+- `git diff --check HEAD~1..HEAD`：无输出。
 - `git diff --check`：无输出。
 
 ## 下一步
 
-- Phase 1 review fixes 已完成；可继续进入 Phase 2：页面金字塔叙事重构。
+- Phase 2 已完成；可进入后续报告叙事优化阶段。
