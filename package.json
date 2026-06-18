@@ -22,6 +22,7 @@
     "test:competitor-recollect-lib": "node --test tests/competitor-recollect.test.mjs",
     "test:competitor-snapshots": "node scripts/validate-competitor-snapshots.mjs",
     "test:release-contract": "node scripts/validate-release-contract.mjs",
+    "test:insight-contract": "npm run build && node scripts/validate-insight-report-contract.mjs",
     "test:source-safety": "node scripts/safety-scan-source.mjs",
     "test:collection-config": "node scripts/validate-collection-config.mjs",
     "test:sessions": "node scripts/validate-sessions.mjs",
@@ -36,7 +37,7 @@
     "test:uptime-cron": "node scripts/validate-uptime-cron.mjs --dry-run",
     "test:e2e": "npm run build && playwright test tests/e2e.spec.mjs",
     "test:a11y": "npm run build && playwright test tests/a11y.spec.mjs",
-    "test": "npm run build && npm run test:release-contract && npm run test:allowlist && npm run test:competitor-plan && npm run test:competitor-recollect-lib && npm run test:competitor-snapshots && npm run test:source-safety && npm run test:collection-config && npm run test:sessions && npm run test:report-data-consistency && npm run test:session-derived-metrics && npm run test:segment-sessions && npm run test:segment-aggregation && npm run test:owner-state && npm run test:safety && npm run test:links && npm run test:uptime-monitor && npm run test:uptime-cron && npm run test:e2e && npm run test:a11y",
+    "test": "npm run build && npm run test:release-contract && npm run test:insight-contract && npm run test:allowlist && npm run test:competitor-plan && npm run test:competitor-recollect-lib && npm run test:competitor-snapshots && npm run test:source-safety && npm run test:collection-config && npm run test:sessions && npm run test:report-data-consistency && npm run test:session-derived-metrics && npm run test:segment-sessions && npm run test:segment-aggregation && npm run test:owner-state && npm run test:safety && npm run test:links && npm run test:uptime-monitor && npm run test:uptime-cron && npm run test:e2e && npm run test:a11y",
     "test:release-parity": "node scripts/validate-release-parity.mjs"
   },
   "devDependencies": {

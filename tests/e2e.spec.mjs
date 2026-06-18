@@ -3,6 +3,7 @@ import {expect, test} from "@playwright/test";
 import {contentMinimumTextLength, pageComponentMap, pageNavigationContract} from "../scripts/page-structure-contract.mjs";
 
 const releaseContract = JSON.parse(fs.readFileSync(new URL("../config/release-contract.json", import.meta.url), "utf8"));
+const insightContract = JSON.parse(fs.readFileSync(new URL("../config/insight-report-contract.json", import.meta.url), "utf8"));
 const publicCrossAudit = JSON.parse(fs.readFileSync(new URL("../src/_data/public-cross-audit.json", import.meta.url), "utf8"));
 
 function escapeRegExp(value) {
@@ -461,5 +462,17 @@ test("key report pages expose their documented structural components", async ({p
       await page.locator(".side-nav__link").count(),
       `Missing side nav links on ${path}`,
     ).toBeGreaterThanOrEqual(3);
+  }
+});
+
+test("insight report pages render required charts and decisions", async ({page}) => {
+  for (const contractPage of insightContract.pages) {
+    await page.goto(contractPage.path);
+    const bodyText = await page.locator("body").innerText();
+    expect(bodyText).toContain(contractPage.decision);
+    for (const chartId of contractPage.requiredCharts) {
+      await expect(page.locator(`#${chartId}`)).toHaveCount(1);
+      await expect(page.locator(`#${chartId}`)).toBeVisible();
+    }
   }
 });

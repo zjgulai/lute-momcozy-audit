@@ -1,27 +1,27 @@
 ---
 status: done
-updated_at: 2026-06-18T07:19:42Z
-task: Phase 2 visible evidence session casing fix
+updated_at: 2026-06-18T07:33:21Z
+task: Phase 3 insight report contract gate
 ---
 
 ## 已完成
 
-- 已将 `tests/e2e.spec.mjs` 的 evidence-label 断言改为读取可见 `.section__eyebrow` 的 `innerText`，不再使用 DOM `textContent` 绕过 CSS。
-- 已在 `crossAuditSection()` 和 `trendsBody()` 的 evidence label 中用 `<span class="evidence-session">` 包住 exact session ID。
-- 已在 active build 的 `scripts/history-site/layout.mjs` inline CSS 中新增 `.evidence-session { text-transform: none; letter-spacing: 0; }`，避免父级 uppercase 改写可见 session casing。
-- 保留 body 可见 session ID 窄 allowlist：可见文本中所有 `session-YYYY-MM-DD` 必须唯一且等于 `publicCrossAudit.external.latestSession`。
+- 已新增 `config/insight-report-contract.json`，定义 5 个核心页面的决策句、证明点、动作点、必需 chart id、禁用审计叙事词和 section 上限。
+- 已新增 `scripts/validate-insight-report-contract.mjs`，从 `_site` 读取生成 HTML 并校验 insight report contract。
+- 已在 `package.json` 新增 `test:insight-contract`，并将其接到主 `npm test` 的 `test:release-contract` 之后。
+- 已在 `tests/e2e.spec.mjs` 追加浏览器侧合同检查，验证页面决策句和必需 chart 元素存在且可见。
+- 本阶段按计划只引入红灯门禁，未修改页面正文或图表实现。
 
 ## 验证
 
-- 红灯：仅把 evidence-label 测试改为读取 `innerText` 后，`npx playwright test tests/e2e.spec.mjs -g "evidence labels"` 失败，证明真实可见标签仍显示 uppercase `SESSION-2026-06-17`。
-- `npm run build`：通过，输出 `built history-primary site with latest trend session session-2026-06-17`。
-- 绿灯：`npx playwright test tests/e2e.spec.mjs -g "evidence labels"` 通过，1 个测试通过。
-- `npx playwright test tests/e2e.spec.mjs -g "internal evidence-index wording"`：通过，1 个测试通过。
-- `npm run test:release-parity`：通过，5 个关键路由结构与质量检查通过。
-- `npx playwright test tests/e2e.spec.mjs`：通过，23 个测试通过。
-- `git diff --check HEAD~1..HEAD`：无输出。
 - `git diff --check`：无输出。
+- `node --check scripts/validate-insight-report-contract.mjs`：通过。
+- JSON parse quick check：`config/insight-report-contract.json` 与 `package.json` 通过。
+- `npm run build`：通过，输出 `built history-primary site with latest trend session session-2026-06-17`。
+- 红灯：`npm run test:insight-contract` 失败 17 项，包含缺失 chart、section 超限，以及 Phase 5 待处理的精确决策/动作/证明文案差距。
+- 红灯：`npx playwright test tests/e2e.spec.mjs -g "insight report pages render required charts"` 失败于首页 decision 精确字符串断言；当前页面标题换行导致合同句不连续，尚未推进到 chart 断言。
 
 ## 下一步
 
-- Phase 2 visible casing 修复已完成；可继续进入下一阶段。
+- Phase 4 实现合同要求的 chart components。
+- Phase 5 重排页面叙事与 section 结构，使决策句、证明点、动作点和 section 上限满足合同。
