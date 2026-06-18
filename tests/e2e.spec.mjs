@@ -5,6 +5,10 @@ import {contentMinimumTextLength, pageComponentMap, pageNavigationContract} from
 const releaseContract = JSON.parse(fs.readFileSync(new URL("../config/release-contract.json", import.meta.url), "utf8"));
 const publicCrossAudit = JSON.parse(fs.readFileSync(new URL("../src/_data/public-cross-audit.json", import.meta.url), "utf8"));
 
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 const pages = [
   "/",
   "/metrics.html",
@@ -287,11 +291,25 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
 });
 
 test("key report pages show readable evidence labels without hiding the source session", async ({page}) => {
+  const expectedSession = publicCrossAudit.external.latestSession;
+  const evidenceLabelPattern = new RegExp(`最新外部采集\\s*·\\s*${escapeRegExp(expectedSession)}`);
+
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
     await page.goto(pathname);
     const text = await page.locator("body").innerText();
     expect(text).toContain("最新外部采集");
-    expect(text).toContain(publicCrossAudit.external.latestSession);
+    expect(text).toContain(expectedSession);
+
+    const visibleEvidenceLabels = await page.locator(".section__eyebrow:visible").allTextContents();
+    expect(
+      visibleEvidenceLabels.some((label) => evidenceLabelPattern.test(label.replace(/\s+/g, " ").trim())),
+      `${pathname} evidence label`,
+    ).toBe(true);
+
+    const visibleSessionIds = text.match(/session-\d{4}-\d{2}-\d{2}/g) || [];
+    const uniqueSessionIds = [...new Set(visibleSessionIds)];
+    expect(visibleSessionIds.length, `${pathname} visible session IDs`).toBeGreaterThan(0);
+    expect(uniqueSessionIds, `${pathname} visible session IDs`).toEqual([expectedSession]);
   }
 });
 
