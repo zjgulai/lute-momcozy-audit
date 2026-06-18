@@ -1,58 +1,39 @@
 ---
 status: done
-updated_at: 2026-06-18T04:33:20Z
-task: convert pages to insight report and remove oversized section headings
+updated_at: 2026-06-18T09:17:25Z
+task: Phase 6 engineering and documentation debt cleanup
 ---
 
 ## 已完成
 
-- 确认截图中的大字来自 `pageAuditSection()` 对 `finalAudit.pageAudits[].question` 的 `h2.section__title` 渲染。
-- 已从共享模板删除 `#final-audit` 页面校验模块的大号标题渲染，覆盖首页、指标口径、技术病灶、趋势与复采、决策总表等复用页面。
-- 已新增 e2e 回归断言，要求所有主页面的 `#final-audit` 不再出现 `.section__title`。
-- 已验证腾讯云轻量服务器线上站点可访问：`https://shopify.lute-tlz-dddd.top/` 返回 `HTTP/2 200`、`server: nginx`，并包含私密经营版页面内容。
-- 已验证最近 Tencent 部署工作流：`gh run list --workflow tencent.yml --limit 5` 显示 PR #54 合并后的 `Publish Verified Artifact to Tencent` 为 `completed success`，时间 `2026-06-17T12:47:45Z`。
-- 已确认上一项本地“大字删除”改动尚未部署：线上 `metrics.html` 仍包含 `每个指标是否说明可用于什么、不可用于什么？` 的 `h2.section__title`。
-- 已按 owner 反馈把页面从“过程型审计解释”收敛为“洞察报告”：删除每个主页面的 `#final-audit` 页面校验模块和 `#diagnostic-bridge` 站内外诊断桥接模块。
-- 已把侧栏入口中的“页面校验”“站内外诊断桥接”删除，把“诊断路径”改为“核心洞察”。
-- 已把首页/决策总表的 `insight-chain` 大标题从“为什么先修归因和 PDP，而不是先投后端和 SEO”改为“归因可信度与 PDP 负担是本轮最高优先级”。
-- 已清理可见报告文案中的“解释为什么”类过程型表达。
-- 已通过 PR #55 合并并触发 Tencent workflow `27732828367`；build、deploy、外部 smoke、生产视觉组件审计均通过。
-- 已在线上 5 个主页面扫描确认不再出现 `页面校验`、`站内外诊断桥接`、`为什么先修`、`每个指标是否说明`、`不可替代结论`、`本节只回答`、`解释为什么`。
-- 已确认线上首页返回 `HTTP/2 200`，`server: nginx`，`last-modified: Thu, 18 Jun 2026 02:32:51 GMT`。
-- 已确认 `npm run test:release-parity` 通过，本地与生产结构一致。
-- 已彻底复查 owner 新截图中的“大字”问题：漏网根因不是已删的 `#final-audit`，而是共享 `.section__title` 把所有正文 section 标题渲染成 44px。
-- 已将正文 `.section__title` 降为报告内标题字号：桌面 20px，移动 18px；保留 hero h1 作为页面主标题。
-- 已新增两层防回归：`tests/e2e.spec.mjs` 覆盖 5 个主页面正文标题不得超过 24px；`scripts/audit-production-layout.mjs` 在生产视觉审计中把 oversized section heading 作为失败项。
-- 已通过 PR #61 `Demote report section headings` 合并部署；Tencent workflow `27736720568` 的 build、deploy、外部 smoke、生产视觉组件审计均通过。
-- 已线上重新枚举 5 个主页面的可见标题字号：每页只剩 hero `h1.hero__title` 为 76px，正文 `.section__title` 没有任何一个超过 24px。
-- 已单独验证线上 `cross-audit.html#operating-bridge` 中 owner 截图对应标题 `经营数据负责判断优先级，采集数据负责证明病灶` 的 computed font-size 为 20px，并保存元素截图证据。
+- Phase 3 已建立 `config/insight-report-contract.json` 与 `scripts/validate-insight-report-contract.mjs`，并接入 `npm run test:insight-contract`。
+- Phase 3b 已补强合同：要求页面覆盖转化率、停留、跳出率、机器人占比/爬虫占比、human/bot gate、归因、当前与历史对比。
+- `/metrics.html` 合同已要求行为/转化桑基图 `chart-behavior-sankey`。
+- `/cross-audit.html` 合同已要求机器人/归因桑基图 `chart-bot-attribution-sankey`。
+- validator 已泛化支持可选 `requiredFacts`、`requiredComparisons`、`requiredAttributionMarkers` 数组；缺省数组不强制每页存在。
+- 计划文档已记录用户新增要求：如果仓库没有实测 bot share，页面必须标注“机器人占比/爬虫占比为缺失或待复证证据”，并要求 owner analytics / bot log / human-bot 维度复证，不能写成已量化事实。
+- Phase 4 已新增 `scripts/history-site/charts.mjs`，导出 `barChart`、`coverageChart`、`pairedMetricChart`、`behaviorSankeyChart`、`botAttributionSankeyChart`。
+- Phase 4 已在 `/metrics.html` 现有 funnel section 轻量接入 `chart-behavior-sankey`，用 10,000 归一化访问基数展示当前/历史转化率、停留、跳出率、加购率和结账率。
+- Phase 4 已在 `/cross-audit.html` 增加 bot attribution insight section，接入 `chart-bot-attribution-sankey`，明确机器人占比/爬虫占比为缺失或待复证证据，不生成 bot 百分比。
+- Phase 4 已新增 chart 组件测试 `tests/history-site-charts.test.mjs`。
+- Phase 4 review 修复已完成：`barChart` 兼容 `items` 与 `rows`，`pairedMetricChart` 兼容 `pairs` 与 `leftLabel/rightLabel/leftValue/rightValue`，避免 Phase 5 出现 chart id 存在但图表为空的假通过。
+- 已新增 `test:history-site-charts` 并接入 `npm test` 的 `test:insight-contract` 之前；图表单测覆盖 behavior Sankey、bot attribution Sankey、`barChart({rows})`、`coverageChart()`、`pairedMetricChart({leftValue,rightValue})`。
+- Phase 5 已重写五页为“洞察报告”优先叙事：结论 -> 事实 -> 归因 -> 行动；页面标题、侧边栏、release marker 和 E2E 旧断言已同步到风险归因、趋势证据、决策矩阵语言。
+- Phase 5 已补齐 `chart-overview-proof`、`chart-kpi-direction`、`chart-risk-ranking`、`chart-lcp-coverage`、`chart-js-dom`、`chart-third-party-failures`、`chart-decision-matrix`，并保留 `chart-behavior-sankey` 与 `chart-bot-attribution-sankey`。
+- 每个核心页都有可见 `.section__eyebrow`：`最新外部采集 · session-2026-06-17`；页面正文保留 `最新外部采集` 和 `session-2026-06-17`。
+- 机器人占比/爬虫占比均写为缺失或待复证证据，要求 owner analytics / bot log / human-bot 维度复证；未生成任何 bot share 百分比。
+- Phase 5 review 修复已完成：移除可见“附件”残留并加入 E2E 禁词；`top15` 结构锚点迁移为 `risk-backlog`；`chart-risk-ranking` 的 PDP 第三方失败从源数据提取为 92；`chart-decision-matrix` 从 hard conclusions / execution orders 派生 2 / 3 / 5，不再使用硬编码值。
+- 已通过：`npm run build`、`npm run test:release-contract`、`npm run test:history-site-charts`、`npm run test:insight-contract`、目标 Playwright 子集、`git diff --check`、`npm test`。
+- Phase 6 已清理不再参与 active build 的旧审计模块：`crossAuditSection`、`pageAuditSection`、`diagnosticBridgeSection`、`storylineSection`、旧竞品/复采/路线图/PR 卡 section 及其辅助函数。
+- Phase 6 已删除未被 active build 引用的旧资产：`src/assets/site.css`、`src/assets/trends-charts.js`；AGENTS active source 已同步到 `scripts/history-site/*.mjs` 与 `history_static/assets/`。
+- Phase 6 已收紧 `config/insight-report-contract.json`：`附件`、`Top 15` 纳入禁词，允许证据词从“诊断报告”改为“洞察报告”。
+- Phase 6 已通过：`node --check scripts/history-site/sections.mjs`、`node --check scripts/history-site/layout.mjs`、`npm run build`、`npm run test:insight-contract`、`npm run test:release-contract`、`npm run test:history-site-charts`、生成产物禁词扫描、`npm test`、`git diff --check`、Playwright 本地布局抽样。
 
-## 验证
+## 当前红灯
 
-- `npm run build && npx playwright test tests/e2e.spec.mjs -g "each primary page exposes a final audit check"`：先失败于现有大标题，模板修改后通过。
-- `npm run test:allowlist`
-- `node scripts/page-structure-contract.mjs`
-- `git diff --check`
-- `npm run test:e2e`
-- `npm test`
-- `curl -sSIL --max-time 20 https://shopify.lute-tlz-dddd.top/`
-- `curl -sS --max-time 20 https://shopify.lute-tlz-dddd.top/metrics.html | rg -n "每个指标是否说明可用于什么|页面校验|口径治理页|private-business|指标口径"`
-- `gh run list --workflow tencent.yml --limit 5`
-- `npm run build && npx playwright test tests/e2e.spec.mjs -g "sidebar anchors match|cross audit sidebar|omit appendix|overview restores|cross-audit page exposes|primary pages do not expose|insight report|key report pages"`
-- `rg -n "页面校验|站内外诊断桥接|为什么先修|每个指标是否说明|不可替代结论|本节只回答|解释为什么" _site || true`
-- `npm test`
-- `gh run watch 27732828367 --interval 10 --exit-status`
-- `for route in / /metrics.html /forensics.html /trends.html /cross-audit.html; do curl ... | rg ...; done`
-- `curl -sSIL --max-time 20 https://shopify.lute-tlz-dddd.top/`
-- `npm run test:release-parity`
-- `PRODUCTION_LAYOUT_BASE_URL=http://127.0.0.1:8080 PRODUCTION_LAYOUT_OUTPUT_DIR=artifacts/production-layout-section-headings-local npm run audit:production-layout`
-- `gh pr checks 61 --watch`
-- `gh pr merge 61 --squash --delete-branch`
-- `gh run watch 27736720568 --exit-status`
-- `PRODUCTION_LAYOUT_OUTPUT_DIR=artifacts/production-layout-section-headings-prod npm run audit:production-layout`
-- Playwright 线上 computed-style 枚举：`/`、`/metrics.html`、`/forensics.html`、`/trends.html`、`/cross-audit.html` 的 `.section__head .section__title` 均无 `font-size > 24px`。
-- Playwright 元素截图：`artifacts/section-heading-prod-operating-bridge-element.png`，对应标题 computed `font-size: 20px`。
+- Phase 6 本地实现无红灯。
+- 生产站尚未确认已经更新到当前分支；进入腾讯云发布前需要按高风险任务规则输出部署风险和回滚方案。
 
 ## 下一步
 
-- 无待办。
+- 下一步进入发布准备：生成 release checklist，按腾讯云部署路径更新生产，再跑生产 `release-parity` 与 production layout audit。

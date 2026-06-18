@@ -8,6 +8,7 @@ import {
   latestSession,
   readJson
 } from "./history-site/fs.mjs";
+import {mergeSessionDerivedExternal} from "./history-site/session-derived-metrics.mjs";
 import {write404, writeHistoryPages} from "./history-site/pages.mjs";
 
 const root = process.cwd();
@@ -22,7 +23,8 @@ copyDir(assetDir, path.join(outputDir, "assets"));
 copyFile(path.join(root, "history_static/.nojekyll"), path.join(outputDir, ".nojekyll"));
 
 const session = latestSession(sessionsDir, readJson);
-const publicCrossAudit = readJson(publicCrossAuditPath);
+const rawPublicCrossAudit = readJson(publicCrossAuditPath);
+const publicCrossAudit = mergeSessionDerivedExternal(rawPublicCrossAudit, session);
 if (fs.existsSync(competitorsDir)) {
   publicCrossAudit.competitorSnapshot = latestSession(competitorsDir, readJson);
 }

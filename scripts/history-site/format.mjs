@@ -1,9 +1,4 @@
 const visibleReportReplacements = [
-  [/外部采集 · session-2026-06-17 ·/g, "外部采集 ·"],
-  [/外部 session-2026-06-17\s*/g, "外部最新采集"],
-  [/外部自动采集 session-2026-06-17/g, "外部自动采集"],
-  [/外部采集 session-2026-06-17/g, "外部采集"],
-  [/session-2026-06-17/g, "最新外部采集"],
   [/2026-06-17 watchlist session/g, "watchlist 双视口样本"],
   [/PDP watchlist route pack 2026-06-17/g, "PDP watchlist 双视口样本"],
   [/watchlist route pack/g, "watchlist 采集包"],

@@ -1,16 +1,16 @@
 {
   "edition": "private-business",
-  "requiredMarkers": ["路特 AI", "Momcozy", "私密经营", "真实金额", "真实 KPI"],
+  "requiredMarkers": ["路特 AI", "Momcozy", "私密经营", "真实金额", "真实 KPI", "洞察报告"],
   "forbiddenMarkers": ["公开审计", "公开摘要", "nav-top"],
   "pages": [
-    {"path": "/", "status": 200, "markers": ["真实经营数据回归", "side-nav"]},
-    {"path": "/metrics.html", "status": 200, "markers": ["指标字典", "真实经营 KPI"]},
+    {"path": "/", "status": 200, "markers": ["真实经营数据回归，关键风险收敛。", "chart-overview-proof", "side-nav"]},
+    {"path": "/metrics.html", "status": 200, "markers": ["先统一口径，再讨论增长。", "chart-kpi-direction"]},
     {"path": "/metrics/", "status": 404, "markers": []},
-    {"path": "/forensics.html", "status": 200, "markers": ["证据链", "第三方失败"]},
+    {"path": "/forensics.html", "status": 200, "markers": ["风险归因", "chart-risk-ranking"]},
     {"path": "/forensics/", "status": 404, "markers": []},
-    {"path": "/trends.html", "status": 200, "markers": ["性能趋势", "外部采集"]},
+    {"path": "/trends.html", "status": 200, "markers": ["趋势证据", "chart-lcp-coverage"]},
     {"path": "/trends/", "status": 404, "markers": []},
-    {"path": "/cross-audit.html", "status": 200, "markers": ["决策总表", "执行战单"]},
+    {"path": "/cross-audit.html", "status": 200, "markers": ["决策矩阵", "chart-decision-matrix", "执行战单"]},
     {"path": "/not-a-real-page", "status": 404, "markers": []}
   ],
   "canonicalRoutes": ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"],
