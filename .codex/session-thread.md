@@ -16,6 +16,8 @@ task: Phase 4 static insight chart components
 - Phase 4 已在 `/metrics.html` 现有 funnel section 轻量接入 `chart-behavior-sankey`，用 10,000 归一化访问基数展示当前/历史转化率、停留、跳出率、加购率和结账率。
 - Phase 4 已在 `/cross-audit.html` 增加 bot attribution insight section，接入 `chart-bot-attribution-sankey`，明确机器人占比/爬虫占比为缺失或待复证证据，不生成 bot 百分比。
 - Phase 4 已新增 chart 组件测试 `tests/history-site-charts.test.mjs`。
+- Phase 4 review 修复已完成：`barChart` 兼容 `items` 与 `rows`，`pairedMetricChart` 兼容 `pairs` 与 `leftLabel/rightLabel/leftValue/rightValue`，避免 Phase 5 出现 chart id 存在但图表为空的假通过。
+- 已新增 `test:history-site-charts` 并接入 `npm test` 的 `test:insight-contract` 之前；图表单测覆盖 behavior Sankey、bot attribution Sankey、`barChart({rows})`、`coverageChart()`、`pairedMetricChart({leftValue,rightValue})`。
 
 ## 当前红灯
 

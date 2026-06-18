@@ -18,9 +18,13 @@ function fmtSeconds(value) {
   return `${fixed(value, 1)}s`;
 }
 
-function metricValue(item) {
+function metricValue(item, fallbackFormat) {
   if (Number.isFinite(item.value)) {
-    return item.format === "percent" ? fmtRatio(item.value) : fixed(item.value, item.digits ?? 1);
+    const valueFormat = item.valueFormat || fallbackFormat;
+    if (typeof valueFormat === "function") return escapeHtml(valueFormat(item.value));
+    if (item.format === "percent") return fmtRatio(item.value);
+    if (item.unit) return `${fixed(item.value, item.digits ?? 0)}${escapeHtml(item.unit)}`;
+    return fixed(item.value, item.digits ?? 1);
   }
   return escapeHtml(item.value ?? "N/A");
 }
@@ -30,13 +34,20 @@ function barWidth(value, maxValue) {
   return clamp((value / maxValue) * 100, 0, 100);
 }
 
-export function barChart({id, title, subtitle = "", items = [], valueLabel = "数值"}) {
-  const maxValue = Math.max(...items.map((item) => finite(item.value)), 1);
-  const rows = items.map((item) => `
+function chartItems({items, rows}) {
+  if (Array.isArray(rows)) return rows;
+  if (Array.isArray(items)) return items;
+  return [];
+}
+
+export function barChart({id, title, subtitle = "", items = [], rows, valueLabel = "数值", valueFormat}) {
+  const renderedItems = chartItems({items, rows});
+  const maxValue = Math.max(...renderedItems.map((item) => finite(item.value)), 1);
+  const renderedRows = renderedItems.map((item) => `
     <div class="insight-bar-row">
       <div class="insight-bar-row__label">${escapeHtml(item.label)}</div>
       <div class="insight-bar-row__track"><span style="width:${barWidth(item.value, maxValue).toFixed(2)}%;"></span></div>
-      <div class="insight-bar-row__value">${metricValue(item)}</div>
+      <div class="insight-bar-row__value">${metricValue(item, valueFormat)}</div>
     </div>`).join("");
 
   return `<figure class="insight-chart insight-chart--bar" id="${escapeHtml(id || "chart-bar")}">
@@ -44,7 +55,7 @@ export function barChart({id, title, subtitle = "", items = [], valueLabel = "�
       <strong>${escapeHtml(title || "指标对照")}</strong>
       ${subtitle ? `<span>${escapeHtml(subtitle)}</span>` : ""}
     </figcaption>
-    <div class="insight-bar" role="img" aria-label="${escapeHtml(title || valueLabel)}">${rows}</div>
+    <div class="insight-bar" role="img" aria-label="${escapeHtml(title || valueLabel)}">${renderedRows}</div>
   </figure>`;
 }
 
@@ -59,9 +70,38 @@ export function coverageChart({id, title, subtitle = "", observed = 0, total = 0
   });
 }
 
-export function pairedMetricChart({id, title, subtitle = "", pairs = []}) {
-  const maxValue = Math.max(...pairs.flatMap((pair) => [finite(pair.current), finite(pair.historical)]), 1);
-  const rows = pairs.map((pair) => `
+function pairedItems({pairs, leftLabel, rightLabel, leftValue, rightValue, unit}) {
+  if (Array.isArray(pairs) && pairs.length) return pairs;
+  if (leftLabel || rightLabel || Number.isFinite(leftValue) || Number.isFinite(rightValue)) {
+    return [{
+      label: `${leftLabel || "左侧"} / ${rightLabel || "右侧"}`,
+      currentLabel: leftLabel || "左侧",
+      historicalLabel: rightLabel || "右侧",
+      current: leftValue,
+      historical: rightValue,
+      unit
+    }];
+  }
+  return [];
+}
+
+export function pairedMetricChart({
+  id,
+  title,
+  subtitle = "",
+  pairs = [],
+  leftLabel,
+  rightLabel,
+  leftValue,
+  rightValue,
+  unit
+}) {
+  const renderedPairs = pairedItems({pairs, leftLabel, rightLabel, leftValue, rightValue, unit});
+  const maxValue = Math.max(...renderedPairs.flatMap((pair) => [finite(pair.current), finite(pair.historical)]), 1);
+  const rows = renderedPairs.map((pair) => {
+    const currentLabel = pair.currentLabel || "当前";
+    const historicalLabel = pair.historicalLabel || "历史";
+    return `
     <div class="paired-metric">
       <div class="paired-metric__label">${escapeHtml(pair.label)}</div>
       <div class="paired-metric__bars">
@@ -69,10 +109,11 @@ export function pairedMetricChart({id, title, subtitle = "", pairs = []}) {
         <span class="paired-metric__bar paired-metric__bar--historical" style="width:${barWidth(pair.historical, maxValue).toFixed(2)}%;"></span>
       </div>
       <div class="paired-metric__values">
-        <span>当前 ${metricValue({value: pair.current, format: pair.format, digits: pair.digits})}</span>
-        <span>历史 ${metricValue({value: pair.historical, format: pair.format, digits: pair.digits})}</span>
+        <span>${escapeHtml(currentLabel)} ${metricValue({value: pair.current, format: pair.format, digits: pair.digits, unit: pair.unit})}</span>
+        <span>${escapeHtml(historicalLabel)} ${metricValue({value: pair.historical, format: pair.format, digits: pair.digits, unit: pair.unit})}</span>
       </div>
-    </div>`).join("");
+    </div>`;
+  }).join("");
 
   return `<figure class="insight-chart insight-chart--paired" id="${escapeHtml(id || "chart-paired")}">
     <figcaption>
