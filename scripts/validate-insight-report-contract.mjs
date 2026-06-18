@@ -27,6 +27,16 @@ function countMatches(html, pattern) {
   return [...html.matchAll(pattern)].length;
 }
 
+function requiredMarkers(page, field) {
+  return Array.isArray(page[field]) ? page[field] : [];
+}
+
+function checkTextMarkers({page, text, field, label}) {
+  for (const marker of requiredMarkers(page, field)) {
+    if (!text.includes(marker)) failures.push(`${page.path}: missing ${label} marker "${marker}"`);
+  }
+}
+
 const failures = [];
 for (const page of contract.pages) {
   const file = fileForRoute(page.path);
@@ -40,6 +50,9 @@ for (const page of contract.pages) {
   for (const proof of page.requiredProofs) {
     if (!text.includes(proof)) failures.push(`${page.path}: missing proof marker "${proof}"`);
   }
+  checkTextMarkers({page, text, field: "requiredFacts", label: "fact"});
+  checkTextMarkers({page, text, field: "requiredComparisons", label: "comparison"});
+  checkTextMarkers({page, text, field: "requiredAttributionMarkers", label: "attribution"});
   for (const action of page.requiredActions) {
     if (!text.includes(action)) failures.push(`${page.path}: missing action marker "${action}"`);
   }

@@ -15,6 +15,9 @@
       "role": "executive_overview",
       "decision": "真实经营数据回归，关键风险收敛。",
       "requiredProofs": ["归因可信度", "PDP", "第三方失败", "预算"],
+      "requiredFacts": ["转化率", "停留", "跳出率", "机器人占比"],
+      "requiredComparisons": ["当前", "历史"],
+      "requiredAttributionMarkers": ["归因", "human/bot"],
       "requiredActions": ["冻结错误预算", "kill-list", "验收"],
       "requiredCharts": ["chart-overview-proof"]
     },
@@ -23,8 +26,11 @@
       "role": "metric_governance",
       "decision": "先统一口径，再讨论增长。",
       "requiredProofs": ["可用", "不可用", "当前 workbook", "历史经营"],
+      "requiredFacts": ["转化率", "停留", "跳出率"],
+      "requiredComparisons": ["当前", "历史"],
+      "requiredAttributionMarkers": ["归因"],
       "requiredActions": ["口径", "下一步", "验收"],
-      "requiredCharts": ["chart-kpi-direction"]
+      "requiredCharts": ["chart-kpi-direction", "chart-behavior-sankey"]
     },
     {
       "path": "/forensics.html",
@@ -47,8 +53,11 @@
       "role": "decision_matrix",
       "decision": "历史报告为基线，当前数据只保留可执行结论。",
       "requiredProofs": ["资源排序", "验收", "冲突", "执行战单"],
+      "requiredFacts": ["机器人占比", "爬虫占比"],
+      "requiredComparisons": ["当前", "历史"],
+      "requiredAttributionMarkers": ["归因", "human/bot", "机器人占比/爬虫占比为缺失或待复证证据"],
       "requiredActions": ["批准", "冻结", "推进"],
-      "requiredCharts": ["chart-decision-matrix"]
+      "requiredCharts": ["chart-decision-matrix", "chart-bot-attribution-sankey"]
     }
   ]
 }

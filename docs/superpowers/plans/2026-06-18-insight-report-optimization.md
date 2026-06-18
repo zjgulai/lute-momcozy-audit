@@ -613,9 +613,25 @@ git add config/insight-report-contract.json scripts/validate-insight-report-cont
 git commit -m "test: add insight report contract gate"
 ```
 
+### Phase 3b: User Metric Attribution Contract Supplement
+
+User-added requirement for this report: `www.momcozy.com` 中机器人占比高等因素，以及转化率低、停留时间短、跳出率高的问题，都需要详细诊断出来，列出事实，桑基图这些都要有反映，有对比，以指标为导向进行诊断、归因。
+
+Contract supplement:
+- The insight contract must require visible metric facts for `转化率`, `停留`, `跳出率`, and `机器人占比` or `爬虫占比`.
+- The contract must require `当前` vs `历史` comparison language on the relevant decision pages.
+- The contract must require attribution markers, including `归因` and a human/bot gate marker such as `human/bot`.
+- `/metrics.html` must require a behavior/conversion Sankey chart id, currently `chart-behavior-sankey`.
+- `/cross-audit.html` or `/` must require a bot/attribution Sankey chart id, currently `chart-bot-attribution-sankey`.
+- If no measured bot-share value exists in repository data, the page must explicitly label `机器人占比/爬虫占比为缺失或待复证证据` and request owner analytics, bot logs, or a human-bot dimension for re-validation. The report must not present bot share as a quantified fact until that evidence exists.
+
+Phase 3b implementation scope is contract-only: update `config/insight-report-contract.json`, generalize optional marker validation in `scripts/validate-insight-report-contract.mjs`, and keep the gate red until Phase 4/5 add the actual charts and narrative.
+
 ---
 
 ## Phase 4: Static Chart Components
+
+Phase 4 must implement metric-driven diagnostic chart components for conversion, dwell/stay time, bounce rate, and human/bot attribution. At minimum, add a behavior/conversion Sankey for `/metrics.html` and a bot/attribution Sankey for `/cross-audit.html` or `/`, using explicit labels for current vs historical comparison where source data supports it. When bot share is not measured, the chart or adjacent evidence block must show a missing-evidence state rather than an invented percentage.
 
 **Files:**
 - Create: `scripts/history-site/charts.mjs`
@@ -745,6 +761,8 @@ git commit -m "feat: add static insight chart components"
 ---
 
 ## Phase 5: Rewrite Page Storylines And Module Order
+
+Phase 5 must rewrite the visible report as an indicator-led diagnosis: diagnose low conversion rate, short dwell/stay time, high bounce rate, and bot/crawler share risk through facts, current vs historical comparison, Sankey-backed flows, and attribution statements. The wording must distinguish measured facts from hypotheses. If repository data still lacks measured bot share, the page must say the bot/crawler share is missing or pending re-validation evidence and must name the needed owner analytics, bot log, or human-bot dimension before any quantified claim.
 
 **Files:**
 - Modify: `scripts/history-site/pages.mjs`
