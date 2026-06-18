@@ -1,7 +1,7 @@
 ---
 status: done
-updated_at: 2026-06-18T09:17:25Z
-task: Phase 6 engineering and documentation debt cleanup
+updated_at: 2026-06-18T09:41:00Z
+task: Phase 6 engineering and documentation debt cleanup plus Tencent deployment
 ---
 
 ## 已完成
@@ -28,12 +28,17 @@ task: Phase 6 engineering and documentation debt cleanup
 - Phase 6 已删除未被 active build 引用的旧资产：`src/assets/site.css`、`src/assets/trends-charts.js`；AGENTS active source 已同步到 `scripts/history-site/*.mjs` 与 `history_static/assets/`。
 - Phase 6 已收紧 `config/insight-report-contract.json`：`附件`、`Top 15` 纳入禁词，允许证据词从“诊断报告”改为“洞察报告”。
 - Phase 6 已通过：`node --check scripts/history-site/sections.mjs`、`node --check scripts/history-site/layout.mjs`、`npm run build`、`npm run test:insight-contract`、`npm run test:release-contract`、`npm run test:history-site-charts`、生成产物禁词扫描、`npm test`、`git diff --check`、Playwright 本地布局抽样。
+- PR #63 已合并：本轮洞察报告重构与旧审计模块清理进入 `main`。
+- PR #64 已合并：腾讯云 pre-deploy parity allowlist 与 production layout audit 锚点已对齐当前洞察结构。
+- 腾讯云 workflow `27749964281` 已通过：build、deploy、post-deploy smoke、production visual component audit 全部成功。
+- 部署后 release checklist `artifacts/release-checklist-2026-06-18T09-39-05-110Z.md` 为 `Ready for release`；production parity、uptime、Actions artifact 均 PASS。
+- 生产浏览器抽样已覆盖 5 页 × desktop/mobile：HTTP 200、禁词命中 `none`、横向溢出 0、section 标题最大 desktop 20px / mobile 18px。
 
 ## 当前红灯
 
 - Phase 6 本地实现无红灯。
-- 生产站尚未确认已经更新到当前分支；进入腾讯云发布前需要按高风险任务规则输出部署风险和回滚方案。
+- 生产部署无红灯。
 
 ## 下一步
 
-- 下一步进入发布准备：生成 release checklist，按腾讯云部署路径更新生产，再跑生产 `release-parity` 与 production layout audit。
+- 后续如果继续优化，应进入下一轮数据证据补采：owner analytics / bot log / human-bot 维度复证，用真实机器人占比解释 www.momcozy.com 的转化率、停留、跳出和归因污染。
