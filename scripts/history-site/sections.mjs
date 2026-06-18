@@ -49,7 +49,7 @@ function renderRecollectStatus(status) {
     ${status.summary ? `<div>${escapeHtml(status.summary)}</div>` : ""}
     ${collectStatusMeta(status)}
     ${actionItems.length ? `<ul>${actionItems.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>` : ""}
-    ${evidenceItems.length ? `<div class="evidence-note">校验项：${evidenceItems.map((item) => escapeHtml(item)).join("，")}</div>` : ""}`;
+    ${evidenceItems.length ? `<div class="evidence-note">证据来源：${evidenceItems.map((item) => escapeHtml(item)).join("，")}</div>` : ""}`;
 }
 
 export function conclusionRows(conclusions) {
