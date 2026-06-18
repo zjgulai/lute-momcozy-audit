@@ -1,4 +1,8 @@
 import {
+  behaviorSankeyChart,
+  botAttributionSankeyChart
+} from "./charts.mjs";
+import {
   escapeHtml,
   fixed,
   integer,
@@ -733,6 +737,23 @@ export function botGovernanceSection(data) {
   </section>`;
 }
 
+export function funnelInsightSection(data) {
+  return behaviorSankeyChart({data});
+}
+
+export function botAttributionInsightSection(data) {
+  return `<section class="section section--gray" id="bot-attribution">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">机器人占比 / 爬虫占比 · 归因证据缺口</div>
+        <h2 class="section__title">先把 human/bot 维度补齐，再解释转化率、停留和跳出</h2>
+        <p class="section__sub">当前数据能列事实：转化率、停留、跳出率可与历史并排比较；但机器人占比/爬虫占比为缺失或待复证证据，不能把低转化、短停留或高跳出归因给 bot。</p>
+      </div>
+      ${botAttributionSankeyChart({data})}
+    </div>
+  </section>`;
+}
+
 export function diagnosticBacklogSection(data) {
   const rows = legacyData(data).diagnosticBacklog.map((item) => `<div class="backlog-card">
     <span class="badge badge--${item.priority.toLowerCase()}">${escapeHtml(item.priority)}</span>
@@ -968,6 +989,7 @@ export function metricsBody(data) {
         <h2 class="section__title">旧漏斗图回归，但必须和当前 workbook 分开读</h2>
         <p class="section__sub">内部漏斗校验通过，说明业务摩擦真实存在；但 traffic/sales 窗口不一致、币种待确认、SEO keyword rows = ${data.internal.naturalSearchRows}，所以当前页面并列展示真实值，同时保留口径 caveat。</p>
       </div>
+      ${funnelInsightSection(data)}
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
           <thead><tr><th>口径</th><th>当前判定</th><th>可以怎么用</th><th>不能怎么用</th><th>依据</th></tr></thead>
@@ -1130,6 +1152,7 @@ export function crossAuditBody(data) {
   ${hardConclusionsSection(data)}
   ${crossMatrixSection(data)}
   ${contradictionsSection(data)}
+  ${botAttributionInsightSection(data)}
   ${operatingBridgeSection(data)}
   ${businessKpiSection(data)}
   ${crossAuditSection(data, "cross-audit.html")}
