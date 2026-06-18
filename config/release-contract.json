@@ -11,8 +11,10 @@
     {"path": "/trends.html", "status": 200, "markers": ["趋势证据", "chart-lcp-coverage"]},
     {"path": "/trends/", "status": 404, "markers": []},
     {"path": "/cross-audit.html", "status": 200, "markers": ["决策矩阵", "chart-decision-matrix", "执行战单"]},
+    {"path": "/competitors.html", "status": 200, "markers": ["竞品对比", "chart-competitor-gap", "价值筛查"]},
+    {"path": "/competitors/", "status": 404, "markers": []},
     {"path": "/not-a-real-page", "status": 404, "markers": []}
   ],
-  "canonicalRoutes": ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"],
-  "acceptedAliases": ["/metrics", "/forensics", "/trends"]
+  "canonicalRoutes": ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html", "/competitors.html"],
+  "acceptedAliases": ["/metrics", "/forensics", "/trends", "/competitors"]
 }

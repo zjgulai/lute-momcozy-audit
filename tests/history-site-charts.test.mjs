@@ -37,6 +37,37 @@ test("botAttributionSankeyChart marks bot share as missing without inventing per
   assert.doesNotMatch(html, /bot[^<]{0,40}\d+(?:\.\d+)?%/i);
 });
 
+test("botAttributionSankeyChart renders measured aggregate segments when evidence is ready", () => {
+  const measuredData = JSON.parse(JSON.stringify(data));
+  measuredData.botEvidence = {
+    status: "measured",
+    requiredSources: [
+      {id: "owner_analytics", state: "ready"},
+      {id: "bot_log", state: "ready"},
+      {id: "human_bot_dimension", state: "ready"}
+    ],
+    requiredSegments: ["human", "bot", "crawler", "unknown"],
+    metrics: {
+      totalSessions: 1000,
+      segments: [
+        {segment: "human", sessions: 760, conversionRate: 0.022, bounceRate: 0.42, avgStaySec: 72.1},
+        {segment: "bot", sessions: 110, conversionRate: 0, bounceRate: 0.91, avgStaySec: 2.7},
+        {segment: "crawler", sessions: 80, conversionRate: 0, bounceRate: 0.88, avgStaySec: 3.4},
+        {segment: "unknown", sessions: 50, conversionRate: 0.006, bounceRate: 0.69, avgStaySec: 18.2}
+      ]
+    }
+  };
+
+  const html = botAttributionSankeyChart({data: measuredData});
+
+  assert.match(html, /已量化版/);
+  assert.match(html, /bot\/crawler 合计 19\.00%/);
+  assert.match(html, /human 76\.00%/);
+  assert.match(html, /转化率 2\.20%/);
+  assert.match(html, /跳出率 91\.00%/);
+  assert.match(html, /平均停留 72\.1s/);
+});
+
 test("barChart supports planned rows API with valueFormat", () => {
   const html = barChart({
     id: "chart-row-api",
