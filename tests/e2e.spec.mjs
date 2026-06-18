@@ -372,6 +372,24 @@ test("primary pages read as an insight report without appendix-style audit check
   }
 });
 
+test("primary pages do not render oversized section titles", async ({page}) => {
+  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
+    await page.goto(pathname);
+    const oversized = await page.evaluate(() => Array.from(document.querySelectorAll(".section__head .section__title"))
+      .map((el) => {
+        const bounds = el.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        return {
+          text: el.textContent.replace(/\s+/g, " ").trim(),
+          fontSize: Number.parseFloat(style.fontSize),
+          visible: bounds.width > 0 && bounds.height > 0 && style.display !== "none" && style.visibility !== "hidden",
+        };
+      })
+      .filter((item) => item.visible && item.fontSize > 24));
+    expect(oversized, `${pathname} oversized section titles`).toEqual([]);
+  }
+});
+
 test("private business edition exposes business KPIs but no raw secrets", async ({page}) => {
   const secretForbidden = /\/Users\/|\/home\/|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|(?:\d{1,3}\.){3}\d{1,3}|(?<!\w)\/data\/(?!\w)|公开审计|公开摘要/i;
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
