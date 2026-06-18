@@ -1,6 +1,6 @@
 ---
-status: done
-updated_at: 2026-06-18T10:07:49Z
+status: in_progress
+updated_at: 2026-06-18T10:38:46Z
 task: Phase 8 competitor comparison page and sharper insight storyline
 ---
 
@@ -53,6 +53,6 @@ task: Phase 8 competitor comparison page and sharper insight storyline
 
 ## 下一步
 
-- 如需上线，先创建分支/PR；合并后等待腾讯云 workflow、post-deploy smoke、production visual component audit 通过。
+- 如需继续推进：先将本次发布链路修复提交到分支并发起 PR，等待腾讯云 workflow（build、deploy、post-deploy smoke、production visual component audit）通过。
 - 如果 owner 提供脱敏聚合 bot evidence，把 `src/_data/bot-evidence.json` 从 `missing` 切到 `measured`，三类来源必须全部 `ready`，且通过 `npm run test:bot-evidence` 后才能进入报告。
 - 下一轮若继续增强竞品页，优先补多次复采、入口参数、checkout 状态、脚本 owner/用途/预算表，再考虑分值化对标。

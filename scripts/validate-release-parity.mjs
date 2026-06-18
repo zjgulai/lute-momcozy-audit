@@ -29,19 +29,29 @@ function parseProductionMissingSectionAllowlist(value) {
   const allowlist = new Map();
   for (const token of value.split(",").map((item) => item.trim()).filter(Boolean)) {
     const [routePath, id] = token.split(":");
-    if (!routePath || !id) continue;
+    if (!routePath) continue;
     const normalizedRoute = routePath.startsWith("/") ? routePath : `/${routePath}`;
     if (!allowlist.has(normalizedRoute)) allowlist.set(normalizedRoute, new Set());
+    if (!id) {
+      allowlist.get(normalizedRoute).add("*");
+      continue;
+    }
     allowlist.get(normalizedRoute).add(id);
   }
   return allowlist;
+}
+
+function allowsProductionMissingRoute(routePath) {
+  const ids = productionMissingSectionAllowlist.get(routePath);
+  return !!ids?.has("*");
 }
 
 function allowsProductionMissingSection(routePath, id) {
   return productionMissingSectionAllowlist.get(routePath)?.has(id) || false;
 }
 
-async function inspectPage(routePath, context, url) {
+async function inspectPage(routePath, context, url, options = {}) {
+  const {allowMissingRoute = false} = options;
   const page = await context.newPage();
   let response;
   try {
@@ -55,6 +65,19 @@ async function inspectPage(routePath, context, url) {
   }
 
   if (!url.startsWith("file://") && response.status() !== 200) {
+    if (allowMissingRoute) {
+      await page.close();
+      return {
+        routePath,
+        url,
+        sectionStates: {},
+        sectionCount: 0,
+        sideNavAnchorLinks: 0,
+        sideNavMainLinks: 0,
+        misses: [],
+        rawStatus: response.status(),
+      };
+    }
     await page.close();
     fail(`${routePath}: production status ${response.status()}`);
   }
@@ -135,12 +158,16 @@ function pickRequiredSections(sectionStates, required) {
   return rows;
 }
 
-function compare(localInspection, remoteInspection) {
+function compare(localInspection, remoteInspection, routeAllowedMissing = false) {
   const localStates = localInspection.sectionStates;
   const remoteStates = remoteInspection.sectionStates;
   const route = localInspection.routePath;
   const required = pageComponentMap[route];
   const routeIssues = [];
+
+  if (remoteInspection.rawStatus !== 200 && routeAllowedMissing) {
+    return routeIssues;
+  }
 
   for (const id of required) {
     const localSection = localStates[id];
@@ -186,10 +213,11 @@ async function main() {
   for (const routePath of Object.keys(pageComponentMap)) {
     const local = await inspectPage(routePath, context, localUrl(routePath));
     const remoteUrl = new URL(routePath === "/" ? "/" : routePath, publicUrl).toString();
-    const remote = await inspectPage(routePath, context, remoteUrl);
+    const allowMissingRoute = allowsProductionMissingRoute(routePath);
+    const remote = await inspectPage(routePath, context, remoteUrl, {allowMissingRoute});
     const required = pageComponentMap[routePath];
 
-    const routeIssues = compare(local, remote);
+    const routeIssues = compare(local, remote, allowMissingRoute);
     for (const id of local.misses) {
       routeIssues.push(`local quality issue ${id}`);
     }
