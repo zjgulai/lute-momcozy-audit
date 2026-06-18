@@ -46,7 +46,7 @@ function markdownReport({generatedAt, checks}) {
     "",
     ...checks.flatMap((item) => {
       const rows = [`- ${item.page} ${item.viewport.label}: ${item.screenshot}`];
-      if (item.competitorScreenshot) rows.push(`- ${item.page} ${item.viewport.label} competitor-recollect: ${item.competitorScreenshot}`);
+      if (item.detailScreenshot) rows.push(`- ${item.page} ${item.viewport.label} detail: ${item.detailScreenshot}`);
       return rows;
     }),
   ].join("\n");
@@ -74,13 +74,11 @@ function buildIssues({responseStatus, consoleErrors, pageErrors, state, pageKey,
   if (state.tableIssues.length) issues.push(`table scroller issues ${state.tableIssues.length}`);
   if (state.textOverflowIssues.length) issues.push(`text overflow issues ${state.textOverflowIssues.length}`);
   if (pageKey === "cross-audit") {
-    if (!state.competitor) issues.push("missing competitor recollect section");
-    else {
-      if (state.competitor.routeRows < 4) issues.push(`competitor route rows ${state.competitor.routeRows}`);
-      if (state.competitor.taskRows < 4) issues.push(`competitor task rows ${state.competitor.taskRows}`);
-      if (!state.competitor.containsC01) issues.push("competitor task C-01 missing");
-      if (!state.competitor.containsDeliverables) issues.push("competitor deliverables missing");
-    }
+    if (!state.crossAudit?.hasMatrix) issues.push("missing decision matrix section");
+    if (!state.crossAudit?.hasExecutionOrders) issues.push("missing execution orders section");
+    if ((state.crossAudit?.matrixRows || 0) < 3) issues.push(`decision matrix rows ${state.crossAudit?.matrixRows || 0}`);
+    if ((state.crossAudit?.executionRows || 0) < 3) issues.push(`execution order rows ${state.crossAudit?.executionRows || 0}`);
+    if (state.crossAudit?.hasLegacyCompetitorRecollect) issues.push("legacy competitor recollect section present");
   }
   return issues;
 }
@@ -98,11 +96,14 @@ async function inspectPage(page, {pageInfo, viewport}) {
   const screenshot = screenshotName(pageInfo.key, viewport.label);
   await page.screenshot({path: path.join(outputDir, screenshot), fullPage: false});
 
-  let competitorScreenshot = "";
+  let detailScreenshot = "";
   if (pageInfo.key === "cross-audit") {
-    await page.locator("#competitor-recollect").scrollIntoViewIfNeeded();
-    competitorScreenshot = screenshotName(pageInfo.key, viewport.label, "competitor-recollect");
-    await page.screenshot({path: path.join(outputDir, competitorScreenshot), fullPage: false});
+    const matrix = page.locator("#matrix");
+    if (await matrix.count()) {
+      await matrix.scrollIntoViewIfNeeded();
+      detailScreenshot = screenshotName(pageInfo.key, viewport.label, "decision-matrix");
+      await page.screenshot({path: path.join(outputDir, detailScreenshot), fullPage: false});
+    }
   }
 
   const state = await page.evaluate((viewportLabel) => {
@@ -166,7 +167,8 @@ async function inspectPage(page, {pageInfo, viewport}) {
       .map((anchor) => ({...anchor, hash: anchor.href?.split("#")[1] || ""}))
       .filter((anchor) => anchor.hash && !document.getElementById(anchor.hash));
     const doc = document.documentElement;
-    const competitorTables = Array.from(document.querySelectorAll("#competitor-recollect table"));
+    const matrixTables = Array.from(document.querySelectorAll("#matrix table"));
+    const executionTables = Array.from(document.querySelectorAll("#execution-orders table"));
     return {
       title: document.title,
       lang: document.documentElement.lang,
@@ -192,12 +194,13 @@ async function inspectPage(page, {pageInfo, viewport}) {
       missingAnchorTargets,
       tableIssues,
       textOverflowIssues,
-      competitor: document.querySelector("#competitor-recollect") ? {
-        routeRows: competitorTables[0]?.querySelectorAll("tbody tr").length || 0,
-        taskRows: competitorTables[1]?.querySelectorAll("tbody tr").length || 0,
-        containsC01: document.querySelector("#competitor-recollect")?.textContent.includes("C-01") || false,
-        containsDeliverables: document.querySelector("#competitor-recollect")?.textContent.includes("交付项") || false,
-      } : null,
+      crossAudit: {
+        hasMatrix: !!document.querySelector("#matrix"),
+        hasExecutionOrders: !!document.querySelector("#execution-orders"),
+        hasLegacyCompetitorRecollect: !!document.querySelector("#competitor-recollect"),
+        matrixRows: matrixTables.reduce((sum, table) => sum + table.querySelectorAll("tbody tr").length, 0),
+        executionRows: executionTables.reduce((sum, table) => sum + table.querySelectorAll("tbody tr").length, 0),
+      },
     };
   }, viewport.label);
 
@@ -208,7 +211,7 @@ async function inspectPage(page, {pageInfo, viewport}) {
     url,
     status,
     screenshot,
-    competitorScreenshot,
+    detailScreenshot,
     consoleErrors,
     pageErrors,
     state,
