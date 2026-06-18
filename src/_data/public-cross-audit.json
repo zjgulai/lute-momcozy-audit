@@ -180,6 +180,19 @@
       "confidence": "High"
     },
     {
+      "id": "C7",
+      "issue": "付费/自然流量口径混淆是漏斗解读的隐性风险。",
+      "verdict": "内部 workbook 的 natural search keyword rows = 0，与外部第三方数据（付费搜索估计占总流量 45%）交叉比对，说明当前内部漏斗指标（CVR 2.4049%、加购率 8.5972%）很可能大量混入高意图付费流量贡献，自然流量的真实转化健康度未知。在付费/自然渠道 CVR 未分段对比之前，当前漏斗改善不能被解读为自然获客效率的提升。",
+      "evidence": "内部校验 natural search keyword rows = 0；外部 Beecommercer 案例研究（Similarweb 口径）显示 Momcozy 付费搜索约占总流量 45%；内部流量窗口 137 非零日，但渠道来源分类不明。",
+      "references": [
+        "内部经营数据校验摘要 2026-06-14",
+        "Beecommercer Momcozy Case Study Dec 2025",
+        "Semrush momcozy.com/overview April 2026"
+      ],
+      "confidence": "Medium",
+      "action": "补齐 GA4 或 Shopify Analytics 的渠道来源分组，把 paid/organic/direct 分段 CVR 做对比后，才允许恢复渠道层面的转化结论。"
+    },
+    {
       "id": "C6",
       "issue": "归因数据本身需要治理。",
       "verdict": "Momcozy 的第三方失败不是行业常态借口。竞品同口径样本也有脚本负担，但 Momcozy watchlist 最高 92 次失败显著高于竞品复采二轮最高 42，必须进入 owner / 用途 / 预算治理。",
@@ -569,6 +582,75 @@
           "只对可复核词组恢复建议"
         ],
         "gate": "搜索源有明细行，且与站内行为能对齐。"
+      },
+      {
+        "id": "EX-P0-FB-PIXEL",
+        "title": "PR 执行卡 · Facebook 双 Pixel 合并",
+        "priority": "P0",
+        "category": "归因治理",
+        "why": "connect.facebook.net/en_US/fbevents.js 在首页加载两次（script index 21 和 29），对应两个不同 Pixel ID（1207445154305002 和 838745568077400）。双 Pixel 导致转化事件被回传两次，CVR 和 ROAS 读数虚高，影响所有投放决策。",
+        "evidence": "实测：Playwright MCP 浏览器驱动，确认 fbevents.js 外部脚本加载两次；与安全扫描中的 externalScriptsWithoutSRI 记录一致。",
+        "rootCause": "两个 Pixel 来自不同来源：一个可能是 GTM 注入（Google Tag Manager），另一个可能是 Shopify theme 直接硬编码。需要 owner 确认两者的业务用途。",
+        "steps": [
+          "在 Facebook Business Manager 确认两个 Pixel ID 的归属和用途：1207445154305002 和 838745568077400",
+          "检查 GTM 容器：Admin > Workspace > Tags，搜索 Facebook Pixel tag，确认是否有两个独立 tag",
+          "检查 Shopify theme.liquid 或 layout/theme.liquid：搜索 fbq 或 fbevents，确认是否有直接硬编码的 Pixel",
+          "决策：(a) 如两个 Pixel 属于同一广告账户，在 FB Business Manager 合并为单一 Pixel；(b) 如属于不同账户（如代理商+自营），通过 FB 事件集（Dataset）统一回传",
+          "删除主题中硬编码的 fbevents 加载，仅保留 GTM 统一管理；或反之",
+          "发布后用 Facebook Pixel Helper 浏览器插件验证：首页只有一个 Pixel 触发 PageView"
+        ],
+        "gate": "首页 Facebook Pixel Helper 显示唯一 Pixel ID 触发 PageView；fbevents.js 在 Network 面板中只出现一次。",
+        "rollback": "如合并后 FB 广告数据异常，在 GTM 中回滚 Pixel tag 版本；主题文件通过 Shopify Theme 版本控制恢复。",
+        "owner": "投放负责人 + 前端负责人",
+        "estimatedEffort": "半天（确认来源 + 删除冗余 + 验证）"
+      },
+      {
+        "id": "EX-P1-TUCKGO-TITLE",
+        "title": "PR 执行卡 · TuckGo Stroller meta title 关键词优化",
+        "priority": "P1",
+        "category": "SEO/GEO 技术底座",
+        "why": "当前 meta title：「Momcozy Tuckgo Travel Stroller」（30字符）。过短且缺少关键词，导致在搜索结果中信息密度低，且 AI 引用时无法从 title 获取产品特性信号。GEO 测试中 TuckGo 在「best lightweight travel stroller 2026」查询中未出现。",
+        "evidence": "实测：Playwright 直接读取 <title> 标签，确认为 30字符；optimized title 应为 55-60 字符。",
+        "currentValue": "Momcozy Tuckgo Travel Stroller",
+        "proposedValue": "Momcozy Tuckgo Lightweight Travel Stroller – One-Hand Fold, IATA Carry-On",
+        "proposedValueLength": 73,
+        "proposedValueNote": "73字符略超60上限，可调整为：Momcozy Tuckgo Lightweight Travel Stroller – One-Hand Fold (58字符)",
+        "finalRecommended": "Momcozy Tuckgo Lightweight Travel Stroller – One-Hand Fold",
+        "finalRecommendedLength": 58,
+        "steps": [
+          "Shopify Admin > Online Store > Products > 搜索 TuckGo",
+          "点击产品进入编辑页",
+          "滚动到底部 SEO 部分（Search engine listing preview）",
+          "点击 Edit website SEO",
+          "修改 Page title 字段为：Momcozy Tuckgo Lightweight Travel Stroller – One-Hand Fold",
+          "保存（Save）",
+          "用 Google Search Console > URL Inspection > Request Indexing 触发重新抓取（可选，非必须）"
+        ],
+        "gate": "在 Google Search Console 或 Google 搜索结果中，TuckGo 产品页标题显示为新内容；或用 curl -s https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller | grep -i \"<title>\"  确认标签内容。",
+        "rollback": "在 Shopify SEO 字段中恢复原标题；变更无风险。",
+        "owner": "SEO 负责人 / 电商产品负责人",
+        "estimatedEffort": "10分钟（直接在 Shopify 后台修改）"
+      },
+      {
+        "id": "EX-P1-CHECKOUT-CSP",
+        "title": "PR 执行卡 · Checkout 页 Content-Security-Policy 加固",
+        "priority": "P1",
+        "category": "安全",
+        "why": "当前 CSP 仅有 block-all-mixed-content；frame-ancestors none；upgrade-insecure-requests，缺少 script-src 指令。Magecart 风格攻击可在不违反现有 CSP 的情况下执行注入代码（只需利用任意一个已加载的第三方脚本作为载体）。checkout 页是最高价值攻击目标（含支付信息）。",
+        "evidence": "安全扫描实测：全站 CSP 头均无 script-src；checkout 页有 45-46 次第三方失败 + 3 个 console error；46 个 pageErrors。",
+        "shopifyConstraint": "Shopify 标准 checkout 的 CSP 由 Shopify 平台控制，商家无法直接修改。以下方案针对 Shopify 可控部分（主题 layout 和自定义 checkout extensibility）。",
+        "steps": [
+          "【阶段1 - 立即可做】向 Shopify Plus / Shopify 账户团队申请 Checkout Extensibility 权限（如尚未开启）",
+          "【阶段1 - 立即可做】审查 GTM 容器：确认 checkout 页面触发的 tag 列表，删除所有非支付必要的 tag（热图、录屏、弹窗类）",
+          "【阶段1 - 立即可做】在 theme.liquid 的 checkout 相关 section 中，用 Liquid 条件判断去掉非交易脚本：{% unless template == \"checkout\" %}...{% endunless %}",
+          "【阶段2 - 1周内】在 Shopify Admin > Online Store > Preferences > Content Security Policy（如有）中配置脚本来源白名单",
+          "【阶段2 - 1周内】对于 Shopify Plus 用户：使用 Checkout UI Extensions 替代主题注入脚本，Shopify 会为 Extensions 提供更严格的 sandbox",
+          "【阶段3 - 持续】建立月度 CSP 违规报告：通过 report-uri.com 或 Sentry 收集 CSP violation 事件，及时发现新注入"
+        ],
+        "gate": "用 curl -I https://momcozy.com/checkout 确认响应头 Content-Security-Policy 包含 script-src 指令；或用 Google Chrome DevTools Security 面板验证 CSP 策略。",
+        "rollback": "CSP 变更如导致功能破坏（支付组件加载失败），在 GTM 版本控制中回滚 tag；主题文件通过 Shopify theme 版本恢复。",
+        "owner": "Checkout 负责人 + 前端负责人",
+        "estimatedEffort": "阶段1：半天；阶段2：2-3天（需 Shopify Plus 权限确认）"
       }
     ],
     "roadmap": [
@@ -1248,6 +1330,364 @@
         "state": "blocked_until_owner_state",
         "question": "回访、登录或真实购物车状态是否改变 PDP/cart/checkout 的脚本失败和可达性。",
         "decisionUse": "进入 checkout 真实链路判断；没有 owner state 不允许下交易链路结论。"
+      }
+    ]
+  },
+  "securityAudit": {
+    "scannedAt": "2026-06-18",
+    "methodology": "被动只读 Playwright 采集：HTTP 响应头、inline script token 模式扫描、外部脚本 SRI 检查、myshopify.com 子域名探测。无登录、无表单提交、无真实攻击。",
+    "summary": "Momcozy 具备 Shopify 平台默认安全基线（Cloudflare CDN、HSTS、X-Frame-Options DENY），但存在三类可量化风险：(1) 无 Content-Security-Policy 对脚本来源的精确限制，仅有 block-all-mixed-content；(2) 359+ 个外部脚本均无 SRI integrity 属性，面临供应链注入风险；(3) GA Measurement ID 在 149+ 个 inline script 中明文暴露。myshopify.com 子域名返回 404，子域名 WAF 绕过漏洞不适用。",
+    "securityHeaders": {
+      "momcozy": {
+        "contentSecurityPolicy": "block-all-mixed-content; frame-ancestors 'none'; upgrade-insecure-requests",
+        "assessment": "WARN - CSP 缺少 script-src 指令。攻击者若能注入第三方脚本（Magecart 风格），当前 CSP 不会阻止执行。",
+        "xFrameOptions": "DENY",
+        "xContentTypeOptions": "nosniff",
+        "strictTransportSecurity": "max-age=7889238 (约91天，建议提升至1年+)",
+        "permissionsPolicy": "MISSING - 无摄像头/麦克风/地理位置权限限制",
+        "referrerPolicy": "MISSING - 付费广告来源参数可能被 referrer 泄露给第三方",
+        "server": "cloudflare",
+        "score": "3/7 关键安全头已配置，4 个缺失"
+      },
+      "competitorComparison": [
+        {
+          "competitor": "Elvie",
+          "csp": "block-all-mixed-content + frame-ancestors none",
+          "xFrameOptions": "DENY",
+          "assessment": "与 Momcozy 同级"
+        },
+        {
+          "competitor": "Willow",
+          "csp": "block-all-mixed-content + frame-ancestors *",
+          "xFrameOptions": "MISSING",
+          "assessment": "低于 Momcozy，frame-ancestors * 允许任意嵌入"
+        },
+        {
+          "competitor": "BabyBuddha",
+          "csp": "MISSING",
+          "xFrameOptions": "MISSING",
+          "assessment": "无基础安全头，最弱"
+        },
+        {
+          "competitor": "Spectra",
+          "csp": "MISSING",
+          "xFrameOptions": "MISSING",
+          "assessment": "无安全头，且脚本加载自中国 CDN 域名（gzsy12348.com），高风险"
+        }
+      ]
+    },
+    "tokenLeaks": {
+      "severity": "LOW-MEDIUM",
+      "finding": "GA Measurement ID 在 homepage、pdp-m5-smart、pdp-mobile-flow、pdp-tuckgo-stroller 的 inline scripts 中均有明文出现，每页 1-8 次。未检测到 Shopify access token、storefront token、API key 或 bearer token 明文。",
+      "risk": "当前 inline script 包含 149-236 个（按页面），若任意一个第三方脚本被 Magecart 风格注入，攻击代码可在现有 CSP 下正常执行。",
+      "recommendation": "建立 script-src 白名单 CSP，限制 inline script 执行（配合 nonce 或 hash）；对 checkout 页实施严格 CSP。"
+    },
+    "externalScriptsWithoutSRI": {
+      "severity": "HIGH",
+      "homepageSample": [
+        "https://capi-automation.s3.us-east-2.amazonaws.com/... (AWS S3 直接加载，无 SRI)",
+        "https://pixel.bxtag.com/tag/X-WJESZ7TB7HWH_v1.js (未知像素域名，无 SRI)",
+        "https://omnisnippet1.com/inshop/launcher-v2.js (每日版本化，无 SRI 锁定)",
+        "connect.facebook.net/en_US/fbevents.js x2 (Facebook 像素重复加载)"
+      ],
+      "pdpCriticalFinding": "PDP 脚本暴露了真实 myshopify store handle: mo-m-cozy.myshopify.com（通过 beacon.riskified.com、seel.com、fastbundle.co 等 query param）。",
+      "facebookPixelDuplicate": "connect.facebook.net/en_US/fbevents.js 在首页加载了 2 次（pixel ID: 1207445154305002 和 838745568077400），与第三方治理分析中的重复像素风险直接对应。"
+    },
+    "myshopifyProbe": {
+      "url": "https://momcozy.myshopify.com/",
+      "status": 404,
+      "accessible": false,
+      "assessment": "myshopify.com 子域名直连返回 404，当前 Momcozy 配置不存在子域名 WAF 绕过架构漏洞。但 store handle（mo-m-cozy.myshopify.com）已通过多个第三方脚本 query param 暴露。"
+    },
+    "attackSurfacePriority": [
+      {
+        "rank": "P0",
+        "vector": "Magecart 风格 JS 注入",
+        "evidence": "CSP 无 script-src 限制 + 359+ 外部脚本无 SRI + 92 次第三方失败",
+        "recommendation": "为 checkout 页单独实施严格 CSP（script-src nonce）；建立第三方脚本白名单审查。"
+      },
+      {
+        "rank": "P0",
+        "vector": "Facebook 双像素重复归因",
+        "evidence": "connect.facebook.net/en_US/fbevents.js 加载两次，两个不同 pixel ID 同时存在",
+        "recommendation": "合并为单一 Facebook Pixel ID；重复像素导致归因重复计算和 CVR 虚高风险。"
+      },
+      {
+        "rank": "P1",
+        "vector": "Store handle 信息暴露",
+        "evidence": "mo-m-cozy.myshopify.com 通过多个脚本 query param 公开暴露",
+        "recommendation": "确保 mo-m-cozy.myshopify.com 管理员账号开启 2FA，且无敏感 webhook 直接暴露。"
+      },
+      {
+        "rank": "P1",
+        "vector": "referrerPolicy 缺失",
+        "evidence": "无 Referrer-Policy 头，UTM 参数和付费广告来源可能通过 Referer 头泄露给第三方",
+        "recommendation": "设置 Referrer-Policy: strict-origin-when-cross-origin。"
+      },
+      {
+        "rank": "P2",
+        "vector": "HSTS max-age 偏低",
+        "evidence": "当前 max-age=7889238（约91天），行业建议 max-age=63072000（2年）",
+        "recommendation": "提升至 max-age=63072000; includeSubDomains; preload。"
+      }
+    ]
+  },
+  "geoBaseline": {
+    "testedAt": "2026-06-18",
+    "methodology": "Playwright MCP 浏览器驱动 Perplexity.ai（URL 方式，无登录），测试 5 个高意图母婴购买问题，记录 Momcozy 在 AI 答案中的出现情况、定位和竞品对比。",
+    "overallFinding": "Momcozy 在 Perplexity AI 推荐中 5/5 问题均有出现，但 0/5 获得 best overall 推荐。品牌定位被固化为 budget/value 选项。Willow 系列在综合推荐中占据主导，Elvie 在职场场景排名第一。Momcozy 的 AI 可见度主要依赖外部评测媒体引用（Forbes、NYMag 等），品牌自有页面几乎不被 AI 直接引用。",
+    "questions": [
+      {
+        "id": "Q1",
+        "question": "best wearable breast pump 2026 recommendation",
+        "momcozyMentioned": true,
+        "momcozyPosition": "budget/value pick (第2位)",
+        "topRecommendation": "Willow Go (best overall)",
+        "momcozySnippet": "Momcozy S12 Pro is a better value choice for occasional use",
+        "citedSource": "nymag.com",
+        "competitors": [
+          "Willow Go (best overall)",
+          "Willow 360 (premium)",
+          "Eufy S1 Pro"
+        ],
+        "geoSignal": "出现但被定性为 occasional use budget pick，与品牌自身的高质量定位存在落差"
+      },
+      {
+        "id": "Q2",
+        "question": "best hands-free breast pump for working moms",
+        "momcozyMentioned": true,
+        "momcozyPosition": "best budget option (第2位)",
+        "topRecommendation": "Elvie Pump (best overall / quietest)",
+        "momcozySnippet": "Momcozy M5 - strong suction, easy to use, and cheaper than many premium models",
+        "citedSource": "forbes.com",
+        "competitors": [
+          "Elvie Pump (best overall)",
+          "Willow Go (quiet)",
+          "Eufy S1 Pro (strongest output)",
+          "Medela Freestyle"
+        ],
+        "geoSignal": "Elvie 主导职场场景；Momcozy 被 Forbes 明确标为 budget，不是首选推荐"
+      },
+      {
+        "id": "Q3",
+        "question": "Momcozy vs Willow breast pump comparison 2026",
+        "momcozyMentioned": true,
+        "momcozyPosition": "value pick",
+        "topRecommendation": "Willow (premium/tech); Momcozy (value/affordability)",
+        "momcozySnippet": "Momcozy is usually the better value if you want a lower price and solid everyday performance",
+        "citedSource": "thequalityedit.com, breastpumpshub.com",
+        "geoSignal": "即使在品牌直接对比问题中，Momcozy 的叙事锚点是便宜但好用，Willow 是更好的技术和体验"
+      },
+      {
+        "id": "Q5",
+        "question": "best breast pump covered by insurance 2026",
+        "momcozyMentioned": true,
+        "momcozyPosition": "保险渠道备选 (第4位)",
+        "topRecommendation": "Spectra S1 Plus (best insurance pick)",
+        "momcozySnippet": "Momcozy M5: a lower-cost wearable option if you want something more budget-friendly and discreet",
+        "citedSource": "forbes.com",
+        "competitors": [
+          "Spectra S1 Plus (best)",
+          "Medela Freestyle",
+          "Elvie Pump"
+        ],
+        "geoSignal": "保险场景 Momcozy 排第4，Spectra 主导，保险渠道叙事完全缺失"
+      },
+      {
+        "id": "Q6",
+        "question": "affordable wearable breast pump under 200 dollars",
+        "momcozyMentioned": true,
+        "momcozyPosition": "预算清单第5位",
+        "topRecommendation": "MomMed S21 (~$100)",
+        "momcozySnippet": "MomCozy S12 Pro ~$129: Improved motor durability (4+ months), user-friendly",
+        "citedSource": "genuinelactation.com",
+        "competitors": [
+          "MomMed S21 (best)",
+          "NCVI S32",
+          "Phanpy E Joy",
+          "Horigen E4"
+        ],
+        "geoSignal": "在预算场景中 Momcozy 不是首选；MomMed 等小品牌因内容优势占据 AI 引用第一位"
+      }
+    ],
+    "keyInsights": [
+      "Momcozy 在 Perplexity AI 5/5 问题均被提及，但 0/5 获得 best overall；品牌被固化为 budget/value 定位。",
+      "AI 引用来源主要是外部评测媒体（Forbes、NYMag、TheQualityEdit），品牌自有页面几乎不被直接引用，GEO 主权依赖第三方。",
+      "PDP 有 Product Schema 和 FAQ Schema（M5 Smart 已验证），但 AggregateRating 未在 JSON-LD 中完整声明，影响 AI 评论信号读取。",
+      "保险渠道和职场场景两个高价值 use case 中，Momcozy 完全不是首选；这两个场景是 GEO + SEO 内容投资的优先落点。",
+      "竞品格局：Spectra 主导保险场景，Elvie 主导职场场景，Willow 主导综合推荐；Momcozy 没有任何场景的 AI 叙事主权。"
+    ],
+    "actionItems": [
+      {
+        "priority": "P0",
+        "action": "修复 Review Aggregation JSON-LD Markup",
+        "rationale": "M5 Smart 有 1438 条评论但 hasReviewSchema = false；在 Product JSON-LD 中补充 aggregateRating 字段让 AI 能稳定读取评论信号"
+      },
+      {
+        "priority": "P1",
+        "action": "建立保险渠道内容页",
+        "rationale": "Q5 测试显示保险场景被 Spectra/Medela 主导。高质量的保险覆盖吸奶器指南可以直接改变 AI 引用来源"
+      },
+      {
+        "priority": "P1",
+        "action": "建立职场妈妈场景专题内容",
+        "rationale": "Q2 测试中 Elvie 主导职场推荐。Momcozy 有 M5/M9 产品线但缺乏以职场妈妈为核心叙事的内容页"
+      },
+      {
+        "priority": "P2",
+        "action": "评估 Shopify Agentic Storefront 接入",
+        "rationale": "Shopify 官方数据：AI 引荐订单 YoY 增长 13 倍，转化率高 50%。Agentic Storefront 可直接向 ChatGPT/Perplexity 推送结构化 SKU 数据"
+      }
+    ]
+  },
+  "seoTechnical": {
+    "scannedAt": "2026-06-18",
+    "methodology": "Playwright 被动采集：JSON-LD structured data、canonical URL、meta title/description、robots meta、Open Graph、review markup microdata。覆盖 Momcozy 3 个 PDP + 首页，及 6 个竞品 PDP。",
+    "momcozyResults": [
+      {
+        "routeId": "homepage",
+        "hasProductSchema": false,
+        "hasReviewSchema": false,
+        "hasBreadcrumbSchema": false,
+        "hasFaqSchema": false,
+        "canonicalSelfRef": true,
+        "metaTitleLength": 46,
+        "metaTitleText": "Momcozy: High-Quality Care for Moms and Babies",
+        "metaTitleAssessment": "OK (46字符，55-60最优区间内略短)",
+        "metaDescLength": 159,
+        "metaDescAssessment": "OK (159字符，接近160上限)",
+        "isIndexable": true,
+        "hasOgImage": true
+      },
+      {
+        "routeId": "pdp-m5-smart",
+        "hasProductSchema": true,
+        "hasReviewSchema": true,
+        "hasBreadcrumbSchema": true,
+        "hasFaqSchema": true,
+        "reviewCount": "1438",
+        "ratingValue": "4.6",
+        "productName": "M5 Smart Wearable Breast Pump - Upgraded with App Control",
+        "canonicalSelfRef": false,
+        "canonicalNote": "canonical 指向带 variant 参数的 URL 为 Shopify 默认行为，正常",
+        "metaTitleLength": 57,
+        "metaTitleAssessment": "GOOD (57字符，优化区间内)",
+        "metaDescLength": 177,
+        "metaDescAssessment": "WARN (177字符，超过160上限，可能被截断)",
+        "isIndexable": true,
+        "reviewSchemaNote": "已在 JSON-LD Product.aggregateRating 中正确声明 (ratingValue:4.6, reviewCount:1438) - 实测确认，无需修复"
+      },
+      {
+        "routeId": "pdp-mobile-flow",
+        "hasProductSchema": true,
+        "hasReviewSchema": true,
+        "hasBreadcrumbSchema": true,
+        "hasFaqSchema": true,
+        "reviewCount": "470",
+        "ratingValue": "4.7",
+        "productName": "Momcozy Mobile Flow Hands-Free Breast Pump | M9",
+        "canonicalSelfRef": false,
+        "metaTitleLength": 55,
+        "metaTitleAssessment": "GOOD (55字符)",
+        "metaDescLength": 138,
+        "metaDescAssessment": "OK (138字符)",
+        "isIndexable": true,
+        "reviewSchemaNote": "需要进一步确认（本次未实测），建议用 Google Rich Results Test 验证"
+      },
+      {
+        "routeId": "pdp-tuckgo-stroller",
+        "hasProductSchema": true,
+        "hasReviewSchema": true,
+        "hasBreadcrumbSchema": true,
+        "hasFaqSchema": true,
+        "reviewCount": "10",
+        "ratingValue": "5.0",
+        "productName": "Momcozy Tuckgo Travel Stroller",
+        "canonicalSelfRef": true,
+        "metaTitleLength": 30,
+        "metaTitleAssessment": "WARN (30字符，过短；缺少关键词扩展如 lightweight travel)",
+        "metaDescLength": 145,
+        "metaDescAssessment": "OK",
+        "isIndexable": true,
+        "reviewSchemaNote": "已在 JSON-LD Product.aggregateRating 中正确声明 (ratingValue:5.0, reviewCount:10) - 实测确认"
+      }
+    ],
+    "competitorComparison": [
+      {
+        "brand": "Willow",
+        "hasProductSchema": true,
+        "hasFaqSchema": true,
+        "reviewCount": null,
+        "reviewMarkup": "无 JSON-LD review markup（使用 Yotpo 组件，可能不被 AI 读取）",
+        "metaTitleLength": 76,
+        "metaTitleAssessment": "WARN (76字符，超出截断范围，但含强关键词)",
+        "canonicalSelfRef": true,
+        "assessment": "Product Schema 完整，FAQ 丰富，但 review markup 不在 JSON-LD 中"
+      },
+      {
+        "brand": "Elvie",
+        "hasProductSchema": true,
+        "hasBreadcrumbSchema": true,
+        "reviewCount": "649",
+        "ratingValue": "3.9",
+        "reviewMarkup": "microdata 方式，与 Momcozy 相同",
+        "metaTitleLength": 60,
+        "metaTitleAssessment": "GOOD (60字符，在优化区间内)",
+        "canonicalSelfRef": true,
+        "assessment": "SEO 技术底座最完整的竞品：Product + Breadcrumb + review microdata + canonical 正确"
+      },
+      {
+        "brand": "BabyBuddha",
+        "hasProductSchema": false,
+        "reviewCount": null,
+        "assessment": "页面未完全加载（可能 SPA 渲染问题）；SEO 信号不可观测，GEO 可见度低"
+      },
+      {
+        "brand": "Lansinoh",
+        "status": "404",
+        "assessment": "采集时 URL 返回 404；竞品 PDP URL 需要更新后重新采集"
+      },
+      {
+        "brand": "BabyBrezza",
+        "status": "404",
+        "assessment": "采集时 URL 返回 404；需要更新竞品 PDP URL"
+      },
+      {
+        "brand": "Spectra",
+        "status": "404 (返回中文404页面)",
+        "assessment": "spectra-baby.com US 站 PDP URL 已失效，且页面加载中国 CDN 脚本，存在额外安全风险"
+      }
+    ],
+    "keyGaps": [
+      {
+        "gap": "AggregateRating JSON-LD 状态确认（实测已存在）",
+        "affectedRoutes": [
+          "pdp-m5-smart (1438条评论, 4.6星)",
+          "pdp-tuckgo-stroller (10条评论, 5.0星)"
+        ],
+        "status": "PASS - 实测确认已在 Product JSON-LD 中正确声明 aggregateRating",
+        "note": "前次被动扫描误判 hasReviewSchema=false；实际上 Review Aggregation 通过 Product.aggregateRating 声明，Google Rich Results Test 可验证"
+      },
+      {
+        "gap": "TuckGo Stroller meta title 过短且无关键词",
+        "affectedRoutes": [
+          "pdp-tuckgo-stroller"
+        ],
+        "impact": "30字符 meta title 缺乏搜索关键词，新品在 SEO 和 GEO 中可见度极低",
+        "fix": "扩展至55-60字符：Momcozy Tuckgo Lightweight Travel Stroller - One-Hand Fold, IATA Compatible"
+      },
+      {
+        "gap": "M5 Smart canonical 指向异常",
+        "affectedRoutes": [
+          "pdp-m5-smart"
+        ],
+        "impact": "canonical 不自引可能导致搜索引擎权重分散",
+        "fix": "确认 canonical 是否应自引；确保最终 URL 正确声明"
+      },
+      {
+        "gap": "竞品 PDP URL 已失效（Lansinoh、BabyBrezza、Spectra）",
+        "impact": "竞品 SEO 技术层对比数据不完整",
+        "fix": "更新 competitor PDP URL 配置后重新采集"
       }
     ]
   }
