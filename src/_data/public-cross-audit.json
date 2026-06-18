@@ -1003,53 +1003,6 @@
     ]
   },
   "finalAudit": {
-    "pageAudits": [
-      {
-        "page": "index.html",
-        "role": "决策总览页",
-        "question": "读者是否能在 3 分钟内判断：为什么修、先修什么、拒绝什么？",
-        "evidencePresent": "真实经营金额/KPI、历史 M1 v2.0、诊断路径、关键取舍、执行战单均已前置。",
-        "conflictCheck": "已把旧收益叙事降级为实验假设；仍需避免顶部或文案出现旧公开口径。",
-        "optimization": "保留强结论前置；新增页面校验入口，让首页成为决策门而不是目录页。",
-        "gate": "首页必须同时出现真实 KPI、诊断路径、关键取舍、执行战单和安全边界。"
-      },
-      {
-        "page": "metrics.html",
-        "role": "口径治理页",
-        "question": "每个指标是否说明可用于什么、不可用于什么？",
-        "evidencePresent": "当前 workbook、历史经营 JSON、外部采集指标并列；漏斗表写明不能直接承诺收益。",
-        "conflictCheck": "当前转化率高于历史 overall_cvr，但窗口、币种、human/bot 口径不同，不能写成胜利。",
-        "optimization": "强化三层数据逻辑：经营层排优先级，技术层找病灶，归因层判可信度。",
-        "gate": "任何 ROI、SEO、渠道预算结论必须先通过口径治理页的不可用清单。"
-      },
-      {
-        "page": "forensics.html",
-        "role": "技术病灶页",
-        "question": "技术病灶是否被证明，而不是被形容？",
-        "evidencePresent": "第三方失败、JS/DOM 膨胀、LCP 不可观测、PDP 代表性不足均有采集证据。",
-        "conflictCheck": "第三方治理不能被写成直接删脚本；PDP 证据不能外推全站。",
-        "optimization": "把技术病灶页定位为风险定责页：owner、用途、失败预算、回滚窗口必须进入执行。",
-        "gate": "每项技术证据必须能指向一个 owner 或一个补采动作。"
-      },
-      {
-        "page": "trends.html",
-        "role": "趋势与复采页",
-        "question": "趋势是否讲清 M1/M2/M3 的关系，而不是制造假环比？",
-        "evidencePresent": "M3 路由感知采集已并入；旧 M2 首页趋势仅作为历史参照。",
-        "conflictCheck": "趋势页数据最少，不能承担收入、SEO 或全站 PDP 结论。",
-        "optimization": "强化趋势页职责：只证明技术债是否持续、复采是否覆盖更完整路径。",
-        "gate": "趋势页必须拒绝同口径环比幻觉，并明确下一轮新增 PDP/cart/checkout。"
-      },
-      {
-        "page": "cross-audit.html",
-        "role": "决策总表页",
-        "question": "结论、策略、执行是否形成闭环？",
-        "evidencePresent": "包含故事线、诊断路径、关键取舍、经营 KPI、决策总表、执行战单和路线图。",
-        "conflictCheck": "目前已能承接资源排序，但需持续把限制条件与执行动作一一映射。",
-        "optimization": "重点保留诊断结论、资源排序和执行动作闭环，不引入额外台账层。",
-        "gate": "每个关键判断必须有支撑数据、限制条件、资源方向、执行动作和验收门槛。"
-      }
-    ],
     "crossMatrix": [
       {
         "conclusion": "主问题不是后端慢",
