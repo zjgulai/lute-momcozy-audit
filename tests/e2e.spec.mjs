@@ -79,7 +79,9 @@ test("site uses left sidebar navigation on desktop and responsive sidebar on mob
       sidebarWidth: Math.round(sidebarRect.width),
       shellMarginLeft: Math.round(parseFloat(shellStyle.marginLeft)),
       activeLinks: document.querySelectorAll(".side-nav__link--active").length,
-      anchorLinks: document.querySelectorAll(".side-nav__anchor").length
+      anchorLinks: document.querySelectorAll(".side-nav__anchor").length,
+      ctaLinks: document.querySelectorAll(".side-nav__cta").length,
+      statusText: document.querySelector(".side-nav__status")?.innerText || ""
     };
   });
   expect(desktopLayout.hasOldTopNav).toBe(false);
@@ -88,28 +90,26 @@ test("site uses left sidebar navigation on desktop and responsive sidebar on mob
   expect(desktopLayout.sidebarWidth).toBeGreaterThanOrEqual(240);
   expect(desktopLayout.shellMarginLeft).toBeGreaterThanOrEqual(240);
   expect(desktopLayout.activeLinks).toBe(1);
-  expect(desktopLayout.anchorLinks).toBeGreaterThanOrEqual(12);
+  expect(desktopLayout.anchorLinks).toBe(0);
+  expect(desktopLayout.ctaLinks).toBe(0);
+  expect(desktopLayout.statusText).not.toContain("核心锚点");
   await desktop.close();
 
   const shortDesktop = await browser.newPage({viewport: {width: 1280, height: 768}});
   await shortDesktop.goto("/cross-audit.html");
   const shortSidebar = await shortDesktop.evaluate(() => {
-    const anchors = document.querySelector(".side-nav__anchors");
-    const cta = document.querySelector(".side-nav__cta");
+    const main = document.querySelector(".side-nav__main");
     const foot = document.querySelector(".side-nav__foot");
-    const anchorsRect = anchors.getBoundingClientRect();
-    const ctaRect = cta.getBoundingClientRect();
+    const mainRect = main.getBoundingClientRect();
     const footRect = foot.getBoundingClientRect();
     return {
-      anchorsOverflowY: getComputedStyle(anchors).overflowY,
-      anchorsCanScroll: anchors.scrollHeight > anchors.clientHeight,
-      overlapsCta: anchorsRect.bottom > ctaRect.top,
-      overlapsFoot: anchorsRect.bottom > footRect.top
+      hasAnchorBlock: Boolean(document.querySelector(".side-nav__group--anchors")),
+      hasCta: Boolean(document.querySelector(".side-nav__cta")),
+      overlapsFoot: mainRect.bottom > footRect.top
     };
   });
-  expect(shortSidebar.anchorsOverflowY).toBe("auto");
-  expect(shortSidebar.anchorsCanScroll).toBe(true);
-  expect(shortSidebar.overlapsCta).toBe(false);
+  expect(shortSidebar.hasAnchorBlock).toBe(false);
+  expect(shortSidebar.hasCta).toBe(false);
   expect(shortSidebar.overlapsFoot).toBe(false);
   await shortDesktop.close();
 
@@ -130,7 +130,7 @@ test("site uses left sidebar navigation on desktop and responsive sidebar on mob
   await mobile.close();
 });
 
-test("cross audit sidebar prioritizes current-page anchors", async ({page}) => {
+test("cross audit sidebar only exposes primary report pages", async ({page}) => {
   await page.goto("/cross-audit.html");
   const result = await page.evaluate(() => {
     const anchorHrefs = Array.from(document.querySelectorAll(".side-nav__anchor")).map((anchor) => anchor.getAttribute("href"));
@@ -140,34 +140,26 @@ test("cross audit sidebar prioritizes current-page anchors", async ({page}) => {
       activeText: document.querySelector(".side-nav__link--active")?.textContent.replace(/\s+/g, " ").trim(),
       anchorHrefs,
       anchorLabels,
-      ctaHref: document.querySelector(".side-nav__cta")?.getAttribute("href"),
-      ctaText: document.querySelector(".side-nav__cta")?.textContent.trim()
+      mainLinks: Array.from(document.querySelectorAll(".side-nav__link")).map((anchor) => anchor.textContent.replace(/\s+/g, " ").trim()),
+      ctaCount: document.querySelectorAll(".side-nav__cta").length
     };
   });
-  expect(result.groupLabels).toContain("本页锚点");
+  expect(result.groupLabels).not.toContain("本页锚点");
   expect(result.activeText).toContain("决策总表");
-  expect(result.anchorHrefs).toContain("cross-audit.html#insight-chain");
-  expect(result.anchorHrefs).toContain("cross-audit.html#contradictions");
-  expect(result.anchorHrefs).toContain("cross-audit.html#competitor-recollect");
-  expect(result.anchorHrefs).toContain("cross-audit.html#segment-sampling");
-  expect(result.anchorHrefs).toContain("cross-audit.html#third-party-governance");
-  expect(result.anchorHrefs).toContain("cross-audit.html#execution-orders");
-  expect(result.anchorHrefs).not.toContain("cross-audit.html#diagnostic-bridge");
-  expect(result.anchorHrefs).not.toContain("cross-audit.html#final-audit");
-  expect(result.anchorLabels).toContain("核心洞察");
-  expect(result.anchorLabels).toContain("冲突处理");
-  expect(result.ctaHref).toBe("cross-audit.html#execution-orders");
-  expect(result.ctaText).toBe("查看执行战单");
+  expect(result.anchorHrefs).toEqual([]);
+  expect(result.anchorLabels).toEqual([]);
+  expect(result.ctaCount).toBe(0);
+  expect(result.mainLinks).toEqual(["I · 总览01", "II · 指标口径02", "III · 技术病灶03", "IV · 性能趋势04", "V · 决策总表05"]);
 });
 
-test("sidebar anchors match the page navigation contract", async ({page}) => {
+test("report sections match the page structure contract without sidebar attachments", async ({page}) => {
   for (const [pathname, expectedAnchors] of Object.entries(pageNavigationContract)) {
     await page.goto(pathname);
     const actualAnchors = await page.evaluate(() => Array.from(document.querySelectorAll(".side-nav__anchor")).map((anchor) => ({
       href: anchor.getAttribute("href"),
       label: anchor.textContent.trim(),
     })));
-    expect(actualAnchors, `${pathname} side-nav anchors`).toEqual(expectedAnchors.map(({href, label}) => ({href, label})));
+    expect(actualAnchors, `${pathname} should not expose sidebar attachment anchors`).toEqual([]);
     for (const {href, label, targetId, markers} of expectedAnchors) {
       const sectionState = await page.locator(`#${targetId}`).evaluate((section, expectedMarkers) => {
         const eyebrow = section.querySelector(".section__eyebrow")?.textContent?.trim() || "";
@@ -249,7 +241,7 @@ test("overview restores the historical M1 v2 report as the primary site", async 
   const text = await page.locator("body").innerText();
   expect(text).toContain("Momcozy");
   expect(text.toLowerCase()).toContain("m1 v2.0");
-  expect(text).toContain("Top 15 病灶");
+  expect(text.toLowerCase()).toContain("top 15 病灶");
   expect(text).toContain("决策建议");
   expect(text).toContain("真实经营数据回归");
   expect(text).toContain("渠道质量诊断");
@@ -333,21 +325,13 @@ test("primary pages do not expose internal evidence-index wording", async ({page
   }
 });
 
-test("cross-audit exposes executable competitor recollect plan", async ({page}) => {
+test("cross-audit omits appendix-style execution plans but keeps insight tables", async ({page}) => {
   await page.goto("/cross-audit.html");
-  await page.locator("#competitor-recollect").scrollIntoViewIfNeeded();
-  const executionSection = await page.locator("#competitor-recollect").textContent();
-  expect(executionSection).toContain("把‘待重采’改为‘可验收动作’");
-  expect(executionSection).toContain("竞品复采摘要");
-  expect(executionSection).toContain("6 站、18 个公开页面、24 个视口样本");
-  expect(executionSection).toContain("C-01");
-  expect(executionSection).toContain("统一采集口径与样本定义");
-  expect(executionSection).toContain("采集团队");
-  expect(executionSection).toContain("2026-06-22");
-  expect(executionSection).toContain("任务");
-  expect(executionSection).toContain("默认 route 配置 + PDP watchlist route pack");
-  expect(executionSection).toContain("COMPETITOR_SNAPSHOT_DATE=2026-06-17 npm run collect:competitors");
-  expect(executionSection).toContain("交付项");
+  await expect(page.locator("#competitor-recollect")).toHaveCount(0);
+  await expect(page.locator("#segment-sampling")).toHaveCount(0);
+  await expect(page.locator("#third-party-governance")).toHaveCount(0);
+  await expect(page.locator("#code")).toHaveCount(0);
+  await expect(page.locator("#roadmap")).toHaveCount(0);
 
   const matrixSection = await page.locator("#matrix").textContent();
   expect(matrixSection).toContain("竞品矩阵 · 6 站复采样本");
@@ -355,26 +339,9 @@ test("cross-audit exposes executable competitor recollect plan", async ({page}) 
   expect(matrixSection).toContain("BabyBuddha");
   expect(matrixSection).toContain("最高 3P 失败");
 
-  const segmentSection = await page.locator("#segment-sampling").textContent();
-  expect(segmentSection).toContain("分段复采 · UTM / 状态 / Checkout");
-  expect(segmentSection).toContain("公开匿名 3-run archive");
-  expect(segmentSection).toContain("segmented-public-r1-r3");
-  expect(segmentSection).toContain("36 个 viewport observation");
-  expect(segmentSection).toContain("PDP UTM 是当前最先治理的公开风险面");
-  expect(segmentSection).toContain("90.5 / 89.5");
-  expect(segmentSection).toContain("KOL / creator UTM PDP");
-  expect(segmentSection).toContain("2201.5KB");
-  expect(segmentSection).toContain("93");
-  expect(segmentSection).toContain("首页投放 UTM 不是当前公开样本里的主要增量风险");
-  expect(segmentSection).toContain("真实 checkout 仍必须等 owner storage state 后重采");
-  expect(segmentSection).toContain("collection-routes-segmented-public");
-  expect(segmentSection).toContain("owner browser state");
-  expect(segmentSection).toContain("AUDIT_STORAGE_STATE=<owner-provided-playwright-state>");
-
-  const governanceSection = await page.locator("#third-party-governance").textContent();
-  expect(governanceSection).toContain("Owner / 用途 / 预算");
-  expect(governanceSection).toContain("未知 owner / 未知用途脚本");
-  expect(governanceSection).toContain("失败预算");
+  const executionSection = await page.locator("#execution-orders").textContent();
+  expect(executionSection).toContain("建立第三方域名 kill-list");
+  expect(executionSection).toContain("完成 PDP watchlist 复采闭环");
 });
 
 test("mobile strategy matrix wraps and allows horizontal scroll", async ({browser}) => {

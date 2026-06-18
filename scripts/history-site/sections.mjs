@@ -647,7 +647,7 @@ export function businessKpiSection(data) {
             <tr><td><strong>流量</strong></td><td>总访问量 ${fixed(current.traffic.totalVisitsWan, 4)}万；总访客 ${fixed(current.traffic.totalVisitorsWan, 4)}万；人均 PV ${fixed(current.traffic.avgPv, 2)}</td><td>PV ${fixed(history.traffic.totalPvMillion, 1)}M；UV ${fixed(history.traffic.totalUvMillion, 1)}M；人均 PV ${fixed(history.traffic.avgPvPerVisitor, 2)}</td><td>当前表更像近窗运营监控，历史表是大窗口诊断基线。</td></tr>
             <tr><td><strong>参与度</strong></td><td>平均停留 ${fixed(current.traffic.avgStaySec, 1)}s；跳出率 ${pct(current.traffic.bounceRate)}</td><td>平均停留 ${fixed(history.traffic.avgSessionSec, 1)}s；跳出率 ${pct(history.traffic.bounceRate)}</td><td>参与度改善信号存在，但需用同口径趋势确认。</td></tr>
             <tr><td><strong>转化漏斗</strong></td><td>浏览率 ${fixed(current.conversion.browseRate, 2)}；加购率 ${pct(current.conversion.addToCartRate)}；发起结账率 ${pct(current.conversion.checkoutRate)}；转化率 ${pct(current.conversion.conversionRate)}</td><td>加购率 ${pct(history.conversion.addToCartRate)}；发起结账率 ${pct(history.conversion.checkoutRate)}；overall_cvr ${pct(history.conversion.overallCvr)}</td><td>当前漏斗数值更好，但需先确认采集口径和 bot 过滤口径。</td></tr>
-            <tr><td><strong>销售</strong></td><td>净售出商品数 ${integer(current.sales.quantitySold)}；总销售额 ${fixed(current.sales.totalSalesWan, 6)}万；AOV ${fixed(current.sales.averageOrderValue, 2)}</td><td>总销量 ${integer(history.sales.quantitySold)}；总营收 ${usd(history.sales.totalRevenueUsd)}；AOV ${usd(history.sales.averageOrderValueUsd)}</td><td>历史值恢复完整故事线；当前值用于私密经营看板。</td></tr>
+            <tr><td><strong>销售</strong></td><td>净售出商品数 ${integer(current.sales.quantitySold)}；总销售额 ${fixed(current.sales.totalSalesWan, 6)}万；AOV ${fixed(current.sales.averageOrderValue, 2)}</td><td>总销量 ${integer(history.sales.quantitySold)}；总营收 ${usd(history.sales.totalRevenueUsd)}；AOV ${usd(history.sales.averageOrderValueUsd)}</td><td>历史值补齐长期参照；当前值用于私密经营看板。</td></tr>
             <tr><td><strong>售后/复购</strong></td><td>退款率 ${pct(current.sales.refundRate)}；复购率 ${pct(current.sales.repurchaseRate)}；连带率 ${pct(current.sales.attachRate)}</td><td>退款率 ${pct(history.sales.refundRate)}；复购率 ${pct(history.sales.repurchaseRate)}；连带率 ${pct(history.sales.attachRate)}</td><td>这些是“不能被修坏”的资产约束。</td></tr>
             <tr><td><strong>预警</strong></td><td>近 7 天预警 ${current.warnings.recentWarningRows} 行；自定义日期预警 ${current.warnings.customRangeWarningRows} 行；自然搜索明细 ${current.warnings.naturalSearchRows} 行</td><td>历史自然搜索 Top 5 有明细</td><td>搜索故事应以当前补源为准，不再仅靠历史导出。</td></tr>
           </tbody>
@@ -898,8 +898,8 @@ export function hero(data) {
       <div class="hero__grid">
         <div>
           <span class="hero__badge">M1 v2.0 历史骨架 · 私密经营数据重审版</span>
-          <h1 class="hero__title">真实经营数据回归，<br><span class="hl">技术债故事线闭环</span>。</h1>
-          <p class="hero__lead"><strong>先把话说透：</strong>本版不再是压缩摘要，而是把当前 workbook、历史经营 JSON 与 ${sessionLabel || "最新"} 自动采集放在同一个经营诊断故事里。旧站的业务体检、渠道归因、爬虫可信度、资产保护、Top 15 和 PR 路线图都要回来。</p>
+          <h1 class="hero__title">真实经营数据回归，<br><span class="hl">关键风险收敛</span>。</h1>
+          <p class="hero__lead">本版把当前 workbook、历史经营 JSON 与 ${sessionLabel || "最新"} 自动采集收敛为同一份经营洞察：先看业务优先级，再看可复现技术风险，最后只保留对预算和治理有直接影响的判断。</p>
           <p class="hero__lead">当前经营表显示总销售额 ${fixed(data.currentOperations.sales.totalSalesWan, 2)}万、转化率 ${pct(data.currentOperations.conversion.conversionRate)}、AOV ${fixed(data.currentOperations.sales.averageOrderValue, 2)}；历史 M1 v2.0 显示总营收 ${usdMillion(data.historicalOperations.sales.totalRevenueUsd)}、monthly_revenue ${usdMillion(data.historicalOperations.sales.monthlyRevenueUsd)}、overall_cvr ${pct(data.historicalOperations.conversion.overallCvr)}。自动采集则证明首页与代表性 PDP 仍暴露约 1.9MB JS、最高 ${data.external.maxDomNodes.toLocaleString("en-US")} DOM 节点、最高 ${data.external.maxThirdPartyFailures} 次第三方失败。</p>
           <div class="hero__meta">
             <span>经营刷新 · ${data.internal.statusCounts.PASS} PASS / ${data.internal.statusCounts.WARN} WARN / ${data.internal.statusCounts.FAIL} FAIL</span>
@@ -920,12 +920,10 @@ export function hero(data) {
 
 export function overviewBody(data) {
   return `${hero(data)}
-  ${storylineSection(data)}
   ${logicChainSection(data)}
   ${hardConclusionsSection(data)}
   ${crossMatrixSection(data)}
   ${contradictionsSection(data)}
-  ${featureComparisonSection(data)}
   <section class="section" id="health">
     <div class="container">
       <div class="section__head">
@@ -948,9 +946,7 @@ export function overviewBody(data) {
   ${crossAuditSection(data, "index.html")}
   ${diagnosticBacklogSection(data)}
   ${competitorMatrixSection(data)}
-  ${executionOrdersSection(data)}
-  ${playbookSection(data)}
-  ${roadmapSection(data)}`;
+  ${executionOrdersSection(data)}`;
 }
 
 export function metricsBody(data) {
@@ -1130,20 +1126,13 @@ export function crossAuditBody(data) {
       ${crossAuditCards(data)}
     </div>
   </section>
-  ${storylineSection(data)}
   ${logicChainSection(data)}
   ${hardConclusionsSection(data)}
   ${crossMatrixSection(data)}
   ${contradictionsSection(data)}
-  ${featureComparisonSection(data)}
   ${operatingBridgeSection(data)}
   ${businessKpiSection(data)}
   ${crossAuditSection(data, "cross-audit.html")}
   ${competitorMatrixSection(data)}
-  ${competitorRecollectPlanSection(data)}
-  ${segmentSamplingSection(data)}
-  ${thirdPartyGovernanceSection(data)}
-  ${executionOrdersSection(data, "execution-orders")}
-  ${playbookSection(data)}
-  ${roadmapSection(data)}`;
+  ${executionOrdersSection(data, "execution-orders")}`;
 }

@@ -1,12 +1,10 @@
 export const pageComponentMap = {
   "/": [
     "hero",
-    "storyline",
     "insight-chain",
     "hard-conclusions",
     "cross-matrix",
     "contradictions",
-    "feature-compare",
     "health",
     "operating-bridge",
     "business-kpi",
@@ -18,8 +16,6 @@ export const pageComponentMap = {
     "top15",
     "matrix",
     "decisions",
-    "code",
-    "roadmap",
   ],
   "/metrics.html": [
     "hero",
@@ -46,23 +42,16 @@ export const pageComponentMap = {
   ],
   "/cross-audit.html": [
     "hero",
-    "storyline",
     "insight-chain",
     "hard-conclusions",
     "cross-matrix",
     "contradictions",
-    "feature-compare",
     "operating-bridge",
     "business-kpi",
     "business-kpi-trend",
     "cross-audit",
     "matrix",
-    "competitor-recollect",
-    "segment-sampling",
-    "third-party-governance",
     "execution-orders",
-    "code",
-    "roadmap",
   ],
 };
 
@@ -75,7 +64,6 @@ const nav = (href, label, markers) => ({
 
 export const pageNavigationContract = {
   "/": [
-    nav("index.html#feature-compare", "功能对比", ["历史站高价值功能恢复清单"]),
     nav("index.html#insight-chain", "核心洞察", ["核心洞察"]),
     nav("index.html#hard-conclusions", "硬结论", ["预算取舍"]),
     nav("index.html#operating-bridge", "经营信号", ["经营数据负责判断优先级"]),
@@ -85,8 +73,6 @@ export const pageNavigationContract = {
     nav("index.html#top15", "Top 15 病灶", ["Top 15 病灶"]),
     nav("index.html#matrix", "竞品矩阵", ["竞品矩阵 · 6 站复采样本"]),
     nav("index.html#decisions", "执行战单", ["决策建议"]),
-    nav("index.html#code", "PR 实验卡", ["PR 实验卡"]),
-    nav("index.html#roadmap", "Sprint 路线图", ["Sprint 路线图"]),
   ],
   "/metrics.html": [
     nav("metrics.html#hero", "指标结论", ["先统一口径"]),
@@ -111,22 +97,15 @@ export const pageNavigationContract = {
     nav("trends.html#latest-v3", "最新采集", ["v3 路由感知"]),
   ],
   "/cross-audit.html": [
-    nav("cross-audit.html#storyline", "故事线", ["故事线"]),
     nav("cross-audit.html#insight-chain", "核心洞察", ["核心洞察"]),
     nav("cross-audit.html#hard-conclusions", "硬结论", ["预算取舍"]),
     nav("cross-audit.html#cross-matrix", "策略矩阵", ["诊断 × 资源排序 × 验收"]),
     nav("cross-audit.html#contradictions", "冲突处理", ["决策冲突处理"]),
-    nav("cross-audit.html#feature-compare", "功能对比", ["历史站高价值功能恢复清单"]),
     nav("cross-audit.html#operating-bridge", "经营信号", ["经营数据负责判断优先级"]),
     nav("cross-audit.html#business-kpi", "真实 KPI", ["真实经营 KPI"]),
     nav("cross-audit.html#cross-audit", "重审结论", ["2026-06-17"]),
     nav("cross-audit.html#matrix", "竞品矩阵", ["竞品矩阵 · 6 站复采样本"]),
-    nav("cross-audit.html#competitor-recollect", "竞品重采", ["竞品重采复核计划", "竞品复采摘要"]),
-    nav("cross-audit.html#segment-sampling", "分段复采", ["分段复采 · UTM / 状态 / Checkout"]),
-    nav("cross-audit.html#third-party-governance", "第三方治理", ["第三方治理 · Owner / 用途 / 预算"]),
     nav("cross-audit.html#execution-orders", "执行战单", ["决策建议"]),
-    nav("cross-audit.html#code", "PR 实验卡", ["PR 实验卡"]),
-    nav("cross-audit.html#roadmap", "Sprint 路线图", ["Sprint 路线图"]),
   ],
 };
 
