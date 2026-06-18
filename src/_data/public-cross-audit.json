@@ -120,7 +120,7 @@
     "maxDomNodes": 11742,
     "maxThirdPartyFailures": 92,
     "pdpThirdPartyFailures": "watchlist max 92 (pdp-m5-smart mobile); representative 89 / 92",
-    "lcpObservedSamples": 26,
+    "lcpObservedSamples": 0,
     "lcpTotalSamples": 26
   },
   "conclusions": [
