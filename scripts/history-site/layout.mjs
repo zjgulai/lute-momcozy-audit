@@ -144,10 +144,8 @@ export function nav(active) {
       ctaLabel: "查看执行战单",
       anchors: [
         ["index.html#feature-compare", "功能对比"],
-        ["index.html#insight-chain", "诊断路径"],
+        ["index.html#insight-chain", "核心洞察"],
         ["index.html#hard-conclusions", "硬结论"],
-        ["index.html#final-audit", "页面校验"],
-        ["index.html#diagnostic-bridge", "站内外诊断桥接"],
         ["index.html#operating-bridge", "经营信号"],
         ["index.html#traffic-attribution", "渠道诊断"],
         ["index.html#asset-attribution", "资产保护"],
@@ -165,8 +163,6 @@ export function nav(active) {
       ctaLabel: "查看口径治理",
       anchors: [
         ["metrics.html#hero", "指标结论"],
-        ["metrics.html#final-audit", "页面校验"],
-        ["metrics.html#diagnostic-bridge", "站内外诊断桥接"],
         ["metrics.html#operating-bridge", "经营信号"],
         ["metrics.html#business-kpi", "真实 KPI"],
         ["metrics.html#funnel", "口径治理"],
@@ -181,8 +177,6 @@ export function nav(active) {
       ctaLabel: "查看病灶清单",
       anchors: [
         ["forensics.html#scene", "病灶总览"],
-        ["forensics.html#final-audit", "页面校验"],
-        ["forensics.html#diagnostic-bridge", "站内外诊断桥接"],
         ["forensics.html#bot-audit", "爬虫治理"],
         ["forensics.html#cross-audit", "重审结论"],
         ["forensics.html#fatal", "第三方失败"],
@@ -196,8 +190,6 @@ export function nav(active) {
       ctaLabel: "查看最新采集",
       anchors: [
         ["trends.html#hero", "趋势结论"],
-        ["trends.html#final-audit", "页面校验"],
-        ["trends.html#diagnostic-bridge", "站内外诊断桥接"],
         ["trends.html#cross-audit", "重审结论"],
         ["trends.html#latest-v3", "最新采集"]
       ]
@@ -207,10 +199,8 @@ export function nav(active) {
       ctaHref: "cross-audit.html#execution-orders",
       ctaLabel: "查看执行战单",
       anchors: [
-        ["cross-audit.html#final-audit", "页面校验"],
-        ["cross-audit.html#diagnostic-bridge", "站内外诊断桥接"],
         ["cross-audit.html#storyline", "故事线"],
-        ["cross-audit.html#insight-chain", "诊断路径"],
+        ["cross-audit.html#insight-chain", "核心洞察"],
         ["cross-audit.html#hard-conclusions", "硬结论"],
         ["cross-audit.html#cross-matrix", "策略矩阵"],
         ["cross-audit.html#contradictions", "冲突处理"],

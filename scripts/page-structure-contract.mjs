@@ -4,8 +4,6 @@ export const pageComponentMap = {
     "storyline",
     "insight-chain",
     "hard-conclusions",
-    "final-audit",
-    "diagnostic-bridge",
     "cross-matrix",
     "contradictions",
     "feature-compare",
@@ -25,8 +23,6 @@ export const pageComponentMap = {
   ],
   "/metrics.html": [
     "hero",
-    "final-audit",
-    "diagnostic-bridge",
     "operating-bridge",
     "business-kpi",
     "business-kpi-trend",
@@ -37,8 +33,6 @@ export const pageComponentMap = {
   ],
   "/forensics.html": [
     "scene",
-    "final-audit",
-    "diagnostic-bridge",
     "bot-audit",
     "cross-audit",
     "fatal",
@@ -47,15 +41,11 @@ export const pageComponentMap = {
   ],
   "/trends.html": [
     "hero",
-    "final-audit",
-    "diagnostic-bridge",
     "cross-audit",
     "latest-v3",
   ],
   "/cross-audit.html": [
     "hero",
-    "final-audit",
-    "diagnostic-bridge",
     "storyline",
     "insight-chain",
     "hard-conclusions",
@@ -86,10 +76,8 @@ const nav = (href, label, markers) => ({
 export const pageNavigationContract = {
   "/": [
     nav("index.html#feature-compare", "功能对比", ["历史站高价值功能恢复清单"]),
-    nav("index.html#insight-chain", "诊断路径", ["经营诊断路径"]),
+    nav("index.html#insight-chain", "核心洞察", ["核心洞察"]),
     nav("index.html#hard-conclusions", "硬结论", ["预算取舍"]),
-    nav("index.html#final-audit", "页面校验", ["页面校验"]),
-    nav("index.html#diagnostic-bridge", "站内外诊断桥接", ["站内外诊断桥接"]),
     nav("index.html#operating-bridge", "经营信号", ["经营数据负责判断优先级"]),
     nav("index.html#traffic-attribution", "渠道诊断", ["渠道质量诊断"]),
     nav("index.html#asset-attribution", "资产保护", ["资产保护地图"]),
@@ -102,8 +90,6 @@ export const pageNavigationContract = {
   ],
   "/metrics.html": [
     nav("metrics.html#hero", "指标结论", ["先统一口径"]),
-    nav("metrics.html#final-audit", "页面校验", ["口径治理页"]),
-    nav("metrics.html#diagnostic-bridge", "站内外诊断桥接", ["站内外诊断桥接"]),
     nav("metrics.html#operating-bridge", "经营信号", ["经营数据负责判断优先级"]),
     nav("metrics.html#business-kpi", "真实 KPI", ["真实经营 KPI"]),
     nav("metrics.html#funnel", "口径治理", ["口径治理"]),
@@ -113,8 +99,6 @@ export const pageNavigationContract = {
   ],
   "/forensics.html": [
     nav("forensics.html#scene", "病灶总览", ["病灶很明确"]),
-    nav("forensics.html#final-audit", "页面校验", ["技术病灶页"]),
-    nav("forensics.html#diagnostic-bridge", "站内外诊断桥接", ["站内外诊断桥接"]),
     nav("forensics.html#bot-audit", "爬虫治理", ["爬虫与数据可信度"]),
     nav("forensics.html#cross-audit", "重审结论", ["2026-06-17"]),
     nav("forensics.html#fatal", "第三方失败", ["第三方失败"]),
@@ -123,16 +107,12 @@ export const pageNavigationContract = {
   ],
   "/trends.html": [
     nav("trends.html#hero", "趋势结论", ["最新 13 路由采集"]),
-    nav("trends.html#final-audit", "页面校验", ["趋势与复采页"]),
-    nav("trends.html#diagnostic-bridge", "站内外诊断桥接", ["站内外诊断桥接"]),
     nav("trends.html#cross-audit", "重审结论", ["2026-06-17"]),
     nav("trends.html#latest-v3", "最新采集", ["v3 路由感知"]),
   ],
   "/cross-audit.html": [
-    nav("cross-audit.html#final-audit", "页面校验", ["决策总表页"]),
-    nav("cross-audit.html#diagnostic-bridge", "站内外诊断桥接", ["站内外诊断桥接"]),
     nav("cross-audit.html#storyline", "故事线", ["故事线"]),
-    nav("cross-audit.html#insight-chain", "诊断路径", ["经营诊断路径"]),
+    nav("cross-audit.html#insight-chain", "核心洞察", ["核心洞察"]),
     nav("cross-audit.html#hard-conclusions", "硬结论", ["预算取舍"]),
     nav("cross-audit.html#cross-matrix", "策略矩阵", ["诊断 × 资源排序 × 验收"]),
     nav("cross-audit.html#contradictions", "冲突处理", ["决策冲突处理"]),
