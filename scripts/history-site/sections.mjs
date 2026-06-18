@@ -227,6 +227,29 @@ export function decisionData(data) {
   };
 }
 
+function firstInteger(value) {
+  const match = String(value ?? "").match(/\d+/);
+  return match ? Number.parseInt(match[0], 10) : null;
+}
+
+function pdpThirdPartyFailureValue(data) {
+  const parsed = firstInteger(data.external?.pdpThirdPartyFailures);
+  return Number.isFinite(parsed) ? parsed : data.external?.maxThirdPartyFailures;
+}
+
+function decisionMatrixRows(data) {
+  const decision = decisionData(data);
+  const hardConclusions = decision.hardConclusions || [];
+  const freezeCount = hardConclusions.filter((item) => String(item.title || "").startsWith("不批准")).length;
+  const approveCount = Math.max(hardConclusions.length - freezeCount, 0);
+  const proceedCount = (decision.executionOrders || []).length;
+  return [
+    {label: "批准：硬结论", value: approveCount, digits: 0},
+    {label: "冻结：不批准结论", value: freezeCount, digits: 0},
+    {label: "推进：执行战单", value: proceedCount, digits: 0}
+  ];
+}
+
 export function finalAuditData(data) {
   return data.finalAudit || {
     pageAudits: [],
@@ -769,11 +792,11 @@ export function diagnosticBacklogSection(data) {
     <p><strong>证据：</strong>${escapeHtml(item.evidence)}</p>
     <p><strong>验收：</strong>${escapeHtml(item.acceptance)}</p>
   </div>`).join("");
-  return `<section class="section" id="top15">
+  return `<section class="section" id="risk-backlog">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">Top 15 风险清单</div>
-        <h2 class="section__title">15 项问题按数据强度和验收门槛重排</h2>
+        <div class="section__eyebrow">风险清单</div>
+        <h2 class="section__title">风险项按数据强度和验收门槛重排</h2>
         <p class="section__sub">本轮只保留能被复采、归属和验收的风险项；排序依据是可复现程度、路径风险和能否进入执行战单。</p>
       </div>
       <div class="backlog-grid">${rows}</div>
@@ -997,7 +1020,7 @@ export function riskRankingSection(data) {
         subtitle: "数值来自最新外部采集和内部 watchlist；用于排序，不写成收入因果。",
         rows: [
           {label: "第三方失败最大值", value: data.external.maxThirdPartyFailures, digits: 0},
-          {label: "PDP 第三方失败", value: Number.parseInt(data.external.pdpThirdPartyFailures, 10) || 0, digits: 0},
+          {label: "PDP 第三方失败", value: pdpThirdPartyFailureValue(data), digits: 0},
           {label: "DOM 最大节点", value: data.external.maxDomNodes, digits: 0},
           {label: "PDP watchlist", value: data.internal.pdpWatchlistCount, digits: 0}
         ]
@@ -1060,12 +1083,8 @@ export function decisionChartSection(data) {
       ${barChart({
         id: "chart-decision-matrix",
         title: "决策矩阵：批准 / 冻结 / 推进",
-        subtitle: "矩阵是执行排序，不是旧报告附件。",
-        rows: [
-          {label: "批准：PDP 与第三方失败复采", value: 5, digits: 0},
-          {label: "冻结：SEO 变现与 bot 百分比结论", value: 3, digits: 0},
-          {label: "推进：kill-list 与实验验收", value: 4, digits: 0}
-        ]
+        subtitle: "矩阵只保留执行排序和验收边界。",
+        rows: decisionMatrixRows(data)
       })}
       ${botAttributionSankeyChart({data})}
     </div>

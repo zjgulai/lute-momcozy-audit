@@ -10,6 +10,20 @@ function escapeRegExp(value) {
   return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+function firstInteger(value) {
+  return Number.parseInt(String(value).match(/\d+/)?.[0] || "0", 10);
+}
+
+function decisionMatrixCounts(data) {
+  const hardConclusions = data.decisionArchitecture?.hardConclusions || [];
+  const freezeCount = hardConclusions.filter((item) => String(item.title || "").startsWith("不批准")).length;
+  return {
+    approve: hardConclusions.length - freezeCount,
+    freeze: freezeCount,
+    proceed: (data.decisionArchitecture?.executionOrders || []).length,
+  };
+}
+
 const pages = [
   "/",
   "/metrics.html",
@@ -340,6 +354,8 @@ test("primary pages do not expose internal evidence-index wording", async ({page
     "页面校验",
     "站内外诊断桥接",
     "为什么先修",
+    "附件",
+    "Top 15",
     "每个指标是否说明",
     "技术病灶是否被证明",
     "趋势是否讲清",
@@ -477,4 +493,21 @@ test("insight report pages render required charts and decisions", async ({page})
       await expect(page.locator(`#${chartId}`)).toBeVisible();
     }
   }
+
+  await page.goto("/forensics.html");
+  const riskRows = await page.locator("#chart-risk-ranking .insight-bar-row").evaluateAll((rows) =>
+    rows.map((row) => row.textContent.replace(/\s+/g, " ").trim())
+  );
+  const pdpRiskRow = riskRows.find((row) => row.includes("PDP 第三方失败")) || "";
+  expect(pdpRiskRow).toContain(String(firstInteger(publicCrossAudit.external.pdpThirdPartyFailures)));
+
+  await page.goto("/cross-audit.html");
+  const decisionChartText = await page.locator("#chart-decision-matrix").innerText();
+  const counts = decisionMatrixCounts(publicCrossAudit);
+  expect(decisionChartText).toContain("批准：硬结论");
+  expect(decisionChartText).toContain(String(counts.approve));
+  expect(decisionChartText).toContain("冻结：不批准结论");
+  expect(decisionChartText).toContain(String(counts.freeze));
+  expect(decisionChartText).toContain("推进：执行战单");
+  expect(decisionChartText).toContain(String(counts.proceed));
 });

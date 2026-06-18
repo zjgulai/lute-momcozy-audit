@@ -22,6 +22,7 @@ task: Phase 5 insight narrative and structure contract
 - Phase 5 已补齐 `chart-overview-proof`、`chart-kpi-direction`、`chart-risk-ranking`、`chart-lcp-coverage`、`chart-js-dom`、`chart-third-party-failures`、`chart-decision-matrix`，并保留 `chart-behavior-sankey` 与 `chart-bot-attribution-sankey`。
 - 每个核心页都有可见 `.section__eyebrow`：`最新外部采集 · session-2026-06-17`；页面正文保留 `最新外部采集` 和 `session-2026-06-17`。
 - 机器人占比/爬虫占比均写为缺失或待复证证据，要求 owner analytics / bot log / human-bot 维度复证；未生成任何 bot share 百分比。
+- Phase 5 review 修复已完成：移除可见“附件”残留并加入 E2E 禁词；`top15` 结构锚点迁移为 `risk-backlog`；`chart-risk-ranking` 的 PDP 第三方失败从源数据提取为 92；`chart-decision-matrix` 从 hard conclusions / execution orders 派生 2 / 3 / 5，不再使用硬编码值。
 - 已通过：`npm run build`、`npm run test:release-contract`、`npm run test:history-site-charts`、`npm run test:insight-contract`、目标 Playwright 子集、`git diff --check`、`npm test`。
 
 ## 当前红灯

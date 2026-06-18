@@ -24,7 +24,7 @@ export const pageComponentMap = {
     "risk-chart",
     "bot-audit",
     "fatal",
-    "top15",
+    "risk-backlog",
     "pdp",
   ],
   "/trends.html": [
@@ -72,7 +72,7 @@ export const pageNavigationContract = {
     nav("forensics.html#risk-chart", "风险排序", ["先判归属"]),
     nav("forensics.html#bot-audit", "Bot 缺口", ["机器人占比"]),
     nav("forensics.html#fatal", "第三方失败", ["第三方失败"]),
-    nav("forensics.html#top15", "风险清单", ["15 项问题"]),
+    nav("forensics.html#risk-backlog", "风险清单", ["风险项按数据强度"]),
     nav("forensics.html#pdp", "PDP 覆盖", ["PDP watchlist 首轮"]),
   ],
   "/trends.html": [
