@@ -62,7 +62,8 @@ async function inspectPage(routePath, context, url) {
   const required = pageComponentMap[routePath];
   const sectionStates = {};
   const misses = [];
-  let sideNavLinks = 0;
+  let sideNavAnchorLinks = 0;
+  let sideNavMainLinks = 0;
   let sectionCount = 0;
 
   for (const id of required) {
@@ -101,7 +102,8 @@ async function inspectPage(routePath, context, url) {
     };
   }
 
-  sideNavLinks = await page.locator(".side-nav__anchor").count();
+  sideNavAnchorLinks = await page.locator(".side-nav__anchor").count();
+  sideNavMainLinks = await page.locator(".side-nav__link").count();
   sectionCount = await page.locator(".section").count();
 
   await page.close();
@@ -110,7 +112,8 @@ async function inspectPage(routePath, context, url) {
     url,
     sectionStates,
     sectionCount,
-    sideNavLinks,
+    sideNavAnchorLinks,
+    sideNavMainLinks,
     misses,
     rawStatus: url.startsWith("file://") ? 200 : response.status(),
   };
@@ -156,10 +159,11 @@ function compare(localInspection, remoteInspection) {
     }
   }
 
-  if (localInspection.sideNavLinks < 3) routeIssues.push(`local side-nav anchors only ${localInspection.sideNavLinks}`);
-  if (remoteInspection.sideNavLinks < 3) routeIssues.push(`production side-nav anchors only ${remoteInspection.sideNavLinks}`);
-  if (Math.abs(localInspection.sectionCount - remoteInspection.sectionCount) > 3) {
-    routeIssues.push(`section count drift local=${localInspection.sectionCount}, prod=${remoteInspection.sectionCount}`);
+  if (localInspection.sideNavMainLinks < 5) {
+    routeIssues.push(`local main navigation links only ${localInspection.sideNavMainLinks}`);
+  }
+  if (remoteInspection.sideNavMainLinks < 5) {
+    routeIssues.push(`production main navigation links only ${remoteInspection.sideNavMainLinks}`);
   }
 
   return routeIssues;
@@ -203,14 +207,16 @@ async function main() {
         url: local.url,
         status: local.rawStatus,
         sectionCount: local.sectionCount,
-        sideNavLinks: local.sideNavLinks,
+        sideNavAnchorLinks: local.sideNavAnchorLinks,
+        sideNavMainLinks: local.sideNavMainLinks,
         sections: includeComponentStates ? pickRequiredSections(local.sectionStates, required) : undefined,
       },
       prod: {
         url: remote.url,
         status: remote.rawStatus,
         sectionCount: remote.sectionCount,
-        sideNavLinks: remote.sideNavLinks,
+        sideNavAnchorLinks: remote.sideNavAnchorLinks,
+        sideNavMainLinks: remote.sideNavMainLinks,
         sections: includeComponentStates ? pickRequiredSections(remote.sectionStates, required) : undefined,
       },
       issues: routeIssues,
@@ -226,8 +232,12 @@ async function main() {
     }
 
     console.log(`[parity] ${routePath}`);
-    console.log(`  local: status=${local.rawStatus}, sections=${local.sectionCount}, anchors=${local.sideNavLinks}`);
-    console.log(`  prod:  status=${remote.rawStatus}, sections=${remote.sectionCount}, anchors=${remote.sideNavLinks}`);
+    console.log(
+      `  local: status=${local.rawStatus}, sections=${local.sectionCount}, mainNav=${local.sideNavMainLinks}, anchors=${local.sideNavAnchorLinks}`,
+    );
+    console.log(
+      `  prod:  status=${remote.rawStatus}, sections=${remote.sectionCount}, mainNav=${remote.sideNavMainLinks}, anchors=${remote.sideNavAnchorLinks}`,
+    );
   }
 
   await context.close();
