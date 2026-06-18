@@ -99,7 +99,7 @@ async function inspectPage(page, {pageInfo, viewport}) {
 
   let detailScreenshot = "";
   if (pageInfo.key === "cross-audit") {
-    const matrix = page.locator("#matrix");
+    const matrix = page.locator("#cross-matrix");
     if (await matrix.count()) {
       await matrix.scrollIntoViewIfNeeded();
       detailScreenshot = screenshotName(pageInfo.key, viewport.label, "decision-matrix");
@@ -179,7 +179,7 @@ async function inspectPage(page, {pageInfo, viewport}) {
       .map((anchor) => ({...anchor, hash: anchor.href?.split("#")[1] || ""}))
       .filter((anchor) => anchor.hash && !document.getElementById(anchor.hash));
     const doc = document.documentElement;
-    const matrixTables = Array.from(document.querySelectorAll("#matrix table"));
+    const matrixTables = Array.from(document.querySelectorAll("#cross-matrix table"));
     const executionTables = Array.from(document.querySelectorAll("#execution-orders table"));
     return {
       title: document.title,
@@ -208,7 +208,7 @@ async function inspectPage(page, {pageInfo, viewport}) {
       textOverflowIssues,
       largeHeadingIssues,
       crossAudit: {
-        hasMatrix: !!document.querySelector("#matrix"),
+        hasMatrix: !!document.querySelector("#cross-matrix"),
         hasExecutionOrders: !!document.querySelector("#execution-orders"),
         hasLegacyCompetitorRecollect: !!document.querySelector("#competitor-recollect"),
         matrixRows: matrixTables.reduce((sum, table) => sum + table.querySelectorAll("tbody tr").length, 0),
