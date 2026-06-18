@@ -1,6 +1,6 @@
 ---
-status: in_progress
-updated_at: 2026-06-18T02:28:54Z
+status: done
+updated_at: 2026-06-18T02:35:05Z
 task: convert pages to insight report and deploy
 ---
 
@@ -16,6 +16,10 @@ task: convert pages to insight report and deploy
 - 已把侧栏入口中的“页面校验”“站内外诊断桥接”删除，把“诊断路径”改为“核心洞察”。
 - 已把首页/决策总表的 `insight-chain` 大标题从“为什么先修归因和 PDP，而不是先投后端和 SEO”改为“归因可信度与 PDP 负担是本轮最高优先级”。
 - 已清理可见报告文案中的“解释为什么”类过程型表达。
+- 已通过 PR #55 合并并触发 Tencent workflow `27732828367`；build、deploy、外部 smoke、生产视觉组件审计均通过。
+- 已在线上 5 个主页面扫描确认不再出现 `页面校验`、`站内外诊断桥接`、`为什么先修`、`每个指标是否说明`、`不可替代结论`、`本节只回答`、`解释为什么`。
+- 已确认线上首页返回 `HTTP/2 200`，`server: nginx`，`last-modified: Thu, 18 Jun 2026 02:32:51 GMT`。
+- 已确认 `npm run test:release-parity` 通过，本地与生产结构一致。
 
 ## 验证
 
@@ -31,7 +35,11 @@ task: convert pages to insight report and deploy
 - `npm run build && npx playwright test tests/e2e.spec.mjs -g "sidebar anchors match|cross audit sidebar|omit appendix|overview restores|cross-audit page exposes|primary pages do not expose|insight report|key report pages"`
 - `rg -n "页面校验|站内外诊断桥接|为什么先修|每个指标是否说明|不可替代结论|本节只回答|解释为什么" _site || true`
 - `npm test`
+- `gh run watch 27732828367 --interval 10 --exit-status`
+- `for route in / /metrics.html /forensics.html /trends.html /cross-audit.html; do curl ... | rg ...; done`
+- `curl -sSIL --max-time 20 https://shopify.lute-tlz-dddd.top/`
+- `npm run test:release-parity`
 
 ## 下一步
 
-- 建分支、提交、开 PR，等待 GitHub verify 和 Tencent workflow 发布。
+- 无待办。
