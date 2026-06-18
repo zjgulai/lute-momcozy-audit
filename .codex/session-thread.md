@@ -1,6 +1,6 @@
 ---
-status: in_progress
-updated_at: 2026-06-18T10:38:46Z
+status: done
+updated_at: 2026-06-18T11:07:40Z
 task: Phase 8 competitor comparison page and sharper insight storyline
 ---
 
@@ -45,17 +45,18 @@ task: Phase 8 competitor comparison page and sharper insight storyline
 - Phase 8 已补回有价值的旧洞察方向：第三方脚本治理、PDP 行动路径进入主线；爬虫分级只作为归因证据缺口；内容入口变现继续冻结，直到搜索源和落地页证据补齐。
 - Phase 8 已同步 `config/release-contract.json`、`config/insight-report-contract.json`、`scripts/page-structure-contract.mjs`、`scripts/audit-production-layout.mjs`、E2E 与 a11y。
 - Phase 8 已通过：`npm run test:release-contract`、`npm run test:insight-contract`、`npm run test:source-safety`、`npm run test:safety`、targeted Playwright 子集、`npm test`、`git diff --check`。
+- PR #67 已合并到 `main`，merge commit 为 `d1add4d3e8d827ef32118177af32a1a5ee5b4684`。
+- 腾讯云 workflow `27754992167` 已通过：build、deploy、post-deploy smoke、production visual component audit 全部成功。
+- GitHub Pages workflow `27754992180` 已通过：verify 与 deploy 均成功。
+- 部署后 release checklist `artifacts/release-checklist-2026-06-18T11-06-45-876Z.md` 为 `Ready for release`；full local suite、production parity、uptime、Actions artifacts 均 PASS。
+- 生产复验已覆盖 `/competitors.html`：HTTP 200，`/competitors/` 为 404；6 个主页面均含 `VI · 竞品对比` 导航，且未命中 `附件`、`Top 15`、`审计检查`、`诊断报告` 等禁词。
 
-## 当前红灯
+## 剩余约束
 
-- Phase 8 本地实现无红灯。
-- 生产部署未在本轮执行；当前变更仍在本地工作区，包含 Phase 7 bot evidence 和 Phase 8 竞品页改动。
 - 当前仓库仍没有真实 owner analytics / bot log / human-bot 聚合证据；报告继续只能显示“归因证据缺口”，不能诊断“机器人占比高”或输出 bot share 数值。
 - 竞品页当前只支持公开页面技术上限判断，不支持收入、SEO、真实 checkout 或品牌胜负结论。
-- 下一次要执行生产线时，需要 `main` 分支触发 `tencent` workflow（`workflow_dispatch` 指向 main，或正常推送）以实际验证 production 部署及 smoke 已通过。
 
 ## 下一步
 
-- 如需继续推进：先将本次发布链路修复提交到分支并发起 PR，等待腾讯云 workflow（build、deploy、post-deploy smoke、production visual component audit）通过。
 - 如果 owner 提供脱敏聚合 bot evidence，把 `src/_data/bot-evidence.json` 从 `missing` 切到 `measured`，三类来源必须全部 `ready`，且通过 `npm run test:bot-evidence` 后才能进入报告。
 - 下一轮若继续增强竞品页，优先补多次复采、入口参数、checkout 状态、脚本 owner/用途/预算表，再考虑分值化对标。
