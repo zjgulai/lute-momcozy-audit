@@ -73,6 +73,7 @@ function buildIssues({responseStatus, consoleErrors, pageErrors, state, pageKey,
   if (state.missingAnchorTargets.length) issues.push(`missing anchor targets ${state.missingAnchorTargets.map((item) => item.href).join(", ")}`);
   if (state.tableIssues.length) issues.push(`table scroller issues ${state.tableIssues.length}`);
   if (state.textOverflowIssues.length) issues.push(`text overflow issues ${state.textOverflowIssues.length}`);
+  if (state.largeHeadingIssues.length) issues.push(`large section headings ${state.largeHeadingIssues.length}`);
   if (pageKey === "cross-audit") {
     if (!state.crossAudit?.hasMatrix) issues.push("missing decision matrix section");
     if (!state.crossAudit?.hasExecutionOrders) issues.push("missing execution orders section");
@@ -159,6 +160,17 @@ async function inspectPage(page, {pageInfo, viewport}) {
         };
       })
       .filter((item) => item.scrollWidth > item.clientWidth + 2 && !item.overflowAllowed);
+    const largeHeadingIssues = Array.from(document.querySelectorAll(".section__head .section__title"))
+      .map((el) => {
+        const bounds = el.getBoundingClientRect();
+        const style = getComputedStyle(el);
+        return {
+          text: (el.textContent || "").replace(/\s+/g, " ").trim().slice(0, 80),
+          fontSize: Number.parseFloat(style.fontSize),
+          visible: bounds.width > 0 && bounds.height > 0 && style.display !== "none" && style.visibility !== "hidden",
+        };
+      })
+      .filter((item) => item.visible && item.fontSize > 24);
     const sideNavAnchors = Array.from(document.querySelectorAll(".side-nav__anchor")).map((anchor) => ({
       text: anchor.textContent.trim(),
       href: anchor.getAttribute("href"),
@@ -194,6 +206,7 @@ async function inspectPage(page, {pageInfo, viewport}) {
       missingAnchorTargets,
       tableIssues,
       textOverflowIssues,
+      largeHeadingIssues,
       crossAudit: {
         hasMatrix: !!document.querySelector("#matrix"),
         hasExecutionOrders: !!document.querySelector("#execution-orders"),
