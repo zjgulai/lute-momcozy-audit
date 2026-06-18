@@ -15,7 +15,12 @@ function maxMetric(session, metric) {
   return values.length ? Math.max(...values) : null;
 }
 
-function routeIds(session) {
+function routeIdOf(route) {
+  if (typeof route === "string") return route;
+  return typeof route?.routeId === "string" ? route.routeId : "";
+}
+
+function observationRouteIds(session) {
   return [...new Set(observationsOf(session).map((item) => item.routeId).filter(Boolean))];
 }
 
@@ -24,7 +29,8 @@ export function deriveExternalSessionMetrics(session) {
   const homepageDesktop = routeMetric(session, "homepage", "desktop");
   const homepageMobile = routeMetric(session, "homepage", "mobile");
   const lcpObservedSamples = observations.filter((item) => Number.isFinite(item.metrics?.lcp)).length;
-  const routes = Array.isArray(session?.routes) && session.routes.length ? session.routes : routeIds(session);
+  const configuredRoutes = Array.isArray(session?.routes) ? session.routes.map(routeIdOf).filter(Boolean) : [];
+  const routes = configuredRoutes.length ? [...new Set(configuredRoutes)] : observationRouteIds(session);
   return {
     latestSession: session?.sessionId || "",
     routeCount: routes.length,
