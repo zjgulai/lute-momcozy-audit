@@ -977,14 +977,14 @@ return `${hero(data)}
   </section>`;
 ```
 
-- [ ] **Step 8: Update page structure contract**
+- [x] **Step 8: Update page structure contract**
 
 Modify `scripts/page-structure-contract.mjs` so `pageComponentMap` matches the new visible modules:
 
 ```js
 export const pageComponentMap = {
-  "/": ["hero", "insight-chain", "hard-conclusions", "overview-proof", "operating-bridge", "business-kpi", "traffic-attribution", "decisions"],
-  "/metrics.html": ["hero", "metric-governance", "operating-bridge", "business-kpi", "traffic-attribution", "funnel", "metric-dictionary"],
+  "/": ["hero", "insight-chain", "hard-conclusions", "overview-proof", "business-kpi", "traffic-attribution", "bot-attribution", "decisions"],
+  "/metrics.html": ["hero", "metric-governance", "business-kpi", "funnel", "traffic-attribution", "metric-dictionary"],
   "/forensics.html": ["scene", "risk-chart", "bot-audit", "fatal", "top15", "pdp"],
   "/trends.html": ["hero", "trend-charts", "latest-v3"],
   "/cross-audit.html": ["hero", "hard-conclusions", "cross-matrix", "contradictions", "execution-orders", "decision-chart"]
@@ -993,26 +993,27 @@ export const pageComponentMap = {
 
 Update `pageNavigationContract` labels to avoid `重审结论`, `病灶`, and `诊断`.
 
-- [ ] **Step 9: Verify Phase 5**
+- [x] **Step 9: Verify Phase 5**
 
 Run:
 
 ```bash
 npm run build
 npm run test:insight-contract
-npm run test:release-parity
-npx playwright test tests/e2e.spec.mjs -g "insight report|page structure|appendix-style|stable"
+npm run test:release-contract
+npm run test:history-site-charts
+npx playwright test tests/e2e.spec.mjs -g "insight report|page structure|appendix-style|stable|evidence labels|primary pages|release contract|cross-audit|mobile strategy"
 ```
 
-Expected: all commands pass; section counts are below the contract caps.
+Result: all listed commands pass locally; section counts are below the contract caps. Production `test:release-parity` remains out of scope until a deployment exists for this commit.
 
-- [ ] **Step 10: Commit Phase 5**
+- [x] **Step 10: Commit Phase 5**
 
 Run:
 
 ```bash
-git add scripts/history-site/pages.mjs scripts/history-site/layout.mjs scripts/history-site/sections.mjs scripts/page-structure-contract.mjs src/_data/public-cross-audit.json tests/e2e.spec.mjs
-git commit -m "feat: reshape pages into insight report narrative"
+git add config/release-contract.json scripts/history-site/pages.mjs scripts/history-site/layout.mjs scripts/history-site/sections.mjs scripts/page-structure-contract.mjs tests/e2e.spec.mjs .codex/session-thread.md docs/superpowers/plans/2026-06-18-insight-report-optimization.md
+git commit -m "feat: reshape pages into insight narrative"
 ```
 
 ---
@@ -1096,7 +1097,7 @@ Run:
 
 ```bash
 npm run build
-PRODUCTION_LAYOUT_BASE_URL=http://127.0.0.1:8080 PRODUCTION_LAYOUT_OUTPUT_DIR=artifacts/insight-layout-local npm run audit:production-layout
+PRODUCTION_LAYOUT_BASE_URL="$LOCAL_BASE_URL" PRODUCTION_LAYOUT_OUTPUT_DIR=artifacts/insight-layout-local npm run audit:production-layout
 ```
 
 Expected:
@@ -1358,7 +1359,7 @@ npm run serve
 In another terminal, run:
 
 ```bash
-PRODUCTION_LAYOUT_BASE_URL=http://127.0.0.1:8080 PRODUCTION_LAYOUT_OUTPUT_DIR=artifacts/insight-report-layout-local npm run audit:production-layout
+PRODUCTION_LAYOUT_BASE_URL="$LOCAL_BASE_URL" PRODUCTION_LAYOUT_OUTPUT_DIR=artifacts/insight-report-layout-local npm run audit:production-layout
 ```
 
 Expected: `failedChecks: 0`.

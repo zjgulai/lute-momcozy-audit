@@ -160,20 +160,20 @@ export function nav(active) {
   const links = [
     ["index.html", "I · 总览", "index"],
     ["metrics.html", "II · 指标口径", "metrics"],
-    ["forensics.html", "III · 技术病灶", "forensics"],
-    ["trends.html", "IV · 性能趋势", "trends"],
-    ["cross-audit.html", "V · 决策总表", "cross"]
+    ["forensics.html", "III · 风险归因", "forensics"],
+    ["trends.html", "IV · 趋势证据", "trends"],
+    ["cross-audit.html", "V · 决策矩阵", "cross"]
   ];
-  return `<nav class="side-nav" aria-label="Momcozy 诊断报告导航">
+  return `<nav class="side-nav" aria-label="Momcozy 洞察报告导航">
     <a href="index.html#hero" class="side-nav__brand">路特 AI <span>×</span><br>Momcozy</a>
-    <div class="side-nav__kicker">Momcozy 经营诊断</div>
+    <div class="side-nav__kicker">Momcozy 经营洞察</div>
     <div class="side-nav__status" aria-label="报告状态">
       <div class="side-stat"><strong>5</strong><span>主页面</span></div>
       <div class="side-stat"><strong>KPI</strong><span>真实写入</span></div>
       <div class="side-stat"><strong>noindex</strong><span>访问边界</span></div>
     </div>
     <div class="side-nav__group">
-      <div class="side-nav__label">主诊断</div>
+      <div class="side-nav__label">主报告</div>
       <div class="side-nav__main">
         ${links.map(([href, label, key], index) => `<a href="${href}" class="side-nav__link${active === key ? " side-nav__link--active" : ""}"><span>${label}</span><small>0${index + 1}</small></a>`).join("")}
       </div>
@@ -194,12 +194,12 @@ export function footer() {
         <div class="footer__col"><div class="footer-heading">验收重点</div><ul><li>中文主线</li><li>私密访问控制</li><li>每页有依据</li></ul></div>
         <div class="footer__col"><div class="footer-heading">下一步</div><ul><li>PDP 队列扩采</li><li>归因质量治理</li><li>实验验收</li></ul></div>
       </div>
-      <div class="footer__bottom">© 2026 路特 AI 公司 · Momcozy 私密经营诊断报告 · noindex</div>
+      <div class="footer__bottom">© 2026 路特 AI 公司 · Momcozy 私密经营洞察报告 · noindex</div>
     </div>
   </footer>`;
 }
 
-export function page(title, active, body, metaDescription = "Momcozy 独立站私密经营诊断报告") {
+export function page(title, active, body, metaDescription = "Momcozy 独立站私密经营洞察报告") {
   const sanitizedDescription = escapeHtml(metaDescription);
   return `<!doctype html>
 <html lang="zh-CN">

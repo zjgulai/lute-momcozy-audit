@@ -1,7 +1,7 @@
 ---
-status: in_progress
-updated_at: 2026-06-18T07:53:22Z
-task: Phase 4 static insight chart components
+status: done
+updated_at: 2026-06-18T09:05:00Z
+task: Phase 5 insight narrative and structure contract
 ---
 
 ## 已完成
@@ -18,12 +18,16 @@ task: Phase 4 static insight chart components
 - Phase 4 已新增 chart 组件测试 `tests/history-site-charts.test.mjs`。
 - Phase 4 review 修复已完成：`barChart` 兼容 `items` 与 `rows`，`pairedMetricChart` 兼容 `pairs` 与 `leftLabel/rightLabel/leftValue/rightValue`，避免 Phase 5 出现 chart id 存在但图表为空的假通过。
 - 已新增 `test:history-site-charts` 并接入 `npm test` 的 `test:insight-contract` 之前；图表单测覆盖 behavior Sankey、bot attribution Sankey、`barChart({rows})`、`coverageChart()`、`pairedMetricChart({leftValue,rightValue})`。
+- Phase 5 已重写五页为“洞察报告”优先叙事：结论 -> 事实 -> 归因 -> 行动；页面标题、侧边栏、release marker 和 E2E 旧断言已同步到风险归因、趋势证据、决策矩阵语言。
+- Phase 5 已补齐 `chart-overview-proof`、`chart-kpi-direction`、`chart-risk-ranking`、`chart-lcp-coverage`、`chart-js-dom`、`chart-third-party-failures`、`chart-decision-matrix`，并保留 `chart-behavior-sankey` 与 `chart-bot-attribution-sankey`。
+- 每个核心页都有可见 `.section__eyebrow`：`最新外部采集 · session-2026-06-17`；页面正文保留 `最新外部采集` 和 `session-2026-06-17`。
+- 机器人占比/爬虫占比均写为缺失或待复证证据，要求 owner analytics / bot log / human-bot 维度复证；未生成任何 bot share 百分比。
+- 已通过：`npm run build`、`npm run test:release-contract`、`npm run test:history-site-charts`、`npm run test:insight-contract`、目标 Playwright 子集、`git diff --check`、`npm test`。
 
 ## 当前红灯
 
-- `npm run test:insight-contract` 仍预期失败；Sankey chart id 缺口已由 Phase 4 补齐，但页面决策文案、其他 chart id、section count 上限和 Phase 5 重排仍未处理。
+- Phase 5 本地实现无红灯。
 
 ## 下一步
 
-- Phase 5：重写页面叙事与模块顺序，按指标驱动诊断转化率、停留、跳出率、机器人占比/爬虫占比、当前 vs 历史对比与归因。
-- Phase 5 需补齐仍缺失的 `chart-overview-proof`、`chart-kpi-direction`、`chart-risk-ranking`、`chart-lcp-coverage`、`chart-js-dom`、`chart-third-party-failures`、`chart-decision-matrix`，并压缩每页 section count。
+- 后续 Phase 可继续做视觉布局审计、PR、部署和生产 `release-parity`。

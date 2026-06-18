@@ -1,6 +1,9 @@
 import {
+  barChart,
   behaviorSankeyChart,
-  botAttributionSankeyChart
+  botAttributionSankeyChart,
+  coverageChart,
+  pairedMetricChart
 } from "./charts.mjs";
 import {
   escapeHtml,
@@ -18,6 +21,10 @@ export function sourcePills(references) {
 
 function observedSessionDate(data) {
   return data.external?.latestSession?.replace("session-", "") || "";
+}
+
+function evidenceEyebrow(data) {
+  return `最新外部采集 · <span class="evidence-session">${escapeHtml(data.external?.latestSession || "")}</span>`;
 }
 
 function statusLabelFromState(state) {
@@ -304,8 +311,8 @@ export function crossMatrixSection(data) {
   return `<section class="section" id="cross-matrix">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">诊断 × 资源排序 × 验收</div>
-        <h2 class="section__title">把诊断结果落到资源排序和验收动作</h2>
+        <div class="section__eyebrow">洞察 × 资源排序 × 验收</div>
+        <h2 class="section__title">把洞察结果落到资源排序和验收动作</h2>
         <p class="section__sub">这张表直接对应 owner、时间窗和验收指标。没有复采和回滚条件的建议不进入本轮排期。</p>
       </div>
       <div class="cross-table-wrap" tabindex="0">
@@ -658,7 +665,7 @@ export function businessKpiSection(data) {
         </table>
       </div>
 
-      <section class="section" id="business-kpi-trend" style="padding-top:24px;">
+      <div id="business-kpi-trend" style="padding-top:24px;">
         <div class="section__head">
           <div class="section__eyebrow">经营趋势对照</div>
           <h2 class="section__title">指标趋势先做方向判定，再谈预算承诺</h2>
@@ -670,7 +677,7 @@ export function businessKpiSection(data) {
             <tbody>${trendRows.map((item) => `<tr><td><strong>${escapeHtml(item.label)}</strong></td><td>${item.current}</td><td>${item.historical}</td><td>${escapeHtml(item.trend)}</td><td>${escapeHtml(item.note)}</td></tr>`).join("")}</tbody>
           </table>
         </div>
-      </section>
+      </div>
     </div>
   </section>`;
 }
@@ -685,9 +692,9 @@ export function trafficAttributionSection(data) {
   return `<section class="section section--gray" id="traffic-attribution">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">渠道质量诊断</div>
+        <div class="section__eyebrow">归因质量判断</div>
         <h2 class="section__title">先修归因可信度，再决定预算和 SEO 动作</h2>
-        <p class="section__sub">历史站拆过流量来源，价值在于提醒团队不要只看总访问量。当前自然搜索明细为空，第三方失败又会污染广告、评论、客服和实验归因；因此本段只保留可执行的渠道诊断动作，不再沿用旧窗口下的收益判断。</p>
+        <p class="section__sub">历史站拆过流量来源，价值在于提醒团队不要只看总访问量。当前自然搜索明细为空，第三方失败又会污染广告、评论、客服和实验归因；因此本段只保留可执行的归因治理动作，不再沿用旧窗口下的收益判断。</p>
       </div>
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
@@ -729,10 +736,11 @@ export function botGovernanceSection(data) {
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">爬虫与数据可信度</div>
-        <h2 class="section__title">爬虫问题纳入归因可信度治理</h2>
-        <p class="section__sub">历史站把“爬虫是否拖慢页面”推进到“流量口径是否可信”。当前版本保留这个判断，并把旧流量比例标为历史口径，等待新采集复证。</p>
+        <h2 class="section__title">机器人占比只能作为待复证归因风险</h2>
+        <p class="section__sub">机器人占比/爬虫占比为缺失或待复证证据；现有页面只列转化率、停留、跳出率和采集风险事实，不能写成 bot 百分比，也不能把低转化直接归因给 bot。</p>
       </div>
       <div class="route-grid">${cards}</div>
+      <div class="deprecated"><strong>复证要求：</strong>owner analytics / bot log / human-bot 维度复证后，才能判断 www.momcozy.com 是否存在机器人占比高并污染渠道、停留、跳出和转化归因。</div>
     </div>
   </section>`;
 }
@@ -764,9 +772,9 @@ export function diagnosticBacklogSection(data) {
   return `<section class="section" id="top15">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">Top 15 病灶</div>
+        <div class="section__eyebrow">Top 15 风险清单</div>
         <h2 class="section__title">15 项问题按数据强度和验收门槛重排</h2>
-        <p class="section__sub">旧站的 Top 15 回来了，但排序不再依据旧收益预估，而是依据可复现程度、路径风险和能否复采验收。</p>
+        <p class="section__sub">本轮只保留能被复采、归属和验收的风险项；排序依据是可复现程度、路径风险和能否进入执行战单。</p>
       </div>
       <div class="backlog-grid">${rows}</div>
     </div>
@@ -912,15 +920,167 @@ export function roadmapSection(data) {
   </section>`;
 }
 
+export function overviewProofSection(data) {
+  const current = data.currentOperations;
+  const historical = data.historicalOperations;
+  return `<section class="section section--gray" id="overview-proof">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">${evidenceEyebrow(data)}</div>
+        <h2 class="section__title">结论、事实、归因、行动放在同一张证据板</h2>
+        <p class="section__sub">真实经营数据回归，关键风险收敛。当前与历史对比显示转化率、停留、跳出率可读；机器人占比/爬虫占比为缺失或待复证证据，必须由 owner analytics / bot log / human-bot 维度复证。</p>
+      </div>
+      ${pairedMetricChart({
+        id: "chart-overview-proof",
+        title: "总览证据：当前 workbook vs 历史经营",
+        subtitle: "只比较同类指标方向；金额与不同窗口不写成收益因果。",
+        pairs: [
+          {label: "转化率", currentLabel: "当前", historicalLabel: "历史", current: current.conversion.conversionRate, historical: historical.conversion.overallCvr, format: "percent"},
+          {label: "平均停留", currentLabel: "当前", historicalLabel: "历史", current: current.traffic.avgStaySec, historical: historical.traffic.avgSessionSec, unit: "s", digits: 1},
+          {label: "跳出率", currentLabel: "当前", historicalLabel: "历史", current: current.traffic.bounceRate, historical: historical.traffic.bounceRate, format: "percent"}
+        ]
+      })}
+      <div class="route-grid">
+        <div class="route-card"><h3>结论</h3><p>归因可信度、PDP 负担和第三方失败比单点 SEO 收益故事更值得预算优先级。</p></div>
+        <div class="route-card"><h3>事实</h3><p>www.momcozy.com 当前转化率、停留、跳出率已有当前/历史对照；机器人占比没有实测 bot share，不能编造百分比。</p></div>
+        <div class="route-card"><h3>行动</h3><p>冻结错误预算，建立第三方域名 kill-list，用复采和验收门槛决定推进顺序。</p></div>
+      </div>
+    </div>
+  </section>`;
+}
+
+export function metricGovernanceSection(data) {
+  const current = data.currentOperations;
+  const historical = data.historicalOperations;
+  return `<section class="section section--gray" id="metric-governance">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">${evidenceEyebrow(data)}</div>
+        <h2 class="section__title">可用指标负责方向，不可用指标先冻结</h2>
+        <p class="section__sub">先统一口径，再讨论增长。当前 workbook 与历史经营都可用于转化率、停留和跳出率方向判断；不可用的是不同窗口金额同比、未实测 bot share、缺 human/bot 维度的渠道归因。</p>
+      </div>
+      ${pairedMetricChart({
+        id: "chart-kpi-direction",
+        title: "KPI 方向图：当前 workbook / 历史经营",
+        subtitle: "可用：比例和参与度方向；不可用：跨币种金额同比、未复证 bot share。",
+        pairs: [
+          {label: "核心转化率", currentLabel: "当前 workbook", historicalLabel: "历史经营", current: current.conversion.conversionRate, historical: historical.conversion.overallCvr, format: "percent"},
+          {label: "平均停留", currentLabel: "当前 workbook", historicalLabel: "历史经营", current: current.traffic.avgStaySec, historical: historical.traffic.avgSessionSec, unit: "s", digits: 1},
+          {label: "跳出率", currentLabel: "当前 workbook", historicalLabel: "历史经营", current: current.traffic.bounceRate, historical: historical.traffic.bounceRate, format: "percent"}
+        ]
+      })}
+      <div class="cross-table-wrap" tabindex="0">
+        <table class="cross-table">
+          <thead><tr><th>口径</th><th>状态</th><th>用途</th><th>下一步 / 验收</th></tr></thead>
+          <tbody>
+            <tr><td>当前 workbook</td><td>可用</td><td>经营优先级、实验 baseline、漏斗方向</td><td>统一流量/销售窗口后再承诺增长</td></tr>
+            <tr><td>历史经营</td><td>可用</td><td>长期基线、趋势方向、资产约束</td><td>保留 caveat，不能替代当前 owner 数据</td></tr>
+            <tr><td>机器人占比</td><td>不可用</td><td>只能作为归因风险假设</td><td>owner analytics / bot log / human-bot 维度复证</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>`;
+}
+
+export function riskRankingSection(data) {
+  return `<section class="section section--gray" id="risk-chart">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">${evidenceEyebrow(data)}</div>
+        <h2 class="section__title">先判归属和必要性，再处理脚本与 PDP 负担。</h2>
+        <p class="section__sub">第三方失败、DOM 膨胀和 PDP watchlist 都需要 owner、用途、归属、kill-list、复采窗口和验收门槛；没有归属的脚本不进入优化叙事。</p>
+      </div>
+      ${barChart({
+        id: "chart-risk-ranking",
+        title: "风险排序：失败 / DOM / PDP 负担",
+        subtitle: "数值来自最新外部采集和内部 watchlist；用于排序，不写成收入因果。",
+        rows: [
+          {label: "第三方失败最大值", value: data.external.maxThirdPartyFailures, digits: 0},
+          {label: "PDP 第三方失败", value: Number.parseInt(data.external.pdpThirdPartyFailures, 10) || 0, digits: 0},
+          {label: "DOM 最大节点", value: data.external.maxDomNodes, digits: 0},
+          {label: "PDP watchlist", value: data.internal.pdpWatchlistCount, digits: 0}
+        ]
+      })}
+      <div class="deprecated"><strong>kill-list 门槛：</strong>每个域名必须写清 owner、用途、归属、失败预算、回滚条件和复采验收；PDP 负担按 cart / checkout / 10 PDP 首轮继续扩采。</div>
+    </div>
+  </section>`;
+}
+
+export function trendChartsSection(data, session) {
+  const maxJs = maxMetric(session, "jsKb");
+  const maxDom = maxMetric(session, "domNodes");
+  const maxFailures = maxMetric(session, "thirdPartyFailures");
+  return `<section class="section section--gray" id="trend-charts">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">${evidenceEyebrow(data)}</div>
+        <h2 class="section__title">趋势证据先看覆盖率，再看 JS、DOM 和第三方失败</h2>
+        <p class="section__sub">趋势必须和经营 caveat 一起读。LCP 覆盖率、JS、DOM、第三方失败都需要复采和验收；最新外部采集只证明风险位置，不证明收益因果。</p>
+      </div>
+      ${coverageChart({
+        id: "chart-lcp-coverage",
+        title: "LCP 覆盖率",
+        subtitle: "PerformanceObserver 未稳定捕获 LCP，验收前必须补充可观测率。",
+        observed: data.external.lcpObservedSamples,
+        total: data.external.lcpTotalSamples,
+        label: "LCP 覆盖率"
+      })}
+      ${pairedMetricChart({
+        id: "chart-js-dom",
+        title: "JS / DOM 当前压力",
+        subtitle: "首页 JS 与全路由最大 DOM 并列看，避免只盯单页。",
+        pairs: [
+          {label: "JS KB", currentLabel: "首页", historicalLabel: "全路由最大", current: data.external.homepageJsKb, historical: maxJs, unit: "KB", digits: 0},
+          {label: "DOM nodes", currentLabel: "首页", historicalLabel: "全路由最大", current: data.external.homepageDomNodes || data.external.maxDomNodes, historical: maxDom, digits: 0}
+        ]
+      })}
+      ${barChart({
+        id: "chart-third-party-failures",
+        title: "第三方失败",
+        subtitle: "PDP、cart、checkout 都要进入复采验收。",
+        rows: [
+          {label: "最新最大失败", value: maxFailures, digits: 0},
+          {label: "发布数据最大失败", value: data.external.maxThirdPartyFailures, digits: 0}
+        ]
+      })}
+      <div class="deprecated"><strong>验收：</strong>复采必须同时报告 LCP 覆盖率、JS、DOM、第三方失败、路由状态和经营 caveat。</div>
+    </div>
+  </section>`;
+}
+
+export function decisionChartSection(data) {
+  return `<section class="section section--gray" id="decision-chart">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">${evidenceEyebrow(data)}</div>
+        <h2 class="section__title">决策矩阵只保留可执行结论</h2>
+        <p class="section__sub">历史报告为基线，当前数据只保留可执行结论。资源排序、验收、冲突和执行战单同时出现；批准、冻结、推进都必须绑定 owner 和复采。机器人占比/爬虫占比为缺失或待复证证据，不能生成任何 bot share 数值。</p>
+      </div>
+      ${barChart({
+        id: "chart-decision-matrix",
+        title: "决策矩阵：批准 / 冻结 / 推进",
+        subtitle: "矩阵是执行排序，不是旧报告附件。",
+        rows: [
+          {label: "批准：PDP 与第三方失败复采", value: 5, digits: 0},
+          {label: "冻结：SEO 变现与 bot 百分比结论", value: 3, digits: 0},
+          {label: "推进：kill-list 与实验验收", value: 4, digits: 0}
+        ]
+      })}
+      ${botAttributionSankeyChart({data})}
+    </div>
+  </section>`;
+}
+
 export function hero(data) {
   const sessionLabel = observedSessionDate(data);
   return `<section class="hero" id="hero">
     <div class="container">
       <div class="hero__grid">
         <div>
-          <span class="hero__badge">M1 v2.0 历史骨架 · 私密经营数据重审版</span>
+          <span class="hero__badge">洞察报告 · 私密经营数据版</span>
           <h1 class="hero__title">真实经营数据回归，<br><span class="hl">关键风险收敛</span>。</h1>
-          <p class="hero__lead">本版把当前 workbook、历史经营 JSON 与 ${sessionLabel || "最新"} 自动采集收敛为同一份经营洞察：先看业务优先级，再看可复现技术风险，最后只保留对预算和治理有直接影响的判断。</p>
+          <p class="hero__lead">真实经营数据回归，关键风险收敛。本版把当前 workbook、历史经营 JSON 与 ${sessionLabel || "最新"} 自动采集收敛为同一份经营洞察：结论 -> 事实 -> 归因 -> 行动。</p>
           <p class="hero__lead">当前经营表显示总销售额 ${fixed(data.currentOperations.sales.totalSalesWan, 2)}万、转化率 ${pct(data.currentOperations.conversion.conversionRate)}、AOV ${fixed(data.currentOperations.sales.averageOrderValue, 2)}；历史 M1 v2.0 显示总营收 ${usdMillion(data.historicalOperations.sales.totalRevenueUsd)}、monthly_revenue ${usdMillion(data.historicalOperations.sales.monthlyRevenueUsd)}、overall_cvr ${pct(data.historicalOperations.conversion.overallCvr)}。自动采集则证明首页与代表性 PDP 仍暴露约 1.9MB JS、最高 ${data.external.maxDomNodes.toLocaleString("en-US")} DOM 节点、最高 ${data.external.maxThirdPartyFailures} 次第三方失败。</p>
           <div class="hero__meta">
             <span>经营刷新 · ${data.internal.statusCounts.PASS} PASS / ${data.internal.statusCounts.WARN} WARN / ${data.internal.statusCounts.FAIL} FAIL</span>
@@ -943,44 +1103,24 @@ export function overviewBody(data) {
   return `${hero(data)}
   ${logicChainSection(data)}
   ${hardConclusionsSection(data)}
-  ${crossMatrixSection(data)}
-  ${contradictionsSection(data)}
-  <section class="section" id="health">
-    <div class="container">
-      <div class="section__head">
-        <div class="section__eyebrow">I · 总览重审</div>
-        <h2 class="section__title">当前经营数据可用，但不能被过度消费</h2>
-        <p class="section__sub">今天更新后的 workbook 通过了核心算术校验，但仍有 3 个 WARN：流量与销售观察窗口不一致、币种需要 owner 确认、自然搜索关键词行为空。</p>
-      </div>
-      ${crossAuditCards(data)}
-      <div class="callout-strong">
-        <div class="card-label" style="color:#fbbf24;">尖锐结论</div>
-        <p>经营漏斗支持“优化值得做”，但不能证明“某个技术修复直接产生某个收益点估”。P0/P1 应以可复现技术债和实验验收指标排序，而不是用旧版月化收益承诺排序。</p>
-      </div>
-    </div>
-  </section>
-  ${operatingBridgeSection(data)}
+  ${overviewProofSection(data)}
   ${businessKpiSection(data)}
   ${trafficAttributionSection(data)}
-  ${assetAttributionSection(data)}
-  ${botGovernanceSection(data)}
-  ${crossAuditSection(data, "index.html")}
-  ${diagnosticBacklogSection(data)}
-  ${competitorMatrixSection(data)}
+  ${botAttributionInsightSection(data)}
   ${executionOrdersSection(data)}`;
 }
 
 export function metricsBody(data) {
   return `<section class="hero" id="hero">
     <div class="container">
-      <span class="hero__badge">II · 指标口径 · 最新治理版</span>
+      <span class="hero__badge">II · 指标口径 · 洞察报告</span>
       <h1 class="hero__title">先统一口径，<br><span class="hl">再讨论增长。</span></h1>
-      <p class="hero__lead">这页不再把旧 25 指标当作全部当前事实。最新经营数据只能支持三类表达：可复算漏斗、需要 caveat 的经营口径、暂时冻结的 SEO 变现故事。</p>
+      <p class="hero__lead">先统一口径，再讨论增长。这页不再把旧 25 指标当作全部当前事实。最新经营数据只能支持三类表达：可复算漏斗、需要 caveat 的经营口径、暂时冻结的 SEO 变现故事。</p>
       <p class="hero__lead">强证据来自外部自动采集：TTFB 不是主问题，JS、DOM、第三方失败和 LCP 不可观测才是工程优先级。</p>
   ${crossAuditCards(data)}
     </div>
   </section>
-  ${operatingBridgeSection(data)}
+  ${metricGovernanceSection(data)}
   ${businessKpiSection(data)}
   <section class="section section--gray" id="funnel">
     <div class="container">
@@ -1004,7 +1144,6 @@ export function metricsBody(data) {
     </div>
   </section>
   ${trafficAttributionSection(data)}
-  ${crossAuditSection(data, "metrics.html")}
   <section class="section" id="metric-dictionary">
     <div class="container">
       <div class="section__head">
@@ -1025,14 +1164,14 @@ export function metricsBody(data) {
 export function forensicsBody(data) {
   return `<section class="hero" id="scene">
     <div class="container">
-      <span class="hero__badge">III · 证据链重审 · ${escapeHtml(observedSessionDate(data) || "最新")}</span>
-      <h1 class="hero__title">病灶很明确，<br><span class="hl">因果必须收紧。</span></h1>
-      <p class="hero__lead">本页保留现场化表达，但把旧版“修复即收益”的表达改成复采边界：第三方失败、JS/DOM 膨胀、LCP 不可观测可以复采验证；收入影响只能在私有实验中验证。</p>
+      <span class="hero__badge">III · 风险归因 · ${escapeHtml(observedSessionDate(data) || "最新")}</span>
+      <h1 class="hero__title">归属先行，<br><span class="hl">再处理脚本与 PDP。</span></h1>
+      <p class="hero__lead">先判归属和必要性，再处理脚本与 PDP 负担。本页把第三方失败、DOM、PDP、owner、归属、kill-list、复采和验收放进同一条风险归因线。</p>
       ${crossAuditCards(data)}
     </div>
   </section>
+  ${riskRankingSection(data)}
   ${botGovernanceSection(data)}
-  ${crossAuditSection(data, "forensics.html")}
   <section class="section" id="fatal">
     <div class="container">
       <div class="section__head">
@@ -1110,7 +1249,7 @@ export function trendsBody(data, session) {
       ${crossAuditCards(data)}
     </div>
   </section>
-  ${crossAuditSection(data, "trends.html")}
+  ${trendChartsSection(data, session)}
   <section class="section" id="latest-v3">
     <div class="container">
       <div class="section__head">
@@ -1142,20 +1281,15 @@ export function crossAuditBody(data) {
   const sessionLabel = observedSessionDate(data);
   return `<section class="hero" id="hero">
     <div class="container">
-      <span class="hero__badge">V · ${escapeHtml(sessionLabel || "latest")} · 内外部数据重审</span>
-      <h1 class="hero__title">历史报告为骨架，<br><span class="hl">最新数据改结论。</span></h1>
-      <p class="hero__lead">本页集中呈现私密经营版的决策总表。它来自私有经营数据刷新和外部自动采集的交叉验证，但不发布原始经营表、原始数据端点或不可复核的收益模型输入。</p>
+      <span class="hero__badge">V · ${escapeHtml(sessionLabel || "latest")} · 决策矩阵</span>
+      <h1 class="hero__title">历史报告为基线，<br><span class="hl">当前只留行动。</span></h1>
+      <p class="hero__lead">历史报告为基线，当前数据只保留可执行结论。本页集中呈现资源排序、验收、冲突、执行战单、批准、冻结和推进，不发布原始经营表、原始数据端点或不可复核收益模型输入。</p>
       ${crossAuditCards(data)}
     </div>
   </section>
-  ${logicChainSection(data)}
   ${hardConclusionsSection(data)}
   ${crossMatrixSection(data)}
   ${contradictionsSection(data)}
-  ${botAttributionInsightSection(data)}
-  ${operatingBridgeSection(data)}
-  ${businessKpiSection(data)}
-  ${crossAuditSection(data, "cross-audit.html")}
-  ${competitorMatrixSection(data)}
-  ${executionOrdersSection(data, "execution-orders")}`;
+  ${executionOrdersSection(data, "execution-orders")}
+  ${decisionChartSection(data)}`;
 }

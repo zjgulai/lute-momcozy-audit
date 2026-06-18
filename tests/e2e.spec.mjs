@@ -150,11 +150,11 @@ test("cross audit sidebar only exposes primary report pages", async ({page}) => 
     };
   });
   expect(result.groupLabels).not.toContain("本页锚点");
-  expect(result.activeText).toContain("决策总表");
+  expect(result.activeText).toContain("决策矩阵");
   expect(result.anchorHrefs).toEqual([]);
   expect(result.anchorLabels).toEqual([]);
   expect(result.ctaCount).toBe(0);
-  expect(result.mainLinks).toEqual(["I · 总览01", "II · 指标口径02", "III · 技术病灶03", "IV · 性能趋势04", "V · 决策总表05"]);
+  expect(result.mainLinks).toEqual(["I · 总览01", "II · 指标口径02", "III · 风险归因03", "IV · 趋势证据04", "V · 决策矩阵05"]);
 });
 
 test("report sections match the page structure contract without sidebar attachments", async ({page}) => {
@@ -241,23 +241,23 @@ test("trends page keeps history report and integrates latest v3 route data", asy
   expect(result.tableRows).toBe((result.expectedRouteCount || 4) * 2);
 });
 
-test("overview restores the historical M1 v2 report as the primary site", async ({page}) => {
+test("overview reads as an insight report with proof and action", async ({page}) => {
   await page.goto("/");
   const text = await page.locator("body").innerText();
   expect(text).toContain("Momcozy");
-  expect(text.toLowerCase()).toContain("m1 v2.0");
-  expect(text.toLowerCase()).toContain("top 15 病灶");
+  expect(text).toContain("洞察报告");
+  expect(text).toContain("真实经营数据回归，关键风险收敛。");
   expect(text).toContain("决策建议");
-  expect(text).toContain("真实经营数据回归");
-  expect(text).toContain("渠道质量诊断");
+  expect(text).toContain("机器人占比/爬虫占比为缺失或待复证证据");
+  expect(text).toContain("owner analytics / bot log / human-bot 维度复证");
   expect(text).toContain("先修归因可信度，再决定预算和 SEO 动作");
-  expect(text).toContain("爬虫与数据可信度");
+  expect(text).toContain("归因证据缺口");
   expect(text).toContain("归因可信度与 PDP 负担是本轮最高优先级");
   expect(text).toContain("不批准“后端慢”作为主叙事");
   expect(text).toContain("不做泛泛优化，只批准这 5 个可落地动作");
   expect(text).toContain("建立第三方域名 kill-list");
-  expect(text).toContain("诊断 × 资源排序 × 验收");
-  expect(text).toContain("决策冲突处理");
+  await expect(page.locator("#chart-overview-proof")).toHaveCount(1);
+  await expect(page.locator("#chart-bot-attribution-sankey")).toHaveCount(1);
   expect(text).toContain("经营趋势对照");
   expect(text).not.toContain("回迁");
   expect(text).not.toContain("铁证索引");
@@ -269,22 +269,23 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
   const text = await page.locator("body").innerText();
   const latestSessionLabel = publicCrossAudit.external?.latestSession ? "外部采集" : "";
   const maxThirdPartyFailures = publicCrossAudit.external?.maxThirdPartyFailures;
-  expect(text).toContain("Share with caveats");
+  expect(text).toContain("历史报告为基线，当前数据只保留可执行结论。");
   expect(text).toContain("137d / 204d");
   if (latestSessionLabel) {
     expect(text).toContain(latestSessionLabel);
   }
-  expect(text).toContain("SEO 变现结论必须冻结");
+  expect(text).toContain("SEO 变现必须冻结");
   if (typeof maxThirdPartyFailures === "number") {
-    expect(text).toContain(`Momcozy PDP watchlist 最高第三方失败 ${maxThirdPartyFailures}`);
-    expect(text).toContain("竞品复采二轮最高第三方失败 42");
+    expect(text).toContain(`${maxThirdPartyFailures} 次`);
   } else {
-    expect(text).toContain("Momcozy PDP watchlist 最高第三方失败");
+    expect(text).toContain("第三方失败");
   }
   expect(text).toContain("不批准 SEO 变现建议");
   expect(text).toContain("批准高风险 PDP 优先复跑");
-  expect(text).toContain("把诊断结果落到资源排序和验收动作");
-  expect(text).toContain("归因可信度与 PDP 负担是本轮最高优先级");
+  expect(text).toContain("把洞察结果落到资源排序和验收动作");
+  expect(text).toContain("执行战单");
+  await expect(page.locator("#chart-decision-matrix")).toHaveCount(1);
+  await expect(page.locator("#chart-bot-attribution-sankey")).toHaveCount(1);
   expect(text).not.toContain("回迁");
   expect(text).not.toContain("铁证如山的前提");
   expect(text).not.toContain("铁证索引");
@@ -366,11 +367,12 @@ test("cross-audit omits appendix-style execution plans but keeps insight tables"
   await expect(page.locator("#code")).toHaveCount(0);
   await expect(page.locator("#roadmap")).toHaveCount(0);
 
-  const matrixSection = await page.locator("#matrix").textContent();
-  expect(matrixSection).toContain("竞品矩阵 · 6 站复采样本");
-  expect(matrixSection).toContain("Baby Brezza");
-  expect(matrixSection).toContain("BabyBuddha");
-  expect(matrixSection).toContain("最高 3P 失败");
+  const matrixSection = await page.locator("#cross-matrix").textContent();
+  expect(matrixSection).toContain("洞察 × 资源排序 × 验收");
+  expect(matrixSection).toContain("资源排序");
+  expect(matrixSection).toContain("验收");
+  const contradictionSection = await page.locator("#contradictions").textContent();
+  expect(contradictionSection).toContain("冲突");
 
   const executionSection = await page.locator("#execution-orders").textContent();
   expect(executionSection).toContain("建立第三方域名 kill-list");
@@ -380,7 +382,7 @@ test("cross-audit omits appendix-style execution plans but keeps insight tables"
 test("mobile strategy matrix wraps and allows horizontal scroll", async ({browser}) => {
   const mobile = await browser.newPage({viewport: {width: 390, height: 844}});
   await mobile.goto("/cross-audit.html");
-  const matrix = mobile.locator(".matrix-wrap");
+  const matrix = mobile.locator("#cross-matrix .cross-table-wrap").first();
   await expect(matrix).toBeVisible();
   const metrics = await matrix.evaluate((el) => {
     return {
