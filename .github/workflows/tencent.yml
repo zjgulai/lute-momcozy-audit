@@ -30,7 +30,8 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ hashFiles('package-lock.json') }}
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright browser
+        run: npx playwright install chromium
       - run: npm test
       - name: Validate local build structure parity against production
         env:
@@ -43,7 +44,7 @@ jobs:
           mkdir -p artifacts
           PROD_BASE_URL="$PUBLIC_URL" \
             RELEASE_PARITY_REPORT_PATH="artifacts/release-parity-${GITHUB_SHA}.json" \
-            RELEASE_PARITY_ALLOW_PROD_MISSING_SECTIONS="/:overview-proof,/:bot-attribution,/metrics.html:metric-governance,/forensics.html:risk-chart,/forensics.html:risk-backlog,/trends.html:trend-charts,/cross-audit.html:decision-chart" \
+            RELEASE_PARITY_ALLOW_PROD_MISSING_SECTIONS="/:overview-proof,/:bot-attribution,/metrics.html:metric-governance,/forensics.html:risk-chart,/forensics.html:risk-backlog,/trends.html:trend-charts,/cross-audit.html:decision-chart,/competitors.html" \
             npm run test:release-parity
       - name: Generate SHA-256 manifest
         run: (cd _site && find . -type f -print0 | sort -z | xargs -0 sha256sum) > site.sha256
@@ -61,6 +62,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     environment: tencent-production
     steps:
       - uses: actions/checkout@v6
@@ -74,7 +76,8 @@ jobs:
         with:
           path: ~/.cache/ms-playwright
           key: playwright-chromium-${{ hashFiles('package-lock.json') }}
-      - run: npx playwright install --with-deps chromium
+      - name: Install Playwright browser
+        run: npx playwright install chromium
       - name: Download verified site artifact
         uses: actions/download-artifact@v8
         with:
@@ -255,10 +258,13 @@ jobs:
           expect_code 200 "${PUBLIC_URL}/trends.html"
           expect_code 200 "${PUBLIC_URL}/cross-audit.html"
           expect_code 404 "${PUBLIC_URL}/cross-audit/"
+          expect_code 200 "${PUBLIC_URL}/competitors.html"
+          expect_code 404 "${PUBLIC_URL}/competitors/"
           expect_chinese_page "${PUBLIC_URL}/metrics.html"
           expect_chinese_page "${PUBLIC_URL}/forensics.html"
           expect_chinese_page "${PUBLIC_URL}/trends.html"
           expect_chinese_page "${PUBLIC_URL}/cross-audit.html"
+          expect_chinese_page "${PUBLIC_URL}/competitors.html"
           expect_code 404 "${PUBLIC_URL}/not-a-real-page"
           expect_chinese_page "${PUBLIC_URL}/404.html"
           expect_private_path_blocked "${PUBLIC_URL}/private-audit-canary"
@@ -296,11 +302,14 @@ jobs:
           expect_code 200 "${PUBLIC_URL}/trends.html"
           expect_code 200 "${PUBLIC_URL}/cross-audit.html"
           expect_code 404 "${PUBLIC_URL}/cross-audit/"
+          expect_code 200 "${PUBLIC_URL}/competitors.html"
+          expect_code 404 "${PUBLIC_URL}/competitors/"
           expect_chinese_page "${PUBLIC_URL}/"
           expect_chinese_page "${PUBLIC_URL}/metrics.html"
           expect_chinese_page "${PUBLIC_URL}/forensics.html"
           expect_chinese_page "${PUBLIC_URL}/trends.html"
           expect_chinese_page "${PUBLIC_URL}/cross-audit.html"
+          expect_chinese_page "${PUBLIC_URL}/competitors.html"
           expect_chinese_page "${PUBLIC_URL}/404.html"
           expect_code 404 "${PUBLIC_URL}/not-a-real-page"
           private_code="$(status_code "${PUBLIC_URL}/private-audit-canary")"

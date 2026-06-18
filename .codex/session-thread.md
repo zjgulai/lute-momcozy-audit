@@ -1,6 +1,6 @@
 ---
-status: done
-updated_at: 2026-06-18T10:07:49Z
+status: in_progress
+updated_at: 2026-06-18T10:38:46Z
 task: Phase 8 competitor comparison page and sharper insight storyline
 ---
 
@@ -33,6 +33,8 @@ task: Phase 8 competitor comparison page and sharper insight storyline
 - 腾讯云 workflow `27749964281` 已通过：build、deploy、post-deploy smoke、production visual component audit 全部成功。
 - 部署后 release checklist `artifacts/release-checklist-2026-06-18T09-39-05-110Z.md` 为 `Ready for release`；production parity、uptime、Actions artifact 均 PASS。
 - 生产浏览器抽样已覆盖 5 页 × desktop/mobile：HTTP 200、禁词命中 `none`、横向溢出 0、section 标题最大 desktop 20px / mobile 18px。
+- 腾讯云流程失败 run `27754128103` 的直接原因已确认：环境保护规则（main-only）拦截 `deploy` job，`check-run` annotation 显示 `Branch "codex/competitors-side-nav" is not allowed to deploy to tencent-production due to environment protection rules.`
+- 已对 `deploy` job 增加 `if: github.ref == 'refs/heads/main'`，并将 `/competitors.html` 与 `/competitors/` 纳入 deploy 内外烟雾测试，降低非主干分支误触发失败。
 - Phase 7 已新增 `config/bot-evidence.schema.json` 与 `src/_data/bot-evidence.json`，把 owner analytics、bot log、human-bot 维度三类证据定义为必备来源；当前状态为 `missing`，不允许生成 bot share 百分比。
 - Phase 7 已新增 `scripts/validate-bot-evidence.mjs` 与 `tests/bot-evidence.test.mjs`，校验脱敏聚合数据、必备 segment、sessions 合计、三类来源 ready 状态，并拒绝原始 URL、用户级标识、私有路径、IP 和私钥。
 - Phase 7 已把 `botEvidence` 接入 `scripts/build-history-site.mjs` 和 `npm run test:bot-evidence`；`npm test` 已把 bot evidence 合同纳入全量验证。
@@ -50,9 +52,10 @@ task: Phase 8 competitor comparison page and sharper insight storyline
 - 生产部署未在本轮执行；当前变更仍在本地工作区，包含 Phase 7 bot evidence 和 Phase 8 竞品页改动。
 - 当前仓库仍没有真实 owner analytics / bot log / human-bot 聚合证据；报告继续只能显示“归因证据缺口”，不能诊断“机器人占比高”或输出 bot share 数值。
 - 竞品页当前只支持公开页面技术上限判断，不支持收入、SEO、真实 checkout 或品牌胜负结论。
+- 下一次要执行生产线时，需要 `main` 分支触发 `tencent` workflow（`workflow_dispatch` 指向 main，或正常推送）以实际验证 production 部署及 smoke 已通过。
 
 ## 下一步
 
-- 如需上线，先创建分支/PR；合并后等待腾讯云 workflow、post-deploy smoke、production visual component audit 通过。
+- 如需继续推进：先将本次发布链路修复提交到分支并发起 PR，等待腾讯云 workflow（build、deploy、post-deploy smoke、production visual component audit）通过。
 - 如果 owner 提供脱敏聚合 bot evidence，把 `src/_data/bot-evidence.json` 从 `missing` 切到 `measured`，三类来源必须全部 `ready`，且通过 `npm run test:bot-evidence` 后才能进入报告。
 - 下一轮若继续增强竞品页，优先补多次复采、入口参数、checkout 状态、脚本 owner/用途/预算表，再考虑分值化对标。
