@@ -235,7 +235,6 @@ export function pageAuditSection(data, pageName) {
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">页面校验 · ${escapeHtml(item.role)}</div>
-        <h2 class="section__title">${escapeHtml(item.question)}</h2>
         <p class="section__sub">本节只回答业务读者关心的三件事：这一页解决什么问题、哪些数据支持、下一步如何验收。</p>
       </div>
       <div class="cross-table-wrap" tabindex="0">
@@ -367,9 +366,9 @@ export function logicChainSection(data) {
   return `<section class="section section--gray" id="insight-chain">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">经营诊断路径 · 问题 / 影响 / 动作</div>
-        <h2 class="section__title">为什么先修归因和 PDP，而不是先投后端和 SEO</h2>
-        <p class="section__sub">当前经营数据说明修复值得排队；外部采集说明问题在首页、PDP、cart/checkout 复现；预算只投向能复采、能回滚、能验收的动作。</p>
+        <div class="section__eyebrow">核心洞察 · 业务影响 / 证据 / 动作</div>
+        <h2 class="section__title">归因可信度与 PDP 负担是本轮最高优先级</h2>
+        <p class="section__sub">经营数据给出优先级，外部采集给出风险位置：预算应集中到归因可信度、PDP 运行时负担、第三方失败治理和可复采实验。</p>
       </div>
       <div class="cross-table-wrap" tabindex="0">
         <table class="cross-table">
@@ -924,8 +923,6 @@ export function overviewBody(data) {
   ${storylineSection(data)}
   ${logicChainSection(data)}
   ${hardConclusionsSection(data)}
-  ${pageAuditSection(data, "index.html")}
-  ${diagnosticBridgeSection(data, "index.html")}
   ${crossMatrixSection(data)}
   ${contradictionsSection(data)}
   ${featureComparisonSection(data)}
@@ -963,11 +960,9 @@ export function metricsBody(data) {
       <h1 class="hero__title">先统一口径，<br><span class="hl">再讨论增长。</span></h1>
       <p class="hero__lead">这页不再把旧 25 指标当作全部当前事实。最新经营数据只能支持三类表达：可复算漏斗、需要 caveat 的经营口径、暂时冻结的 SEO 变现故事。</p>
       <p class="hero__lead">强证据来自外部自动采集：TTFB 不是主问题，JS、DOM、第三方失败和 LCP 不可观测才是工程优先级。</p>
-      ${crossAuditCards(data)}
+  ${crossAuditCards(data)}
     </div>
   </section>
-  ${pageAuditSection(data, "metrics.html")}
-  ${diagnosticBridgeSection(data, "metrics.html")}
   ${operatingBridgeSection(data)}
   ${businessKpiSection(data)}
   <section class="section section--gray" id="funnel">
@@ -1018,8 +1013,6 @@ export function forensicsBody(data) {
       ${crossAuditCards(data)}
     </div>
   </section>
-  ${pageAuditSection(data, "forensics.html")}
-  ${diagnosticBridgeSection(data, "forensics.html")}
   ${botGovernanceSection(data)}
   ${crossAuditSection(data, "forensics.html")}
   <section class="section" id="fatal">
@@ -1099,8 +1092,6 @@ export function trendsBody(data, session) {
       ${crossAuditCards(data)}
     </div>
   </section>
-  ${pageAuditSection(data, "trends.html")}
-  ${diagnosticBridgeSection(data, "trends.html")}
   ${crossAuditSection(data, "trends.html")}
   <section class="section" id="latest-v3">
     <div class="container">
@@ -1139,8 +1130,6 @@ export function crossAuditBody(data) {
       ${crossAuditCards(data)}
     </div>
   </section>
-  ${pageAuditSection(data, "cross-audit.html")}
-  ${diagnosticBridgeSection(data, "cross-audit.html")}
   ${storylineSection(data)}
   ${logicChainSection(data)}
   ${hardConclusionsSection(data)}

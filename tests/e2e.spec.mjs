@@ -146,13 +146,15 @@ test("cross audit sidebar prioritizes current-page anchors", async ({page}) => {
   });
   expect(result.groupLabels).toContain("本页锚点");
   expect(result.activeText).toContain("决策总表");
-  expect(result.anchorHrefs).toContain("cross-audit.html#final-audit");
+  expect(result.anchorHrefs).toContain("cross-audit.html#insight-chain");
   expect(result.anchorHrefs).toContain("cross-audit.html#contradictions");
   expect(result.anchorHrefs).toContain("cross-audit.html#competitor-recollect");
   expect(result.anchorHrefs).toContain("cross-audit.html#segment-sampling");
   expect(result.anchorHrefs).toContain("cross-audit.html#third-party-governance");
   expect(result.anchorHrefs).toContain("cross-audit.html#execution-orders");
-  expect(result.anchorHrefs).toContain("cross-audit.html#diagnostic-bridge");
+  expect(result.anchorHrefs).not.toContain("cross-audit.html#diagnostic-bridge");
+  expect(result.anchorHrefs).not.toContain("cross-audit.html#final-audit");
+  expect(result.anchorLabels).toContain("核心洞察");
   expect(result.anchorLabels).toContain("冲突处理");
   expect(result.ctaHref).toBe("cross-audit.html#execution-orders");
   expect(result.ctaText).toBe("查看执行战单");
@@ -183,17 +185,11 @@ test("sidebar anchors match the page navigation contract", async ({page}) => {
   }
 });
 
-test("all key pages expose diagnostic bridge section", async ({page}) => {
+test("all key pages omit appendix-style audit bridge sections", async ({page}) => {
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
     await page.goto(pathname);
-    const sections = await page.locator("#diagnostic-bridge").count();
-    const headingText = await page.locator("#diagnostic-bridge").first().innerText();
-    const bodyText = await page.locator("body").innerText();
-    expect(sections).toBe(1);
-    expect(headingText).toContain("站内指标解释、站外复采动作、决策落地同页可追踪");
-    expect(bodyText).toContain("站内指标解释");
-    expect(bodyText).toContain("站外复采动作");
-    expect(bodyText).toContain("决策落地");
+    await expect(page.locator("#diagnostic-bridge")).toHaveCount(0);
+    await expect(page.locator("#final-audit")).toHaveCount(0);
   }
 });
 
@@ -259,11 +255,10 @@ test("overview restores the historical M1 v2 report as the primary site", async 
   expect(text).toContain("渠道质量诊断");
   expect(text).toContain("先修归因可信度，再决定预算和 SEO 动作");
   expect(text).toContain("爬虫与数据可信度");
-  expect(text).toContain("为什么先修归因和 PDP，而不是先投后端和 SEO");
+  expect(text).toContain("归因可信度与 PDP 负担是本轮最高优先级");
   expect(text).toContain("不批准“后端慢”作为主叙事");
   expect(text).toContain("不做泛泛优化，只批准这 5 个可落地动作");
   expect(text).toContain("建立第三方域名 kill-list");
-  expect(text).toContain("页面校验");
   expect(text).toContain("诊断 × 资源排序 × 验收");
   expect(text).toContain("决策冲突处理");
   expect(text).toContain("经营趋势对照");
@@ -291,9 +286,8 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
   }
   expect(text).toContain("不批准 SEO 变现建议");
   expect(text).toContain("批准高风险 PDP 优先复跑");
-  expect(text).toContain("页面校验");
   expect(text).toContain("把诊断结果落到资源排序和验收动作");
-  expect(text).toContain("重点保留诊断结论、资源排序和执行动作闭环");
+  expect(text).toContain("归因可信度与 PDP 负担是本轮最高优先级");
   expect(text).not.toContain("回迁");
   expect(text).not.toContain("铁证如山的前提");
   expect(text).not.toContain("铁证索引");
@@ -319,7 +313,16 @@ test("primary pages do not expose internal evidence-index wording", async ({page
     "真正有用的审计",
     "站内外审计",
     "不可审计",
-    "验收 gate"
+    "验收 gate",
+    "页面校验",
+    "站内外诊断桥接",
+    "为什么先修",
+    "每个指标是否说明",
+    "技术病灶是否被证明",
+    "趋势是否讲清",
+    "结论、策略、执行是否形成闭环",
+    "本节只回答",
+    "不可替代结论"
   ];
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
     await page.goto(pathname);
@@ -390,12 +393,11 @@ test("mobile strategy matrix wraps and allows horizontal scroll", async ({browse
   await mobile.close();
 });
 
-test("each primary page exposes a final audit check", async ({page}) => {
+test("primary pages read as an insight report without appendix-style audit checks", async ({page}) => {
   for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
     await page.goto(pathname);
-    const text = await page.locator("body").innerText();
-    expect(text).toContain("页面校验");
-    expect(text).toContain("验收门槛");
+    await expect(page.locator("#final-audit")).toHaveCount(0);
+    await expect(page.locator("#diagnostic-bridge")).toHaveCount(0);
   }
 });
 
