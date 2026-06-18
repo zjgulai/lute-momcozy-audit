@@ -289,12 +289,15 @@ export function crossMatrixSection(data) {
         <h2 class="section__title">把洞察结果落到资源排序和验收动作</h2>
         <p class="section__sub">这张表直接对应 owner、时间窗和验收指标。没有复采和回滚条件的建议不进入本轮排期。</p>
       </div>
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>诊断结论</th><th>数据依据</th><th>资源方向</th><th>执行动作</th><th>约束</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
+      <details class="evidence-drilldown">
+        <summary>查看本页证据明细</summary>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>诊断结论</th><th>数据依据</th><th>资源方向</th><th>执行动作</th><th>约束</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </details>
     </div>
   </section>`;
 }
@@ -313,12 +316,15 @@ export function contradictionsSection(data) {
         <h2 class="section__title">把会误导预算的冲突直接处理掉</h2>
         <p class="section__sub">当前最容易误导团队的是三类冲突：把旧收益当承诺、把单次采集当全站结论、把第三方失败当普通前端问题。</p>
       </div>
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>冲突</th><th>业务风险</th><th>处理方式</th><th>验收方式</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
+      <details class="evidence-drilldown">
+        <summary>查看冲突处理明细</summary>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>冲突</th><th>业务风险</th><th>处理方式</th><th>验收方式</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </details>
     </div>
   </section>`;
 }
@@ -1076,12 +1082,15 @@ export function trendsBody(data, session) {
         <div class="metric-card metric-card--danger"><div class="card-label">3P 失败最大值</div><div class="card-value">${maxFailures}</div><div class="card-meta">PDP ${escapeHtml(data.external.pdpThirdPartyFailures)}</div></div>
         <div class="metric-card metric-card--warn"><div class="card-label">LCP 可观测</div><div class="card-value">${data.external.lcpObservedSamples} / ${data.external.lcpTotalSamples}</div><div class="card-meta">全部路由-视口样本未观测</div></div>
       </div>
-      <div class="sessions-wrap">
-        <table class="sessions-table">
-          <thead><tr><th>路线</th><th>视口</th><th>FCP (s)</th><th>TTFB (ms)</th><th>CLS</th><th>JS (KB)</th><th>DOM</th><th>请求</th><th>3P 失败</th></tr></thead>
-          <tbody>${latestRows(session)}</tbody>
-        </table>
-      </div>
+      <details class="evidence-drilldown" open>
+        <summary>查看 13 路由双视口原始表</summary>
+        <div class="sessions-wrap">
+          <table class="sessions-table">
+            <thead><tr><th>路线</th><th>视口</th><th>FCP (s)</th><th>TTFB (ms)</th><th>CLS</th><th>JS (KB)</th><th>DOM</th><th>请求</th><th>3P 失败</th></tr></thead>
+            <tbody>${latestRows(session)}</tbody>
+          </table>
+        </div>
+      </details>
       <div class="callout-strong">
         <div class="card-label" style="color:#fbbf24;">融合结论</div>
         <p>最新数据没有推翻历史站的主判断，只是把问题从首页推进到“homepage/PDP watchlist/cart/checkout 路径均复现”：客户端体积最大 ${Math.round(maxJs / 1024 * 10) / 10}MB、DOM 最大 ${maxDom.toLocaleString("en-US")} 节点、第三方失败最大 ${maxFailures}，仍是核心技术债。</p>
