@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "bot-evidence-v1",
+  "status": "missing",
+  "domain": "www.momcozy.com",
+  "updatedAt": "2026-06-18",
+  "summary": "当前仓库没有 owner analytics、bot log 或 human-bot 维度聚合证据；报告只能把机器人占比/爬虫占比列为待复证归因风险。",
+  "evidenceWindow": {
+    "current": "needs owner analytics export",
+    "baseline": "current workbook and historical M1 v2.0",
+    "grain": "session"
+  },
+  "requiredSources": [
+    {
+      "id": "owner_analytics",
+      "label": "Owner analytics human/bot 分段聚合",
+      "state": "missing",
+      "requiredFields": [
+        "date",
+        "channel",
+        "sessions",
+        "conversion_rate",
+        "bounce_rate",
+        "avg_stay_sec"
+      ]
+    },
+    {
+      "id": "bot_log",
+      "label": "Bot / crawler 日志聚合",
+      "state": "missing",
+      "requiredFields": [
+        "date",
+        "bot_family",
+        "requests",
+        "sessions",
+        "route_group"
+      ]
+    },
+    {
+      "id": "human_bot_dimension",
+      "label": "Human / bot 统一维度映射",
+      "state": "missing",
+      "requiredFields": [
+        "segment",
+        "classification_rule",
+        "confidence",
+        "exclusion_policy"
+      ]
+    }
+  ],
+  "requiredSegments": [
+    "human",
+    "bot",
+    "crawler",
+    "unknown"
+  ],
+  "diagnosticQuestions": [
+    "机器人占比或爬虫占比是否高到足以污染渠道归因。",
+    "human 与 bot/crawler 分段的转化率、停留和跳出率差异是否解释当前漏斗读数。",
+    "bot/crawler 流量是否集中在首页、PDP、cart 或 checkout 关键路径。",
+    "排除 bot/crawler 后，www.momcozy.com 的转化率低、停留短、跳出高问题是否仍然存在。"
+  ],
+  "acceptanceGates": [
+    "所有数值必须是按 session 或 visitor 聚合后的脱敏汇总，不得包含用户级明细。",
+    "segments 必须至少覆盖 human、bot、crawler、unknown，且 sessions 合计等于 totalSessions。",
+    "conversionRate、bounceRate、avgStaySec 必须按同一时间窗和同一流量口径计算。",
+    "没有 owner analytics、bot log、human-bot 维度三类证据时，报告不得展示 bot share 百分比。"
+  ],
+  "metrics": null
+}

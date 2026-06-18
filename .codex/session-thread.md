@@ -1,7 +1,7 @@
 ---
 status: done
-updated_at: 2026-06-18T09:41:00Z
-task: Phase 6 engineering and documentation debt cleanup plus Tencent deployment
+updated_at: 2026-06-18T10:07:49Z
+task: Phase 8 competitor comparison page and sharper insight storyline
 ---
 
 ## 已完成
@@ -33,12 +33,26 @@ task: Phase 6 engineering and documentation debt cleanup plus Tencent deployment
 - 腾讯云 workflow `27749964281` 已通过：build、deploy、post-deploy smoke、production visual component audit 全部成功。
 - 部署后 release checklist `artifacts/release-checklist-2026-06-18T09-39-05-110Z.md` 为 `Ready for release`；production parity、uptime、Actions artifact 均 PASS。
 - 生产浏览器抽样已覆盖 5 页 × desktop/mobile：HTTP 200、禁词命中 `none`、横向溢出 0、section 标题最大 desktop 20px / mobile 18px。
+- Phase 7 已新增 `config/bot-evidence.schema.json` 与 `src/_data/bot-evidence.json`，把 owner analytics、bot log、human-bot 维度三类证据定义为必备来源；当前状态为 `missing`，不允许生成 bot share 百分比。
+- Phase 7 已新增 `scripts/validate-bot-evidence.mjs` 与 `tests/bot-evidence.test.mjs`，校验脱敏聚合数据、必备 segment、sessions 合计、三类来源 ready 状态，并拒绝原始 URL、用户级标识、私有路径、IP 和私钥。
+- Phase 7 已把 `botEvidence` 接入 `scripts/build-history-site.mjs` 和 `npm run test:bot-evidence`；`npm test` 已把 bot evidence 合同纳入全量验证。
+- Phase 7 已把 `chart-bot-attribution-sankey` 改为双态：`missing/blocked` 只显示归因证据缺口，`measured` 才展示 human、bot、crawler、unknown 的 sessions、转化率、跳出率、停留和 bot/crawler 合计占比。
+- Phase 7 已通过：`npm run test:bot-evidence`、`npm run test:history-site-charts`、`npm run test:insight-contract`、`npm run test:source-safety`、`npm run test:safety`、`npx playwright test tests/e2e.spec.mjs -g "overview reads as an insight report"`、`npm test`、`git diff --check`。
+- Phase 8 已新增 `competitors.html` 竞品对比页，并接入侧边栏主导航为 `VI · 竞品对比`；主页面计数从 5 改为 6。
+- Phase 8 已把竞品二轮样本转成读者可直接判断的对比：Momcozy 第三方失败 92 vs 竞品上限 42、JS 2212KB vs 1000KB、DOM 11742 vs 5794，并用 `chart-competitor-gap` 与 `chart-competitor-risk-ranking` 呈现。
+- Phase 8 已补回有价值的旧洞察方向：第三方脚本治理、PDP 行动路径进入主线；爬虫分级只作为归因证据缺口；内容入口变现继续冻结，直到搜索源和落地页证据补齐。
+- Phase 8 已同步 `config/release-contract.json`、`config/insight-report-contract.json`、`scripts/page-structure-contract.mjs`、`scripts/audit-production-layout.mjs`、E2E 与 a11y。
+- Phase 8 已通过：`npm run test:release-contract`、`npm run test:insight-contract`、`npm run test:source-safety`、`npm run test:safety`、targeted Playwright 子集、`npm test`、`git diff --check`。
 
 ## 当前红灯
 
-- Phase 6 本地实现无红灯。
-- 生产部署无红灯。
+- Phase 8 本地实现无红灯。
+- 生产部署未在本轮执行；当前变更仍在本地工作区，包含 Phase 7 bot evidence 和 Phase 8 竞品页改动。
+- 当前仓库仍没有真实 owner analytics / bot log / human-bot 聚合证据；报告继续只能显示“归因证据缺口”，不能诊断“机器人占比高”或输出 bot share 数值。
+- 竞品页当前只支持公开页面技术上限判断，不支持收入、SEO、真实 checkout 或品牌胜负结论。
 
 ## 下一步
 
-- 后续如果继续优化，应进入下一轮数据证据补采：owner analytics / bot log / human-bot 维度复证，用真实机器人占比解释 www.momcozy.com 的转化率、停留、跳出和归因污染。
+- 如需上线，先创建分支/PR；合并后等待腾讯云 workflow、post-deploy smoke、production visual component audit 通过。
+- 如果 owner 提供脱敏聚合 bot evidence，把 `src/_data/bot-evidence.json` 从 `missing` 切到 `measured`，三类来源必须全部 `ready`，且通过 `npm run test:bot-evidence` 后才能进入报告。
+- 下一轮若继续增强竞品页，优先补多次复采、入口参数、checkout 状态、脚本 owner/用途/预算表，再考虑分值化对标。

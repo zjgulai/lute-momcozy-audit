@@ -3,6 +3,7 @@ import path from "node:path";
 
 import {page} from "./layout.mjs";
 import {
+  competitorsBody,
   crossAuditBody,
   forensicsBody,
   metricsBody,
@@ -37,4 +38,5 @@ export function writeHistoryPages({outputDir, data, session}) {
   writePage(outputDir, "forensics.html", "III · 风险归因 — Momcozy 洞察报告", "forensics", forensicsBody(data), metaDescription);
   writePage(outputDir, "trends.html", "IV · 趋势证据 — Momcozy 洞察报告", "trends", trendsBody(data, session), metaDescription);
   writePage(outputDir, "cross-audit.html", "V · 决策矩阵 — Momcozy 洞察报告", "cross", crossAuditBody(data), metaDescription);
+  writePage(outputDir, "competitors.html", "VI · 竞品对比 — Momcozy 洞察报告", "competitors", competitorsBody(data), metaDescription);
 }

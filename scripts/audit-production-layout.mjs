@@ -12,6 +12,7 @@ const pages = [
   {path: "/forensics.html", key: "forensics"},
   {path: "/trends.html", key: "trends"},
   {path: "/cross-audit.html", key: "cross-audit"},
+  {path: "/competitors.html", key: "competitors"},
 ];
 
 const viewports = [

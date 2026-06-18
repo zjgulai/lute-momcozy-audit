@@ -17,6 +17,7 @@ const assetDir = path.join(root, "history_static/assets");
 const sessionsDir = path.join(root, "src/_data/sessions");
 const competitorsDir = path.join(root, "src/_data/competitors");
 const publicCrossAuditPath = path.join(root, "src/_data/public-cross-audit.json");
+const botEvidencePath = path.join(root, "src/_data/bot-evidence.json");
 
 cleanOutput(outputDir);
 copyDir(assetDir, path.join(outputDir, "assets"));
@@ -25,6 +26,9 @@ copyFile(path.join(root, "history_static/.nojekyll"), path.join(outputDir, ".noj
 const session = latestSession(sessionsDir, readJson);
 const rawPublicCrossAudit = readJson(publicCrossAuditPath);
 const publicCrossAudit = mergeSessionDerivedExternal(rawPublicCrossAudit, session);
+if (fs.existsSync(botEvidencePath)) {
+  publicCrossAudit.botEvidence = readJson(botEvidencePath);
+}
 if (fs.existsSync(competitorsDir)) {
   publicCrossAudit.competitorSnapshot = latestSession(competitorsDir, readJson);
 }

@@ -139,13 +139,14 @@ export function nav(active) {
     ["metrics.html", "II · 指标口径", "metrics"],
     ["forensics.html", "III · 风险归因", "forensics"],
     ["trends.html", "IV · 趋势证据", "trends"],
-    ["cross-audit.html", "V · 决策矩阵", "cross"]
+    ["cross-audit.html", "V · 决策矩阵", "cross"],
+    ["competitors.html", "VI · 竞品对比", "competitors"]
   ];
   return `<nav class="side-nav" aria-label="Momcozy 洞察报告导航">
     <a href="index.html#hero" class="side-nav__brand">路特 AI <span>×</span><br>Momcozy</a>
     <div class="side-nav__kicker">Momcozy 经营洞察</div>
     <div class="side-nav__status" aria-label="报告状态">
-      <div class="side-stat"><strong>5</strong><span>主页面</span></div>
+      <div class="side-stat"><strong>6</strong><span>主页面</span></div>
       <div class="side-stat"><strong>KPI</strong><span>真实写入</span></div>
       <div class="side-stat"><strong>noindex</strong><span>访问边界</span></div>
     </div>

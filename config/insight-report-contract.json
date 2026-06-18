@@ -7,7 +7,8 @@
     "/metrics.html": 7,
     "/forensics.html": 6,
     "/trends.html": 5,
-    "/cross-audit.html": 7
+    "/cross-audit.html": 7,
+    "/competitors.html": 6
   },
   "pages": [
     {
@@ -58,6 +59,17 @@
       "requiredAttributionMarkers": ["归因", "human/bot", "机器人占比/爬虫占比为缺失或待复证证据"],
       "requiredActions": ["批准", "冻结", "推进"],
       "requiredCharts": ["chart-decision-matrix", "chart-bot-attribution-sankey"]
+    },
+    {
+      "path": "/competitors.html",
+      "role": "competitor_benchmark",
+      "decision": "竞品不是借口，是预算上限。",
+      "requiredProofs": ["竞品二轮", "第三方失败", "JS", "DOM", "上限"],
+      "requiredFacts": ["Momcozy", "竞品最高", "明显问题", "价值筛查"],
+      "requiredComparisons": ["自站", "竞品"],
+      "requiredAttributionMarkers": ["归因", "预算"],
+      "requiredActions": ["kill-list", "复采", "验收"],
+      "requiredCharts": ["chart-competitor-gap", "chart-competitor-risk-ranking"]
     }
   ]
 }

@@ -227,7 +227,134 @@ export function behaviorSankeyChart({data}) {
   </figure>`;
 }
 
+const BOT_SOURCE_LABELS = {
+  owner_analytics: "owner analytics",
+  bot_log: "bot log",
+  human_bot_dimension: "human-bot 维度"
+};
+
+const BOT_SEGMENT_LABELS = {
+  human: "human",
+  bot: "bot",
+  crawler: "crawler",
+  unknown: "unknown"
+};
+
+function botEvidence(data) {
+  return data.botEvidence || {
+    status: "missing",
+    summary: "",
+    requiredSources: [],
+    requiredSegments: ["human", "bot", "crawler", "unknown"],
+    metrics: null
+  };
+}
+
+function botSourceFacts(evidence) {
+  const sources = Array.isArray(evidence.requiredSources) ? evidence.requiredSources : [];
+  if (!sources.length) {
+    return [
+      "<span>owner analytics：missing</span>",
+      "<span>bot log：missing</span>",
+      "<span>human-bot 维度：missing</span>"
+    ].join("");
+  }
+  return sources.map((source) => {
+    const label = BOT_SOURCE_LABELS[source.id] || source.label || source.id;
+    return `<span>${escapeHtml(label)}：${escapeHtml(source.state || "missing")}</span>`;
+  }).join("");
+}
+
+function botStatusLabel(status) {
+  if (status === "measured") return "已量化";
+  if (status === "blocked") return "证据阻塞";
+  return "证据缺口";
+}
+
+function botSegment(evidence, segment) {
+  return evidence.metrics?.segments?.find((item) => item.segment === segment) || {
+    segment,
+    sessions: 0,
+    conversionRate: 0,
+    bounceRate: 0,
+    avgStaySec: 0
+  };
+}
+
+function botShare(segment, total) {
+  if (!Number.isFinite(total) || total <= 0) return 0;
+  return segment.sessions / total;
+}
+
+function botStroke(segment, total) {
+  return clamp(botShare(segment, total) * 88, 5, 72).toFixed(1);
+}
+
+function measuredBotFacts(evidence) {
+  const total = evidence.metrics.totalSessions;
+  const segments = evidence.requiredSegments.map((segment) => botSegment(evidence, segment));
+  return segments.map((segment) => `<div>
+    <strong>${escapeHtml(BOT_SEGMENT_LABELS[segment.segment] || segment.segment)} · ${fmtRatio(botShare(segment, total))}</strong>
+    <span>sessions ${integer(segment.sessions)}</span>
+    <span>转化率 ${fmtRatio(segment.conversionRate)}</span>
+    <span>跳出率 ${fmtRatio(segment.bounceRate)}</span>
+    <span>平均停留 ${fmtSeconds(segment.avgStaySec)}</span>
+  </div>`).join("");
+}
+
+function measuredBotAttributionSankeyChart(data, evidence) {
+  const total = evidence.metrics.totalSessions;
+  const human = botSegment(evidence, "human");
+  const bot = botSegment(evidence, "bot");
+  const crawler = botSegment(evidence, "crawler");
+  const unknown = botSegment(evidence, "unknown");
+  const botCrawlerSessions = bot.sessions + crawler.sessions;
+  const botCrawlerShare = total > 0 ? botCrawlerSessions / total : 0;
+
+  return `<figure class="insight-chart insight-chart--sankey" id="chart-bot-attribution-sankey">
+    <figcaption>
+      <strong>机器人 / 人类流量归因桑基图：已量化版</strong>
+      <span>按脱敏聚合 session 分段展示；bot/crawler 合计 ${fmtRatio(botCrawlerShare)}，human ${fmtRatio(botShare(human, total))}。</span>
+    </figcaption>
+    <div class="sankey-scroll" tabindex="0">
+      <svg class="sankey-svg" viewBox="0 0 1080 390" role="img" aria-labelledby="bot-sankey-title bot-sankey-desc">
+        <title id="bot-sankey-title">human、bot、crawler 与 unknown 分段归因桑基图</title>
+        <desc id="bot-sankey-desc">按脱敏聚合 session 展示 human、bot、crawler、unknown 的占比、转化率、跳出率和平均停留。</desc>
+        <g fill="none" stroke-linecap="round" opacity="0.88">
+          <path d="M 92 188 C 222 188 252 82 390 82" stroke="#2563eb" stroke-width="${botStroke(human, total)}" />
+          <path d="M 92 188 C 222 188 252 152 390 152" stroke="#d97706" stroke-width="${botStroke(bot, total)}" />
+          <path d="M 92 188 C 222 188 252 222 390 222" stroke="#a16207" stroke-width="${botStroke(crawler, total)}" />
+          <path d="M 92 188 C 222 188 252 292 390 292" stroke="#64748b" stroke-width="${botStroke(unknown, total)}" stroke-dasharray="10 10" />
+          <path d="M 506 82 C 664 82 694 128 856 128" stroke="#2563eb" stroke-width="${botStroke(human, total)}" />
+          <path d="M 506 152 C 664 152 694 176 856 176" stroke="#d97706" stroke-width="${botStroke(bot, total)}" />
+          <path d="M 506 222 C 664 222 694 224 856 224" stroke="#a16207" stroke-width="${botStroke(crawler, total)}" />
+          <path d="M 506 292 C 664 292 694 272 856 272" stroke="#64748b" stroke-width="${botStroke(unknown, total)}" stroke-dasharray="10 10" />
+        </g>
+        <g class="sankey-node"><rect x="28" y="162" width="128" height="52" rx="8" /><text x="92" y="193">全部访问</text></g>
+        <g class="sankey-node"><rect x="390" y="56" width="116" height="52" rx="8" /><text x="448" y="86">human</text></g>
+        <g class="sankey-node"><rect x="390" y="126" width="116" height="52" rx="8" /><text x="448" y="156">bot</text></g>
+        <g class="sankey-node"><rect x="390" y="196" width="116" height="52" rx="8" /><text x="448" y="226">crawler</text></g>
+        <g class="sankey-node sankey-node--unknown"><rect x="390" y="266" width="116" height="52" rx="8" /><text x="448" y="296">unknown</text></g>
+        <g class="sankey-node"><rect x="856" y="102" width="174" height="196" rx="8" /><text x="943" y="184">分段归因</text><text x="943" y="207">转化 / 停留 / 跳出</text></g>
+        <text class="sankey-small" x="18" y="234">total sessions ${integer(total)}</text>
+        <text class="sankey-small" x="376" y="42">human ${fmtRatio(botShare(human, total))}</text>
+        <text class="sankey-small" x="376" y="340">bot/crawler 合计 ${fmtRatio(botCrawlerShare)}</text>
+      </svg>
+    </div>
+    <div class="insight-chart__facts">
+      <div><strong>证据状态：${escapeHtml(botStatusLabel(evidence.status))}</strong>${botSourceFacts(evidence)}</div>
+      ${measuredBotFacts(evidence)}
+    </div>
+    <p class="insight-chart__note">诊断读取：这里的百分比只来自脱敏聚合 human/bot 证据。若 bot/crawler 占比高且转化率、停留、跳出显著偏离 human，才可进入归因解释；否则继续按人类流量问题诊断。</p>
+  </figure>`;
+}
+
 export function botAttributionSankeyChart({data}) {
+  const evidence = botEvidence(data);
+  if (evidence.status === "measured" && evidence.metrics) {
+    return measuredBotAttributionSankeyChart(data, evidence);
+  }
+
   const session = data.external?.latestSession || "latest session";
   return `<figure class="insight-chart insight-chart--sankey insight-chart--missing" id="chart-bot-attribution-sankey">
     <figcaption>
@@ -254,7 +381,7 @@ export function botAttributionSankeyChart({data}) {
       </svg>
     </div>
     <div class="insight-chart__facts">
-      <div><strong>证据状态</strong><span>机器人占比缺失</span><span>爬虫占比待复证</span><span>${escapeHtml(session)} 不含 human/bot 维度</span></div>
+      <div><strong>证据状态：${escapeHtml(botStatusLabel(evidence.status))}</strong><span>机器人占比缺失</span><span>爬虫占比待复证</span><span>${escapeHtml(session)} 不含 human/bot 维度</span>${botSourceFacts(evidence)}</div>
       <div><strong>污染风险</strong><span>human/bot 维度缺失会污染归因</span><span>停留短、跳出高、转化低不能直接归因给 bot</span></div>
       <div><strong>复证要求</strong><span>owner analytics</span><span>bot log</span><span>human-bot 维度复证</span></div>
     </div>

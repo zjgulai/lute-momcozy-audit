@@ -40,6 +40,13 @@ export const pageComponentMap = {
     "execution-orders",
     "decision-chart",
   ],
+  "/competitors.html": [
+    "hero",
+    "competitor-gap",
+    "competitor-benchmark",
+    "value-screen",
+    "competitor-action",
+  ],
 };
 
 const nav = (href, label, markers) => ({
@@ -86,6 +93,12 @@ export const pageNavigationContract = {
     nav("cross-audit.html#contradictions", "冲突处理", ["决策冲突处理"]),
     nav("cross-audit.html#execution-orders", "执行战单", ["决策建议"]),
     nav("cross-audit.html#decision-chart", "决策图", ["决策矩阵"]),
+  ],
+  "/competitors.html": [
+    nav("competitors.html#competitor-gap", "明显问题", ["竞品对比 · 明显问题标注"]),
+    nav("competitors.html#competitor-benchmark", "竞品上限", ["竞品样本够用来设上限"]),
+    nav("competitors.html#value-screen", "价值筛查", ["只补回能改变资源排序的方向"]),
+    nav("competitors.html#competitor-action", "验收动作", ["把上限写进验收"]),
   ],
 };
 

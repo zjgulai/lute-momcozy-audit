@@ -30,6 +30,7 @@ const pages = [
   "/forensics.html",
   "/trends.html",
   "/cross-audit.html",
+  "/competitors.html",
   "/404.html",
 ];
 const routeExpectations = [
@@ -43,6 +44,9 @@ const routeExpectations = [
   ["/trends", 200],
   ["/trends/", 404],
   ["/trends.html", 200],
+  ["/competitors", 200],
+  ["/competitors/", 404],
+  ["/competitors.html", 200],
 ];
 for (const pathname of pages) {
   test(`${pathname} is stable on desktop and mobile`, async ({browser}) => {
@@ -168,7 +172,7 @@ test("cross audit sidebar only exposes primary report pages", async ({page}) => 
   expect(result.anchorHrefs).toEqual([]);
   expect(result.anchorLabels).toEqual([]);
   expect(result.ctaCount).toBe(0);
-  expect(result.mainLinks).toEqual(["I · 总览01", "II · 指标口径02", "III · 风险归因03", "IV · 趋势证据04", "V · 决策矩阵05"]);
+  expect(result.mainLinks).toEqual(["I · 总览01", "II · 指标口径02", "III · 风险归因03", "IV · 趋势证据04", "V · 决策矩阵05", "VI · 竞品对比06"]);
 });
 
 test("report sections match the page structure contract without sidebar attachments", async ({page}) => {
@@ -197,7 +201,7 @@ test("report sections match the page structure contract without sidebar attachme
 });
 
 test("all key pages omit appendix-style audit bridge sections", async ({page}) => {
-  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
+  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html", "/competitors.html"]) {
     await page.goto(pathname);
     await expect(page.locator("#diagnostic-bridge")).toHaveCount(0);
     await expect(page.locator("#final-audit")).toHaveCount(0);
@@ -306,6 +310,25 @@ test("cross-audit page exposes latest refreshed conclusions", async ({page}) => 
   expect(text).not.toContain("证据台账");
 });
 
+test("competitor page exposes sharp benchmark gaps and value-screened directions", async ({page}) => {
+  await page.goto("/competitors.html");
+  const text = await page.locator("body").innerText();
+  expect(text).toContain("竞品不是借口，是预算上限。");
+  expect(text).toContain("Momcozy 的负担高过竞品上限，不是行业常态");
+  expect(text).toContain("第三方失败");
+  expect(text).toContain("Momcozy 92次");
+  expect(text).toContain("竞品最高 42次");
+  expect(text).toContain("2.2x");
+  expect(text).toContain("只补回能改变资源排序的方向");
+  expect(text).toContain("第三方脚本治理");
+  expect(text).toContain("补回主线");
+  expect(text).toContain("内容入口变现");
+  expect(text).toContain("继续冻结");
+  expect(text).toContain("当前样本只支持公开页面技术上限");
+  await expect(page.locator("#chart-competitor-gap")).toHaveCount(1);
+  await expect(page.locator("#chart-competitor-risk-ranking")).toHaveCount(1);
+});
+
 test("key report pages show readable evidence labels without hiding the source session", async ({page}) => {
   const expectedSession = publicCrossAudit.external.latestSession;
   const evidenceLabelPattern = new RegExp(`最新外部采集\\s*·\\s*${escapeRegExp(expectedSession)}`);
@@ -366,7 +389,7 @@ test("primary pages do not expose internal evidence-index wording", async ({page
     "watchlist route pack",
     "校验项"
   ];
-  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
+  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html", "/competitors.html"]) {
     await page.goto(pathname);
     const text = await page.locator("body").innerText();
     for (const term of bannedTerms) {
@@ -412,7 +435,7 @@ test("mobile strategy matrix wraps and allows horizontal scroll", async ({browse
 });
 
 test("primary pages read as an insight report without appendix-style audit checks", async ({page}) => {
-  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
+  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html", "/competitors.html"]) {
     await page.goto(pathname);
     await expect(page.locator("#final-audit")).toHaveCount(0);
     await expect(page.locator("#diagnostic-bridge")).toHaveCount(0);
@@ -420,7 +443,7 @@ test("primary pages read as an insight report without appendix-style audit check
 });
 
 test("primary pages do not render oversized section titles", async ({page}) => {
-  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
+  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html", "/competitors.html"]) {
     await page.goto(pathname);
     const oversized = await page.evaluate(() => Array.from(document.querySelectorAll(".section__head .section__title"))
       .map((el) => {
@@ -439,7 +462,7 @@ test("primary pages do not render oversized section titles", async ({page}) => {
 
 test("private business edition exposes business KPIs but no raw secrets", async ({page}) => {
   const secretForbidden = /\/Users\/|\/home\/|-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|(?:\d{1,3}\.){3}\d{1,3}|(?<!\w)\/data\/(?!\w)|公开审计|公开摘要/i;
-  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"]) {
+  for (const pathname of ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html", "/competitors.html"]) {
     await page.goto(pathname);
     const html = await page.content();
     expect(html).not.toMatch(secretForbidden);

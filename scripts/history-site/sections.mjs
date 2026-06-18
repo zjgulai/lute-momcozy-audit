@@ -81,6 +81,36 @@ export function decisionData(data) {
   };
 }
 
+function botEvidence(data) {
+  return data.botEvidence || {status: "missing", requiredSources: [], metrics: null};
+}
+
+function botEvidenceStatusLabel(data) {
+  const status = botEvidence(data).status;
+  if (status === "measured") return "已量化";
+  if (status === "blocked") return "证据阻塞";
+  return "证据缺口";
+}
+
+function botAttributionEyebrow(data) {
+  const status = botEvidence(data).status;
+  if (status === "measured") return "机器人占比 / 爬虫占比 · 归因已量化";
+  if (status === "blocked") return "机器人占比 / 爬虫占比 · 归因证据阻塞";
+  return "机器人占比 / 爬虫占比 · 归因证据缺口";
+}
+
+function hasMeasuredBotEvidence(data) {
+  const evidence = botEvidence(data);
+  return evidence.status === "measured" && Boolean(evidence.metrics);
+}
+
+function botEvidenceSummary(data) {
+  if (hasMeasuredBotEvidence(data)) {
+    return "human/bot 分段已有脱敏聚合证据，转化率、停留、跳出率可以按 segment 对比，但仍不能直接写成收益因果。";
+  }
+  return "机器人占比/爬虫占比为缺失或待复证证据；现有页面只列转化率、停留、跳出率和采集风险事实，不能写成 bot 百分比，也不能把低转化直接归因给 bot。";
+}
+
 function firstInteger(value) {
   const match = String(value ?? "").match(/\d+/);
   return match ? Number.parseInt(match[0], 10) : null;
@@ -102,6 +132,138 @@ function decisionMatrixRows(data) {
     {label: "冻结：不批准结论", value: freezeCount, digits: 0},
     {label: "推进：执行战单", value: proceedCount, digits: 0}
   ];
+}
+
+function competitorEvidence(data) {
+  return data.competitorEvidence || {};
+}
+
+function competitorRows(data) {
+  return (data.competitorSnapshot?.competitors || []).flatMap((competitor) =>
+    (competitor.pages || []).flatMap((page) =>
+      (page.viewports || []).map((viewport) => ({
+        competitorId: competitor.id,
+        competitorLabel: competitor.label || competitor.id,
+        routeId: page.routeId,
+        viewport: viewport.label,
+        status: page.status,
+        metrics: viewport.metrics || {}
+      }))
+    )
+  );
+}
+
+function competitorMaxMetric(data, metric) {
+  return competitorRows(data)
+    .filter((row) => Number.isFinite(row.metrics?.[metric]))
+    .sort((left, right) => right.metrics[metric] - left.metrics[metric])[0] || null;
+}
+
+function competitorMetricFallback(data, field) {
+  const parsed = firstInteger(competitorEvidence(data)?.[field]);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+}
+
+function competitorMetricValue(data, metric, fallbackField) {
+  return competitorMaxMetric(data, metric)?.metrics?.[metric] ?? competitorMetricFallback(data, fallbackField);
+}
+
+function ratioLabel(current, reference) {
+  if (!Number.isFinite(current) || !Number.isFinite(reference) || reference <= 0) return "需补样本";
+  return `${fixed(current / reference, 1)}x`;
+}
+
+function competitorMaxDescriptor(row, fallback) {
+  if (!row) return fallback || "竞品样本";
+  const route = row.routeId === "homepage" ? "首页" : row.routeId === "pdp" ? "PDP" : "cart";
+  const viewport = row.viewport === "mobile" ? "移动" : "桌面";
+  return `${row.competitorLabel} ${route}/${viewport}`;
+}
+
+function competitorPressureRows(data) {
+  const thirdParty = competitorMaxMetric(data, "thirdPartyFailures");
+  const js = competitorMaxMetric(data, "jsKb");
+  const dom = competitorMaxMetric(data, "domNodes");
+  const pairs = [
+    {
+      metric: "第三方失败",
+      current: data.external.maxThirdPartyFailures,
+      reference: thirdParty?.metrics?.thirdPartyFailures ?? competitorMetricFallback(data, "maxThirdPartyFailures"),
+      unit: "次",
+      source: competitorMaxDescriptor(thirdParty, "竞品二轮最高"),
+      verdict: "明显超出竞品上限，不能再用行业普遍重脚本稀释风险。"
+    },
+    {
+      metric: "JS 体积",
+      current: data.external.pdpJsKb || data.external.homepageJsKb,
+      reference: js?.metrics?.jsKb ?? competitorMetricFallback(data, "maxJsKb"),
+      unit: "KB",
+      source: competitorMaxDescriptor(js, "竞品二轮最高"),
+      verdict: "前端运行时负担已经高到足以解释 PDP 体验和采集噪音。"
+    },
+    {
+      metric: "DOM 节点",
+      current: data.external.maxDomNodes,
+      reference: dom?.metrics?.domNodes ?? competitorMetricFallback(data, "maxDomNodes"),
+      unit: "节点",
+      source: competitorMaxDescriptor(dom, "竞品二轮最高"),
+      verdict: "模板复杂度不是普通优化项，而是 PDP 队列治理项。"
+    }
+  ];
+  return pairs.filter((row) => Number.isFinite(row.current) && Number.isFinite(row.reference));
+}
+
+function competitorRiskRankingRows(data) {
+  const competitorFailureRows = competitorRows(data)
+    .filter((row) => Number.isFinite(row.metrics.thirdPartyFailures))
+    .sort((left, right) => right.metrics.thirdPartyFailures - left.metrics.thirdPartyFailures)
+    .slice(0, 5)
+    .map((row) => ({
+      label: `${row.competitorLabel} ${row.routeId === "pdp" ? "PDP" : row.routeId} ${row.viewport}`,
+      value: row.metrics.thirdPartyFailures,
+      digits: 0,
+      unit: "次"
+    }));
+  return [
+    {label: "Momcozy watchlist 最高", value: data.external.maxThirdPartyFailures, digits: 0, unit: "次"},
+    ...competitorFailureRows
+  ];
+}
+
+function valueScreenRows(data) {
+  const matrix = legacyData(data).competitorMatrix || [];
+  const verdictByDimension = {
+    "第三方脚本治理": {
+      decision: "补回主线",
+      reason: "Momcozy 第三方失败 92 vs 竞品上限 42，差距足以改变 P0 排序。",
+      action: "进入 kill-list、owner、加载时机和失败预算。"
+    },
+    "PDP 行动路径": {
+      decision: "补回主线",
+      reason: "6/6 竞品 PDP 可达，Momcozy 已有 10 条 PDP watchlist，下一步应该按模板/入口分组排序。",
+      action: "高风险 PDP 复跑，并补 KOL/UTM landing。"
+    },
+    "爬虫分级": {
+      decision: "条件补回",
+      reason: "5/6 竞品有命名 bot policy，但 Momcozy bot share 仍缺 owner 聚合证据。",
+      action: "只作为归因证据缺口，不输出机器人占比。"
+    },
+    "内容入口变现": {
+      decision: "继续冻结",
+      reason: "当前自然搜索明细为空，不能恢复 SEO 收益或内容预算结论。",
+      action: "先补搜索源、落地页和订单/加购映射。"
+    }
+  };
+  return matrix.map((item) => ({
+    dimension: item.dimension,
+    evidence: item.reference,
+    lesson: item.lesson,
+    ...(verdictByDimension[item.dimension] || {
+      decision: "暂不恢复",
+      reason: "证据不足以改变当前资源排序。",
+      action: "等待下一轮复采。"
+    })
+  }));
 }
 
 export function finalAuditData(data) {
@@ -379,15 +541,16 @@ export function botGovernanceSection(data) {
     <p><strong>证据状态：</strong>${escapeHtml(item.publicEvidence)}</p>
     <p><strong>下一步：</strong>${escapeHtml(item.nextAction)}</p>
   </div>`).join("");
+  const measured = hasMeasuredBotEvidence(data);
   return `<section class="section section--gray" id="bot-audit">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">爬虫与数据可信度</div>
-        <h2 class="section__title">机器人占比只能作为待复证归因风险</h2>
-        <p class="section__sub">机器人占比/爬虫占比为缺失或待复证证据；现有页面只列转化率、停留、跳出率和采集风险事实，不能写成 bot 百分比，也不能把低转化直接归因给 bot。</p>
+        <div class="section__eyebrow">爬虫与数据可信度 · ${escapeHtml(botEvidenceStatusLabel(data))}</div>
+        <h2 class="section__title">${measured ? "机器人占比进入分段归因，不再按假设处理" : "机器人占比只能作为待复证归因风险"}</h2>
+        <p class="section__sub">${escapeHtml(botEvidenceSummary(data))}</p>
       </div>
       <div class="route-grid">${cards}</div>
-      <div class="deprecated"><strong>复证要求：</strong>owner analytics / bot log / human-bot 维度复证后，才能判断 www.momcozy.com 是否存在机器人占比高并污染渠道、停留、跳出和转化归因。</div>
+      <div class="deprecated"><strong>${measured ? "使用边界" : "复证要求"}：</strong>${measured ? "只有当 bot/crawler 分段显著偏离 human，才把机器人占比写入转化、停留、跳出归因。" : "owner analytics / bot log / human-bot 维度复证后，才能判断 www.momcozy.com 是否存在机器人占比高并污染渠道、停留、跳出和转化归因。"}</div>
     </div>
   </section>`;
 }
@@ -397,12 +560,13 @@ export function funnelInsightSection(data) {
 }
 
 export function botAttributionInsightSection(data) {
+  const measured = hasMeasuredBotEvidence(data);
   return `<section class="section section--gray" id="bot-attribution">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">机器人占比 / 爬虫占比 · 归因证据缺口</div>
-        <h2 class="section__title">先把 human/bot 维度补齐，再解释转化率、停留和跳出</h2>
-        <p class="section__sub">当前数据能列事实：转化率、停留、跳出率可与历史并排比较；但机器人占比/爬虫占比为缺失或待复证证据，不能把低转化、短停留或高跳出归因给 bot。</p>
+        <div class="section__eyebrow">${escapeHtml(botAttributionEyebrow(data))}</div>
+        <h2 class="section__title">${measured ? "按 human/bot 分段解释转化率、停留和跳出" : "先把 human/bot 维度补齐，再解释转化率、停留和跳出"}</h2>
+        <p class="section__sub">${measured ? "当前页面只使用脱敏聚合分段，比较 human、bot、crawler、unknown 的转化率、停留和跳出；归因结论必须以分段差异为前提。" : "当前数据能列事实：转化率、停留、跳出率可与历史并排比较；但机器人占比/爬虫占比为缺失或待复证证据，不能把低转化、短停留或高跳出归因给 bot。"}</p>
       </div>
       ${botAttributionSankeyChart({data})}
     </div>
@@ -431,12 +595,13 @@ export function diagnosticBacklogSection(data) {
 export function overviewProofSection(data) {
   const current = data.currentOperations;
   const historical = data.historicalOperations;
+  const measured = hasMeasuredBotEvidence(data);
   return `<section class="section section--gray" id="overview-proof">
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">${evidenceEyebrow(data)}</div>
         <h2 class="section__title">结论、事实、归因、行动放在同一张证据板</h2>
-        <p class="section__sub">真实经营数据回归，关键风险收敛。当前与历史对比显示转化率、停留、跳出率可读；机器人占比/爬虫占比为缺失或待复证证据，必须由 owner analytics / bot log / human-bot 维度复证。</p>
+        <p class="section__sub">真实经营数据回归，关键风险收敛。当前与历史对比显示转化率、停留、跳出率可读；${measured ? "机器人占比/爬虫占比已纳入脱敏聚合分段，只能按 human/bot 差异解释归因。" : "机器人占比/爬虫占比为缺失或待复证证据，必须由 owner analytics / bot log / human-bot 维度复证。"}</p>
       </div>
       ${pairedMetricChart({
         id: "chart-overview-proof",
@@ -450,7 +615,7 @@ export function overviewProofSection(data) {
       })}
       <div class="route-grid">
         <div class="route-card"><h3>结论</h3><p>归因可信度、PDP 负担和第三方失败比单点 SEO 收益故事更值得预算优先级。</p></div>
-        <div class="route-card"><h3>事实</h3><p>www.momcozy.com 当前转化率、停留、跳出率已有当前/历史对照；机器人占比没有实测 bot share，不能编造百分比。</p></div>
+        <div class="route-card"><h3>事实</h3><p>www.momcozy.com 当前转化率、停留、跳出率已有当前/历史对照；${measured ? "机器人占比已由脱敏聚合 human/bot 证据承接，不能脱离分段指标解读。" : "机器人占比没有实测 bot share，不能编造百分比。"}</p></div>
         <div class="route-card"><h3>行动</h3><p>冻结错误预算，建立第三方域名 kill-list，用复采和验收门槛决定推进顺序。</p></div>
       </div>
     </div>
@@ -460,12 +625,13 @@ export function overviewProofSection(data) {
 export function metricGovernanceSection(data) {
   const current = data.currentOperations;
   const historical = data.historicalOperations;
+  const measured = hasMeasuredBotEvidence(data);
   return `<section class="section section--gray" id="metric-governance">
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">${evidenceEyebrow(data)}</div>
         <h2 class="section__title">可用指标负责方向，不可用指标先冻结</h2>
-        <p class="section__sub">先统一口径，再讨论增长。当前 workbook 与历史经营都可用于转化率、停留和跳出率方向判断；不可用的是不同窗口金额同比、未实测 bot share、缺 human/bot 维度的渠道归因。</p>
+        <p class="section__sub">先统一口径，再讨论增长。当前 workbook 与历史经营都可用于转化率、停留和跳出率方向判断；${measured ? "bot share 只在脱敏聚合 human/bot 分段内可用。" : "不可用的是不同窗口金额同比、未实测 bot share、缺 human/bot 维度的渠道归因。"}</p>
       </div>
       ${pairedMetricChart({
         id: "chart-kpi-direction",
@@ -483,7 +649,7 @@ export function metricGovernanceSection(data) {
           <tbody>
             <tr><td>当前 workbook</td><td>可用</td><td>经营优先级、实验 baseline、漏斗方向</td><td>统一流量/销售窗口后再承诺增长</td></tr>
             <tr><td>历史经营</td><td>可用</td><td>长期基线、趋势方向、资产约束</td><td>保留 caveat，不能替代当前 owner 数据</td></tr>
-            <tr><td>机器人占比</td><td>不可用</td><td>只能作为归因风险假设</td><td>owner analytics / bot log / human-bot 维度复证</td></tr>
+            <tr><td>机器人占比</td><td>${measured ? "分段可用" : "不可用"}</td><td>${measured ? "按 human/bot/crawler/unknown 解释归因质量" : "只能作为归因风险假设"}</td><td>${measured ? "继续复采，确认分段差异是否稳定" : "owner analytics / bot log / human-bot 维度复证"}</td></tr>
           </tbody>
         </table>
       </div>
@@ -558,12 +724,13 @@ export function trendChartsSection(data, session) {
 }
 
 export function decisionChartSection(data) {
+  const measured = hasMeasuredBotEvidence(data);
   return `<section class="section section--gray" id="decision-chart">
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">${evidenceEyebrow(data)}</div>
         <h2 class="section__title">决策矩阵只保留可执行结论</h2>
-        <p class="section__sub">历史报告为基线，当前数据只保留可执行结论。资源排序、验收、冲突和执行战单同时出现；批准、冻结、推进都必须绑定 owner 和复采。机器人占比/爬虫占比为缺失或待复证证据，不能生成任何 bot share 数值。</p>
+        <p class="section__sub">历史报告为基线，当前数据只保留可执行结论。资源排序、验收、冲突和执行战单同时出现；批准、冻结、推进都必须绑定 owner 和复采。${measured ? "bot/crawler 指标必须和 human 分段对照后进入归因。" : "机器人占比/爬虫占比为缺失或待复证证据，不能生成任何 bot share 数值。"}</p>
       </div>
       ${barChart({
         id: "chart-decision-matrix",
@@ -576,6 +743,148 @@ export function decisionChartSection(data) {
   </section>`;
 }
 
+export function competitorHero(data) {
+  const evidence = competitorEvidence(data);
+  const pressureRows = competitorPressureRows(data);
+  const worstGap = pressureRows
+    .map((row) => ({...row, ratio: row.reference > 0 ? row.current / row.reference : 0}))
+    .sort((left, right) => right.ratio - left.ratio)[0];
+  return `<section class="hero" id="hero">
+    <div class="container">
+      <span class="hero__badge">VI · 竞品对比 · 洞察报告</span>
+      <h1 class="hero__title">竞品不是借口，<br><span class="hl">是预算上限。</span></h1>
+      <p class="hero__lead">竞品不是借口，是预算上限。竞品二轮公开样本覆盖 ${evidence.competitorCount || 6} 个品牌、${evidence.sampledPageCount || 18} 个公开页面、${evidence.viewportSampleCount || 24} 个视口。结论很直接：行业脚本都重，但 Momcozy 的 PDP watchlist 更重，第三方失败、JS 和 DOM 都超过竞品上限。</p>
+      <p class="hero__lead">最尖锐的问题是 ${escapeHtml(worstGap?.metric || "第三方失败")}：Momcozy ${integer(worstGap?.current || data.external.maxThirdPartyFailures)}${escapeHtml(worstGap?.unit || "次")} vs 竞品最高 ${integer(worstGap?.reference || 42)}${escapeHtml(worstGap?.unit || "次")}，约 ${escapeHtml(ratioLabel(worstGap?.current, worstGap?.reference))}。这不是审美问题，而是归因可信度、PDP 体验和实验噪音问题。</p>
+      <div class="hero__meta">
+        <span>竞品样本 · ${evidence.observedAt || "2026-06-18"} · ${evidence.viewportSampleCount || 24} 视口</span>
+        <span>自站样本 · ${escapeHtml(data.external.latestSession)} · ${data.external.routeCount} 路径</span>
+        <span>用途 · 资源排序 / 失败预算 / 复采门槛</span>
+      </div>
+    </div>
+  </section>`;
+}
+
+export function competitorProblemSection(data) {
+  const rows = competitorPressureRows(data);
+  const cards = rows.map((row) => `<article class="metric-card metric-card--danger">
+    <div class="card-label">${escapeHtml(row.metric)}</div>
+    <div class="card-value">${escapeHtml(ratioLabel(row.current, row.reference))}</div>
+    <div class="card-meta">Momcozy ${integer(row.current)}${escapeHtml(row.unit)} / 竞品最高 ${integer(row.reference)}${escapeHtml(row.unit)} · ${escapeHtml(row.source)}</div>
+  </article>`).join("");
+  const tableRows = rows.map((row) => `<tr>
+    <td><strong>${escapeHtml(row.metric)}</strong></td>
+    <td>${integer(row.current)}${escapeHtml(row.unit)}</td>
+    <td>${integer(row.reference)}${escapeHtml(row.unit)}<div class="evidence-note">${escapeHtml(row.source)}</div></td>
+    <td><strong>${escapeHtml(ratioLabel(row.current, row.reference))}</strong></td>
+    <td>${escapeHtml(row.verdict)}</td>
+  </tr>`).join("");
+  return `<section class="section section--gray" id="competitor-gap">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">竞品对比 · 明显问题标注</div>
+        <h2 class="section__title">Momcozy 的负担高过竞品上限，不是行业常态</h2>
+        <p class="section__sub">这里不做分值化排名，只做可复核的上限对比。超过竞品二轮最高值的指标，直接进入资源排序和失败预算。</p>
+      </div>
+      <div class="metric-grid">${cards}</div>
+      ${pairedMetricChart({
+        id: "chart-competitor-gap",
+        title: "自站 vs 竞品二轮上限",
+        subtitle: "同口径公开样本；Momcozy 使用 PDP watchlist / 最新外部采集最大值，竞品使用二轮采样最大值。",
+        pairs: rows.map((row) => ({
+          label: row.metric,
+          currentLabel: "Momcozy",
+          historicalLabel: "竞品上限",
+          current: row.current,
+          historical: row.reference,
+          unit: row.unit,
+          digits: 0
+        }))
+      })}
+      <div class="cross-table-wrap" tabindex="0">
+        <table class="cross-table">
+          <thead><tr><th>问题</th><th>Momcozy</th><th>竞品上限</th><th>差距</th><th>洞察结论</th></tr></thead>
+          <tbody>${tableRows}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>`;
+}
+
+export function competitorBenchmarkSection(data) {
+  const evidence = competitorEvidence(data);
+  return `<section class="section" id="competitor-benchmark">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">竞品样本 · 覆盖与排序</div>
+        <h2 class="section__title">竞品样本够用来设上限，不够用来宣布终局</h2>
+        <p class="section__sub">竞品数据的正确用途是设失败预算、判断 Momcozy 是否异常、决定下一轮复采队列；不是做品牌胜负榜，也不是替代 owner 经营数据。</p>
+      </div>
+      <div class="cross-grid">
+        <div class="cross-card"><div class="cross-label">竞品品牌</div><div class="cross-value">${evidence.competitorCount || 6}</div><div class="cross-meta">公开样本品牌数</div></div>
+        <div class="cross-card"><div class="cross-label">视口样本</div><div class="cross-value">${evidence.viewportSampleCount || 24}</div><div class="cross-meta">首页 / PDP / cart 双视口</div></div>
+        <div class="cross-card cross-card--warn"><div class="cross-label">PDP 可达</div><div class="cross-value">${evidence.reachablePdpCount || 6}/6</div><div class="cross-meta">竞品 PDP 样本公开可达</div></div>
+        <div class="cross-card cross-card--warn"><div class="cross-label">Cart 可达</div><div class="cross-value">${evidence.reachableCartCount || 5}/6</div><div class="cross-meta">公开 cart 样本，不代表真实 checkout</div></div>
+      </div>
+      ${barChart({
+        id: "chart-competitor-risk-ranking",
+        title: "第三方失败排名：Momcozy vs 竞品最高样本",
+        subtitle: "数值越高，归因污染和运行时噪音越需要 owner/预算治理。",
+        rows: competitorRiskRankingRows(data)
+      })}
+    </div>
+  </section>`;
+}
+
+export function competitorValueScreenSection(data) {
+  const rows = valueScreenRows(data).map((item) => `<tr>
+    <td><strong>${escapeHtml(item.dimension)}</strong></td>
+    <td><strong>${escapeHtml(item.decision)}</strong><div class="evidence-note">${escapeHtml(item.reason)}</div></td>
+    <td>${escapeHtml(item.evidence)}</td>
+    <td>${escapeHtml(item.lesson)}</td>
+    <td>${escapeHtml(item.action)}</td>
+  </tr>`).join("");
+  return `<section class="section section--gray" id="value-screen">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">价值筛查 · 旧洞察方向是否补回</div>
+        <h2 class="section__title">只补回能改变资源排序的方向</h2>
+        <p class="section__sub">旧方向不是全量恢复。第三方治理和 PDP 行动路径直接补回；爬虫分级只作为归因证据缺口；内容入口变现继续冻结，直到搜索源和落地页数据补齐。</p>
+      </div>
+      <div class="cross-table-wrap" tabindex="0">
+        <table class="cross-table">
+          <thead><tr><th>旧方向</th><th>筛查结论</th><th>当前证据</th><th>保留价值</th><th>进入故事线的方式</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>`;
+}
+
+export function competitorDecisionSection(data) {
+  return `<section class="section" id="competitor-action">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">竞品对比 · 决策动作</div>
+        <h2 class="section__title">下一轮不是再证明有问题，而是把上限写进验收</h2>
+        <p class="section__sub">Momcozy 已经高过竞品上限。继续讨论“是否有问题”会浪费时间；下一步要把竞品上限变成脚本预算、PDP 复采队列和回滚条件。</p>
+      </div>
+      <div class="route-grid">
+        <div class="route-card"><h3>第三方失败预算</h3><p>总第三方失败不得继续高于竞品上限 42；保留超过上限的脚本必须有 owner、用途和不可替代理由。</p></div>
+        <div class="route-card"><h3>PDP 模板队列</h3><p>M5、Mobile Flow、S12 Pro 等高风险 PDP 先复跑，不再用单 PDP 或首页数据代表商品详情页。</p></div>
+        <div class="route-card"><h3>竞品对比边界</h3><p>当前样本只支持公开页面技术上限，不支持收入、SEO、真实 checkout 或品牌胜负结论。</p></div>
+      </div>
+    </div>
+  </section>`;
+}
+
+export function competitorsBody(data) {
+  return `${competitorHero(data)}
+  ${competitorProblemSection(data)}
+  ${competitorBenchmarkSection(data)}
+  ${competitorValueScreenSection(data)}
+  ${competitorDecisionSection(data)}`;
+}
+
 export function hero(data) {
   const sessionLabel = observedSessionDate(data);
   return `<section class="hero" id="hero">
@@ -585,7 +894,7 @@ export function hero(data) {
           <span class="hero__badge">洞察报告 · 私密经营数据版</span>
           <h1 class="hero__title">真实经营数据回归，<br><span class="hl">关键风险收敛</span>。</h1>
           <p class="hero__lead">真实经营数据回归，关键风险收敛。本版把当前 workbook、历史经营 JSON 与 ${sessionLabel || "最新"} 自动采集收敛为同一份经营洞察：结论 -> 事实 -> 归因 -> 行动。</p>
-          <p class="hero__lead">当前经营表显示总销售额 ${fixed(data.currentOperations.sales.totalSalesWan, 2)}万、转化率 ${pct(data.currentOperations.conversion.conversionRate)}、AOV ${fixed(data.currentOperations.sales.averageOrderValue, 2)}；历史 M1 v2.0 显示总营收 ${usdMillion(data.historicalOperations.sales.totalRevenueUsd)}、monthly_revenue ${usdMillion(data.historicalOperations.sales.monthlyRevenueUsd)}、overall_cvr ${pct(data.historicalOperations.conversion.overallCvr)}。自动采集则证明首页与代表性 PDP 仍暴露约 1.9MB JS、最高 ${data.external.maxDomNodes.toLocaleString("en-US")} DOM 节点、最高 ${data.external.maxThirdPartyFailures} 次第三方失败。</p>
+          <p class="hero__lead">当前经营表显示总销售额 ${fixed(data.currentOperations.sales.totalSalesWan, 2)}万、转化率 ${pct(data.currentOperations.conversion.conversionRate)}、AOV ${fixed(data.currentOperations.sales.averageOrderValue, 2)}；历史 M1 v2.0 显示总营收 ${usdMillion(data.historicalOperations.sales.totalRevenueUsd)}、monthly_revenue ${usdMillion(data.historicalOperations.sales.monthlyRevenueUsd)}、overall_cvr ${pct(data.historicalOperations.conversion.overallCvr)}。自动采集则证明首页与代表性 PDP 仍暴露约 1.9MB JS、最高 ${data.external.maxDomNodes.toLocaleString("en-US")} DOM 节点、最高 ${data.external.maxThirdPartyFailures} 次第三方失败；竞品二轮上限只有 ${competitorMetricValue(data, "thirdPartyFailures", "maxThirdPartyFailures") || 42} 次，Momcozy 不能再把脚本负担解释成行业常态。</p>
           <div class="hero__meta">
             <span>经营刷新 · ${data.internal.statusCounts.PASS} PASS / ${data.internal.statusCounts.WARN} WARN / ${data.internal.statusCounts.FAIL} FAIL</span>
             <span>外部采集 · ${escapeHtml(data.external.latestSession)} · ${data.external.routeCount} 路径</span>
