@@ -73,7 +73,7 @@ export function pageStyles() {
     .badge--p0 { background: var(--danger); color: #fff; }
     .badge--p1 { background: #92400e; color: #fff; }
     .badge--p2 { background: #4b5563; color: #fff; }
-    .badge--safe { background: var(--success-light); color: var(--success); }
+    .badge--safe { background: var(--success-light); color: #0a6e35; }
     .backlog-card p { color: var(--text-secondary); font-size: 13px; line-height: 1.65; margin-top: 8px; }
     .playbook-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; }
     .playbook-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }

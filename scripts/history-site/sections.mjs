@@ -289,7 +289,7 @@ export function crossMatrixSection(data) {
         <h2 class="section__title">把洞察结果落到资源排序和验收动作</h2>
         <p class="section__sub">这张表直接对应 owner、时间窗和验收指标。没有复采和回滚条件的建议不进入本轮排期。</p>
       </div>
-      <details class="evidence-drilldown">
+      <details class="evidence-drilldown" open>
         <summary>查看本页证据明细</summary>
         <div class="cross-table-wrap" tabindex="0">
           <table class="cross-table">
@@ -1086,7 +1086,7 @@ export function trendsBody(data, session) {
       </div>
       <details class="evidence-drilldown" open>
         <summary>查看 13 路由双视口原始表</summary>
-        <div class="sessions-wrap">
+        <div class="sessions-wrap" tabindex="0">
           <table class="sessions-table">
             <thead><tr><th>路线</th><th>视口</th><th>FCP (s)</th><th>TTFB (ms)</th><th>CLS</th><th>JS (KB)</th><th>DOM</th><th>请求</th><th>3P 失败</th></tr></thead>
             <tbody>${latestRows(session)}</tbody>
