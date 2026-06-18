@@ -137,95 +137,11 @@ export function nav(active) {
     ["trends.html", "IV · 性能趋势", "trends"],
     ["cross-audit.html", "V · 决策总表", "cross"]
   ];
-  const pageAnchors = {
-    index: {
-      label: "总览锚点",
-      ctaHref: "index.html#decisions",
-      ctaLabel: "查看执行战单",
-      anchors: [
-        ["index.html#feature-compare", "功能对比"],
-        ["index.html#insight-chain", "核心洞察"],
-        ["index.html#hard-conclusions", "硬结论"],
-        ["index.html#operating-bridge", "经营信号"],
-        ["index.html#traffic-attribution", "渠道诊断"],
-        ["index.html#asset-attribution", "资产保护"],
-        ["index.html#bot-audit", "爬虫治理"],
-        ["index.html#top15", "Top 15 病灶"],
-        ["index.html#matrix", "竞品矩阵"],
-        ["index.html#decisions", "执行战单"],
-        ["index.html#code", "PR 实验卡"],
-        ["index.html#roadmap", "Sprint 路线图"]
-      ]
-    },
-    metrics: {
-      label: "本页锚点",
-      ctaHref: "metrics.html#funnel",
-      ctaLabel: "查看口径治理",
-      anchors: [
-        ["metrics.html#hero", "指标结论"],
-        ["metrics.html#operating-bridge", "经营信号"],
-        ["metrics.html#business-kpi", "真实 KPI"],
-        ["metrics.html#funnel", "口径治理"],
-        ["metrics.html#traffic-attribution", "渠道诊断"],
-        ["metrics.html#cross-audit", "重审结论"],
-        ["metrics.html#metric-dictionary", "指标字典"]
-      ]
-    },
-    forensics: {
-      label: "本页锚点",
-      ctaHref: "forensics.html#top15",
-      ctaLabel: "查看病灶清单",
-      anchors: [
-        ["forensics.html#scene", "病灶总览"],
-        ["forensics.html#bot-audit", "爬虫治理"],
-        ["forensics.html#cross-audit", "重审结论"],
-        ["forensics.html#fatal", "第三方失败"],
-        ["forensics.html#top15", "Top 15 病灶"],
-        ["forensics.html#pdp", "PDP 覆盖"]
-      ]
-    },
-    trends: {
-      label: "本页锚点",
-      ctaHref: "trends.html#latest-v3",
-      ctaLabel: "查看最新采集",
-      anchors: [
-        ["trends.html#hero", "趋势结论"],
-        ["trends.html#cross-audit", "重审结论"],
-        ["trends.html#latest-v3", "最新采集"]
-      ]
-    },
-    cross: {
-      label: "本页锚点",
-      ctaHref: "cross-audit.html#execution-orders",
-      ctaLabel: "查看执行战单",
-      anchors: [
-        ["cross-audit.html#storyline", "故事线"],
-        ["cross-audit.html#insight-chain", "核心洞察"],
-        ["cross-audit.html#hard-conclusions", "硬结论"],
-        ["cross-audit.html#cross-matrix", "策略矩阵"],
-        ["cross-audit.html#contradictions", "冲突处理"],
-        ["cross-audit.html#feature-compare", "功能对比"],
-        ["cross-audit.html#operating-bridge", "经营信号"],
-        ["cross-audit.html#business-kpi", "真实 KPI"],
-        ["cross-audit.html#cross-audit", "重审结论"],
-        ["cross-audit.html#matrix", "竞品矩阵"],
-        ["cross-audit.html#competitor-recollect", "竞品重采"],
-        ["cross-audit.html#segment-sampling", "分段复采"],
-        ["cross-audit.html#third-party-governance", "第三方治理"],
-        ["cross-audit.html#execution-orders", "执行战单"],
-        ["cross-audit.html#code", "PR 实验卡"],
-        ["cross-audit.html#roadmap", "Sprint 路线图"]
-      ]
-    }
-  };
-  const anchorConfig = pageAnchors[active] || pageAnchors.index;
-  const anchors = anchorConfig.anchors;
   return `<nav class="side-nav" aria-label="Momcozy 诊断报告导航">
     <a href="index.html#hero" class="side-nav__brand">路特 AI <span>×</span><br>Momcozy</a>
     <div class="side-nav__kicker">Momcozy 经营诊断</div>
     <div class="side-nav__status" aria-label="报告状态">
       <div class="side-stat"><strong>5</strong><span>主页面</span></div>
-      <div class="side-stat"><strong>${anchors.length}</strong><span>核心锚点</span></div>
       <div class="side-stat"><strong>KPI</strong><span>真实写入</span></div>
       <div class="side-stat"><strong>noindex</strong><span>访问边界</span></div>
     </div>
@@ -235,13 +151,6 @@ export function nav(active) {
         ${links.map(([href, label, key], index) => `<a href="${href}" class="side-nav__link${active === key ? " side-nav__link--active" : ""}"><span>${label}</span><small>0${index + 1}</small></a>`).join("")}
       </div>
     </div>
-    <div class="side-nav__group side-nav__group--anchors">
-      <div class="side-nav__label">${anchorConfig.label}</div>
-      <div class="side-nav__anchors">
-        ${anchors.map(([href, label]) => `<a class="side-nav__anchor" href="${href}">${label}</a>`).join("")}
-      </div>
-    </div>
-    <a href="${anchorConfig.ctaHref}" class="side-nav__cta">${anchorConfig.ctaLabel}</a>
     <p class="side-nav__foot">真实金额与 KPI 已写入；密钥、服务器地址、私有路径和原始数据端点仍被排除。</p>
   </nav>`;
 }

@@ -10,7 +10,7 @@
     {"path": "/forensics/", "status": 404, "markers": []},
     {"path": "/trends.html", "status": 200, "markers": ["性能趋势", "session-2026-06-17"]},
     {"path": "/trends/", "status": 404, "markers": []},
-    {"path": "/cross-audit.html", "status": 200, "markers": ["本页锚点", "执行战单"]},
+    {"path": "/cross-audit.html", "status": 200, "markers": ["决策总表", "执行战单"]},
     {"path": "/not-a-real-page", "status": 404, "markers": []}
   ],
   "canonicalRoutes": ["/", "/metrics.html", "/forensics.html", "/trends.html", "/cross-audit.html"],
