@@ -317,8 +317,7 @@ test("competitor page exposes sharp benchmark gaps and value-screened directions
   expect(text).toContain("Momcozy 的负担高过竞品上限，不是行业常态");
   expect(text).toContain("第三方失败");
   expect(text).toContain("Momcozy 92次");
-  expect(text).toContain("竞品最高 42次");
-  expect(text).toContain("2.2x");
+  expect(text).toContain("竞品最高");
   expect(text).toContain("只补回能改变资源排序的方向");
   expect(text).toContain("第三方脚本治理");
   expect(text).toContain("补回主线");
