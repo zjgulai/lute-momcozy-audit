@@ -7,6 +7,7 @@
     "build": "node scripts/build-history-site.mjs",
     "collect": "node scripts/collect.mjs",
     "collect:competitors": "node scripts/collect-competitors.mjs",
+    "collect:360": "AUDIT_TARGET_URL=https://momcozy.com AUDIT_ROUTE_CONFIG=config/collection-routes-360-full.json node scripts/collect-360-content.mjs",
     "collect:summary": "node scripts/generate-collect-summary.mjs",
     "serve": "node scripts/serve.mjs",
     "monitor:uptime": "node scripts/uptime-monitor.mjs",

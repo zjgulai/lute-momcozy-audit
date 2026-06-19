@@ -1643,5 +1643,591 @@
         "fix": "更新 competitor PDP URL 配置后重新采集"
       }
     ]
+  },
+  "diagnosticGaps360": {
+    "lastUpdated": "2026-06-19",
+    "frameworkVersion": "v2.0-360-full",
+    "totalDimensions": 20,
+    "coveredDimensions": 9,
+    "newDimensions": 11,
+    "coverageNote": "9个已有维度（D1-D9）完整或部分覆盖；11个新维度（G1-G11）注册待采集",
+    "gaps": {
+      "G1_behavior": {
+        "label": "行为数据层（Session Replay + 热图）",
+        "layer": "A",
+        "layerDesc": "行为数据层（需要第三方工具安装）",
+        "dataSource": "Microsoft Clarity（免费）/ Hotjar",
+        "collectionMethod": "manual_tool",
+        "status": "not_started",
+        "priority": "P0",
+        "impactEstimate": "识别用户真实行为路径，直接影响 PDP 和 checkout 优化方向",
+        "keyQuestions": [
+          "用户在 PDP 上的滚动深度——信任信号（退货政策、认证）是否被看到？",
+          "弃单前的最后行为是什么？价格犹豫、变体选择困惑还是支付按钮无响应？",
+          "移动端有哪些 rage click、re-read 和误触模式？",
+          "20 个弃单 session replay 揭示的 Top 3 摩擦点是什么？"
+        ],
+        "actionItems": [
+          "Step 1: 注册 Microsoft Clarity（clarity.microsoft.com）",
+          "Step 2: 在 Shopify theme.liquid 的 <head> 中添加 Clarity tracking code",
+          "Step 3: 等待 14 天数据积累",
+          "Step 4: Recordings → Filter 'Rage clicks' → 分析 20 个 /checkout 弃单 replay",
+          "Step 5: Heatmaps → /products/m5-smart... → 确认信任信号可见位置"
+        ],
+        "metrics": null
+      },
+      "G2_funnel_segmented": {
+        "label": "漏斗分段 CVR（渠道×设备×用户类型）",
+        "layer": "A",
+        "layerDesc": "行为数据层（Shopify Analytics 已有，需分段导出）",
+        "dataSource": "Shopify Analytics → Online Store Conversion Rate（按渠道/设备分段）",
+        "collectionMethod": "shopify_analytics",
+        "status": "not_started",
+        "priority": "P0",
+        "impactEstimate": "解决 C7 口径混淆问题，确认付费 vs 自然 CVR 真实差距",
+        "relatedConclusion": "C7",
+        "keyQuestions": [
+          "付费流量 CVR vs 自然流量 CVR vs 邮件流量 CVR（三者可能差距 3-5 倍）",
+          "移动端各渠道的漏斗分步完成率（联系→配送→支付→确认）",
+          "新客 vs 回购客的漏斗形状差异"
+        ],
+        "actionItems": [
+          "Shopify Admin → Analytics → Reports → Online Store Conversion Rate",
+          "Breakdown by: Device → 导出 desktop/mobile/tablet 各自 CVR",
+          "Breakdown by: Traffic Source → 导出 paid/organic/direct/email CVR",
+          "填入下方 metrics 字段"
+        ],
+        "metrics": {
+          "paid_cvr": null,
+          "organic_cvr": null,
+          "email_cvr": null,
+          "direct_cvr": null,
+          "mobile_cvr": null,
+          "desktop_cvr": null,
+          "new_visitor_cvr": null,
+          "returning_visitor_cvr": null,
+          "checkout_step_contact_completion": null,
+          "checkout_step_shipping_completion": null,
+          "checkout_step_payment_completion": null,
+          "checkout_step_confirm_completion": null,
+          "window": null
+        }
+      },
+      "G3_ltv_cohort": {
+        "label": "客户留存队列分析（M1/M3/M6/M12 LTV Cohort）",
+        "layer": "B",
+        "layerDesc": "经营健康层（需要 Shopify/Klaviyo 导出）",
+        "dataSource": "Shopify customer data + Klaviyo cohort export",
+        "collectionMethod": "shopify_klaviyo_export",
+        "status": "not_started",
+        "priority": "P0",
+        "impactEstimate": "确定 CAC 上限，驱动预算分配决策，识别高价值渠道",
+        "keyQuestions": [
+          "M1/M3/M6/M12 各月队列的留存曲线（哪个月流失最多）？",
+          "不同获客渠道的队列 LTV 差异（KOL vs 付费搜索 vs 自然）",
+          "配件复购漏斗转化率（主品 → 储奶袋/法兰盘 → 升级款）"
+        ],
+        "benchmarks": {
+          "m1_repeat_rate_target": 0.2,
+          "m3_repeat_rate_target": 0.45,
+          "m6_repeat_rate_target": 0.5,
+          "ltv_12m_target_usd": 200,
+          "accessory_repeat_premium_over_maindevice": "30-40%"
+        },
+        "metrics": {
+          "cohort_2025_12": {
+            "m1": null,
+            "m3": null,
+            "m6": null,
+            "ltv_12m": null
+          },
+          "cohort_2026_01": {
+            "m1": null,
+            "m3": null,
+            "m6": null,
+            "ltv_12m": null
+          },
+          "cohort_2026_02": {
+            "m1": null,
+            "m3": null,
+            "m6": null,
+            "ltv_12m": null
+          },
+          "cohort_2026_03": {
+            "m1": null,
+            "m3": null,
+            "m6": null,
+            "ltv_12m": null
+          },
+          "by_channel": {
+            "paid_search": {
+              "m3_repeat": null,
+              "ltv_6m": null
+            },
+            "organic": {
+              "m3_repeat": null,
+              "ltv_6m": null
+            },
+            "email": {
+              "m3_repeat": null,
+              "ltv_6m": null
+            },
+            "tiktok": {
+              "m3_repeat": null,
+              "ltv_6m": null
+            },
+            "kol_affiliate": {
+              "m3_repeat": null,
+              "ltv_6m": null
+            }
+          }
+        }
+      },
+      "G4_email_sms": {
+        "label": "邮件/SMS 营销性能诊断",
+        "layer": "B",
+        "layerDesc": "经营健康层（需要 Klaviyo / Postscript 导出）",
+        "dataSource": "Klaviyo Analytics + Postscript",
+        "collectionMethod": "klaviyo_export",
+        "status": "not_started",
+        "priority": "P1",
+        "impactEstimate": "最高 ROI 渠道（$36-40/每$1投入），配件复购 LTV 关键杠杆",
+        "benchmarks": {
+          "email_capture_rate_min": 0.4,
+          "email_capture_rate_target": 0.5,
+          "welcome_series_open_rate_min": 0.35,
+          "welcome_series_open_rate_target": 0.48,
+          "abandoned_cart_cvr_target": 0.04,
+          "post_purchase_open_rate_target": 0.42,
+          "sms_ctr_target": 0.15,
+          "email_revenue_pct_target": 0.3
+        },
+        "metrics": {
+          "email_capture_rate": null,
+          "welcome_series_open_rate": null,
+          "welcome_series_click_rate": null,
+          "abandoned_cart_email_open_rate": null,
+          "abandoned_cart_email_ctr": null,
+          "abandoned_cart_email_cvr": null,
+          "post_purchase_open_rate": null,
+          "sms_opt_in_rate": null,
+          "sms_ctr": null,
+          "email_revenue_pct_of_total": null,
+          "flows_revenue_pct": null,
+          "has_welcome_series": null,
+          "has_abandoned_cart_flow": null,
+          "has_post_purchase_flow": null,
+          "has_refill_trigger": null,
+          "has_winback_flow": null,
+          "has_lifecycle_education_flow": null,
+          "list_size": null
+        }
+      },
+      "G5_inventory": {
+        "label": "库存健康 × CVR 关系",
+        "layer": "B-C",
+        "layerDesc": "混合层（公开信号 Playwright 可采集；库存数据需 Shopify 后台）",
+        "dataSource": "collect-360-content.mjs（公开可见信号）+ Shopify Inventory API",
+        "collectionMethod": "playwright_plus_shopify",
+        "status": "collected",
+        "priority": "P1",
+        "impactEstimate": "库存状态徽章可提升 CVR 18-22%；DTC 缺货导致 Amazon 毛利率损失",
+        "benchmarks": {
+          "hero_sku_in_stock_pct_target": 0.95,
+          "backorder_resolution_days_max": 14,
+          "dtc_priority_over_amazon": true
+        },
+        "collectedSignals": {
+          "stockBadgeVisible": false,
+          "backorderMessagePresent": false,
+          "backorderMessageSpecific": false,
+          "outOfStock": false,
+          "inventoryCountExposed": false,
+          "hasBackInStockNotify": false
+        },
+        "manualMetrics": {
+          "hero_sku_in_stock_pct_30d": null,
+          "dtc_vs_amazon_stock_alignment_pct": null,
+          "avg_backorder_resolution_days": null,
+          "backorder_abandon_rate_lift": null
+        },
+        "keyFindings": [
+          "所有 PDP 均无库存状态徽章——无法通过「仅剩X件」提升购买紧迫感",
+          "无缺货提示或延迟发货信息（在库状态下是正常的）",
+          "无「到货通知」功能——对于临时缺货 SKU 是 CVR 损失",
+          "库存数量未公开暴露（合理）"
+        ]
+      },
+      "G6_review_ecosystem": {
+        "label": "评论生态系统内容分析",
+        "layer": "C",
+        "layerDesc": "技术可采集层（Playwright 部分采集 + 人工内容分析）",
+        "dataSource": "collect-360-content.mjs + 人工评论主题分析",
+        "collectionMethod": "playwright_plus_manual",
+        "status": "collected",
+        "priority": "P1",
+        "note": "seoTechnical 已采集 reviewCount/ratingValue；本维度扩展到内容质量层",
+        "impactEstimate": "评论内容驱动 GEO AI 引用；顶级负面主题 = 最高价值优化靶点",
+        "benchmarks": {
+          "photo_ugc_ratio_target": 0.25,
+          "review_velocity_target_weekly": 5,
+          "negative_review_response_rate_target": 0.8,
+          "verified_buyer_pct_target": 0.8
+        },
+        "collectedSignals": {
+          "m5_smart": {
+            "reviewCount": 1439,
+            "ratingValue": 4.6,
+            "hasAggregateRatingJsonLd": true,
+            "hasPhotoReviews": true,
+            "reviewsAboveFold": true
+          },
+          "s12_pro": {
+            "reviewCount": 1828,
+            "ratingValue": 4.5,
+            "hasAggregateRatingJsonLd": true,
+            "hasPhotoReviews": true,
+            "reviewsAboveFold": true
+          },
+          "mobile_flow": {
+            "reviewCount": 470,
+            "ratingValue": 4.7,
+            "hasAggregateRatingJsonLd": true,
+            "hasPhotoReviews": true,
+            "reviewsAboveFold": true
+          },
+          "tuckgo": {
+            "reviewCount": 10,
+            "ratingValue": 5.0,
+            "hasAggregateRatingJsonLd": true,
+            "hasPhotoReviews": true,
+            "reviewsAboveFold": true
+          },
+          "kleanpal_pro": {
+            "reviewCount": 898,
+            "ratingValue": 4.9,
+            "hasAggregateRatingJsonLd": true,
+            "hasPhotoReviews": true,
+            "reviewsAboveFold": true
+          }
+        },
+        "manualAnalysis": {
+          "top_negative_themes": null,
+          "top_positive_themes": null,
+          "photo_ugc_ratio": null,
+          "negative_response_rate": null,
+          "medical_claim_risk_flags": null,
+          "competitor_gap": {
+            "willow_top_negatives": null,
+            "elvie_top_negatives": null
+          }
+        },
+        "keyFindings": [
+          "S12 Pro 以 1828 条评论（4.5★）是评论数量最多的 SKU，超过 M5 Smart（1439条）",
+          "所有 PDP 均有图片评论且评论摘要首屏可见——这是正向 GEO 信号",
+          "所有 PDP 的 reviewCount 均在 JSON-LD 中正确声明（AggregateRating）——AI 可读",
+          "TuckGo Stroller 仅 10 条评论，GEO 可见度和 SEO 权重均显著偏低"
+        ]
+      },
+      "G7_checkout_business": {
+        "label": "结账链路业务指标",
+        "layer": "C",
+        "layerDesc": "技术可采集层（Playwright 采集支付按钮 + Shopify Analytics 步骤完成率）",
+        "dataSource": "collect-360-content.mjs + Shopify Analytics",
+        "collectionMethod": "playwright_plus_shopify",
+        "status": "collected",
+        "priority": "P1",
+        "note": "checkout 路由已采集性能指标；本维度扩展到业务流程指标",
+        "impactEstimate": "Shop Pay 可提升转化 1.72x；结账字段数量与弃单率直接相关",
+        "benchmarks": {
+          "checkout_step_completion_desktop_min": 0.88,
+          "checkout_step_completion_mobile_min": 0.78,
+          "shop_pay_cvr_multiplier": 1.72,
+          "surprise_cost_abandon_pct": 0.7
+        },
+        "collectedSignals": {
+          "hasApplePay": false,
+          "hasShopPay": false,
+          "hasGooglePay": false,
+          "hasKlarna": false,
+          "formFieldCount": 4,
+          "guestCheckoutAvailable": true,
+          "shippingCostEarlyVisible": true
+        },
+        "shopifyMetrics": {
+          "checkout_step_contact_completion": null,
+          "checkout_step_shipping_completion": null,
+          "checkout_step_payment_completion": null,
+          "shop_pay_adoption_rate": null,
+          "apple_pay_adoption_rate": null,
+          "window": null
+        },
+        "keyFindings": [
+          "CRITICAL: Apple Pay / Shop Pay / Google Pay 均未检测到——损失 Shop Pay 1.72x 转化加成",
+          "Guest checkout 可用（正向）",
+          "运费信息首屏可见（正向）",
+          "结账表单字段数量适中（4个），无明显过度字段问题",
+          "支付按钮检测需要人工确认：Shopify checkout 的支付按钮可能在 JS 渲染后才出现，当前静态采集可能欠报"
+        ]
+      },
+      "G8_social_commerce": {
+        "label": "社交电商诊断（TikTok Shop / Instagram Shop）",
+        "layer": "D",
+        "layerDesc": "社交商务层（TikTok Seller Center 导出）",
+        "dataSource": "TikTok Shop Seller Center + UTM parameter tracking in Klaviyo",
+        "collectionMethod": "manual_tiktok_seller_center",
+        "status": "not_started",
+        "priority": "P1",
+        "impactEstimate": "TikTok Shop 美国 GMV 年化 $30-50B；Momcozy 已有 22,100 个赞助帖，是竞品 7 倍",
+        "benchmarks": {
+          "listing_cvr_target": 0.02,
+          "blended_cac_target_usd": 40,
+          "creator_repeat_purchase_rate_target": 0.18,
+          "monthly_gmv_baseline_usd": 200000,
+          "affiliate_commission_range": "10-25%"
+        },
+        "knownData": {
+          "sponsored_posts_12m": 22100,
+          "vs_willow_posts": 3200,
+          "vs_lovevery_posts": 3200,
+          "vs_babybrezza_posts": 2900,
+          "tiktok_pct_of_influencer_content": 0.777
+        },
+        "metrics": {
+          "monthly_gmv_usd": null,
+          "active_creator_count": null,
+          "tier1_creator_count_50k_plus": null,
+          "tier2_creator_count_10k_50k": null,
+          "listing_cvr": null,
+          "blended_cac_usd": null,
+          "affiliate_commission_pct": null,
+          "tiktok_buyer_30d_repeat": null,
+          "tiktok_buyer_90d_repeat": null,
+          "top_creator_gmv_pct": null,
+          "algorithmic_risk_level": null
+        }
+      },
+      "G9_pdp_content_depth": {
+        "label": "PDP 内容深度审计",
+        "layer": "C",
+        "layerDesc": "技术可采集层（Playwright 自动采集）",
+        "dataSource": "collect-360-content.mjs",
+        "collectionMethod": "playwright",
+        "status": "collected",
+        "priority": "P2",
+        "impactEstimate": "内容深度不足是 PDP 转化率偏低的直接原因；安全认证缺失是母婴品类高拒绝信号",
+        "benchmarks": {
+          "unique_word_count_min_high_consideration": 600,
+          "faq_count_min": 5,
+          "cta_above_fold_required": true,
+          "safety_certs_above_fold_required": true
+        },
+        "collectedByRoute": {
+          "pdp-m5-smart": {
+            "hasVideo": true,
+            "hasSizingGuide": true,
+            "hasSafetyCerts": false,
+            "faqCount": 8,
+            "variantCount": 20,
+            "ctaAboveFold": false,
+            "trustSignalsAboveFold": false,
+            "wordCountNote": "JS渲染，采集为0，实际内容需networkidle等待"
+          },
+          "pdp-s12-pro": {
+            "hasVideo": true,
+            "hasSizingGuide": true,
+            "hasSafetyCerts": false,
+            "faqCount": 10,
+            "variantCount": 19,
+            "ctaAboveFold": false,
+            "trustSignalsAboveFold": false
+          },
+          "pdp-mobile-flow": {
+            "hasVideo": true,
+            "hasSizingGuide": true,
+            "hasSafetyCerts": true,
+            "faqCount": 9,
+            "variantCount": 19,
+            "ctaAboveFold": false,
+            "trustSignalsAboveFold": false
+          },
+          "pdp-tuckgo-stroller": {
+            "hasVideo": true,
+            "hasSizingGuide": true,
+            "hasSafetyCerts": false,
+            "faqCount": 10,
+            "variantCount": 1,
+            "ctaAboveFold": true,
+            "trustSignalsAboveFold": false
+          },
+          "pdp-kleanpal-pro": {
+            "hasVideo": true,
+            "hasSizingGuide": true,
+            "hasSafetyCerts": false,
+            "faqCount": 22,
+            "variantCount": 1,
+            "ctaAboveFold": true,
+            "trustSignalsAboveFold": false,
+            "hasSocialProof": true
+          }
+        },
+        "keyFindings": [
+          "所有 PDP 均有产品视频（正向）",
+          "所有 PDP 均有尺寸/年龄指南（正向）",
+          "CRITICAL: 信任信号（退货/运费/保修）在所有 PDP 均不在首屏——可能是转化摩擦主因",
+          "CRITICAL: 加购按钮（CTA）在 M5/S12/Mobile Flow 三款旗舰产品均不在首屏——严重影响 mobile CVR",
+          "安全认证（BPA-free/FDA等）只有 Mobile Flow 检测到，M5/S12/TuckGo 缺失——母婴品类重要信任缺失",
+          "KleanPal Pro 有 22 个 FAQ，是覆盖最完整的 PDP",
+          "KleanPal Pro 有社会证明标语（4.5M+ moms），其他 PDP 缺失"
+        ]
+      },
+      "G10_support_quality": {
+        "label": "客服质量信号诊断",
+        "layer": "B",
+        "layerDesc": "经营健康层（CRM 系统导出）",
+        "dataSource": "Zendesk / Help Scout + Shopify refund data + Amazon Seller Central",
+        "collectionMethod": "manual_crm",
+        "status": "not_started",
+        "priority": "P2",
+        "impactEstimate": "正向客服体验提升复购率 15-20%；医疗品类安全投诉需建立审计追踪",
+        "benchmarks": {
+          "dtc_refund_rate_max": 0.2,
+          "amazon_refund_rate_max": 0.35,
+          "first_response_hours_max": 24,
+          "first_contact_resolution_rate_min": 0.65,
+          "nps_support_min": 50
+        },
+        "metrics": {
+          "dtc_refund_rate": null,
+          "amazon_refund_rate": null,
+          "top_refund_reason_1": null,
+          "top_refund_reason_2": null,
+          "top_refund_reason_3": null,
+          "avg_first_response_hours": null,
+          "first_contact_resolution_rate": null,
+          "nps_support": null,
+          "safety_escalation_pct": null,
+          "window": null
+        }
+      },
+      "G11_seo_architecture": {
+        "label": "SEO 架构深度（分面导航/品类页/内链/翻页）",
+        "layer": "C",
+        "layerDesc": "技术可采集层（Playwright 自动采集 + GSC 手工数据）",
+        "dataSource": "collect-360-content.mjs + Google Search Console",
+        "collectionMethod": "playwright_plus_gsc",
+        "status": "collected",
+        "priority": "P2",
+        "impactEstimate": "分面导航可浪费 40-60% 爬虫预算；品类页是 SEO 流量主力但 Shopify 默认极薄",
+        "benchmarks": {
+          "category_page_word_count_min": 400,
+          "pagination_should_noindex_beyond_page": 2,
+          "internal_links_from_pdp_to_category_min": 2
+        },
+        "collectedByRoute": {
+          "collection-pumps": {
+            "hasFacetedNavUrls": true,
+            "facetedNavUrlCount": 12,
+            "categoryPageWordCount": 4,
+            "paginationPresent": false,
+            "internalLinksCount": 171,
+            "hasBreadcrumbSchema": true,
+            "productCount": 9
+          },
+          "collection-nursing": {
+            "hasFacetedNavUrls": true,
+            "facetedNavUrlCount": 130,
+            "categoryPageWordCount": 39,
+            "paginationPresent": true,
+            "internalLinksCount": 462,
+            "hasBreadcrumbSchema": true
+          },
+          "pdp-m5-smart": {
+            "internalLinksCount": 180,
+            "hasBreadcrumbSchema": true,
+            "hasFacetedNavUrls": true
+          },
+          "pdp-s12-pro": {
+            "internalLinksCount": 185,
+            "hasBreadcrumbSchema": true
+          },
+          "search-wearable-pump": {
+            "facetedNavUrlCount": 47
+          },
+          "search-breast-pump": {
+            "facetedNavUrlCount": 81
+          }
+        },
+        "gscManualMetrics": {
+          "crawl_coverage_errors": null,
+          "core_web_vitals_mobile_pass_rate": null,
+          "indexed_pages_count": null,
+          "crawl_budget_waste_estimate_pct": null,
+          "top_organic_queries": null
+        },
+        "keyFindings": [
+          "CRITICAL: 品类页内容极薄——electric-breast-pump 只有 4 个词，远低于 400 字最低标准",
+          "CRITICAL: nursing-bra 品类页有 130 个分面导航 URL，是爬虫预算浪费的最大来源",
+          "搜索页 breast pump 有 81 个分面导航 URL——搜索结果页不应被 Google 索引",
+          "所有 PDP 均有 Breadcrumb Schema（正向）",
+          "所有 canonical URL 正确自引（正向）",
+          "品类页均未设置 noindex——分面导航参数 URL 正在消耗大量爬虫预算"
+        ]
+      }
+    },
+    "implementationRoadmap": {
+      "phase10_playwright_collection": {
+        "description": "新增 collect-360-content.mjs 和 collection-routes-360-full.json",
+        "covers": [
+          "G5_inventory",
+          "G6_review_ecosystem",
+          "G7_checkout_business",
+          "G9_pdp_content_depth",
+          "G11_seo_architecture"
+        ],
+        "status": "planned",
+        "estimatedEffort": "2-3 days engineering"
+      },
+      "phase11_manual_data_collection": {
+        "description": "后台数据导出和填入",
+        "covers": [
+          "G2_funnel_segmented",
+          "G3_ltv_cohort",
+          "G4_email_sms",
+          "G8_social_commerce",
+          "G10_support_quality"
+        ],
+        "status": "planned",
+        "estimatedEffort": "1 week manual work"
+      },
+      "phase12_behavior_tools": {
+        "description": "安装 Microsoft Clarity，等待14天数据",
+        "covers": [
+          "G1_behavior"
+        ],
+        "status": "planned",
+        "estimatedEffort": "30 min setup + 14 days wait"
+      },
+      "phase13_insight_site_rendering": {
+        "description": "洞察站新维度页面模块渲染",
+        "covers": [
+          "G1_behavior",
+          "G2_funnel_segmented",
+          "G3_ltv_cohort",
+          "G4_email_sms",
+          "G5_inventory",
+          "G6_review_ecosystem",
+          "G7_checkout_business",
+          "G8_social_commerce",
+          "G9_pdp_content_depth",
+          "G10_support_quality",
+          "G11_seo_architecture"
+        ],
+        "status": "planned",
+        "estimatedEffort": "3-4 days frontend work"
+      }
+    },
+    "firstCollectionDate": "2026-06-18",
+    "latestContentSession": "content-session-2026-06-18"
   }
 }
