@@ -1927,7 +1927,14 @@
           "has_winback_flow": null,
           "has_lifecycle_education_flow": null,
           "list_size": null
-        }
+        },
+        "actionItems": [
+          "Klaviyo → Analytics → Overview → 查看 Total Revenue 和 Email Revenue（目标：邮件占总营收 25%+）",
+          "Klaviyo → Flows → Abandoned Cart → 查看 Conversion Rate（目标 4%+）和 Revenue per Recipient",
+          "Klaviyo → Forms → 查看 Email Capture Rate（目标 2%+）和 SMS Opt-in Rate（目标 1%+）",
+          "Klaviyo → Campaigns → 对比 Welcome Series 和 Post-Purchase 的 Open Rate（目标分别 50%+ / 35%+）",
+          "将数据填入 G4_email_sms.metrics 字段，更新 status=collected"
+        ]
       },
       "G5_inventory": {
         "label": "库存健康 × CVR 关系",
@@ -2131,7 +2138,14 @@
           "tiktok_buyer_90d_repeat": null,
           "top_creator_gmv_pct": null,
           "algorithmic_risk_level": null
-        }
+        },
+        "actionItems": [
+          "TikTok Shop Seller Center → Analytics → Overview → 查看总 GMV 和 CVR（目标 listing CVR 3%+）",
+          "Seller Center → Creator Center → 按创作者导出 CVR 和 GMV，识别 Top 5 creator",
+          "在 Klaviyo 或 GA4 对比 TikTok 来源客户的 30天复购率 vs 其他渠道（目标：创作者带来的客户复购率 25%+）",
+          "计算 Blended CAC（总投入 / 新客户数），对比目标 $25 以下",
+          "将数据填入 G8_social_commerce.metrics 字段，更新 status=collected"
+        ]
       },
       "G9_pdp_content_depth": {
         "label": "PDP 内容深度审计",
@@ -2234,7 +2248,15 @@
           "nps_support": null,
           "safety_escalation_pct": null,
           "window": null
-        }
+        },
+        "actionItems": [
+          "Zendesk / Help Scout → 导出最近 100 个工单，按类型分类：退货 / 使用问题 / 安全问题 / 配送 / 其他",
+          "计算平均首次响应时间（目标 12小时以内）和首次解决率（目标 70%+）",
+          "Shopify Admin → Orders → 筛选退款原因，计算 DTC 退款率（目标 <2%）",
+          "对比 Amazon Seller Central 退款率（目标 <2%，超出则需要产品质量追踪）",
+          "计算 NPS（客服满意度），若无工具则从评论中识别服务相关差评比例",
+          "将数据填入 G10_support_quality.metrics 字段，更新 status=collected"
+        ]
       },
       "G11_seo_architecture": {
         "label": "SEO 架构深度（分面导航/品类页/内链/翻页）",
