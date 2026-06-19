@@ -1,0 +1,106 @@
+{
+  "methodologyVersion": "collector-v4-360-full-2026-06",
+  "description": "360 无死角采集路由包：性能层 + 内容层 + SEO架构层 + KOL落地页 + 站内搜索 + 竞品同口径。与 collection-routes-pdp-watchlist.json 并存，额外覆盖品类页、搜索页、KOL UTM 场景。",
+  "routes": [
+    {
+      "id": "homepage",
+      "label": "Homepage 控制路径",
+      "path": "/",
+      "primary": true
+    },
+    {
+      "id": "collection-pumps",
+      "label": "品类页：电动吸奶器（SEO架构审计）",
+      "path": "/collections/electric-breast-pump",
+      "primary": false
+    },
+    {
+      "id": "collection-nursing",
+      "label": "品类页：哺乳内衣（SEO架构审计）",
+      "path": "/collections/nursing-bra",
+      "primary": false
+    },
+    {
+      "id": "pdp-m5-smart",
+      "label": "PDP watchlist: M5 Smart（旗舰款，内容深度审计）",
+      "path": "/products/m5-smart-wearable-breast-pump-upgraded-with-app-control",
+      "primary": false
+    },
+    {
+      "id": "pdp-s12-pro",
+      "label": "PDP watchlist: S12 Pro（销量款，内容深度审计）",
+      "path": "/products/s12-pro-quick-wearable-breast-pump",
+      "primary": false
+    },
+    {
+      "id": "pdp-mobile-flow",
+      "label": "PDP watchlist: Mobile Flow（高DOM款，内容深度审计）",
+      "path": "/products/momcozy-mobile-flow-hands-free-breast-pump",
+      "primary": false
+    },
+    {
+      "id": "pdp-tuckgo-stroller",
+      "label": "PDP watchlist: TuckGo Stroller（新品，内容深度审计）",
+      "path": "/products/momcozy-tuckgo-lightweight-stroller",
+      "primary": false
+    },
+    {
+      "id": "pdp-kleanpal-pro",
+      "label": "PDP watchlist: KleanPal Pro（配件，内容深度审计）",
+      "path": "/products/momcozy-kleanpal-pro-baby-bottle-washer",
+      "primary": false
+    },
+    {
+      "id": "cart",
+      "label": "购物车页（结账信号审计）",
+      "path": "/cart",
+      "primary": false
+    },
+    {
+      "id": "checkout",
+      "label": "结账页（结账链路业务指标审计）",
+      "path": "/checkout",
+      "primary": false
+    },
+    {
+      "id": "search-wearable-pump",
+      "label": "站内搜索：wearable pump（搜索功能审计）",
+      "path": "/search?q=wearable+pump",
+      "primary": false
+    },
+    {
+      "id": "search-breast-pump",
+      "label": "站内搜索：breast pump（搜索功能审计）",
+      "path": "/search?q=breast+pump",
+      "primary": false
+    },
+    {
+      "id": "search-nursing-bra",
+      "label": "站内搜索：nursing bra（长尾词审计）",
+      "path": "/search?q=nursing+bra",
+      "primary": false
+    },
+    {
+      "id": "kol-utm-m5-tiktok",
+      "label": "KOL UTM 落地页: M5 × TikTok（社交电商入口质量）",
+      "path": "/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?utm_source=tiktok&utm_medium=affiliate&utm_campaign=kol_tier1",
+      "primary": false,
+      "segment": {
+        "id": "kol-tiktok-utm",
+        "sourceType": "social-affiliate",
+        "visitorState": "new"
+      }
+    },
+    {
+      "id": "kol-utm-s12-tiktok",
+      "label": "KOL UTM 落地页: S12 Pro × TikTok（热门 KOL SKU）",
+      "path": "/products/s12-pro-quick-wearable-breast-pump?utm_source=tiktok&utm_medium=affiliate&utm_campaign=kol_tier1",
+      "primary": false,
+      "segment": {
+        "id": "kol-tiktok-s12",
+        "sourceType": "social-affiliate",
+        "visitorState": "new"
+      }
+    }
+  ]
+}

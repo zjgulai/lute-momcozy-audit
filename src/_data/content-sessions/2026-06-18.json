@@ -1,0 +1,494 @@
+{
+  "sessionId": "content-session-2026-06-18",
+  "observedAt": "2026-06-18",
+  "methodologyVersion": "collector-v4-360-full-2026-06",
+  "targetUrl": "https://momcozy.com",
+  "collectedBy": "collect-360-content.mjs Playwright automated observation",
+  "routeConfig": "config/collection-routes-360-full.json",
+  "routes": [
+    {
+      "routeId": "homepage",
+      "routeLabel": "Homepage 控制路径",
+      "routePath": "/",
+      "routeType": "homepage",
+      "collectedAt": "2026-06-19T05:37:12.835Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 0,
+        "hasFacetedNavUrls": false,
+        "facetedNavUrlCount": 0,
+        "paginationPresent": true,
+        "internalLinksCount": 154,
+        "hasBreadcrumbSchema": false,
+        "productCount": 24
+      },
+      "reviewSignals": {
+        "reviewCount": null,
+        "ratingValue": null,
+        "hasAggregateRatingJsonLd": false,
+        "reviewWidgetPresent": true,
+        "hasPhotoReviews": false,
+        "reviewsAboveFold": false,
+        "reviewCountAboveFold": false
+      }
+    },
+    {
+      "routeId": "collection-pumps",
+      "routeLabel": "品类页：电动吸奶器（SEO架构审计）",
+      "routePath": "/collections/electric-breast-pump",
+      "routeType": "collection",
+      "collectedAt": "2026-06-19T05:37:17.142Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/collections/electric-breast-pump",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 4,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 12,
+        "paginationPresent": false,
+        "internalLinksCount": 171,
+        "hasBreadcrumbSchema": true,
+        "productCount": 9
+      }
+    },
+    {
+      "routeId": "collection-nursing",
+      "routeLabel": "品类页：哺乳内衣（SEO架构审计）",
+      "routePath": "/collections/nursing-bra",
+      "routeType": "collection",
+      "collectedAt": "2026-06-19T05:37:20.564Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/collections/nursing-bras",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 39,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 130,
+        "paginationPresent": true,
+        "internalLinksCount": 462,
+        "hasBreadcrumbSchema": true,
+        "productCount": 0
+      }
+    },
+    {
+      "routeId": "pdp-m5-smart",
+      "routeLabel": "PDP watchlist: M5 Smart（旗舰款，内容深度审计）",
+      "routePath": "/products/m5-smart-wearable-breast-pump-upgraded-with-app-control",
+      "routeType": "pdp",
+      "collectedAt": "2026-06-19T05:37:24.701Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 2,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 12,
+        "paginationPresent": true,
+        "internalLinksCount": 180,
+        "hasBreadcrumbSchema": true,
+        "productCount": 0
+      },
+      "reviewSignals": {
+        "reviewCount": "1439",
+        "ratingValue": 4.6,
+        "hasAggregateRatingJsonLd": true,
+        "reviewWidgetPresent": true,
+        "hasPhotoReviews": true,
+        "reviewsAboveFold": true,
+        "reviewCountAboveFold": false
+      },
+      "contentDepth": {
+        "wordCount": 0,
+        "hasVideo": true,
+        "hasSizingGuide": true,
+        "hasSafetyCerts": false,
+        "faqCount": 8,
+        "variantCount": 20,
+        "ctaAboveFold": false,
+        "trustSignalsAboveFold": false,
+        "hasSocialProof": false
+      },
+      "inventorySignals": {
+        "stockBadgeVisible": false,
+        "stockText": null,
+        "outOfStock": false,
+        "backorderPresent": false,
+        "backorderMessageSpecific": false,
+        "inventoryCountExposed": false,
+        "hasBackInStockNotify": false
+      }
+    },
+    {
+      "routeId": "pdp-s12-pro",
+      "routeLabel": "PDP watchlist: S12 Pro（销量款，内容深度审计）",
+      "routePath": "/products/s12-pro-quick-wearable-breast-pump",
+      "routeType": "pdp",
+      "collectedAt": "2026-06-19T05:37:28.366Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/products/s12-pro-quick-wearable-breast-pump",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 2,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 12,
+        "paginationPresent": true,
+        "internalLinksCount": 185,
+        "hasBreadcrumbSchema": true,
+        "productCount": 0
+      },
+      "reviewSignals": {
+        "reviewCount": "1828",
+        "ratingValue": 4.5,
+        "hasAggregateRatingJsonLd": true,
+        "reviewWidgetPresent": true,
+        "hasPhotoReviews": true,
+        "reviewsAboveFold": true,
+        "reviewCountAboveFold": false
+      },
+      "contentDepth": {
+        "wordCount": 0,
+        "hasVideo": true,
+        "hasSizingGuide": true,
+        "hasSafetyCerts": false,
+        "faqCount": 10,
+        "variantCount": 19,
+        "ctaAboveFold": false,
+        "trustSignalsAboveFold": false,
+        "hasSocialProof": false
+      },
+      "inventorySignals": {
+        "stockBadgeVisible": false,
+        "stockText": null,
+        "outOfStock": false,
+        "backorderPresent": false,
+        "backorderMessageSpecific": false,
+        "inventoryCountExposed": false,
+        "hasBackInStockNotify": false
+      }
+    },
+    {
+      "routeId": "pdp-mobile-flow",
+      "routeLabel": "PDP watchlist: Mobile Flow（高DOM款，内容深度审计）",
+      "routePath": "/products/momcozy-mobile-flow-hands-free-breast-pump",
+      "routeType": "pdp",
+      "collectedAt": "2026-06-19T05:37:31.996Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/products/momcozy-mobile-flow-hands-free-breast-pump",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 2,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 12,
+        "paginationPresent": true,
+        "internalLinksCount": 236,
+        "hasBreadcrumbSchema": true,
+        "productCount": 0
+      },
+      "reviewSignals": {
+        "reviewCount": "470",
+        "ratingValue": 4.7,
+        "hasAggregateRatingJsonLd": true,
+        "reviewWidgetPresent": true,
+        "hasPhotoReviews": true,
+        "reviewsAboveFold": true,
+        "reviewCountAboveFold": false
+      },
+      "contentDepth": {
+        "wordCount": 0,
+        "hasVideo": true,
+        "hasSizingGuide": true,
+        "hasSafetyCerts": true,
+        "faqCount": 9,
+        "variantCount": 19,
+        "ctaAboveFold": false,
+        "trustSignalsAboveFold": false,
+        "hasSocialProof": false
+      },
+      "inventorySignals": {
+        "stockBadgeVisible": false,
+        "stockText": null,
+        "outOfStock": false,
+        "backorderPresent": false,
+        "backorderMessageSpecific": false,
+        "inventoryCountExposed": false,
+        "hasBackInStockNotify": false
+      }
+    },
+    {
+      "routeId": "pdp-tuckgo-stroller",
+      "routeLabel": "PDP watchlist: TuckGo Stroller（新品，内容深度审计）",
+      "routePath": "/products/momcozy-tuckgo-lightweight-stroller",
+      "routeType": "pdp",
+      "collectedAt": "2026-06-19T05:37:35.446Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 2,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 12,
+        "paginationPresent": true,
+        "internalLinksCount": 200,
+        "hasBreadcrumbSchema": true,
+        "productCount": 0
+      },
+      "reviewSignals": {
+        "reviewCount": "10",
+        "ratingValue": 5,
+        "hasAggregateRatingJsonLd": true,
+        "reviewWidgetPresent": true,
+        "hasPhotoReviews": true,
+        "reviewsAboveFold": true,
+        "reviewCountAboveFold": false
+      },
+      "contentDepth": {
+        "wordCount": 4,
+        "hasVideo": true,
+        "hasSizingGuide": true,
+        "hasSafetyCerts": false,
+        "faqCount": 10,
+        "variantCount": 1,
+        "ctaAboveFold": true,
+        "trustSignalsAboveFold": false,
+        "hasSocialProof": false
+      },
+      "inventorySignals": {
+        "stockBadgeVisible": false,
+        "stockText": null,
+        "outOfStock": false,
+        "backorderPresent": false,
+        "backorderMessageSpecific": false,
+        "inventoryCountExposed": false,
+        "hasBackInStockNotify": false
+      }
+    },
+    {
+      "routeId": "pdp-kleanpal-pro",
+      "routeLabel": "PDP watchlist: KleanPal Pro（配件，内容深度审计）",
+      "routePath": "/products/momcozy-kleanpal-pro-baby-bottle-washer",
+      "routeType": "pdp",
+      "collectedAt": "2026-06-19T05:37:39.061Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/products/momcozy-kleanpal-pro-baby-bottle-washer",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 35,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 12,
+        "paginationPresent": false,
+        "internalLinksCount": 157,
+        "hasBreadcrumbSchema": true,
+        "productCount": 0
+      },
+      "reviewSignals": {
+        "reviewCount": "898",
+        "ratingValue": 4.9,
+        "hasAggregateRatingJsonLd": true,
+        "reviewWidgetPresent": true,
+        "hasPhotoReviews": true,
+        "reviewsAboveFold": true,
+        "reviewCountAboveFold": false
+      },
+      "contentDepth": {
+        "wordCount": 5,
+        "hasVideo": true,
+        "hasSizingGuide": true,
+        "hasSafetyCerts": false,
+        "faqCount": 22,
+        "variantCount": 1,
+        "ctaAboveFold": true,
+        "trustSignalsAboveFold": false,
+        "hasSocialProof": true
+      },
+      "inventorySignals": {
+        "stockBadgeVisible": false,
+        "stockText": null,
+        "outOfStock": false,
+        "backorderPresent": false,
+        "backorderMessageSpecific": false,
+        "inventoryCountExposed": false,
+        "hasBackInStockNotify": false
+      }
+    },
+    {
+      "routeId": "cart",
+      "routeLabel": "购物车页（结账信号审计）",
+      "routePath": "/cart",
+      "routeType": "cart",
+      "collectedAt": "2026-06-19T05:37:42.971Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/cart",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 0,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 12,
+        "paginationPresent": true,
+        "internalLinksCount": 158,
+        "hasBreadcrumbSchema": false,
+        "productCount": 0
+      },
+      "checkoutSignals": {
+        "hasApplePay": false,
+        "hasShopPay": false,
+        "hasGooglePay": false,
+        "hasKlarna": false,
+        "formFieldCount": 2,
+        "guestCheckoutAvailable": true,
+        "shippingCostEarlyVisible": true,
+        "priceVisible": true,
+        "cartItemCount": 0,
+        "routeType": "cart"
+      }
+    },
+    {
+      "routeId": "checkout",
+      "routeLabel": "结账页（结账链路业务指标审计）",
+      "routePath": "/checkout",
+      "routeType": "checkout",
+      "collectedAt": "2026-06-19T05:37:46.021Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 0,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 12,
+        "paginationPresent": true,
+        "internalLinksCount": 188,
+        "hasBreadcrumbSchema": false,
+        "productCount": 24
+      },
+      "checkoutSignals": {
+        "hasApplePay": false,
+        "hasShopPay": false,
+        "hasGooglePay": false,
+        "hasKlarna": false,
+        "formFieldCount": 4,
+        "guestCheckoutAvailable": true,
+        "shippingCostEarlyVisible": true,
+        "priceVisible": true,
+        "cartItemCount": 1,
+        "routeType": "checkout"
+      }
+    },
+    {
+      "routeId": "search-wearable-pump",
+      "routeLabel": "站内搜索：wearable pump（搜索功能审计）",
+      "routePath": "/search?q=wearable+pump",
+      "routeType": "search",
+      "collectedAt": "2026-06-19T05:37:51.334Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/search?q=wearable+pump",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 0,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 47,
+        "paginationPresent": true,
+        "internalLinksCount": 217,
+        "hasBreadcrumbSchema": false,
+        "productCount": 0
+      },
+      "searchSignals": {
+        "query": "wearable pump",
+        "resultCount": 0,
+        "zeroResults": false,
+        "hasFilters": true
+      }
+    },
+    {
+      "routeId": "search-breast-pump",
+      "routeLabel": "站内搜索：breast pump（搜索功能审计）",
+      "routePath": "/search?q=breast+pump",
+      "routeType": "search",
+      "collectedAt": "2026-06-19T05:37:54.865Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/search?q=breast+pump",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 0,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 81,
+        "paginationPresent": true,
+        "internalLinksCount": 217,
+        "hasBreadcrumbSchema": false,
+        "productCount": 0
+      },
+      "searchSignals": {
+        "query": "breast pump",
+        "resultCount": 0,
+        "zeroResults": false,
+        "hasFilters": true
+      }
+    },
+    {
+      "routeId": "search-nursing-bra",
+      "routeLabel": "站内搜索：nursing bra（长尾词审计）",
+      "routePath": "/search?q=nursing+bra",
+      "routeType": "search",
+      "collectedAt": "2026-06-19T05:37:58.438Z",
+      "httpStatus": 200,
+      "seoArchitecture": {
+        "canonicalUrl": "https://momcozy.com/search?q=nursing+bra",
+        "canonicalIsSelf": true,
+        "isNoindexed": false,
+        "categoryPageWordCount": 0,
+        "hasFacetedNavUrls": true,
+        "facetedNavUrlCount": 12,
+        "paginationPresent": true,
+        "internalLinksCount": 220,
+        "hasBreadcrumbSchema": false,
+        "productCount": 0
+      },
+      "searchSignals": {
+        "query": "nursing bra",
+        "resultCount": 0,
+        "zeroResults": false,
+        "hasFilters": true
+      }
+    },
+    {
+      "routeId": "kol-utm-m5-tiktok",
+      "routeLabel": "KOL UTM 落地页: M5 × TikTok（社交电商入口质量）",
+      "routePath": "/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?utm_source=tiktok&utm_medium=affiliate&utm_campaign=kol_tier1",
+      "routeType": "pdp",
+      "collectedAt": "2026-06-19T05:38:02.080Z",
+      "segment": {
+        "id": "kol-tiktok-utm",
+        "sourceType": "social-affiliate",
+        "visitorState": "new"
+      },
+      "httpStatus": 429,
+      "error": "HTTP 429"
+    },
+    {
+      "routeId": "kol-utm-s12-tiktok",
+      "routeLabel": "KOL UTM 落地页: S12 Pro × TikTok（热门 KOL SKU）",
+      "routePath": "/products/s12-pro-quick-wearable-breast-pump?utm_source=tiktok&utm_medium=affiliate&utm_campaign=kol_tier1",
+      "routeType": "pdp",
+      "collectedAt": "2026-06-19T05:38:02.205Z",
+      "segment": {
+        "id": "kol-tiktok-s12",
+        "sourceType": "social-affiliate",
+        "visitorState": "new"
+      },
+      "httpStatus": 429,
+      "error": "HTTP 429"
+    }
+  ]
+}

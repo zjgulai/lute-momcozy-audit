@@ -977,7 +977,8 @@ export function metricsBody(data) {
         <div class="metric-card metric-card--warn"><div class="card-label">LCP</div><div class="card-value">${data.external.lcpObservedSamples}/${data.external.lcpTotalSamples}</div><div class="card-meta">样本未可观测，需补采</div></div>
       </div>
     </div>
-  </section>`;
+  </section>
+  ${operatingHealth360Section(data)}`;
 }
 
 export function forensicsBody(data) {
@@ -1021,7 +1022,8 @@ export function forensicsBody(data) {
     </div>
   </section>
   ${securityAuditSection(data)}
-  ${seoTechnicalSection(data)}`;
+  ${seoTechnicalSection(data)}
+  ${content360Section(data)}`;
 }
 
 export function latestRows(session) {
@@ -1116,6 +1118,7 @@ export function crossAuditBody(data) {
   ${contradictionsSection(data)}
   ${executionOrdersSection(data, "execution-orders")}
   ${geoBaselineSection(data)}
+  ${diagnostic360OverviewSection(data)}
   ${decisionChartSection(data)}`;
 }
 
@@ -1260,6 +1263,206 @@ export function geoBaselineSection(data) {
           </table>
         </div>
       </details>
+    </div>
+  </section>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 360 诊断框架维度覆盖总览 section — cross-audit.html
+// ─────────────────────────────────────────────────────────────
+export function diagnostic360OverviewSection(data) {
+  const g360 = data.diagnosticGaps360;
+  if (!g360) return "";
+  const gaps = g360.gaps || {};
+  const statusLabel = (s) => {
+    if (s === "collected") return '<span class="badge badge--safe">已采集</span>';
+    if (s === "partial") return '<span class="badge badge--p2">部分</span>';
+    return '<span class="badge badge--p1">待采集</span>';
+  };
+  const priorityBadge = (p) => {
+    if (p === "P0") return '<span class="badge badge--p0">P0</span>';
+    if (p === "P1") return '<span class="badge badge--p1">P1</span>';
+    return '<span class="badge badge--p2">P2</span>';
+  };
+  const gapRows = Object.entries(gaps).map(([key, gap]) => `<tr>
+    <td><strong>${escapeHtml(key.split("_")[0])}</strong><div class="evidence-note">${escapeHtml(gap.layerDesc || "")}</div></td>
+    <td>${escapeHtml(gap.label)}</td>
+    <td>${statusLabel(gap.status)}</td>
+    <td>${priorityBadge(gap.priority)}</td>
+    <td class="evidence-note">${escapeHtml((gap.keyFindings || [gap.impactEstimate || "待补充"])[0] || "")}</td>
+  </tr>`).join("");
+  const covered = g360.coveredDimensions || 9;
+  const newDims = g360.newDimensions || 11;
+  const total = g360.totalDimensions || 20;
+  const collectedCount = Object.values(gaps).filter(g => g.status === "collected" || g.status === "partial").length;
+  return `<section class="section section--gray" id="diagnostic-360-overview">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">360 无死角诊断框架 · ${escapeHtml(g360.lastUpdated || "")} · 新维度已采集 ${collectedCount}/${newDims}</div>
+        <h2 class="section__title">从 ${covered} 维度扩展到 ${total} 维度：新增 ${newDims} 个诊断缺口</h2>
+        <p class="section__sub">现有框架深度覆盖前端性能、脚本治理、SEO技术、GEO可见度、安全扫描；本轮新增行为数据层（G1/G2）、经营健康层（G3/G4/G10）、技术可采集层（G5/G6/G7/G9/G11）和社交商务层（G8），实现真正无死角覆盖。</p>
+      </div>
+      ${barChart({
+        id: "chart-360-coverage",
+        title: "11 个新增维度首轮采集进度",
+        subtitle: "Layer C 技术可采集层 5 个已完成首轮；Layer A/B/D 待接入后台数据",
+        rows: [
+          {label: "Layer C 技术可采集（G5/G6/G7/G9/G11）", value: 5, digits: 0},
+          {label: "Layer B 经营健康（G3/G4/G10）", value: 0, digits: 0},
+          {label: "Layer A 行为数据（G1/G2）", value: 0, digits: 0},
+          {label: "Layer D 社交商务（G8）", value: 0, digits: 0}
+        ]
+      })}
+      <details class="evidence-drilldown" open>
+        <summary>11 个新增维度完整清单</summary>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>维度</th><th>描述</th><th>状态</th><th>优先级</th><th>首要发现 / 预期影响</th></tr></thead>
+            <tbody>${gapRows}</tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </section>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 360 内容层采集结果 section — forensics.html
+// ─────────────────────────────────────────────────────────────
+export function content360Section(data) {
+  const g360 = data.diagnosticGaps360;
+  if (!g360) return "";
+  const gaps = g360.gaps || {};
+  const g9 = gaps.G9_pdp_content_depth || {};
+  const g11 = gaps.G11_seo_architecture || {};
+  const g5 = gaps.G5_inventory || {};
+  const g6 = gaps.G6_review_ecosystem || {};
+
+  const g9Findings = (g9.keyFindings || []).map(f => `<li>${escapeHtml(f)}</li>`).join("");
+  const g9Routes = Object.entries(g9.collectedByRoute || {}).map(([routeId, r]) => `<tr>
+    <td><strong>${escapeHtml(routeId)}</strong></td>
+    <td>${r.hasVideo ? "✅" : "❌"}</td>
+    <td>${r.hasSizingGuide ? "✅" : "❌"}</td>
+    <td>${r.hasSafetyCerts ? "✅" : "❌"}</td>
+    <td>${r.faqCount ?? "—"}</td>
+    <td class="${r.ctaAboveFold ? "good" : "bad"}">${r.ctaAboveFold ? "✅首屏" : "❌非首屏"}</td>
+    <td class="${r.trustSignalsAboveFold ? "good" : "bad"}">${r.trustSignalsAboveFold ? "✅首屏" : "❌非首屏"}</td>
+  </tr>`).join("");
+
+  const g11Findings = (g11.keyFindings || []).map(f => `<li>${escapeHtml(f)}</li>`).join("");
+  const g11Routes = Object.entries(g11.collectedByRoute || {}).map(([routeId, r]) => `<tr>
+    <td><strong>${escapeHtml(routeId)}</strong></td>
+    <td>${r.hasFacetedNavUrls != null ? (r.hasFacetedNavUrls ? `<span class="bad">⚠️ ${r.facetedNavUrlCount || "?"} 个</span>` : "✅ 无") : "—"}</td>
+    <td>${r.categoryPageWordCount != null ? (r.categoryPageWordCount < 50 ? `<span class="bad">${r.categoryPageWordCount} 字 ⚠️</span>` : `${r.categoryPageWordCount} 字`) : "—"}</td>
+    <td>${r.hasBreadcrumbSchema != null ? (r.hasBreadcrumbSchema ? "✅" : "❌") : "—"}</td>
+    <td>${r.internalLinksCount ?? "—"}</td>
+  </tr>`).join("");
+
+  const g6Findings = (g6.keyFindings || []).map(f => `<li>${escapeHtml(f)}</li>`).join("");
+  const g5Findings = (g5.keyFindings || []).map(f => `<li>${escapeHtml(f)}</li>`).join("");
+
+  return `<section class="section" id="content-360-audit">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">360 内容层首轮采集 · ${escapeHtml(g360.firstCollectionDate || "2026-06-18")} · G5/G6/G9/G11</div>
+        <h2 class="section__title">PDP 内容、评论生态、SEO 架构与库存：四个新维度首轮证据</h2>
+        <p class="section__sub">collect-360-content.mjs 首轮采集（15条路由，2条被限流）。关键发现：信任信号和 CTA 均不在首屏；分面导航浪费爬虫预算；S12 Pro 是评论最多 SKU（1828条）。</p>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card metric-card--danger">
+          <div class="card-label">信任信号首屏可见</div>
+          <div class="card-value">0 / 5</div>
+          <div class="card-meta">全部 PDP 退货/保修信息不在首屏</div>
+        </div>
+        <div class="metric-card metric-card--warn">
+          <div class="card-label">CTA 首屏可见</div>
+          <div class="card-value">2 / 5</div>
+          <div class="card-meta">旗舰泵款 M5/S12/Flow 均非首屏</div>
+        </div>
+        <div class="metric-card metric-card--danger">
+          <div class="card-label">品类页内容深度</div>
+          <div class="card-value">4 字</div>
+          <div class="card-meta">electric-breast-pump 品类页极薄（目标400字+）</div>
+        </div>
+        <div class="metric-card metric-card--success">
+          <div class="card-label">最高评论数 SKU</div>
+          <div class="card-value">1828 条</div>
+          <div class="card-meta">S12 Pro 4.5★，均有图片评论且首屏可见</div>
+        </div>
+      </div>
+      <details class="evidence-drilldown" open>
+        <summary>G9 PDP 内容深度明细（${Object.keys(g9.collectedByRoute || {}).length} 个 PDP）</summary>
+        <ul style="margin:0 0 12px;padding-left:20px;color:var(--text-secondary);font-size:13px;line-height:1.8;">${g9Findings}</ul>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>PDP</th><th>视频</th><th>尺寸指南</th><th>安全认证</th><th>FAQ数</th><th>CTA首屏</th><th>信任信号首屏</th></tr></thead>
+            <tbody>${g9Routes}</tbody>
+          </table>
+        </div>
+      </details>
+      <details class="evidence-drilldown">
+        <summary>G11 SEO 架构明细（分面导航/品类页/内链）</summary>
+        <ul style="margin:0 0 12px;padding-left:20px;color:var(--text-secondary);font-size:13px;line-height:1.8;">${g11Findings}</ul>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>路由</th><th>分面导航URL</th><th>品类页字数</th><th>面包屑Schema</th><th>内链数</th></tr></thead>
+            <tbody>${g11Routes}</tbody>
+          </table>
+        </div>
+      </details>
+      <details class="evidence-drilldown">
+        <summary>G6 评论生态首轮采集结果</summary>
+        <ul style="margin:0;padding-left:20px;color:var(--text-secondary);font-size:13px;line-height:1.8;">${g6Findings}</ul>
+      </details>
+      <details class="evidence-drilldown">
+        <summary>G5 库存信号首轮采集结果</summary>
+        <ul style="margin:0;padding-left:20px;color:var(--text-secondary);font-size:13px;line-height:1.8;">${g5Findings}</ul>
+      </details>
+    </div>
+  </section>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 360 经营健康层 section — metrics.html
+// ─────────────────────────────────────────────────────────────
+export function operatingHealth360Section(data) {
+  const g360 = data.diagnosticGaps360;
+  if (!g360) return "";
+  const gaps = g360.gaps || {};
+  const pendingCard = (gap) => {
+    if (!gap) return "";
+    const isCollected = gap.status === "collected" || gap.status === "partial";
+    const statusBadge = isCollected
+      ? '<span class="badge badge--safe">已采集</span>'
+      : '<span class="badge badge--p1">待采集</span>';
+    const priClass = gap.priority === "P0" ? "p0" : gap.priority === "P1" ? "p1" : "p2";
+    const steps = (gap.actionItems || []).slice(0, 3).map(s => `<li>${escapeHtml(s)}</li>`).join("");
+    return `<div class="backlog-card">
+      <div>${statusBadge} <span class="badge badge--${priClass}">${escapeHtml(gap.priority || "")}</span></div>
+      <h3>${escapeHtml(gap.label)}</h3>
+      <p>${escapeHtml(gap.impactEstimate || "")}</p>
+      ${steps ? `<ol style="padding-left:16px;font-size:12px;color:var(--text-secondary);line-height:1.7;margin:8px 0 0;">${steps}</ol>` : ""}
+    </div>`;
+  };
+  return `<section class="section section--gray" id="operating-health-360">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">360 经营健康层 · G1/G2/G3/G4/G8/G10 · 待接入后台数据</div>
+        <h2 class="section__title">6 个经营健康维度：操作指引已就绪，等待数据接入</h2>
+        <p class="section__sub">这些维度需要 Shopify Analytics、Klaviyo、TikTok Seller Center 或 Zendesk 数据，无法通过 Playwright 被动采集。每个卡片已提供具体操作步骤和基准目标。</p>
+      </div>
+      <div class="backlog-grid">
+        ${pendingCard(gaps.G1_behavior)}
+        ${pendingCard(gaps.G2_funnel_segmented)}
+        ${pendingCard(gaps.G3_ltv_cohort)}
+        ${pendingCard(gaps.G4_email_sms)}
+        ${pendingCard(gaps.G8_social_commerce)}
+        ${pendingCard(gaps.G10_support_quality)}
+      </div>
+      <div class="callout-strong" style="margin-top:22px;">
+        <div class="card-label" style="color:#fbbf24;">执行优先级</div>
+        <p><strong>P0 先行（G1/G2/G3）</strong>：这三项决定了当前 CVR 数字能不能被信任——完成前，所有转化率结论都带 C7 口径风险。<br><strong>P1 同步推进（G4/G8）</strong>：邮件/SMS ROI $36-40/$1，TikTok Shop 年化 GMV $30-50B，机会窗口正在关闭。</p>
+      </div>
     </div>
   </section>`;
 }

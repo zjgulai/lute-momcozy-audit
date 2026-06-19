@@ -4,10 +4,9 @@
   "allowedEvidenceTerms": ["复采", "证据版本", "验收", "owner", "洞察报告"],
   "maxVisibleSections": {
     "/": 9,
-    "/metrics.html": 7,
-    "/forensics.html": 8,
-    "/trends.html": 5,
-    "/cross-audit.html": 7,
+    "/metrics.html": 8,
+    "/forensics.html": 9,
+    "/cross-audit.html": 8,
     "/competitors.html": 6
   },
   "pages": [
