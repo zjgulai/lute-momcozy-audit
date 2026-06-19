@@ -1,0 +1,372 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - generic:
+      - button "Collapse Sidebar":
+        - img
+      - button "Open Search":
+        - img
+    - complementary [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e5]:
+          - link "Launch Fast Logo Launch Fast" [ref=e6] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e7]:
+              - img "Launch Fast Logo" [ref=e8]
+              - generic [ref=e9]: Launch Fast
+          - button "Collapse Sidebar" [ref=e10]:
+            - img [ref=e11]
+        - button "Search ⌘ K" [ref=e13]:
+          - img [ref=e14]
+          - text: Search
+          - generic [ref=e17]:
+            - generic [ref=e18]: ⌘
+            - generic [ref=e19]: K
+        - button "Documentation" [ref=e20]:
+          - img [ref=e22]
+          - paragraph [ref=e25]: Documentation
+          - img [ref=e26]
+      - generic [ref=e31]:
+        - paragraph [ref=e32]: Overview
+        - link "Documentation" [ref=e33] [cursor=pointer]:
+          - /url: /
+          - img [ref=e34]
+          - text: Documentation
+        - link "Getting Started" [ref=e36] [cursor=pointer]:
+          - /url: /overview/getting-started
+          - img [ref=e37]
+          - text: Getting Started
+        - link "How Launch Fast Works" [ref=e40] [cursor=pointer]:
+          - /url: /overview/how-launchfast-works
+          - img [ref=e41]
+          - text: How Launch Fast Works
+        - paragraph [ref=e43]: Research
+        - link "Market Research" [ref=e44] [cursor=pointer]:
+          - /url: /features/markets/market-research
+          - img [ref=e45]
+          - text: Market Research
+        - link "Grading System" [ref=e50] [cursor=pointer]:
+          - /url: /features/markets/grading-system
+          - img [ref=e51]
+          - text: Grading System
+        - link "Product Sniper" [ref=e54] [cursor=pointer]:
+          - /url: /features/markets/product-sniper
+          - img [ref=e55]
+          - text: Product Sniper
+        - link "Product Explorer" [ref=e61] [cursor=pointer]:
+          - /url: /features/markets/product-explorer
+          - img [ref=e62]
+          - text: Product Explorer
+        - paragraph [ref=e66]: Launch
+        - link "PPC Research" [ref=e67] [cursor=pointer]:
+          - /url: /features/tools/ppc-research
+          - img [ref=e68]
+          - text: PPC Research
+        - link "Profit Calculator" [ref=e71] [cursor=pointer]:
+          - /url: /features/tools/profit-calculator
+          - img [ref=e72]
+          - text: Profit Calculator
+        - link "Supplier Research" [ref=e74] [cursor=pointer]:
+          - /url: /features/tools/supplier-hub
+          - img [ref=e75]
+          - text: Supplier Research
+        - link "IP Check" [ref=e77] [cursor=pointer]:
+          - /url: /features/tools/ip-check
+          - img [ref=e78]
+          - text: IP Check
+        - paragraph [ref=e80]: Optimize
+        - link "Rank Tracker" [ref=e81] [cursor=pointer]:
+          - /url: /features/optimization/rank-tracker
+          - img [ref=e82]
+          - text: Rank Tracker
+        - link "Listing Builder" [ref=e85] [cursor=pointer]:
+          - /url: /features/optimization/listing-builder
+          - img [ref=e86]
+          - text: Listing Builder
+        - link "Smart Super URL" [ref=e89] [cursor=pointer]:
+          - /url: /features/optimization/super-url
+          - img [ref=e90]
+          - text: Smart Super URL
+        - paragraph [ref=e93]: Support
+        - link "Frequently Asked Questions" [ref=e94] [cursor=pointer]:
+          - /url: /faq
+        - link "Changelog" [ref=e95] [cursor=pointer]:
+          - /url: /changelog
+        - link "Contact Support" [ref=e96] [cursor=pointer]:
+          - /url: https://launchfastlegacyx.com/contact
+        - link "Launch Fast App" [ref=e97] [cursor=pointer]:
+          - /url: https://launchfastlegacyx.com
+      - button "Toggle Theme" [ref=e100]:
+        - img [ref=e101]
+        - img [ref=e107]
+    - generic [ref=e109]:
+      - button "0.14285714285714285 Getting Started Setting Up Your Account" [ref=e111]:
+        - progressbar [ref=e112]
+        - generic [ref=e115]:
+          - generic: Getting Started
+          - generic [ref=e116]: Setting Up Your Account
+        - img [ref=e117]
+      - article [ref=e119]:
+        - generic [ref=e120]:
+          - generic [ref=e121]:
+            - generic [ref=e122]: Overview
+            - heading "Getting Started" [level=1] [ref=e123]
+            - paragraph [ref=e124]: Follow these simple steps to create your account, explore the dashboard, and analyze your first product market.
+            - img "Launch Fast dashboard showing market research, product analysis, and key metrics" [ref=e126]
+          - heading "Setting Up Your Account Link to section" [level=2] [ref=e127]:
+            - link "Setting Up Your Account" [ref=e128] [cursor=pointer]:
+              - /url: "#setting-up-your-account"
+            - img "Link to section" [ref=e129]
+          - generic [ref=e132]:
+            - generic [ref=e133]:
+              - heading "Register Your Launch Fast Account Link to section" [level=3] [ref=e134]:
+                - link "Register Your Launch Fast Account" [ref=e135] [cursor=pointer]:
+                  - /url: "#register-your-launch-fast-account"
+                - img "Link to section" [ref=e136]
+              - list [ref=e139]:
+                - listitem [ref=e140]:
+                  - text: Visit the Launch Fast
+                  - link "Sign Up page" [ref=e141] [cursor=pointer]:
+                    - /url: https://launchfastlegacyx.com/signup
+                - listitem [ref=e142]: Submit your email and password and click "Get Started".
+            - generic [ref=e143]:
+              - heading "Select a Plan Link to section" [level=3] [ref=e144]:
+                - link "Select a Plan" [ref=e145] [cursor=pointer]:
+                  - /url: "#select-a-plan"
+                - img "Link to section" [ref=e146]
+              - list [ref=e149]:
+                - listitem [ref=e150]:
+                  - text: Choose a plan that fits your needs. See full details under
+                  - link "Pricing" [ref=e151] [cursor=pointer]:
+                    - /url: /overview/getting-started#pricing
+                  - text: .
+                - listitem [ref=e152]: Submit your billing details and activate your account.
+            - generic [ref=e153]:
+              - heading "Explore The Dashboard Link to section" [level=3] [ref=e154]:
+                - link "Explore The Dashboard" [ref=e155] [cursor=pointer]:
+                  - /url: "#explore-the-dashboard"
+                - img "Link to section" [ref=e156]
+              - list [ref=e159]:
+                - listitem [ref=e160]: You're now ready to explore and gain insights on Launch Fast ✅
+          - heading "Pricing Link to section" [level=2] [ref=e162]:
+            - link "Pricing" [ref=e163] [cursor=pointer]:
+              - /url: "#pricing"
+            - img "Link to section" [ref=e164]
+          - generic [ref=e167]:
+            - generic [ref=e168]:
+              - text: During sign up, you'll have the ability to select a plan that best meets your needs. Your plan can be updated at any time from the
+              - strong [ref=e169]: Billing
+              - text: tab in your Account Settings.
+            - table [ref=e171]:
+              - rowgroup [ref=e172]:
+                - row "Tier Monthly Annual" [ref=e173]:
+                  - columnheader "Tier" [ref=e174]
+                  - columnheader "Monthly" [ref=e175]
+                  - columnheader "Annual" [ref=e176]
+              - rowgroup [ref=e177]:
+                - row "LegacyX Student Partner Program $50 USD $480 USD SAVE $120/YR" [ref=e178]:
+                  - cell "LegacyX Student Partner Program" [ref=e179]:
+                    - generic [ref=e180]:
+                      - generic [ref=e181]: LegacyX Student
+                      - generic [ref=e182]: Partner Program
+                  - cell "$50 USD" [ref=e183]
+                  - cell "$480 USD SAVE $120/YR" [ref=e184]:
+                    - generic [ref=e185]:
+                      - generic [ref=e186]: $480 USD
+                      - paragraph [ref=e188]: SAVE $120/YR
+                - row "Scale $199 USD $1200 USD SAVE $1200/YR MOST POPULAR" [ref=e189]:
+                  - cell "Scale" [ref=e190]
+                  - cell "$199 USD" [ref=e191]
+                  - cell "$1200 USD SAVE $1200/YR MOST POPULAR" [ref=e192]:
+                    - generic [ref=e193]:
+                      - generic [ref=e194]: $1200 USD
+                      - generic [ref=e195]:
+                        - paragraph [ref=e197]: SAVE $1200/YR
+                        - paragraph [ref=e199]: MOST POPULAR
+            - paragraph [ref=e200]:
+              - strong [ref=e201]: "LegacyX Students:"
+              - text: If you don't see discounted pricing automatically, contact support to whitelist your email.
+          - heading "Run Your First Market Research Link to section" [level=2] [ref=e203]:
+            - link "Run Your First Market Research" [ref=e204] [cursor=pointer]:
+              - /url: "#run-your-first-market-research"
+            - img "Link to section" [ref=e205]
+          - generic [ref=e208]:
+            - img [ref=e209]
+            - paragraph [ref=e212]:
+              - text: Launch Fast currently supports the
+              - strong [ref=e213]: Amazon US marketplace only
+              - text: .
+          - paragraph [ref=e214]:
+            - text: Once your account is set up, you're ready to run your first
+            - link "Market Research" [ref=e215] [cursor=pointer]:
+              - /url: /features/markets/market-research
+            - text: .
+          - list [ref=e216]:
+            - listitem [ref=e217]:
+              - text: Open the Dashboard and click on
+              - strong [ref=e218]: New Research
+              - text: .
+            - listitem [ref=e219]:
+              - text: Enter a
+              - strong [ref=e220]: product keyword
+              - text: ", niche, or up to"
+              - strong [ref=e221]: 15 ASINs
+              - text: for markets you are interested in.
+            - listitem [ref=e222]:
+              - text: Launch Fast will generate a detailed analysis with market metrics and an overall
+              - strong [ref=e223]: Grade
+              - text: rating (F1–A10).
+            - listitem [ref=e224]: Review revenue, search volume, CPC, price, and reviews.
+            - listitem [ref=e225]:
+              - text: Save the research to enter the market
+              - link "Deep Dive" [ref=e226] [cursor=pointer]:
+                - /url: /features/markets/market-research#market-deep-dive
+              - text: or review for later.
+          - figure "Market Research reveals competitor insights so you can make confident product decisions." [ref=e227]:
+            - img "Market research dashboard showing product grades, demand metrics, and competition indicators" [ref=e228]
+            - generic [ref=e229]: Market Research reveals competitor insights so you can make confident product decisions.
+          - heading "Next Steps Link to section" [level=2] [ref=e231]:
+            - link "Next Steps" [ref=e232] [cursor=pointer]:
+              - /url: "#next-steps"
+            - img "Link to section" [ref=e233]
+          - generic [ref=e237]: You're all set up and ready to discover profitable products. Start your first market research and let Launch Fast guide you to opportunities worth pursuing.
+          - generic [ref=e239]:
+            - link [ref=e240] [cursor=pointer]:
+              - /url: /overview/how-launchfast-works
+              - generic [ref=e241]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: The Process
+                      - generic: How we turn data into insights
+                    - generic:
+                      - generic:
+                        - generic: "1"
+                        - generic:
+                          - generic: Collect
+                          - generic: Aggregate data
+                      - generic:
+                        - generic: "2"
+                        - generic:
+                          - generic: Normalize
+                          - generic: Clean & standardize
+                      - generic:
+                        - generic: "3"
+                        - generic:
+                          - generic: Grade
+                          - generic: Score F1–A10
+                      - generic:
+                        - generic: "4"
+                        - generic:
+                          - generic: Visualize
+                          - generic: Interactive insights
+            - link [ref=e242] [cursor=pointer]:
+              - /url: /features/markets/market-research
+              - generic [ref=e243]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: Market Research
+                      - generic: Discover profitable opportunities
+                    - table:
+                      - rowgroup:
+                        - row:
+                          - columnheader: Market
+                          - columnheader: Grade
+                          - columnheader: Revenue
+                      - rowgroup:
+                        - row:
+                          - cell: Portable Blenders
+                          - cell:
+                            - generic: A7
+                          - cell: $847K
+                        - row:
+                          - cell: Yoga Mats
+                          - cell:
+                            - generic: B4
+                          - cell: $523K
+                        - row:
+                          - cell: LED Strip Lights
+                          - cell:
+                            - generic: A3
+                          - cell: $1.2M
+                        - row:
+                          - cell: Kitchen Scales
+                          - cell:
+                            - generic: C6
+                          - cell: $312K
+            - link [ref=e244] [cursor=pointer]:
+              - /url: /extension/grading-system
+              - generic [ref=e245]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: Chrome Extension
+                      - generic: Research on Amazon pages
+                    - generic:
+                      - generic:
+                        - generic: amazon.com/s?k=portable+blender
+                        - img
+                      - generic:
+                        - table:
+                          - rowgroup:
+                            - row:
+                              - columnheader: Product
+                              - columnheader: Grade
+                              - columnheader: Sales/mo
+                          - rowgroup:
+                            - row:
+                              - cell: BlendMax Pro
+                              - cell:
+                                - generic: A7
+                              - cell: 2.4K
+                            - row:
+                              - cell: MixMaster 360
+                              - cell:
+                                - generic: B5
+                              - cell: 1.8K
+                            - row:
+                              - cell: VitaBlend Plus
+                              - cell:
+                                - generic: C3
+                              - cell: "945"
+            - link [ref=e246] [cursor=pointer]:
+              - /url: https://discord.gg/J4UhHqN2Z8
+              - generic [ref=e247]:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: Discord Community
+                      - generic: Connect with other sellers
+                    - generic:
+                      - generic:
+                        - img
+                        - generic: Launch Fast
+                        - generic: 2.4k members
+                      - generic:
+                        - generic:
+                          - generic:
+                            - generic: "#"
+                            - generic: announcements
+                          - generic:
+                            - generic: "#"
+                            - generic: general
+                          - generic:
+                            - generic: "#"
+                            - generic: product-research
+                          - generic:
+                            - generic: "#"
+                            - generic: success-stories
+        - generic [ref=e248]:
+          - link "Documentation Learn how to use Launch Fast to research markets, discover profitable products, and launch faster on Amazon." [ref=e249] [cursor=pointer]:
+            - /url: /
+            - generic [ref=e250]:
+              - img [ref=e251]
+              - paragraph [ref=e253]: Documentation
+            - paragraph [ref=e254]: Learn how to use Launch Fast to research markets, discover profitable products, and launch faster on Amazon.
+          - link "How Launch Fast Works Learn how Launch Fast gathers Amazon marketplace, keyword, supplier, and historical data to turn product research into clear decisions." [ref=e255] [cursor=pointer]:
+            - /url: /overview/how-launchfast-works
+            - generic [ref=e256]:
+              - img [ref=e257]
+              - paragraph [ref=e259]: How Launch Fast Works
+            - paragraph [ref=e260]: Learn how Launch Fast gathers Amazon marketplace, keyword, supplier, and historical data to turn product research into clear decisions.
+  - alert [ref=e261]

@@ -1,0 +1,60 @@
+[    1081ms] [LOG] Shop Info: {id: 55923212486, myshopifyDomain: mo-m-cozy.myshopify.com, domain: momcozy.com, name: momcozy} @ https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller:209
+[    1170ms] [LOG] global discountType: percentage global discountValue: 20 @ https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller:8753
+[    1236ms] [LOG] %c
+🏆 Trusted by 20,000+ Shopify merchants
+📦 Flexible bundles for every type of store
+💡 Proven to lift sales and customer happiness
+
+Learn more at:
+https://apps.shopify.com/fast-bundle-product-bundles?utm_source=storefront-console&utm_medium=attribution&utm_campaign=bundle-banner&utm_content=learn-more&utm_term=momcozy.com font-size:14px; @ https://cdn.shopify.com/extensions/019ed09f-5cd4-7bba-99b8-639ea3010984/fast-bundle-product-bundles-112/assets/main.min.js:169
+[    1286ms] [INFO] k-web-pixel-version 1 @ https://momcozy.com/web-pixels/strict/app/web-pixel-1311637702@524f6c1ee37bacdca7657a665bdca589.js:0
+[    1309ms] [ERROR] Failed to load resource: net::ERR_NAME_NOT_RESOLVED @ https://bigsur.ai/plugin/js/static.js:0
+[    1313ms] [LOG] bustly pixel settings {accountID: 2d44218b-16bc-4955-8a3f-c5797b053ce5, shopID: 55923212486} @ https://momcozy.com/web-pixels/strict/app/web-pixel-2052620486@fd3f14bebf03c97bceb16d62a935b5b1.js:0
+[    1367ms] [LOG] RAD Shopify app - page_viewed event. Logging enabled: false @ https://momcozy.com/web-pixels/strict/app/web-pixel-654770374@3c4e0707a22db0bd439a5e4b720ea9d0.js:119
+[    1427ms] [LOG] %c Powerful Contact Form Builder %c
+%c✨ Top 1 Form App for Shopify (2026)
+🌍 Trusted by 50,000+ global merchants
+🧩 Build stunning, fully customizable contact forms in minutes
+⚡ Capture leads, feedback & inquiries effortlessly — no coding required
+Learn more:%c%s background: linear-gradient(90deg,rgb(0, 126, 96) 0%,rgb(9, 189, 147) 40%,rgb(87, 177, 98) 100%);color: white;padding: 6px 10px;border-radius: 4px;font-weight: 800;font-family: "Segoe UI", Roboto, Menlo, monospace;font-size: 15px;box-shadow: 0 3px 0 rgba(0,0,0,0.12), inset 0 -4px 12px rgba(255,255,255,0.06);display: inline-block font-family: Menlo, Monaco, Consolas, "Courier New", monospace;font-weight: 700;color: #0b4626;font-size: 14px;display: inline-block;vertical-align: middle display:block;font-family: Menlo, Monaco, Consolas, "Courier New", monospace;font-size: 13px;line-height: 1.5;padding-top: 8px display:block;font-family: Menlo, Monaco, Consolas, "Courier New", monospace;font-size: 12px;text-decoration: underline;color: #1a57d6;font-weight: 600 https://apps.shopify.com/form-builder-contact-form?utm_source=storefront-console&utm_medium=console&utm_campaign=gigf&utm_content=learn-more&utm_term=mo-m-cozy.myshopify.com @ https://cdn.shopify.com/extensions/019ed8a6-b904-7d66-b726-5f67c677dda9/powerful-form-builder-323/assets/globo.formbuilder.index.js:0
+[    1612ms] [LOG] {id: sh-da818b34-E27F-4AA7-934F-6F66CE4E4636, name: page_viewed, data: Object, type: standard, timestamp: 2026-06-18T11:33:02.294Z} @ https://momcozy.com/web-pixels/strict/app/web-pixel-1757085894@20822cba85d45435de244dc62da8e1dc.js:0
+[    1657ms] [WARNING] Unable to track. Missing "offer_id" or "transaction_id" parameter. @ https://www.fsh9wdj.com/scripts/sdk/everflow.js:0
+[    1681ms] [LOG] dealArrowShow [div.common-carousel-container-button-page.common-carousel-container-button-prev, div.common-carousel-container-button-page.common-carousel-container-button-next] @ https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller:11260
+[    1752ms] [LOG] 200 @ https://momcozy.com/web-pixels/strict/app/web-pixel-17301702@ff1cb5adf8c66f15aefd474481ee1647.js:0
+[    1764ms] [WARNING] In a sandboxed environment, addEventListener may not behave as expected. @ https://momcozy.com/cdn/wpm/s0638fccbw0def4e15pf2fc89d8m825804c5m.js:0
+[    1842ms] [LOG] ### @ https://api.fastbundle.co/scripts/cart.js?rgn=576738:0
+[    2006ms] [LOG] Seel cart html observer initialized @ https://static.seel.com/shopify/worry-free-purchase/script/mo-m-cozy.myshopify.com.js?source=ext&shop=mo-m-cozy.myshopify.com:0
+[    2045ms] [LOG] subIdX7X4FBHMHR72KY9HLFGP3N2C @ https://s1.staq-cdn.com/grow/api/js/55923212486/main.js?sId=55923212486&v=5HGFEHQC3SVQU2BEFIRXF4XX:1296
+[    2070ms] [LOG] !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! stored undefined @ https://cdn.elements.amazon/elements/amazon-delivery-message/v1.0/web-component.js:0
+[    2157ms] [LOG] ptengine脚本加载完成 @ https://momcozy.com/web-pixels@0638fccbw0def4e15pf2fc89d8m825804c5/custom/web-pixel-99090630@6/sandbox/modern/products/momcozy-tuckgo-lightweight-stroller:37
+[    2162ms] [WARNING] In a sandboxed environment, addEventListener may not behave as expected. @ https://momcozy.com/cdn/wpm/s0638fccbw0def4e15pf2fc89d8m825804c5m.js:0
+[    2178ms] [LOG] eventInfo {affCode: , chwPid: , trackId: 0, visitorId: aa7c7dc8-0079-4491-b804-38fbf77613f7, token: hWNDTouLDdO3SNEwvfZlkRe8?key=48bb654e0777dca41cfe1743cb2b2b23} @ https://momcozy.com/web-pixels/strict/app/web-pixel-618070214@0a5678ff6f9a26e3f27e84ff9fee01c1.js:0
+[    2178ms] [LOG] _urlSearch {} @ https://momcozy.com/web-pixels/strict/app/web-pixel-618070214@0a5678ff6f9a26e3f27e84ff9fee01c1.js:0
+[    2475ms] [WARNING] In a sandboxed environment, addEventListener may not behave as expected. @ https://momcozy.com/cdn/wpm/s0638fccbw0def4e15pf2fc89d8m825804c5m.js:0
+[    2505ms] [ERROR] Failed to load resource: the server responded with a status of 404 () @ https://momcozy.com/products/Liquid%20error%20(sections/main-product%20line%20378):%20invalid%20url%20input:0
+[    2534ms] [WARNING] %cBwP Button STATUS_CODE_601
+ Button Status: Not shown 
+ Reason: Sku is not found in merchant console.
+ RequestId: 6b76dc52-b2f2-45f1-8a22-d2c94fc7c3d6 font-weight: 600 @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    2535ms] [WARNING] %cBwP Button STATUS_CODE_601
+ Button Status: Not shown 
+ Reason: Sku is not found in merchant console.
+ RequestId: 6b76dc52-b2f2-45f1-8a22-d2c94fc7c3d6 font-weight: 600 @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    2817ms] [WARNING] Cart SDK event bus not loaded @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    2818ms] [WARNING] Cart SDK event bus not loaded @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    2819ms] [WARNING] Cart SDK event bus not loaded @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    2819ms] [WARNING] Cart SDK event bus not loaded @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    2895ms] [LOG] null null null @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    2895ms] [LOG]  by options @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    2895ms] [LOG] addPopup @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    2897ms] [LOG] addPopup @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    2898ms] [LOG] Grow Variant Change title Default Title @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    3046ms] [ERROR] Not signed in with the identity provider. @ https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller:0
+[    3145ms] [ERROR] Error producing monorail event MonorailRequestError: Error completing request. A network failure may have prevented the request from completing. Error: TypeError: Failed to fetch. Schemas: shopify_pay_page_load/2.7
+    at R.produce (https://cdn.shopify.com/shopifycloud/arrive-server/pay/vite-pay/assets/AnalyticsProvider-BKYtInro.js:2:6773) @ https://cdn.shopify.com/shopifycloud/arrive-server/pay/vite-pay/assets/checkout-DTJs6qRt.js:0
+[    3318ms] [ERROR] Attestation check for Attribution Reporting on https://ara.paa-reporting-advertising.amazon failed. @ https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller:0
+[    3319ms] [ERROR] Attestation check for Shared Storage on https://ara.paa-reporting-advertising.amazon failed. @ https://momcozy.com/web-pixels@0638fccbw0def4e15pf2fc89d8m825804c5/custom/web-pixel-24576198@14/sandbox/modern/products/momcozy-tuckgo-lightweight-stroller:0
+[    5187ms] [ERROR] [GSI_LOGGER]: FedCM get() rejects with NetworkError: Error retrieving a token. @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0
+[    6450ms] Error: Element "input[name='selling_plan']" not found within 5000ms
+    at https://cdn.elements.amazon/sdk/esp-adapters/shopify.js:1:642
+[    6504ms] [WARNING] 未能在规定时间内找到 #fw-player 元素及其 video 元素 @ https://omnisnippet1.com/monitoring/monitoring.js?v=2026-06-18T11:0

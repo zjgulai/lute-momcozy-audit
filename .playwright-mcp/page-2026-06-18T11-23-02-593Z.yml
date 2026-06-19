@@ -1,0 +1,65 @@
+- generic [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e6]:
+        - generic [ref=e7]: 正在加载
+        - progressbar [ref=e8]
+      - main [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e19]:
+            - img [ref=e21]
+            - generic [ref=e26]: 使用 Google 账号登录
+          - generic [ref=e27]:
+            - heading "欢迎" [level=1] [ref=e28]
+            - generic [ref=e32]:
+              - img [ref=e34]
+              - generic [ref=e37]: zhoujianaaa123@gmail.com
+        - generic [ref=e40]:
+          - generic [ref=e42]:
+            - generic [ref=e49]:
+              - heading [level=2] [ref=e51]:
+                - img [ref=e53]
+              - generic [ref=e57]: 不妨选择“试试其他方式”，改用通行密钥更轻松更安全地登录
+            - generic [ref=e61]:
+              - generic [ref=e69]:
+                - textbox "输入您的密码" [active] [ref=e70]: zl1023
+                - generic: 输入您的密码
+              - generic [ref=e77]:
+                - generic [ref=e80] [cursor=pointer]:
+                  - checkbox "显示密码" [ref=e81]
+                  - generic:
+                    - img
+                - generic [ref=e84] [cursor=pointer]: 显示密码
+          - generic [ref=e87]:
+            - text: 建议您在使用“perplexity.ai”之前，先阅读此应用的
+            - link "《隐私权政策》" [ref=e88] [cursor=pointer]:
+              - /url: https://www.perplexity.ai/privacy
+            - text: 和
+            - link "《服务条款》" [ref=e89] [cursor=pointer]:
+              - /url: https://www.perplexity.ai/tos
+            - text: 。
+        - generic [ref=e91]:
+          - button "下一步" [ref=e95]:
+            - generic [ref=e98]: 下一步
+          - button "试试其他方式" [ref=e102]:
+            - generic [ref=e105]: 试试其他方式
+    - contentinfo [ref=e109]:
+      - combobox "更改语言 简体中文" [ref=e113] [cursor=pointer]:
+        - generic:
+          - generic: 简体中文
+        - generic:
+          - img
+      - list [ref=e115]:
+        - listitem [ref=e116]:
+          - link "打开 Google 账号帮助中心（外部链接，在新窗口中打开）" [ref=e117] [cursor=pointer]:
+            - /url: https://support.google.com/accounts?hl=zh-CN&p=account_iph
+            - text: 帮助
+        - listitem [ref=e118]:
+          - link "《隐私权政策》（外部链接，在新窗口中打开）" [ref=e119] [cursor=pointer]:
+            - /url: https://accounts.google.com/TOS?loc=CN&hl=zh-CN&privacy=true
+            - text: 隐私权
+        - listitem [ref=e120]:
+          - link "《Google 服务条款》（外部链接，在新窗口中打开）" [ref=e121] [cursor=pointer]:
+            - /url: https://accounts.google.com/TOS?loc=CN&hl=zh-CN
+            - text: 条款
+  - generic [ref=e123]: 欢迎

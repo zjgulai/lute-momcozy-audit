@@ -1,0 +1,362 @@
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - navigation "主导航" [ref=e7]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - link "Perplexity" [ref=e11] [cursor=pointer]:
+            - /url: /
+            - img "Perplexity" [ref=e14]
+          - button "Collapse sidebar" [ref=e17] [cursor=pointer]:
+            - img [ref=e18]
+        - generic [ref=e23]:
+          - generic [ref=e26]:
+            - link "新建" [ref=e27] [cursor=pointer]:
+              - /url: /
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                - generic:
+                  - generic:
+                    - generic: 新建
+                  - generic: ⌘K
+          - generic [ref=e30]:
+            - link "Computer" [ref=e31] [cursor=pointer]:
+              - /url: /computer/tasks
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 Computer":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: Computer
+          - generic [ref=e35]:
+            - link "空间" [ref=e36] [cursor=pointer]:
+              - /url: /spaces
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 空间":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: 空间
+          - generic [ref=e40]:
+            - link "工件" [ref=e41] [cursor=pointer]:
+              - /url: /computer/artifacts
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 工件":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: 工件
+          - generic [ref=e43]:
+            - generic [ref=e45]:
+              - link "自定义" [ref=e46] [cursor=pointer]:
+                - /url: /computer/connectors
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button "折叠自定义" [expanded]:
+                        - generic:
+                          - img
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic: 自定义
+            - generic [ref=e48]:
+              - generic [ref=e49]:
+                - link "连接器" [ref=e50] [cursor=pointer]:
+                  - /url: /computer/connectors
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 连接器
+              - generic [ref=e51]:
+                - link "技能" [ref=e52] [cursor=pointer]:
+                  - /url: /computer/skills
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 技能
+              - generic [ref=e53]:
+                - link "工作流" [ref=e54] [cursor=pointer]:
+                  - /url: /computer/workflows
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 工作流
+          - generic [ref=e55]:
+            - generic [ref=e57]:
+              - link "历史" [ref=e58] [cursor=pointer]:
+                - /url: /library
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button "折叠历史" [expanded]:
+                        - generic:
+                          - img
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic: 历史
+            - generic [ref=e61]:
+              - link "best hands-free breast pump for working moms" [ref=e62] [cursor=pointer]:
+                - /url: /search/1f9c53c3-01e8-4ee7-a221-7ef018b05a4f
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: best hands-free breast pump for working moms
+                  - button "会话操作" [ref=e66] [cursor=pointer]:
+                    - img [ref=e69]
+        - button "登录" [ref=e80] [cursor=pointer]:
+          - generic [ref=e81]:
+            - generic [ref=e83]:
+              - img [ref=e86]
+              - generic [ref=e89]: 登录
+            - generic:
+              - img
+    - main [ref=e91]:
+      - generic [ref=e94]:
+        - generic:
+          - generic:
+            - tablist "答案模式选项卡" [ref=e96]:
+              - tab "答案" [selected] [ref=e97] [cursor=pointer]:
+                - img [ref=e98]
+                - text: 答案
+              - tab "链接" [ref=e100] [cursor=pointer]:
+                - img [ref=e101]
+                - text: 链接
+              - tab "图片" [ref=e103] [cursor=pointer]:
+                - img [ref=e104]
+                - text: 图片
+            - generic [ref=e106]:
+              - button "会话操作" [ref=e264] [cursor=pointer]:
+                - img [ref=e267]
+              - button "分享" [ref=e108] [cursor=pointer]:
+                - img [ref=e110]
+                - generic [ref=e112]: 分享
+              - button "下载 Comet" [ref=e115] [cursor=pointer]:
+                - img [ref=e117]
+                - generic [ref=e119]: 下载 Comet
+        - generic [ref=e122]:
+          - tabpanel "答案" [ref=e132]:
+            - generic [ref=e133]:
+              - generic [ref=e138]:
+                - generic:
+                  - button "编辑查询":
+                    - generic:
+                      - generic:
+                        - img
+                  - button "复制查询":
+                    - generic:
+                      - generic:
+                        - img
+                - heading "best hands-free breast pump for working moms" [level=1] [ref=e144]:
+                  - generic [ref=e146]: best hands-free breast pump for working moms
+              - generic [ref=e147]:
+                - generic [ref=e276]:
+                  - paragraph [ref=e277]:
+                    - text: For a working mom, the best hands-free breast pump is usually the
+                    - strong [ref=e278]: Elvie Pump
+                    - text: if you want the quietest, most discreet premium option, or the
+                    - strong [ref=e279]: Momcozy M5
+                    - text: if you want a strong, more affordable pick. Recent review roundups also highlight the
+                    - strong [ref=e280]: Willow Go
+                    - text: ","
+                    - strong [ref=e281]: Eufy S1 Pro
+                    - text: ", and"
+                    - strong [ref=e282]: Medela Freestyle Hands-Free
+                    - text: as strong alternatives depending on your priorities.
+                    - generic [ref=e288] [cursor=pointer]:
+                      - generic [ref=e289]: forbes
+                      - generic [ref=e290]: "+1"
+                    - generic "✅ 7 Best Electric Breast Pumps [2026] 🍼 Wearable Hands-Free for Working Moms & Low Supply" [ref=e293]:
+                      - link "youtube" [ref=e295] [cursor=pointer]:
+                        - /url: https://www.youtube.com/watch?v=N07ou34CFic
+                        - generic [ref=e297]:
+                          - img [ref=e299]
+                          - generic [ref=e301]: youtube
+                  - heading "Best picks by priority" [level=2] [ref=e302]
+                  - list [ref=e303]:
+                    - listitem [ref=e304]:
+                      - paragraph [ref=e305]:
+                        - strong [ref=e306]: "Best overall:"
+                        - text: Elvie Pump — quiet, discreet, comfortable, and app-connected.
+                        - generic "Best Wearable Breast Pumps 2026" [ref=e309]:
+                          - link "forbes" [ref=e311] [cursor=pointer]:
+                            - /url: https://www.forbes.com/sites/forbes-personal-shopper/article/best-wearable-breast-pump/
+                            - generic [ref=e314]: forbes
+                    - listitem [ref=e315]:
+                      - paragraph [ref=e316]:
+                        - strong [ref=e317]: "Best budget option:"
+                        - text: Momcozy M5 — strong suction, easy to use, and cheaper than many premium models.
+                        - generic "Best Wearable Breast Pumps 2026" [ref=e320]:
+                          - link "forbes" [ref=e322] [cursor=pointer]:
+                            - /url: https://www.forbes.com/sites/forbes-personal-shopper/article/best-wearable-breast-pump/
+                            - generic [ref=e325]: forbes
+                    - listitem [ref=e326]:
+                      - paragraph [ref=e327]:
+                        - strong [ref=e328]: "Best for quiet office use:"
+                        - text: Willow Go or Elvie Pump — both are designed for low-profile pumping at work.
+                        - generic [ref=e334] [cursor=pointer]:
+                          - generic [ref=e335]: gomommyus
+                          - generic [ref=e336]: "+1"
+                    - listitem [ref=e337]:
+                      - paragraph [ref=e338]:
+                        - strong [ref=e339]: "Best for stronger output:"
+                        - text: Eufy S1 Pro — praised for power and a heating feature that may improve comfort.
+                        - generic "Best Wearable Breast Pumps 2026" [ref=e342]:
+                          - link "forbes" [ref=e344] [cursor=pointer]:
+                            - /url: https://www.forbes.com/sites/forbes-personal-shopper/article/best-wearable-breast-pump/
+                            - generic [ref=e347]: forbes
+                    - listitem [ref=e348]:
+                      - paragraph [ref=e349]:
+                        - strong [ref=e350]: "Best simple setup:"
+                        - text: Medela Freestyle Hands-Free — fewer parts and easier cleaning.
+                        - generic "✅ 7 Best Electric Breast Pumps [2026] 🍼 Wearable Hands-Free for Working Moms & Low Supply" [ref=e353]:
+                          - link "youtube" [ref=e355] [cursor=pointer]:
+                            - /url: https://www.youtube.com/watch?v=N07ou34CFic
+                            - generic [ref=e357]:
+                              - img [ref=e359]
+                              - generic [ref=e361]: youtube
+                        - generic "Best Wearable Breast Pumps 2026" [ref=e364]:
+                          - link "forbes" [ref=e366] [cursor=pointer]:
+                            - /url: https://www.forbes.com/sites/forbes-personal-shopper/article/best-wearable-breast-pump/
+                            - generic [ref=e369]: forbes
+                  - heading "What matters most at work" [level=2] [ref=e370]
+                  - paragraph [ref=e371]:
+                    - text: For a job-friendly pump, prioritize discreet fit, low noise, battery life, and easy cleaning. Wearable pumps can be more convenient, but some users get slightly less output than with traditional pumps, so fit and suction quality matter a lot.
+                    - generic "Best Wearable Breast Pumps 2026" [ref=e374]:
+                      - link "forbes" [ref=e376] [cursor=pointer]:
+                        - /url: https://www.forbes.com/sites/forbes-personal-shopper/article/best-wearable-breast-pump/
+                        - generic [ref=e379]: forbes
+                  - heading "My practical recommendation" [level=2] [ref=e380]
+                  - paragraph [ref=e381]:
+                    - text: If you want one safe default choice, go with the
+                    - strong [ref=e382]: Elvie Pump
+                    - text: for a premium workday experience or the
+                    - strong [ref=e383]: Momcozy M5
+                    - text: if value matters more. If you tell me your budget and whether you want the quietest, strongest, or easiest-to-clean option, I can narrow it to one best pick.
+                - generic [ref=e384]:
+                  - generic [ref=e385]:
+                    - button "分享" [ref=e386] [cursor=pointer]:
+                      - img [ref=e389]
+                    - button "下载" [ref=e392] [cursor=pointer]:
+                      - img [ref=e395]
+                    - button "拷贝" [ref=e398] [cursor=pointer]:
+                      - img [ref=e401]
+                    - button "重写会话" [ref=e404] [cursor=pointer]:
+                      - img [ref=e407]
+                    - button "10 个来源" [ref=e411] [cursor=pointer]:
+                      - generic [ref=e413]:
+                        - img [ref=e414]
+                        - img [ref=e415]
+                        - generic [ref=e417]:
+                          - img [ref=e420]
+                          - img [ref=e424]
+                          - img [ref=e428]
+                        - text: 10 个来源
+                  - generic [ref=e431]:
+                    - generic [ref=e433]:
+                      - button "有用" [ref=e434] [cursor=pointer]:
+                        - img [ref=e437]
+                      - button "没有帮助" [ref=e440] [cursor=pointer]:
+                        - img [ref=e443]
+                    - button "更多操作" [ref=e447] [cursor=pointer]:
+                      - img [ref=e450]
+                - generic [ref=e454]:
+                  - generic [ref=e459]: 后续提问
+                  - generic [ref=e460]:
+                    - button "I want the quietest option possible regardless of the price" [ref=e461] [cursor=pointer]:
+                      - img [ref=e463]
+                      - generic [ref=e466]: I want the quietest option possible regardless of the price
+                    - button "My main priority is finding a pump with the strongest suction power" [ref=e467] [cursor=pointer]:
+                      - img [ref=e469]
+                      - generic [ref=e472]: My main priority is finding a pump with the strongest suction power
+                    - button "I need something very easy to clean since I have limited break time" [ref=e473] [cursor=pointer]:
+                      - img [ref=e475]
+                      - generic [ref=e478]: I need something very easy to clean since I have limited break time
+                    - button "My budget is under 200 dollars for a reliable hands-free pump" [ref=e479] [cursor=pointer]:
+                      - img [ref=e481]
+                      - generic [ref=e484]: My budget is under 200 dollars for a reliable hands-free pump
+                    - button "I am looking for the most discreet fit to wear under professional attire" [ref=e485] [cursor=pointer]:
+                      - img [ref=e487]
+                      - generic [ref=e490]: I am looking for the most discreet fit to wear under professional attire
+          - generic [ref=e169]:
+            - generic [ref=e171]:
+              - textbox [ref=e172]:
+                - paragraph [ref=e173]
+              - generic: 提出后续问题
+            - generic [ref=e175]:
+              - button "添加文件或工具" [ref=e176] [cursor=pointer]:
+                - img [ref=e179]
+              - button "搜索" [pressed] [ref=e185] [cursor=pointer]:
+                - img [ref=e187]
+                - generic [ref=e189]:
+                  - text: 搜索
+                  - img [ref=e192]
+            - generic [ref=e194]:
+              - button "模型" [ref=e196] [cursor=pointer]:
+                - generic [ref=e197]: 模型
+                - img [ref=e199]
+              - button "听写" [ref=e492] [cursor=pointer]:
+                - img [ref=e495]
+              - button "提交" [disabled]:
+                - generic:
+                  - generic:
+                    - img
+  - dialog [ref=e218]:
+    - generic [ref=e222]:
+      - generic [ref=e223]:
+        - generic [ref=e224]: 在下方注册以解锁 Perplexity 的全部潜力
+        - generic [ref=e225]:
+          - text: 继续即表示您同意我们的
+          - link "隐私政策" [ref=e226] [cursor=pointer]:
+            - /url: https://www.perplexity.com/hub/legal/privacy-policy
+          - text: 。
+      - generic [ref=e227]:
+        - button "返回首页" [ref=e229] [cursor=pointer]:
+          - img [ref=e231]
+          - generic [ref=e233]: 返回首页
+        - generic [ref=e235]:
+          - generic [ref=e236]:
+            - button "继续使用Google" [ref=e237] [cursor=pointer]:
+              - img [ref=e239]
+              - generic [ref=e241]: 继续使用Google
+            - button "继续使用 Apple" [ref=e243] [cursor=pointer]:
+              - img [ref=e245]
+              - generic [ref=e247]: 继续使用 Apple
+          - generic [ref=e250]:
+            - generic [ref=e252]:
+              - textbox "输入您的电子邮件" [active] [ref=e257]
+              - generic [ref=e258]:
+                - button "继续使用电子邮件" [disabled]:
+                  - generic: 继续使用电子邮件
+            - button "单点登录（SSO）" [ref=e260] [cursor=pointer]:
+              - generic [ref=e261]: 单点登录（SSO）

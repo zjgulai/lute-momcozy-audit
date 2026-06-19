@@ -1880,7 +1880,15 @@
             "ratingValue": 4.6,
             "hasAggregateRatingJsonLd": true,
             "hasPhotoReviews": true,
-            "reviewsAboveFold": true
+            "reviewsAboveFold": true,
+            "reviewBreakdown": {
+              "5star": "1.1k",
+              "4star": 177,
+              "3star": 87,
+              "2star": 28,
+              "1star": 39,
+              "recommendPct": "89%"
+            }
           },
           "s12_pro": {
             "reviewCount": 1828,
@@ -1926,7 +1934,9 @@
           "S12 Pro 以 1828 条评论（4.5★）是评论数量最多的 SKU，超过 M5 Smart（1439条）",
           "所有 PDP 均有图片评论且评论摘要首屏可见——这是正向 GEO 信号",
           "所有 PDP 的 reviewCount 均在 JSON-LD 中正确声明（AggregateRating）——AI 可读",
-          "TuckGo Stroller 仅 10 条评论，GEO 可见度和 SEO 权重均显著偏低"
+          "TuckGo Stroller 仅 10 条评论，GEO 可见度和 SEO 权重均显著偏低",
+          "M5 Smart 1,439条评论中 89% 推荐，负面评论主题需手工分析（1星39条）",
+          "评论支持多语言（英/德/法），说明国际化用户有一定比例"
         ]
       },
       "G7_checkout_business": {
@@ -1949,9 +1959,12 @@
           "hasApplePay": false,
           "hasShopPay": false,
           "hasGooglePay": false,
-          "hasKlarna": false,
-          "formFieldCount": 4,
+          "hasKlarna": true,
+          "hasAfterpay": true,
+          "hasHsaFsa": true,
+          "hasInsurance": true,
           "guestCheckoutAvailable": true,
+          "formFieldCount": 4,
           "shippingCostEarlyVisible": true
         },
         "shopifyMetrics": {
@@ -1963,12 +1976,19 @@
           "window": null
         },
         "keyFindings": [
-          "CRITICAL: Apple Pay / Shop Pay / Google Pay 均未检测到——损失 Shop Pay 1.72x 转化加成",
-          "Guest checkout 可用（正向）",
-          "运费信息首屏可见（正向）",
-          "结账表单字段数量适中（4个），无明显过度字段问题",
-          "支付按钮检测需要人工确认：Shopify checkout 的支付按钮可能在 JS 渲染后才出现，当前静态采集可能欠报"
-        ]
+          "Klarna 和 Afterpay 均已集成（PDP 文字：'4 Interest-free payments with Afterpay or Klarna'）",
+          "HSA/FSA 支持已集成（保险支付渠道，母婴品类重要）",
+          "Shop Pay / Apple Pay / Google Pay 在匿名空购物车状态未检测到——需要有商品的真实结账才能确认",
+          "CTA 'Add to Cart' 在黏性底栏（.t4s-sticky-atc，top=742px，viewport=737px）——始终位于 viewport 外，需要点击 y≈795 坐标",
+          "信任信号（30天保证、1年保修）存在于页面但全部非首屏",
+          "空购物车直接访问 /checkout 会重定向到首页——需要真实购物流程测试支付方式"
+        ],
+        "shopifyStickyCta": {
+          "selector": ".t4s-sticky-atc",
+          "position": "fixed bottom",
+          "clickY": 795,
+          "note": "Sticky bar at viewport bottom, coordinates needed for browser-harness click"
+        }
       },
       "G8_social_commerce": {
         "label": "社交电商诊断（TikTok Shop / Instagram Shop）",
@@ -2228,6 +2248,23 @@
       }
     },
     "firstCollectionDate": "2026-06-18",
-    "latestContentSession": "content-session-2026-06-18"
+    "latestContentSession": "content-session-2026-06-18",
+    "bhSessions": {
+      "firstSession": "2026-06-19",
+      "sessionType": "anonymous-isolated-chrome-way2",
+      "routes": [
+        "pdp-m5-smart",
+        "cart",
+        "checkout"
+      ],
+      "keyFindings": [
+        "wordCount 问题根因：M5 Smart 内容通过 custom web components 渲染，需 scroll + visible paragraphs 提取（905词）",
+        "Klarna + Afterpay 已集成（PDP 明确标注）",
+        "HSA/FSA 支付支持（母婴品类核心渠道）",
+        "CTA 在黏性底栏需精准坐标点击（y≈795）",
+        "信任信号（30天保证/1年保修）全部非首屏",
+        "空购物车结账重定向首页——需 owner 账号测试真实支付方式"
+      ]
+    }
   }
 }

@@ -1,0 +1,1331 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#MainContent"
+  - generic [ref=e3]:
+    - generic [ref=e7]:
+      - button "close" [ref=e9] [cursor=pointer]:
+        - generic: close
+      - paragraph [ref=e15]:
+        - strong [ref=e16]: 🔥
+        - text: Big Summer Deals-
+        - strong [ref=e17]: Up To 60% OFF !
+        - text: "|"
+        - link "Shop Now !" [ref=e18] [cursor=pointer]:
+          - /url: https://momcozy.com/pages/prime-big-deal-days
+      - button "close" [ref=e20] [cursor=pointer]:
+        - generic: close
+    - banner [ref=e22]:
+      - navigation "Primary" [ref=e25]:
+        - link "momcozy home" [ref=e27] [cursor=pointer]:
+          - /url: /
+          - img [ref=e28]
+        - generic [ref=e37]:
+          - link "search" [ref=e38] [cursor=pointer]:
+            - /url: /search
+            - img [ref=e39]
+          - link "link" [ref=e41] [cursor=pointer]:
+            - /url: /cart
+            - img [ref=e42]
+          - button "open menu" [ref=e45] [cursor=pointer]:
+            - img [ref=e46]
+    - main [ref=e48]:
+      - generic [ref=e49]:
+        - navigation "breadcrumbs" [ref=e56]:
+          - list [ref=e57]:
+            - listitem [ref=e58]:
+              - link "Home" [ref=e59] [cursor=pointer]:
+                - /url: /
+              - text: ">"
+            - listitem [ref=e60]:
+              - link "Breast Pump" [ref=e61] [cursor=pointer]:
+                - /url: /collections/electric-breast-pump
+              - text: ">"
+            - listitem [ref=e62]:
+              - generic "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e63]
+        - generic [ref=e68]:
+          - generic [ref=e70]:
+            - generic [ref=e71]:
+              - generic [ref=e72]:
+                - generic [ref=e74]:
+                  - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e77]
+                  - img [ref=e80]
+                  - img [ref=e83]
+                  - img [ref=e86]
+                  - img [ref=e89]
+                  - img [ref=e92]
+                  - img [ref=e95]
+                  - img [ref=e98]
+                  - img [ref=e101]
+                  - img [ref=e104]
+                  - img [ref=e107]
+                  - img [ref=e110]
+                  - generic [ref=e112]:
+                    - img [ref=e115]
+                    - generic [ref=e116]:
+                      - generic:
+                        - button:
+                          - generic: Play
+                        - generic:
+                          - generic:
+                            - slider: "0"
+                            - progressbar: "% buffered"
+                            - generic: 00:00
+                        - button:
+                          - generic: Unmute
+                        - generic:
+                          - slider: "0"
+                        - button:
+                          - generic: Enter fullscreen
+                      - button [ref=e120] [cursor=pointer]:
+                        - generic [ref=e121]: Play
+                - button "Previous" [ref=e122] [cursor=pointer]:
+                  - img [ref=e123]
+                - button "Next" [ref=e125] [cursor=pointer]:
+                  - img [ref=e126]
+              - button "Click to enlarge" [ref=e128] [cursor=pointer]:
+                - img [ref=e130]
+                - generic: Click to enlarge
+            - generic [ref=e132]:
+              - generic [ref=e134]:
+                - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e137]
+                - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e140]
+                - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e143]
+                - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e146]
+                - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e149]
+                - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e152]
+                - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e155]
+                - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e158]
+                - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e161]
+                - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e164]
+                - img "Momcozy M5 Wearable Breast Pump in use by a smiling mother at her laptop, highlighting convenience." [ref=e167]
+                - img "Woman by the beach holding the Momcozy breast pump case, wearing stylish summer attire." [ref=e170]
+                - generic [ref=e172]:
+                  - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e173]
+                  - img [ref=e175]
+              - button "Previous"
+              - button "Next"
+            - generic [ref=e177]:
+              - generic [ref=e178]:
+                - generic [ref=e179]:
+                  - img [ref=e180]
+                  - img [ref=e182]
+                  - img [ref=e184]
+                  - img [ref=e186]
+                  - img [ref=e188]
+                - generic [ref=e190]: I work in Healthcare. These have been a lifesaver so far. I am also an active mother of 4, so these came in handy. They are easy to assemble and easy to clean.
+                - generic [ref=e191]:
+                  - generic [ref=e192]: Mackenna
+                  - generic [ref=e193]:
+                    - img [ref=e194]
+                    - generic [ref=e197]: Verified Buyer
+              - generic [ref=e198]:
+                - list [ref=e199]:
+                  - listitem [ref=e200]: 2024 Mother&Baby Awards
+                  - listitem [ref=e201]: 2023 Preferred Choice Award
+                  - listitem [ref=e202]: 2023 Natural Parenting Product
+                - img "Award badge 1" [ref=e203]
+                - img "Award badge 2" [ref=e204]
+                - img "Award badge 3" [ref=e205]
+                - img "Award badge 4" [ref=e206]
+                - img "Award badge 5" [ref=e207]
+                - img "Award badge 6" [ref=e208]
+                - img "Award badge 7" [ref=e209]
+          - generic [ref=e212]:
+            - generic [ref=e213]: M5 Smart
+            - heading "M5 Smart Wearable Breast Pump – Upgraded with App Control" [level=1] [ref=e214]
+            - link "Rated 4.6 out of 5 stars (1,438) Click to scroll to reviews" [ref=e216] [cursor=pointer]:
+              - /url: "#t4s-tab-reviewtemplate--20507180204230__main"
+              - button "Rated 4.6 out of 5 stars (1,438) Click to scroll to reviews" [ref=e220]:
+                - generic [ref=e222]:
+                  - img [ref=e224]
+                  - img [ref=e231]
+                  - generic [ref=e237]: Rated 4.6 out of 5 stars
+                - generic [ref=e238]: (1,438)
+                - generic [ref=e239]: Click to scroll to reviews
+            - generic [ref=e240]:
+              - generic [ref=e241]: $219.99 USD
+              - iframe [ref=e244]:
+                - button "Pay in 4 interest-free payments of $30.00. Learn more" [ref=f29e2]:
+                  - generic [ref=f29e9] [cursor=pointer]:
+                    - generic [ref=f29e13]: Pay in 4 interest-free payments of $30.00.
+                    - paragraph [ref=f29e14]:
+                      - generic [ref=f29e16]:
+                        - text: Learn more
+                        - generic [ref=f29e17]: Learn more
+              - generic [ref=e245]:
+                - generic [ref=e246]: Or with
+                - img [ref=e247]
+                - generic [ref=e258]: or with
+                - img "klarna" [ref=e259]
+            - generic [ref=e263]:
+              - generic [ref=e264]:
+                - generic [ref=e265]:
+                  - paragraph [ref=e266]:
+                    - generic [ref=e267]: SAVE
+                    - generic [ref=e268]: 20%
+                  - paragraph [ref=e269]: "with Code: BDPD20"
+                - img [ref=e271]
+                - img [ref=e274]
+              - button "Copy Code" [ref=e277] [cursor=pointer]
+            - generic [ref=e279]:
+              - generic [ref=e281]: Comfort Fit
+              - generic [ref=e283]: Steady Output
+              - generic [ref=e285]: Hands-Free Freedom
+              - generic [ref=e287]: Easy App Control
+            - generic [ref=e288]:
+              - generic [ref=e290]:
+                - strong [ref=e291]: Style
+                - text: ": M5 Smart"
+              - generic [ref=e292]:
+                - link "M5 Smart Wearable Breast Pump – Upgraded with App Control M5 Smart Wearable Breast Pump – Upgraded with App Control M5 Smart" [ref=e294] [cursor=pointer]:
+                  - /url: /products/m5-smart-wearable-breast-pump-upgraded-with-app-control
+                  - generic [ref=e295]:
+                    - img "M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e296]
+                    - img "M5 Smart Wearable Breast Pump – Upgraded with App Control"
+                  - generic [ref=e297]: M5 Smart
+                - link "M5 / M5 Smart Breast Pump Replacement Parts M5 / M5 Smart Breast Pump Replacement Parts M5 / M5 Smart Replacement Parts" [ref=e299] [cursor=pointer]:
+                  - /url: /products/m5-breast-pump-replacement-parts
+                  - generic [ref=e300]:
+                    - img "M5 / M5 Smart Breast Pump Replacement Parts" [ref=e301]
+                    - img "M5 / M5 Smart Breast Pump Replacement Parts"
+                  - generic [ref=e302]: M5 / M5 Smart Replacement Parts
+            - generic [ref=e305]:
+              - generic [ref=e306]:
+                - generic [ref=e307]:
+                  - generic [ref=e309]:
+                    - text: "Style:"
+                    - generic [ref=e310]: Double + 120 count bags
+                  - generic [ref=e311]:
+                    - generic [ref=e312] [cursor=pointer]: Double + 120 count bags
+                    - generic [ref=e313] [cursor=pointer]: Double
+                    - generic [ref=e314] [cursor=pointer]: Single
+                - generic [ref=e315]:
+                  - generic [ref=e317]:
+                    - text: "Color:"
+                    - generic [ref=e318]: Cozy Red
+                  - generic [ref=e319]:
+                    - generic [ref=e322] [cursor=pointer]: Cozy Red
+                    - generic [ref=e325] [cursor=pointer]: Quill Grey
+              - generic [ref=e326]:
+                - generic [ref=e327]:
+                  - generic [ref=e328]:
+                    - button "Decrease quantity" [ref=e329] [cursor=pointer]
+                    - spinbutton "Quantity" [ref=e330]: "1"
+                    - button "Increase quantity" [ref=e331] [cursor=pointer]
+                  - button "Add to cart $219.99 USD" [ref=e332] [cursor=pointer]:
+                    - generic [ref=e334]: Add to cart
+                    - generic [ref=e337]: $219.99 USD
+                - generic [ref=e339] [cursor=pointer]:
+                  - generic:
+                    - generic:
+                      - link "More payment options":
+                        - /url: "#"
+                - generic [ref=e340]: 4 Interest-free payments with Afterpay or Klarna
+                - generic [ref=e341]:
+                  - link "Buy from Amazon" [ref=e342] [cursor=pointer]:
+                    - /url: https://www.amazon.com/dp/B0F7XTHCNY?maas=maas_adg_A2EF70BDA5AA5E783580526C3D2CB5C5_afap_abs&ref_=aa_maas&tag=maas&th=1
+                    - img [ref=e343]
+                    - generic [ref=e345]: Buy from Amazon
+                  - link "Add to Wishlist" [ref=e346] [cursor=pointer]:
+                    - /url: /products/m5-smart-wearable-breast-pump-upgraded-with-app-control
+                    - generic [ref=e347]:
+                      - img
+                    - generic [ref=e348]: Add to Wishlist
+                - generic [ref=e350]:
+                  - generic [ref=e353]:
+                    - link "Insurance" [ref=e354] [cursor=pointer]:
+                      - /url: /pages/insurance-partners-in-us
+                    - generic [ref=e355]: "&"
+                    - generic [ref=e356] [cursor=pointer]: HSA/FSA
+                    - generic [ref=e357]: Eligible
+                  - generic:
+                    - generic:
+                      - generic:
+                        - img
+                        - generic:
+                          - generic:
+                            - generic:
+                              - generic: FSA or HSA Eligible Items
+                              - generic:
+                                - text: These products may be eligible for purc-hase using your FSA or HSA funds. If you have an FSA/HSA card, you can use it directly at checkout.
+                                - generic: You may also pay with another paymentmethod and submit your order for reim-bursement through your benefits provi-der.
+                              - link "Check your eligibility.":
+                                - /url: /pages/fsa-hsa-eligible
+            - generic [ref=e358]: 40 People are viewing this right now
+            - generic [ref=e362]:
+              - link "Description" [ref=e364] [cursor=pointer]:
+                - /url: "#t4s-tab-destemplate--20507180204230__main"
+                - generic [ref=e365]: Description
+              - link "Specifications" [ref=e368] [cursor=pointer]:
+                - /url: "#t4s_tab_tab_html_mCYXa7"
+                - generic [ref=e369]: Specifications
+            - generic [ref=e371]:
+              - paragraph [ref=e372]:
+                - strong [ref=e373]: "🎁 Bonus Perk:"
+              - paragraph [ref=e374]:
+                - text: Includes a FREE 30-Minute 1-on-1
+                - strong [ref=e375]: IBCLC
+                - text: Consultation to help you master your pumping journey. Available for US orders only.
+            - generic [ref=e379]:
+              - generic [ref=e380]:
+                - img "Search" [ref=e382]
+                - generic [ref=e386]: Ask our AI Assistant
+              - generic [ref=e387]:
+                - button "What is the difference between M5 Smart and M5?" [ref=e389] [cursor=pointer]:
+                  - generic [ref=e390]: What is the difference between M5 Smart and M5?
+                - button "Does the M5 Smart support double pumping?" [ref=e392] [cursor=pointer]:
+                  - generic [ref=e393]: Does the M5 Smart support double pumping?
+              - generic [ref=e394]:
+                - textbox "Your Question" [ref=e395]:
+                  - /placeholder: How can I help you?
+                - button "Send Message" [ref=e396] [cursor=pointer]:
+                  - img [ref=e398]
+            - generic [ref=e401]:
+              - generic [ref=e403]:
+                - paragraph [ref=e404]: Fast Shipping FREE AVAILABLE
+                - text: Order today for delivery in as little as Monday, 22nd June.
+              - generic [ref=e406]:
+                - paragraph [ref=e407]: 30 Days Guarantee Learn more
+                - text: We stand behind our products. If you don’t love it, exchanges and returns are available in 30 days.
+              - generic [ref=e409]:
+                - paragraph [ref=e410]: 1 Year Warranty Learn more
+                - text: At least 1 Year* Warranty Guarantee Policy
+              - generic [ref=e412]:
+                - paragraph [ref=e413]: Ways to Pay
+                - img "american express" [ref=e414]
+                - img "apple pay" [ref=e415]
+                - img "discover" [ref=e416]
+                - img "google pay" [ref=e417]
+                - img "jcb" [ref=e418]
+                - img "klarna-pay-later" [ref=e419]
+                - img "maestro" [ref=e420]
+                - img "master" [ref=e421]
+                - img "paypal" [ref=e422]
+                - img "shopify pay" [ref=e423]
+                - img "visa" [ref=e424]
+                - img "afterpay" [ref=e425]
+            - generic [ref=e426]:
+              - generic [ref=e427]: "Share:"
+              - generic [ref=e429]:
+                - link "Share on Facebook" [ref=e431] [cursor=pointer]:
+                  - /url: https://www.facebook.com/sharer/sharer.php?u=https://momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control
+                - link "Share on Twitter" [ref=e434] [cursor=pointer]:
+                  - /url: http://twitter.com/share?text=M5%20Smart%20Wearable%20Breast%20Pump%20%E2%80%93%20Upgraded%20with%20App%20Control&url=https://momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control
+                - link "Share on Pinterest" [ref=e437] [cursor=pointer]:
+                  - /url: "http://pinterest.com/pin/create/button/?url=https://momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control&media=http: //momcozy.com/cdn/shop/files/1_b8f691a7-6acf-44dc-acbc-ed6bf82e8a9d.jpg?crop=center&height=1024&v=1760428066&width=1024&description=M5%20Smart%20Wearable%20Breast%20Pump%20%E2%80%93%20Upgraded%20with%20App%20Control"
+                - link "Share on Email" [ref=e440] [cursor=pointer]:
+                  - /url: "mailto: ?subject=M5%20Smart%20Wearable%20Breast%20Pump%20%E2%80%93%20Upgraded%20with%20App%20Control&body=https://momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control"
+            - generic [ref=e442]:
+              - generic [ref=e443]: Moms Also Purchased
+              - generic [ref=e444]:
+                - generic [ref=e446]:
+                  - generic [ref=e448]:
+                    - link "Momcozy Breastfeeding Essentials & Postpartum Kit (73 Pieces)" [ref=e450] [cursor=pointer]:
+                      - /url: /products/breastfeeding-essentials-postpartum-kit-73pieces
+                      - img "Momcozy Breastfeeding Essentials & Postpartum Kit (73 Pieces)" [ref=e451]
+                    - generic [ref=e453]:
+                      - generic [ref=e454]: Momcozy Breastfeeding Essentials & Postpartum Kit (73 Pieces)
+                      - generic [ref=e455]:
+                        - deletion [ref=e456]: $59.99 USD
+                        - insertion [ref=e457]: $47.99 USD
+                      - link "Quick Shop" [ref=e458] [cursor=pointer]:
+                        - /url: /products/breastfeeding-essentials-postpartum-kit-73pieces
+                        - generic [ref=e459]: Quick Shop
+                  - generic [ref=e461]:
+                    - link "Double 2-in-1 Warming & Vibration Lactation Massager Front" [ref=e463] [cursor=pointer]:
+                      - /url: /products/double-2-in-1-warming-vibration-lactation-massager
+                      - img "Double 2-in-1 Warming & Vibration Lactation Massager Front" [ref=e464]
+                    - generic [ref=e466]:
+                      - generic [ref=e467]: Double 2-in-1 Warming & Vibration Lactation Massager
+                      - button "Rated 4.7 out of 5 stars (277) Click to scroll to reviews" [ref=e472] [cursor=pointer]:
+                        - generic [ref=e474]:
+                          - img [ref=e476]
+                          - img [ref=e483]
+                          - generic [ref=e489]: Rated 4.7 out of 5 stars
+                        - generic [ref=e490]: (277)
+                        - generic [ref=e491]: Click to scroll to reviews
+                      - generic [ref=e492]: $57.99 USD
+                      - link "Quick Shop" [ref=e493] [cursor=pointer]:
+                        - /url: /products/double-2-in-1-warming-vibration-lactation-massager
+                        - generic [ref=e494]: Quick Shop
+                  - generic [ref=e496]:
+                    - link "Momcozy Breast Milk Storage Container" [ref=e498] [cursor=pointer]:
+                      - /url: /products/momcozy-breast-milk-pitcher
+                      - img "Momcozy Breast Milk Storage Container" [ref=e499]
+                    - generic [ref=e501]:
+                      - generic [ref=e502]: Momcozy Breast Milk Storage Container
+                      - button "Rated 4.9 out of 5 stars (158) Click to scroll to reviews" [ref=e507] [cursor=pointer]:
+                        - generic [ref=e509]:
+                          - img [ref=e511]
+                          - img [ref=e518]
+                          - generic [ref=e524]: Rated 4.9 out of 5 stars
+                        - generic [ref=e525]: (158)
+                        - generic [ref=e526]: Click to scroll to reviews
+                      - generic [ref=e527]: $34.99 USD
+                      - link "Quick Shop" [ref=e528] [cursor=pointer]:
+                        - /url: /products/momcozy-breast-milk-pitcher
+                        - generic [ref=e529]: Quick Shop
+                  - generic [ref=e531]:
+                    - link "Momcozy Portable Breast Pump Cleaner Spray" [ref=e533] [cursor=pointer]:
+                      - /url: /products/momcozy-portable-breast-pump-cleaner-spray
+                      - img "Momcozy Portable Breast Pump Cleaner Spray" [ref=e534]
+                    - generic [ref=e536]:
+                      - generic [ref=e537]: Momcozy Portable Breast Pump Cleaner Spray
+                      - button "Rated 5.0 out of 5 stars (41) Click to scroll to reviews" [ref=e542] [cursor=pointer]:
+                        - generic [ref=e544]:
+                          - img [ref=e546]
+                          - img [ref=e553]
+                          - generic [ref=e559]: Rated 5.0 out of 5 stars
+                        - generic [ref=e560]: (41)
+                        - generic [ref=e561]: Click to scroll to reviews
+                      - generic [ref=e562]: $9.99 USD
+                      - link "Quick Shop" [ref=e563] [cursor=pointer]:
+                        - /url: /products/momcozy-portable-breast-pump-cleaner-spray
+                        - generic [ref=e564]: Quick Shop
+                  - generic [ref=e566]:
+                    - link "Natural Breast Pump Wipes - Safe & Convenient" [ref=e568] [cursor=pointer]:
+                      - /url: /products/natural-breast-pump-wipes-fast-convenient
+                      - img "Natural Breast Pump Wipes - Safe & Convenient" [ref=e569]
+                    - generic [ref=e571]:
+                      - generic [ref=e572]: Natural Breast Pump Wipes - Safe & Convenient
+                      - button "Rated 4.8 out of 5 stars (193) Click to scroll to reviews" [ref=e577] [cursor=pointer]:
+                        - generic [ref=e579]:
+                          - img [ref=e581]
+                          - img [ref=e588]
+                          - generic [ref=e594]: Rated 4.8 out of 5 stars
+                        - generic [ref=e595]: (193)
+                        - generic [ref=e596]: Click to scroll to reviews
+                      - generic [ref=e597]: From $6.99 USD
+                      - link "Quick Shop" [ref=e598] [cursor=pointer]:
+                        - /url: /products/natural-breast-pump-wipes-fast-convenient
+                        - generic [ref=e599]: Quick Shop
+                - button "Previous" [ref=e600] [cursor=pointer]:
+                  - img [ref=e601]
+                - button "Next" [ref=e603] [cursor=pointer]:
+                  - img [ref=e604]
+                - list [ref=e606]:
+                  - listitem "Page dot 1" [ref=e607] [cursor=pointer]
+                  - listitem "Page dot 2" [ref=e608] [cursor=pointer]
+        - separator [ref=e611]
+        - region "What Moms Say About Momcozy" [ref=e613]:
+          - generic [ref=e614]:
+            - heading "What Moms Say About Momcozy" [level=2] [ref=e616]
+            - generic [ref=e622]:
+              - generic [ref=e623]:
+                - group "1 / 14" [ref=e624]:
+                  - generic [ref=e625] [cursor=pointer]:
+                    - img [ref=e627]:
+                      - img [ref=e629]
+                    - img [ref=e633]
+                - group "2 / 14" [ref=e637]:
+                  - generic [ref=e638] [cursor=pointer]:
+                    - img [ref=e640]:
+                      - img [ref=e642]
+                    - img [ref=e646]
+                - group "3 / 14" [ref=e650]:
+                  - generic [ref=e651] [cursor=pointer]:
+                    - img [ref=e653]:
+                      - img [ref=e655]
+                    - img [ref=e659]
+                - group "4 / 14" [ref=e663]:
+                  - generic [ref=e664] [cursor=pointer]:
+                    - img [ref=e666]:
+                      - img [ref=e668]
+                    - img [ref=e672]
+                - group "5 / 14" [ref=e676]:
+                  - generic [ref=e677] [cursor=pointer]:
+                    - img [ref=e679]:
+                      - img [ref=e681]
+                    - img [ref=e685]
+                - group "6 / 14" [ref=e689]:
+                  - generic [ref=e690] [cursor=pointer]:
+                    - img [ref=e692]:
+                      - img [ref=e694]
+                    - img [ref=e698]
+                - group "7 / 14" [ref=e702]:
+                  - generic [ref=e703] [cursor=pointer]:
+                    - img [ref=e705]:
+                      - img [ref=e707]
+                    - img [ref=e711]
+                - group "8 / 14" [ref=e715]:
+                  - generic [ref=e716] [cursor=pointer]:
+                    - img [ref=e718]:
+                      - img [ref=e720]
+                    - img [ref=e724]
+                - group "9 / 14" [ref=e728]:
+                  - generic [ref=e729] [cursor=pointer]:
+                    - img [ref=e731]:
+                      - img [ref=e733]
+                    - img [ref=e737]
+                - group "10 / 14" [ref=e741]:
+                  - generic [ref=e742] [cursor=pointer]:
+                    - img [ref=e744]:
+                      - img [ref=e746]
+                    - img [ref=e750]
+                - group "11 / 14" [ref=e754]:
+                  - generic [ref=e755] [cursor=pointer]:
+                    - img [ref=e757]:
+                      - img [ref=e759]
+                    - img [ref=e763]
+                - group "12 / 14" [ref=e767]:
+                  - generic [ref=e768] [cursor=pointer]:
+                    - img [ref=e770]:
+                      - img [ref=e772]
+                    - img [ref=e776]
+                - group "13 / 14" [ref=e780]:
+                  - generic [ref=e781] [cursor=pointer]:
+                    - img [ref=e783]:
+                      - img [ref=e785]
+                    - img [ref=e789]
+                - group "14 / 14" [ref=e793]:
+                  - generic [ref=e794] [cursor=pointer]:
+                    - img [ref=e796]:
+                      - img [ref=e798]
+                    - img [ref=e802]
+              - button "Next slide" [ref=e806]:
+                - img "Next" [ref=e807] [cursor=pointer]
+        - region "Homepage slideshow section template--20507180204230__slideshow_WdLKAP" [ref=e809]:
+          - group "Homepage slideshow carousel template--20507180204230__slideshow_WdLKAP" [ref=e812]:
+            - img "Homepage slide" [ref=e819]
+        - region "Homepage slideshow section template--20507180204230__slideshow_kGA8RU" [ref=e821]:
+          - group "Homepage slideshow carousel template--20507180204230__slideshow_kGA8RU" [ref=e824]:
+            - img "Homepage slide" [ref=e831]
+        - region "Homepage slideshow section template--20507180204230__slideshow_ircVQt" [ref=e833]:
+          - group "Homepage slideshow carousel template--20507180204230__slideshow_ircVQt" [ref=e836]:
+            - img "Homepage slide" [ref=e843]
+        - generic [ref=e847]:
+          - generic [ref=e854]: Made With High-Quality, Baby-Safe Materials
+          - generic [ref=e861]: Only 4 Parts to Clean
+        - generic [ref=e865]:
+          - generic [ref=e866]:
+            - group "1 / 3" [ref=e867]:
+              - generic [ref=e868]:
+                - generic [ref=e869]:
+                  - 'img "Translation missing: en.general.aria.content_image"'
+                - generic [ref=e870]:
+                  - heading "App Pump Control" [level=4] [ref=e871]
+                  - paragraph [ref=e872]: Watch your output in real time with clear, live updates.
+            - group "2 / 3" [ref=e873]:
+              - generic [ref=e874]:
+                - generic [ref=e875]:
+                  - 'img "Translation missing: en.general.aria.content_image"'
+                - generic [ref=e876]:
+                  - heading "One-Tap Pump Logs" [level=4] [ref=e877]
+                  - paragraph [ref=e878]: Log session details in seconds.
+            - group "3 / 3" [ref=e879]:
+              - generic [ref=e880]:
+                - generic [ref=e881]:
+                  - 'img "Translation missing: en.general.aria.content_image"'
+                - generic [ref=e882]:
+                  - heading "Visual Milk Tracking" [level=4] [ref=e883]
+                  - paragraph [ref=e884]: See output trends, optimize pumping routine.
+          - button "Previous slide" [disabled]:
+            - img
+          - button "Next slide" [ref=e889] [cursor=pointer]:
+            - img [ref=e890]
+        - generic [ref=e895]:
+          - generic [ref=e902]: Supports up to 6 sessions per charge
+          - generic [ref=e909]: Comes with a Spacious Carry Case
+        - region "Custom content section" [ref=e911]:
+          - generic [ref=e913]:
+            - img "Custom section image" [ref=e919]
+            - generic [ref=e922]:
+              - heading "Boosts Pumping Efficiency by 28.2%" [level=2] [ref=e923]
+              - generic [ref=e924]:
+                - text: The patented DoubleFit Flange is designed to provide a soft, secure fit that perfectly adapts to your breast shape.
+                - text: This innovative design not only reduces discomfort during pumping but also improves pumping efficiency by 28.2% while reducing leakage by 10%.
+            - img "Custom section image" [ref=e930]
+            - generic [ref=e933]:
+              - heading "3 Modes, 9 Suction Levels" [level=2] [ref=e934]
+              - generic [ref=e935]:
+                - text: With powerful suction (up to -285 mmHg) and 3 modes with 9 adjustable levels lets you pump comfortably and efficiently.
+                - text: It helps fully empty your breasts faster, reducing discomfort and protecting your milk supply, so you spend less time pumping and more time with your baby.
+        - 'img "Translation missing: en.general.aria.content_image" [ref=e941]'
+        - 'img "Translation missing: en.general.aria.content_image" [ref=e948]'
+        - 'img "Translation missing: en.general.aria.content_image" [ref=e955]'
+        - region "Custom content section" [ref=e958]:
+          - generic [ref=e963]:
+            - paragraph [ref=e964]: What's in the Box (1-Pack)
+            - img "Custom section image" [ref=e967]
+            - paragraph [ref=e968]: What's in the Box (2-Pack)
+            - img "Custom section image" [ref=e971]
+        - region "Mother Day campaign video" [ref=e973]:
+          - heading "Mother Day campaign video" [level=2] [ref=e974]
+          - group "Video player" [ref=e976]:
+            - region "Video Player" [ref=e977]:
+              - generic "Video player" [ref=e978]: Your browser does not support the video tag.
+              - button "Play Video" [ref=e980] [cursor=pointer]:
+                - text: 
+                - generic [ref=e981]: Play Video
+              - generic [ref=e982]:
+                - button "Play" [ref=e983] [cursor=pointer]:
+                  - generic [ref=e985]: Play
+                - generic [ref=e986]:
+                  - button "Unmute" [ref=e987] [cursor=pointer]:
+                    - generic [ref=e989]: Unmute
+                  - text: 
+                - slider "Progress Bar" [ref=e991] [cursor=pointer]:
+                  - generic [ref=e992]: "Loaded: 0%"
+                - text: 
+                - generic [ref=e993]:
+                  - text: Remaining Time
+                  - generic [ref=e994]: "-"
+                  - generic [ref=e995]: "-:-"
+                - text:     
+                - button "Fullscreen" [ref=e996] [cursor=pointer]:
+                  - generic [ref=e998]: Fullscreen
+              - text: 
+            - text:         
+        - generic [ref=e1002]:
+          - heading "FAQs" [level=2] [ref=e1004]
+          - generic [ref=e1005]:
+            - generic [ref=e1006]:
+              - link "How do I connect M5 Smart to the app?" [ref=e1007] [cursor=pointer]:
+                - /url: "#t4s-accor_item_46nVKw"
+                - heading "How do I connect M5 Smart to the app?" [level=3] [ref=e1008]
+                - img [ref=e1010]
+              - generic [ref=e1013]:
+                - paragraph [ref=e1014]:
+                  - text: Turn on your
+                  - strong [ref=e1015]: M5 Smart.
+                  - text: Open the
+                  - strong [ref=e1016]: Momcozy App
+                  - text: and make sure Bluetooth is enabled.
+                  - text: Tap Add Device, select M5 Smart, or scan the QR code on the pump.
+                  - text: Once connected, you’ll see the control page.
+                - paragraph [ref=e1017]:
+                  - emphasis [ref=e1018]:
+                    - strong [ref=e1019]: Click ：
+                  - link "User manuals" [ref=e1020] [cursor=pointer]:
+                    - /url: /pages/user-manuals
+                    - emphasis [ref=e1021]:
+                      - strong [ref=e1022]: User manuals
+            - link "Can I control both pumps at the same time?" [ref=e1024] [cursor=pointer]:
+              - /url: "#t4s-accor_item_x94VBb"
+              - heading "Can I control both pumps at the same time?" [level=3] [ref=e1025]
+              - img [ref=e1027]
+            - link "Can I connect M5 Smart to multiple phones?" [ref=e1031] [cursor=pointer]:
+              - /url: "#t4s-accor_item_phDbBa"
+              - heading "Can I connect M5 Smart to multiple phones?" [level=3] [ref=e1032]
+              - img [ref=e1034]
+            - link "Can I use M5 Smart without the app?" [ref=e1038] [cursor=pointer]:
+              - /url: "#t4s-accor_item_EXQcjc"
+              - heading "Can I use M5 Smart without the app?" [level=3] [ref=e1039]
+              - img [ref=e1041]
+            - link "What can I control in the app?" [ref=e1045] [cursor=pointer]:
+              - /url: "#t4s-accor_item_nLVWJK"
+              - heading "What can I control in the app?" [level=3] [ref=e1046]
+              - img [ref=e1048]
+            - link "What kind of pumping stats can I view in the app?" [ref=e1052] [cursor=pointer]:
+              - /url: "#t4s-accor_item_tPEz6U"
+              - heading "What kind of pumping stats can I view in the app?" [level=3] [ref=e1053]
+              - img [ref=e1055]
+            - link "What's the difference between M5 Smart and M5?" [ref=e1059] [cursor=pointer]:
+              - /url: "#t4s-accor_item_ifPJaq"
+              - heading "What's the difference between M5 Smart and M5?" [level=3] [ref=e1060]
+              - img [ref=e1062]
+            - link "Why is pumping with M5 Smart more comfortable than other pumps?" [ref=e1066] [cursor=pointer]:
+              - /url: "#t4s-accor_item_jCWrnk"
+              - heading "Why is pumping with M5 Smart more comfortable than other pumps?" [level=3] [ref=e1067]
+              - img [ref=e1069]
+        - region "Custom content section" [ref=e1073]:
+          - generic [ref=e1079]: How Customers Say About
+        - region "Rated 4.6 out of 5 stars Based on 1,438 reviews" [ref=e1084]:
+          - generic [ref=e1085]:
+            - generic [ref=e1087]:
+              - generic [ref=e1088]:
+                - generic [ref=e1090]:
+                  - generic [ref=e1091]:
+                    - generic [ref=e1092]: "4.6"
+                    - generic [ref=e1094]:
+                      - img [ref=e1096]
+                      - img [ref=e1103]
+                      - generic [ref=e1109]: Rated 4.6 out of 5 stars
+                  - generic [ref=e1110]: Based on 1,438 reviews
+                - generic [ref=e1113]:
+                  - generic [ref=e1114]:
+                    - generic [ref=e1115]: "5"
+                    - generic [ref=e1117]:
+                      - img [ref=e1118]
+                      - generic [ref=e1120]: Rated out of 5 stars
+                  - generic [ref=e1123]: 1.1k
+                  - generic [ref=e1124]: "Total 5 star reviews: 1.1k"
+                  - generic [ref=e1125]:
+                    - generic [ref=e1126]: "4"
+                    - generic [ref=e1128]:
+                      - img [ref=e1129]
+                      - generic [ref=e1131]: Rated out of 5 stars
+                  - generic [ref=e1134]: "176"
+                  - generic [ref=e1135]: "Total 4 star reviews: 176"
+                  - generic [ref=e1136]:
+                    - generic [ref=e1137]: "3"
+                    - generic [ref=e1139]:
+                      - img [ref=e1140]
+                      - generic [ref=e1142]: Rated out of 5 stars
+                  - generic [ref=e1145]: "87"
+                  - generic [ref=e1146]: "Total 3 star reviews: 87"
+                  - generic [ref=e1147]:
+                    - generic [ref=e1148]: "2"
+                    - generic [ref=e1150]:
+                      - img [ref=e1151]
+                      - generic [ref=e1153]: Rated out of 5 stars
+                  - generic [ref=e1156]: "28"
+                  - generic [ref=e1157]: "Total 2 star reviews: 28"
+                  - generic [ref=e1158]:
+                    - generic [ref=e1159]: "1"
+                    - generic [ref=e1161]:
+                      - img [ref=e1162]
+                      - generic [ref=e1164]: Rated out of 5 stars
+                  - generic [ref=e1167]: "39"
+                  - generic [ref=e1168]: "Total 1 star reviews: 39"
+              - generic [ref=e1169]:
+                - generic [ref=e1171]:
+                  - strong [ref=e1172]: 89%
+                  - text: would recommend this product
+                - region "Carousel of customer-uploaded media. Press left and right arrows to navigate. Press enter or space to open more details." [ref=e1175]:
+                  - generic [ref=e1176]:
+                    - text: 
+                    - group [ref=e1177]:
+                      - list [ref=e1179]:
+                        - listitem [ref=e1180]:
+                          - generic [ref=e1181]:
+                            - text: 
+                            - 'button "Customer-uploaded image. Click to see more details. The image represents: A hand holding the clear glass container of a white baby bottle warmer or formula maker on a wooden trivet" [ref=e1182] [cursor=pointer]':
+                              - 'img "Customer-uploaded image. Click to see more details. The image represents: A hand holding the clear glass container of a white baby bottle warmer or formula maker on a wooden trivet" [ref=e1183]'
+                        - listitem [ref=e1184]:
+                          - generic [ref=e1185]:
+                            - text: 
+                            - 'button "Customer-uploaded image. Click to see more details. The image represents: Baby bottle with milk on kitchen counter" [ref=e1186] [cursor=pointer]':
+                              - 'img "Customer-uploaded image. Click to see more details. The image represents: Baby bottle with milk on kitchen counter" [ref=e1187]'
+                        - listitem [ref=e1188]:
+                          - generic [ref=e1189]:
+                            - text: 
+                            - button "Customer-uploaded video. Click to see more details." [ref=e1190] [cursor=pointer]:
+                              - img "Customer-uploaded video. Click to see more details." [ref=e1191]
+                        - listitem [ref=e1192]:
+                          - generic [ref=e1193]:
+                            - text: 
+                            - button "Customer-uploaded video. Click to see more details." [ref=e1194] [cursor=pointer]:
+                              - img "Customer-uploaded video. Click to see more details." [ref=e1195]
+                        - listitem [ref=e1196]:
+                          - generic [ref=e1197]:
+                            - text: 
+                            - 'button "Customer-uploaded image. Click to see more details. The image represents: Person holding a white VR headset indoors" [ref=e1198] [cursor=pointer]':
+                              - 'img "Customer-uploaded image. Click to see more details. The image represents: Person holding a white VR headset indoors" [ref=e1199]'
+                        - listitem [ref=e1200]:
+                          - generic [ref=e1201]:
+                            - text: 
+                            - button [ref=e1202] [cursor=pointer]:
+                              - img [ref=e1203]
+                        - listitem [ref=e1204]:
+                          - generic [ref=e1205]:
+                            - text: 
+                            - button [ref=e1206] [cursor=pointer]:
+                              - img [ref=e1207]
+                        - listitem [ref=e1208]:
+                          - generic [ref=e1209]:
+                            - text: 
+                            - button [ref=e1210] [cursor=pointer]:
+                              - img [ref=e1211]
+                        - listitem [ref=e1212]:
+                          - generic [ref=e1213]:
+                            - text: 
+                            - button [ref=e1214] [cursor=pointer]:
+                              - img [ref=e1215]
+                        - listitem [ref=e1216]:
+                          - generic [ref=e1217]:
+                            - text: 
+                            - button [ref=e1218] [cursor=pointer]:
+                              - img [ref=e1219]
+                        - listitem [ref=e1220]:
+                          - generic [ref=e1221]:
+                            - text: 
+                            - button [ref=e1222] [cursor=pointer]:
+                              - img [ref=e1223]
+                        - listitem [ref=e1224]:
+                          - generic [ref=e1225]:
+                            - text: 
+                            - button [ref=e1226] [cursor=pointer]:
+                              - img [ref=e1227]
+                        - listitem [ref=e1228]:
+                          - generic [ref=e1229]:
+                            - text: 
+                            - button [ref=e1230] [cursor=pointer]:
+                              - img [ref=e1231]
+                        - listitem [ref=e1232]:
+                          - generic [ref=e1233]:
+                            - text: 
+                            - button [ref=e1234] [cursor=pointer]:
+                              - img [ref=e1235]
+                        - listitem [ref=e1236]:
+                          - generic [ref=e1237]:
+                            - text: 
+                            - button [ref=e1238] [cursor=pointer]:
+                              - img [ref=e1239]
+                        - listitem [ref=e1240]:
+                          - generic [ref=e1241]:
+                            - text: 
+                            - button [ref=e1242] [cursor=pointer]:
+                              - img [ref=e1243]
+                    - button "" [ref=e1246] [cursor=pointer]
+                  - generic [ref=e1247]: Slide 1 selected
+            - tablist [ref=e1250]:
+              - tab "Reviews (1,438) (tab expanded)" [selected] [ref=e1251] [cursor=pointer]:
+                - text: Reviews
+                - generic [ref=e1252]: (1,438)
+                - generic [ref=e1253]: (tab expanded)
+              - tab "Questions (6) (tab collapsed)" [ref=e1254] [cursor=pointer]:
+                - text: Questions
+                - generic [ref=e1255]: (6)
+                - generic [ref=e1256]: (tab collapsed)
+            - tabpanel "Reviews" [ref=e1258]:
+              - generic [ref=e1260]:
+                - generic [ref=e1261]:
+                  - button " Filters" [ref=e1262] [cursor=pointer]:
+                    - generic [ref=e1263]: 
+                    - generic [ref=e1264]: Filters
+                  - region " Filters"
+                  - link " Write a Review (Opens in a new window)" [ref=e1266] [cursor=pointer]:
+                    - /url: https://okendo.reviews/?subscriberId=fd7a9ef8-afae-47de-a7c1-4ca9730e4d32&productId=shopify-8673508131014&locale=en
+                    - text:  Write a Review
+                    - generic [ref=e1267]: (Opens in a new window)
+                - generic [ref=e1268]:
+                  - generic [ref=e1269]: 1,438 reviews
+                  - generic [ref=e1271]:
+                    - text: Sort
+                    - combobox "Sort" [ref=e1272] [cursor=pointer]:
+                      - option "Most Recent"
+                      - option "Oldest"
+                      - option "Most Helpful"
+                      - option "Photos & Videos"
+                      - option "Highest Rating" [selected]
+                      - option "Lowest Rating"
+                      - option "Least Helpful"
+                - generic [ref=e1273]:
+                  - list [ref=e1274]:
+                    - listitem [ref=e1275]:
+                      - generic [ref=e1276]:
+                        - generic [ref=e1277]:
+                          - generic [ref=e1279]:
+                            - strong [ref=e1282]: C
+                            - strong [ref=e1285]: Confidence
+                          - text: 
+                          - generic [ref=e1286]:
+                            - generic [ref=e1288]:
+                              - link [ref=e1289] [cursor=pointer]:
+                                - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?variant=45110887514310
+                                - img [ref=e1290]
+                              - generic [ref=e1291]:
+                                - generic [ref=e1292]: Reviewing
+                                - link "View M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e1293] [cursor=pointer]:
+                                  - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?variant=45110887514310
+                                  - text: M5 Smart Wearable Breast Pump – Upgraded with App Control
+                            - generic [ref=e1295]:  I recommend this product
+                        - generic [ref=e1296]:
+                          - generic [ref=e1299]:
+                            - generic [ref=e1300]:
+                              - generic [ref=e1302]:
+                                - img [ref=e1304]
+                                - img [ref=e1311]
+                                - generic [ref=e1317]: Rated 5 out of 5 stars
+                              - generic [ref=e1318]: 1 week ago
+                            - heading "5 Stars" [level=2] [ref=e1319]
+                            - paragraph [ref=e1321]: It is very lovely and easy to use
+                          - generic [ref=e1322]:
+                            - img "Verified by Shop app" [ref=e1325]
+                            - generic [ref=e1328]:
+                              - text: Was this helpful?
+                              - generic [ref=e1329]:
+                                - button " Yes, this review from Confidence was helpful. 0 people voted yes" [ref=e1330] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: Yes, this review from Confidence was helpful.
+                                    - text: "0"
+                                    - generic: people voted yes
+                                - button " No, this review from Confidence was not helpful. 0 people voted no" [ref=e1331] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: No, this review from Confidence was not helpful.
+                                    - text: "0"
+                                    - generic: people voted no
+                    - listitem [ref=e1332]:
+                      - generic [ref=e1333]:
+                        - generic [ref=e1334]:
+                          - generic [ref=e1336]:
+                            - strong [ref=e1339]: L
+                            - strong [ref=e1342]: LEDUC
+                          - text: 
+                          - generic [ref=e1343]:
+                            - generic [ref=e1345]:
+                              - link [ref=e1346] [cursor=pointer]:
+                                - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?variant=45110887514310
+                                - img [ref=e1347]
+                              - generic [ref=e1348]:
+                                - generic [ref=e1349]: Reviewing
+                                - link "View M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e1350] [cursor=pointer]:
+                                  - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?variant=45110887514310
+                                  - text: M5 Smart Wearable Breast Pump – Upgraded with App Control
+                            - generic [ref=e1352]:  I recommend this product
+                        - generic [ref=e1353]:
+                          - generic [ref=e1356]:
+                            - generic [ref=e1357]:
+                              - generic [ref=e1359]:
+                                - img [ref=e1361]
+                                - img [ref=e1368]
+                                - generic [ref=e1374]: Rated 5 out of 5 stars
+                              - generic [ref=e1375]: 2 weeks ago
+                            - heading "5 Stars" [level=2] [ref=e1376]
+                            - paragraph [ref=e1378]: Un vrai allier pour l'allaitement ! 👌
+                          - generic [ref=e1379]:
+                            - img "Verified by Shop app" [ref=e1382]
+                            - generic [ref=e1385]:
+                              - text: Was this helpful?
+                              - generic [ref=e1386]:
+                                - button " Yes, this review from LEDUC was helpful. 1 person voted yes" [ref=e1387] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: Yes, this review from LEDUC was helpful.
+                                    - text: "1"
+                                    - generic: person voted yes
+                                - button " No, this review from LEDUC was not helpful. 0 people voted no" [ref=e1388] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: No, this review from LEDUC was not helpful.
+                                    - text: "0"
+                                    - generic: people voted no
+                    - listitem [ref=e1389]:
+                      - generic [ref=e1390]:
+                        - generic [ref=e1391]:
+                          - generic [ref=e1393]:
+                            - strong [ref=e1396]: "Y"
+                            - generic [ref=e1397]:
+                              - strong [ref=e1399]: Yara
+                              - generic [ref=e1400]:
+                                - text: Verified Buyer
+                                - generic [ref=e1401]: 
+                          - text: 
+                          - generic [ref=e1402]:
+                            - generic [ref=e1404]:
+                              - link [ref=e1405] [cursor=pointer]:
+                                - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?variant=45110887514310
+                                - img [ref=e1406]
+                              - generic [ref=e1407]:
+                                - generic [ref=e1408]: Reviewing
+                                - link "View M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e1409] [cursor=pointer]:
+                                  - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?variant=45110887514310
+                                  - text: M5 Smart Wearable Breast Pump – Upgraded with App Control
+                            - generic [ref=e1411]:  I recommend this product
+                        - generic [ref=e1412]:
+                          - generic [ref=e1415]:
+                            - generic [ref=e1416]:
+                              - generic [ref=e1418]:
+                                - img [ref=e1420]
+                                - img [ref=e1427]
+                                - generic [ref=e1433]: Rated 5 out of 5 stars
+                              - generic [ref=e1434]: 1 month ago
+                            - heading "Get it! Get it!" [level=2] [ref=e1435]
+                            - paragraph [ref=e1437]: In love with it so far and i’ve only been using it for 2 days. I was using the spectra and i love it but the Momcozy M5 is more convenient when i can just pump and work around the house. I sometimes forget i’m pumping tbh. Love this pump so much and hoping not to have troubles with the motor hopefully.
+                            - button "Read More Read more about this review" [ref=e1438] [cursor=pointer]:
+                              - text: Read More
+                              - generic [ref=e1439]: Read more about this review
+                          - generic [ref=e1440]:
+                            - generic [ref=e1442]:
+                              - generic [ref=e1443]:
+                                - text: 
+                                - 'button "Customer-uploaded image. Click to see more details. The image represents: Baby bottle with milk on kitchen counter" [ref=e1444] [cursor=pointer]':
+                                  - 'img "Customer-uploaded image. Click to see more details. The image represents: Baby bottle with milk on kitchen counter" [ref=e1445]'
+                              - generic [ref=e1446]:
+                                - text: 
+                                - 'button "Customer-uploaded image. Click to see more details. The image represents: A hand holding the clear glass container of a white baby bottle warmer or formula maker on a wooden trivet" [ref=e1447] [cursor=pointer]':
+                                  - 'img "Customer-uploaded image. Click to see more details. The image represents: A hand holding the clear glass container of a white baby bottle warmer or formula maker on a wooden trivet" [ref=e1448]'
+                            - text:  
+                          - generic [ref=e1451]:
+                            - text: Was this helpful?
+                            - generic [ref=e1452]:
+                              - button " Yes, this review from Yara was helpful. 0 people voted yes" [ref=e1453] [cursor=pointer]:
+                                - text: 
+                                - generic:
+                                  - generic: Yes, this review from Yara was helpful.
+                                  - text: "0"
+                                  - generic: people voted yes
+                              - button " No, this review from Yara was not helpful. 0 people voted no" [ref=e1454] [cursor=pointer]:
+                                - text: 
+                                - generic:
+                                  - generic: No, this review from Yara was not helpful.
+                                  - text: "0"
+                                  - generic: people voted no
+                    - listitem [ref=e1455]:
+                      - generic [ref=e1456]:
+                        - generic [ref=e1457]:
+                          - generic [ref=e1459]:
+                            - strong [ref=e1462]: MT
+                            - strong [ref=e1465]: Melanie T.
+                          - text: 
+                          - generic [ref=e1466]:
+                            - generic [ref=e1468]:
+                              - link [ref=e1469] [cursor=pointer]:
+                                - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control
+                                - img [ref=e1470]
+                              - generic [ref=e1471]:
+                                - generic [ref=e1472]: Reviewing
+                                - link "View M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e1473] [cursor=pointer]:
+                                  - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control
+                                  - text: M5 Smart Wearable Breast Pump – Upgraded with App Control
+                            - generic [ref=e1475]:  I recommend this product
+                        - generic [ref=e1476]:
+                          - generic [ref=e1478]:
+                            - generic [ref=e1479]:
+                              - generic [ref=e1480]:
+                                - generic [ref=e1482]:
+                                  - img [ref=e1484]
+                                  - img [ref=e1491]
+                                  - generic [ref=e1497]: Rated 5 out of 5 stars
+                                - generic [ref=e1498]: 1 month ago
+                              - heading "Bestes Produkt , unglaublich toller Kundenservice" [level=2] [ref=e1499]
+                              - paragraph [ref=e1501]: Die Momcozy Milchpumpe hat mir nun seit 10 Monaten ermöglicht mein Baby mit Muttermilch zu ernähren. Die Handhabung ist einfach , die Teile sind easy zu reinigen und es ist toll trotz Pumpen mobil zu sein. Der Kundenservice ist einmalig toll und hat sofort schnellen Ersatz geliefert ! Ich bin begeistert ! Danke das es euch gibt !!
+                            - generic [ref=e1502]:
+                              - img [ref=e1503]
+                              - button "Translate to English" [ref=e1506] [cursor=pointer]
+                          - generic [ref=e1509]:
+                            - text: Was this helpful?
+                            - generic [ref=e1510]:
+                              - button " Yes, this review from Melanie T. was helpful. 1 person voted yes" [ref=e1511] [cursor=pointer]:
+                                - text: 
+                                - generic:
+                                  - generic: Yes, this review from Melanie T. was helpful.
+                                  - text: "1"
+                                  - generic: person voted yes
+                              - button " No, this review from Melanie T. was not helpful. 0 people voted no" [ref=e1512] [cursor=pointer]:
+                                - text: 
+                                - generic:
+                                  - generic: No, this review from Melanie T. was not helpful.
+                                  - text: "0"
+                                  - generic: people voted no
+                    - listitem [ref=e1513]:
+                      - generic [ref=e1514]:
+                        - generic [ref=e1515]:
+                          - generic [ref=e1517]:
+                            - strong [ref=e1520]: E
+                            - strong [ref=e1523]: Edwindale
+                          - text: 
+                          - generic [ref=e1524]:
+                            - generic [ref=e1526]:
+                              - link [ref=e1527] [cursor=pointer]:
+                                - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?variant=45110887514310
+                                - img [ref=e1528]
+                              - generic [ref=e1529]:
+                                - generic [ref=e1530]: Reviewing
+                                - link "View M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e1531] [cursor=pointer]:
+                                  - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?variant=45110887514310
+                                  - text: M5 Smart Wearable Breast Pump – Upgraded with App Control
+                            - generic [ref=e1533]:  I recommend this product
+                        - generic [ref=e1534]:
+                          - generic [ref=e1537]:
+                            - generic [ref=e1538]:
+                              - generic [ref=e1540]:
+                                - img [ref=e1542]
+                                - img [ref=e1549]
+                                - generic [ref=e1555]: Rated 5 out of 5 stars
+                              - generic [ref=e1556]: 1 month ago
+                            - heading "5 Stars" [level=2] [ref=e1557]
+                            - paragraph [ref=e1559]: my wife havent use it but i can tell she is excited
+                          - generic [ref=e1560]:
+                            - img "Verified by Shop app" [ref=e1563]
+                            - generic [ref=e1566]:
+                              - text: Was this helpful?
+                              - generic [ref=e1567]:
+                                - button " Yes, this review from Edwindale was helpful. 1 person voted yes" [ref=e1568] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: Yes, this review from Edwindale was helpful.
+                                    - text: "1"
+                                    - generic: person voted yes
+                                - button " No, this review from Edwindale was not helpful. 5 people voted no" [ref=e1569] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: No, this review from Edwindale was not helpful.
+                                    - text: "5"
+                                    - generic: people voted no
+                    - listitem [ref=e1570]:
+                      - generic [ref=e1571]:
+                        - generic [ref=e1572]:
+                          - generic [ref=e1574]:
+                            - strong [ref=e1577]: B
+                            - strong [ref=e1580]: Bratu
+                          - text: 
+                          - generic [ref=e1581]:
+                            - generic [ref=e1583]:
+                              - link [ref=e1584] [cursor=pointer]:
+                                - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?variant=45417626370246
+                                - img [ref=e1585]
+                              - generic [ref=e1586]:
+                                - generic [ref=e1587]: Reviewing
+                                - link "View M5 Smart Wearable Breast Pump – Upgraded with App Control" [ref=e1588] [cursor=pointer]:
+                                  - /url: //momcozy.com/products/m5-smart-wearable-breast-pump-upgraded-with-app-control?variant=45417626370246
+                                  - text: M5 Smart Wearable Breast Pump – Upgraded with App Control
+                            - generic [ref=e1590]:  I recommend this product
+                        - generic [ref=e1591]:
+                          - generic [ref=e1594]:
+                            - generic [ref=e1595]:
+                              - generic [ref=e1597]:
+                                - img [ref=e1599]
+                                - img [ref=e1606]
+                                - generic [ref=e1612]: Rated 5 out of 5 stars
+                              - generic [ref=e1613]: 1 month ago
+                            - heading "5 Stars" [level=2] [ref=e1614]
+                            - paragraph [ref=e1616]: It’s a very good pump, easy to use and comfortable to wear. Also the app is nice, it can track your pumping sessions which is great!
+                          - generic [ref=e1617]:
+                            - img "Verified by Shop app" [ref=e1620]
+                            - generic [ref=e1623]:
+                              - text: Was this helpful?
+                              - generic [ref=e1624]:
+                                - button " Yes, this review from Bratu was helpful. 1 person voted yes" [ref=e1625] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: Yes, this review from Bratu was helpful.
+                                    - text: "1"
+                                    - generic: person voted yes
+                                - button " No, this review from Bratu was not helpful. 0 people voted no" [ref=e1626] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: No, this review from Bratu was not helpful.
+                                    - text: "0"
+                                    - generic: people voted no
+                  - generic:
+                    - alert:
+                      - generic: Loading...
+                    - alert:
+                      - generic: Loading...
+                - link "Show more reviews" [ref=e1629] [cursor=pointer]:
+                  - /url: "?okeReviewsNextUrl=https%253A%252F%252Fapi.okendo.io%252Fv1%252Fstores%252Ffd7a9ef8-afae-47de-a7c1-4ca9730e4d32%252Fproducts%252Fshopify-8673508131014%252Freviews%253Flimit%253D5%2526orderBy%253Drating%252520desc%2526lastEvaluated%253D%25257B%252522subscriberId%252522%25253A%252522fd7a9ef8-afae-47de-a7c1-4ca9730e4d32%252522%25252C%252522_rating_dateCreated%252522%25253A%2525225%25253A2026-04-27T02%25253A41%25253A22.000Z%252522%25252C%252522subscriberId_productId%252522%25253A%252522fd7a9ef8-afae-47de-a7c1-4ca9730e4d32%25253Ashopify-8673508131014%252522%25252C%252522reviewId%252522%25253A%2525221ab3aacd-39c7-41bf-8375-b2c4a90f3b46%252522%25257D&okeReviewsPageNum=2"
+                  - text: Show More
+                - status [ref=e1630]
+            - generic:
+              - tabpanel "Questions"
+    - contentinfo [ref=e1631]:
+      - generic [ref=e1635]:
+        - generic [ref=e1638]:
+          - heading "OUR LATEST ACTIVITIES" [level=3]
+        - link "Footer image link" [ref=e1642] [cursor=pointer]:
+          - /url: /pages/2026-mothers-day
+          - img "Footer image link" [ref=e1643]
+        - link "Three women standing together with text encouraging support for maternal care professionals on a pink background." [ref=e1647] [cursor=pointer]:
+          - /url: /pages/medical-advisory-board
+          - img "Three women standing together with text encouraging support for maternal care professionals on a pink background." [ref=e1648]
+        - link "Woman holding a baby on a couch with 'Cozy by You' branding in the background." [ref=e1652] [cursor=pointer]:
+          - /url: /pages/brand-day
+          - img "Woman holding a baby on a couch with 'Cozy by You' branding in the background." [ref=e1653]
+        - link "Woman in fencing gear with text 'More Than A Mom' and 'momcozy' on a pink background" [ref=e1657] [cursor=pointer]:
+          - /url: /blogs/news/nada-hafez-as-a-pregnant-olympian
+          - img "Woman in fencing gear with text 'More Than A Mom' and 'momcozy' on a pink background" [ref=e1658]
+        - link "Momcozy holiday joy box under a Christmas tree" [ref=e1662] [cursor=pointer]:
+          - /url: /pages/2024-cozy-holiday
+          - img "Momcozy holiday joy box under a Christmas tree" [ref=e1663]
+        - link "Momcozy x Babylist baby stroller with mothers" [ref=e1667] [cursor=pointer]:
+          - /url: /blogs/news/nikki-mudarris-momcozy-babylist-influencer-shower
+          - img "Momcozy x Babylist baby stroller with mothers" [ref=e1668]
+      - generic [ref=e1672]:
+        - generic [ref=e1675]:
+          - generic:
+            - text: JOIN IN
+            - text: OUR NEWSLETTER
+          - paragraph: Be among the first to receive updates on our latest products, product innovations, and exclusive offers.
+        - generic [ref=e1679]:
+          - generic [ref=e1683]:
+            - textbox "Your email address" [ref=e1685]
+            - button "Subscribe" [ref=e1687] [cursor=pointer]:
+              - generic [ref=e1688]: Subscribe
+          - paragraph: Sign up now for sale alerts & special offers.
+        - generic [ref=e1696]:
+          - img "Momcozy logo" [ref=e1698]
+          - paragraph:
+            - text: ROOT Technology Ltd.
+            - text: "1580 N Logan St Ste 660, #30327,"
+            - text: Denver, CO 80203-1994, USA
+            - text: Phone：
+            - text: "US: +1 619 848 0676"
+            - text: "UK: +44 845 351 1671"
+            - text: "FR: +33 805 980 337"
+            - text: "ES: +34 930 343 248"
+            - text: "DE: +49 211 860 89101"
+            - text: "WhatsApp: +1 619 848 0676"
+            - text: support@momcozy.com
+          - generic [ref=e1701]:
+            - link "Follow on Facebook" [ref=e1703] [cursor=pointer]:
+              - /url: https://www.facebook.com/Momcozy4u
+            - link "Follow on Instagram" [ref=e1706] [cursor=pointer]:
+              - /url: https://www.instagram.com/momcozy/
+            - link "Follow on Pinterest" [ref=e1709] [cursor=pointer]:
+              - /url: https://www.pinterest.com/momcozy/
+            - link "Follow on YouTube" [ref=e1712] [cursor=pointer]:
+              - /url: https://www.youtube.com/momcozy/
+            - link "Follow on Tiktok" [ref=e1715] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@momcozyofficial
+        - generic [ref=e1720]:
+          - generic [ref=e1722]: About Us
+          - list [ref=e1725]:
+            - listitem [ref=e1726]:
+              - link "Our Story" [ref=e1727] [cursor=pointer]:
+                - /url: /pages/our-story
+            - listitem [ref=e1728]:
+              - link "Contact Us" [ref=e1729] [cursor=pointer]:
+                - /url: /pages/contact-us
+            - listitem [ref=e1730]:
+              - link "Momcozy Care Program" [ref=e1731] [cursor=pointer]:
+                - /url: /pages/momcozy-care-program
+            - listitem [ref=e1732]:
+              - link "Momcozy Membership Program" [ref=e1733] [cursor=pointer]:
+                - /url: /pages/momcozy-membership-program
+            - listitem [ref=e1734]:
+              - link "Growth Empowerment Program" [ref=e1735] [cursor=pointer]:
+                - /url: /pages/momcozy-growth-empowerment-program
+        - generic [ref=e1737]:
+          - generic [ref=e1739]: Services
+          - list [ref=e1742]:
+            - listitem [ref=e1743]:
+              - link "FAQs" [ref=e1744] [cursor=pointer]:
+                - /url: /pages/faq
+            - listitem [ref=e1745]:
+              - link "How To Size Guide" [ref=e1746] [cursor=pointer]:
+                - /url: /pages/how-to-size-guide
+            - listitem [ref=e1747]:
+              - link "Become an Affiliate" [ref=e1748] [cursor=pointer]:
+                - /url: /pages/momcozy-affiliate-program
+            - listitem [ref=e1749]:
+              - link "Get Pumps Via Insurance" [ref=e1750] [cursor=pointer]:
+                - /url: /pages/insurance-partners-in-us
+            - listitem [ref=e1751]:
+              - link "Where To Buy" [ref=e1752] [cursor=pointer]:
+                - /url: /pages/retailer
+            - listitem [ref=e1753]:
+              - link "Become a Dealer" [ref=e1754] [cursor=pointer]:
+                - /url: https://momcozy.com/pages/become-a-dealer
+        - generic [ref=e1756]:
+          - generic [ref=e1758]: Help
+          - list [ref=e1761]:
+            - listitem [ref=e1762]:
+              - link "Privacy Policy" [ref=e1763] [cursor=pointer]:
+                - /url: https://app.cozyinnov.com/app/privacy/?client=1&isShowCountry=show
+            - listitem [ref=e1764]:
+              - link "Terms & Conditions" [ref=e1765] [cursor=pointer]:
+                - /url: /pages/terms-conditions
+            - listitem [ref=e1766]:
+              - link "Payment Methods" [ref=e1767] [cursor=pointer]:
+                - /url: /pages/payment-methods
+            - listitem [ref=e1768]:
+              - link "Shipping & Delivery" [ref=e1769] [cursor=pointer]:
+                - /url: /pages/shipping-delivery
+            - listitem [ref=e1770]:
+              - link "Warranty Policy" [ref=e1771] [cursor=pointer]:
+                - /url: /pages/warranty-policy
+            - listitem [ref=e1772]:
+              - link "Order Tracking" [ref=e1773] [cursor=pointer]:
+                - /url: https://momcozy.com/apps/aftership
+        - generic [ref=e1775]:
+          - generic [ref=e1777]: Blog
+          - list [ref=e1780]:
+            - listitem [ref=e1781]:
+              - link "Breastfeeding" [ref=e1782] [cursor=pointer]:
+                - /url: /blogs/breastfeeding
+            - listitem [ref=e1783]:
+              - link "News" [ref=e1784] [cursor=pointer]:
+                - /url: /blogs/news
+            - listitem [ref=e1785]:
+              - link "Babycare" [ref=e1786] [cursor=pointer]:
+                - /url: /blogs/babycare
+            - listitem [ref=e1787]:
+              - link "Momcare" [ref=e1788] [cursor=pointer]:
+                - /url: /blogs/momcare
+            - listitem [ref=e1789]:
+              - link "Pregnancy" [ref=e1790] [cursor=pointer]:
+                - /url: /blogs/pregnancy
+            - listitem [ref=e1791]:
+              - link "Challenges" [ref=e1792] [cursor=pointer]:
+                - /url: /blogs/challenges
+            - listitem [ref=e1793]:
+              - link "Headlines" [ref=e1794] [cursor=pointer]:
+                - /url: /blogs/headlines
+            - listitem [ref=e1795]:
+              - link "Baby Milestones" [ref=e1796] [cursor=pointer]:
+                - /url: /blogs/baby-milestones
+        - generic [ref=e1798]:
+          - generic [ref=e1800]: Tools
+          - list [ref=e1803]:
+            - listitem [ref=e1804]:
+              - link "Baby Name Generator" [ref=e1805] [cursor=pointer]:
+                - /url: /pages/baby-name-generator
+            - listitem [ref=e1806]:
+              - link "Ovulation Calculator" [ref=e1807] [cursor=pointer]:
+                - /url: /pages/ovulation-calculator
+            - listitem [ref=e1808]:
+              - link "Pregnancy Weight Calculator" [ref=e1809] [cursor=pointer]:
+                - /url: /pages/pregnancy-weight-gain-calculator
+            - listitem [ref=e1810]:
+              - link "Chinese Gender Predictor" [ref=e1811] [cursor=pointer]:
+                - /url: /pages/chinese-gender-predictor-calculator-and-chart
+            - listitem [ref=e1812]:
+              - link "Due Date Calculator" [ref=e1813] [cursor=pointer]:
+                - /url: /pages/due-date-calculator
+            - listitem [ref=e1814]:
+              - link "IVF Due Date Calculator" [ref=e1815] [cursor=pointer]:
+                - /url: /pages/ivf-due-date-calculator
+            - listitem [ref=e1816]:
+              - link "First Year Baby Cost Calculator" [ref=e1817] [cursor=pointer]:
+                - /url: /pages/first-year-baby-cost-calculator
+            - listitem [ref=e1818]:
+              - link "Child Height Predictor" [ref=e1819] [cursor=pointer]:
+                - /url: /pages/child-height-predictor
+      - generic [ref=e1828]:
+        - generic [ref=e1832]:
+          - button "English" [ref=e1834] [cursor=pointer]:
+            - generic [ref=e1835]: English
+          - button "United States USD" [ref=e1838] [cursor=pointer]:
+            - generic [ref=e1839]:
+              - img "United States" [ref=e1840]
+              - generic [ref=e1841]: USD
+        - generic [ref=e1846]: All Rights Reserved © 2026 Momcozy.
+        - generic [ref=e1850]:
+          - img "american express" [ref=e1851]
+          - img "apple pay" [ref=e1852]
+          - img "discover" [ref=e1853]
+          - img "google pay" [ref=e1854]
+          - img "jcb" [ref=e1855]
+          - img "klarna" [ref=e1856]
+          - img "maestro" [ref=e1857]
+          - img "master" [ref=e1858]
+          - img "paypal" [ref=e1859]
+          - img "shopify pay" [ref=e1860]
+          - img "visa" [ref=e1861]
+          - img "after pay" [ref=e1862]
+          - img "amazon payments" [ref=e1863]
+  - button "Close menu, categories"
+  - region "Add to cart":
+    - generic:
+      - generic:
+        - generic:
+          - img "M5 Smart Wearable Breast Pump – Upgraded with App Control"
+        - generic:
+          - generic: M5 Smart Wearable Breast Pump – Upgraded with App Control
+          - generic: $219.99 USD
+        - button "Close"
+        - generic:
+          - generic:
+            - button "Double + 120 count bags / Cozy Red": Double + 120 count bags / Cozy Red
+      - generic:
+        - generic:
+          - button "Decrease quantity"
+          - spinbutton "Quantity": "1"
+          - button "Increase quantity"
+        - button "Add to cart"
+  - generic:
+    - generic:
+      - generic [ref=e1865]:
+        - iframe [ref=e1866]:
+          - button "关闭来自公司的消息" [ref=f22e4] [cursor=pointer]:
+            - img [ref=f22e5]
+        - iframe [ref=e1867]:
+          - button "Chat Now" [ref=f23e5] [cursor=pointer]
+      - iframe [ref=e1868]:
+        - button "打开消息传送窗口" [ref=f24e5] [cursor=pointer]:
+          - img [ref=f24e7]
+          - img [ref=f24e10]
