@@ -50,3 +50,24 @@ jobs:
       - name: Deploy immutable verified artifact
         id: deployment
         uses: actions/deploy-pages@v5
+
+  trigger-platform-rebuild:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Trigger lute-momcozy-platform rebuild with latest data
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.PLATFORM_TRIGGER_TOKEN }}
+          repository: zjgulai/lute-momcozy-platform
+          event-type: audit-data-updated
+          client-payload: |
+            {
+              "sha": "${{ github.sha }}",
+              "ref": "${{ github.ref }}",
+              "triggered_by": "lute-momcozy-audit pages.yml"
+            }
+

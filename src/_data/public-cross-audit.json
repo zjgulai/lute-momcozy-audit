@@ -205,481 +205,6 @@
       "confidence": "High"
     }
   ],
-  "legacyRecovery": {
-    "storyline": [
-      "历史站的强项是完整决策链：先判定经营摩擦，再拆流量来源、数据可信度、技术病灶和工程动作。",
-      "当前站的强项是发布安全和自动化采集；2026-06-17 已把 PDP watchlist 首轮接回故事线，问题从“有没有证据”变成“如何复采排序”。",
-      "本次保留历史站的分析骨架，用当前经营刷新状态和 2026-06-17 PDP watchlist 路由采集重新定级。"
-    ],
-    "featureComparison": [
-      {
-        "module": "二级锚点导航",
-        "historical": "历史站可从总览直接跳到业务体检、爬虫诊断、渠道归因、Top 15、矩阵、代码与路线图。",
-        "currentGap": "当前站只剩 5 个顶层页面，读者看不到完整决策路径。",
-        "recoveredAs": "恢复首页二级导航，并把每个锚点映射到私密经营版的新模块。"
-      },
-      {
-        "module": "经营体检",
-        "historical": "历史站用经营漏斗证明问题有业务优先级。",
-        "currentGap": "当前站只说明 caveat，缺少经营数据对技术优先级的约束。",
-        "recoveredAs": "改为真实经营信号地图：展示完整金额/KPI，同时标注窗口和口径边界。"
-      },
-      {
-        "module": "渠道归因",
-        "historical": "历史站区分付费搜索、内容型入口、KOL 与自然搜索变现。",
-        "currentGap": "当前站冻结 SEO 结论后，没有保留流量结构问题。",
-        "recoveredAs": "改为渠道质量诊断表：先确认归因可信度，再决定预算、SEO 和内容动作。"
-      },
-      {
-        "module": "爬虫与数据可信度",
-        "historical": "历史站把爬虫问题从性能疑问升级为数据可信度问题。",
-        "currentGap": "当前站只保留第三方失败，未把归因数据失真作为经营风险呈现。",
-        "recoveredAs": "恢复 bot / robots / WAF / 归因治理模块；旧流量比例标为历史口径，等待新采集复证。"
-      },
-      {
-        "module": "三类品牌资产",
-        "historical": "历史站把降价、结账改造等粗暴动作列为资产风险。",
-        "currentGap": "当前站没有保留“哪些资产不能被修坏”的约束。",
-        "recoveredAs": "恢复为资产保护地图：订单价值、满意度、购买决心只做定性表达。"
-      },
-      {
-        "module": "Top 15 病灶",
-        "historical": "历史站按问题、证据、工时和收益预期排序。",
-        "currentGap": "当前站只剩 3 张卡片，执行粒度不足。",
-        "recoveredAs": "恢复 15 项病灶，但排序依据改为数据强度、风险和验收门槛。"
-      },
-      {
-        "module": "竞品矩阵",
-        "historical": "历史站用 8 站矩阵说明 Momcozy 应该向谁学什么。",
-        "currentGap": "当前站没有横向参照，建议显得孤立。",
-        "recoveredAs": "恢复为私密经营矩阵；真实经营值进入 KPI 章节，矩阵负责比较策略位置。"
-      },
-      {
-        "module": "PR 代码与 Sprint",
-        "historical": "历史站把建议落到工程片段和 4 个 Sprint。",
-        "currentGap": "当前站只有原则，没有执行卡和验收顺序。",
-        "recoveredAs": "恢复为 PR 实验卡和 4 阶段路线图，强调灰度、回滚、复采。"
-      }
-    ],
-    "operatingSignals": [
-      {
-        "label": "漏斗摩擦仍值得治理",
-        "historicalSignal": "历史经营数据指向访客到购买之间存在明显流失。",
-        "currentRead": "当前 workbook 仍有转化、加购、结账、弃单、销售表现等模块，可支持优先级判断。",
-        "publicUse": "页面写入真实经营率值，并把它们用于修复优先级和实验验收。"
-      },
-      {
-        "label": "经营口径需要 caveat",
-        "historicalSignal": "旧站把旧窗口指标当成确定基线。",
-        "currentRead": "当前刷新结果为 Share with caveats，且流量/销售窗口、币种和自然搜索补数仍需 owner 确认。",
-        "publicUse": "把收益承诺降级为实验假设，避免把技术修复直接等同业务结果。"
-      },
-      {
-        "label": "PDP 队列是下一轮核心",
-        "historicalSignal": "历史数据曾指出多个商品详情页需要单独排查。",
-        "currentRead": "当前内部 watchlist 有 10 个 PDP；外部自动采集已完成 10 条 PDP、cart、checkout 和 homepage 的双视口首轮。",
-        "publicUse": "PDP 结论从单点观察升级为 watchlist 复采基础证据，但仍需多次复采和分组后才能外推。"
-      },
-      {
-        "label": "自然搜索故事暂停刷新",
-        "historicalSignal": "旧站曾把自然搜索与内容型入口纳入增长叙事。",
-        "currentRead": "当前自然搜索关键词表只有表头，没有可用明细行。",
-        "publicUse": "冻结搜索变现判断，等待独立搜索源或新导出补齐。"
-      }
-    ],
-    "trafficAttribution": [
-      {
-        "driver": "付费获客依赖",
-        "historicalSignal": "历史站判断高意图搜索曝光不是自然势能的单一路径。",
-        "currentCheck": "当前站可写入真实占比；第三方失败和归因组件稳定性先于预算判断。",
-        "nextProof": "补齐渠道来源、UTM、广告平台与站内事件一致性校验。"
-      },
-      {
-        "driver": "内容型早期入口",
-        "historicalSignal": "历史站曾识别孕期工具词、百科词等非交易入口。",
-        "currentCheck": "当前自然搜索明细为空，无法继续给关键词下优先级。",
-        "nextProof": "独立拉取搜索源，再判断内容入口是否仍有效。"
-      },
-      {
-        "driver": "KOL 与站外种草",
-        "historicalSignal": "历史站把 KOL 工业化视作流量资产。",
-        "currentCheck": "外部自动采集已覆盖 10 条 PDP watchlist，但尚未覆盖 KOL 专属落地页来源参数。",
-        "nextProof": "把 KOL landing / UTM 参数页加入专项 route config，并与 PDP watchlist 做入口质量对比。"
-      },
-      {
-        "driver": "归因组件稳定性",
-        "historicalSignal": "历史站列出第三方脚本和未知域名。",
-        "currentCheck": "2026-06-17 watchlist 采集显示第三方失败在 homepage、10 条 PDP、cart 与 checkout 均复现，最高 92。",
-        "nextProof": "建立域名 owner、用途、保留理由和失败预算。"
-      }
-    ],
-    "assetMap": [
-      {
-        "asset": "订单价值资产",
-        "protect": "不要用降价或过度促销粗暴换转化。",
-        "currentBoundary": "具体金额与订单价值明细进入私密经营版，但不写原始数据端点。",
-        "action": "优先做 PDP 信任表达、套装解释和首屏行动路径实验。"
-      },
-      {
-        "asset": "用户满意资产",
-        "protect": "不要通过增加退换货摩擦来粉饰指标。",
-        "currentBoundary": "真实售后率值进入私密经营版，并作为资产保护约束。",
-        "action": "把售后信任点前置到高价值 PDP，但用实验验证。"
-      },
-      {
-        "asset": "购买决心资产",
-        "protect": "不要优先重构结账链路，避免破坏已形成意图的用户。",
-        "currentBoundary": "结账和购物车细分值进入私密经营版，并继续与技术采集分层解释。",
-        "action": "先修访客到商品页行动路径，再扩到 cart / checkout 采集。"
-      }
-    ],
-    "botGovernance": [
-      {
-        "area": "Human / bot 口径",
-        "risk": "流量混杂会让转化解读失真。",
-        "publicEvidence": "历史站已把爬虫问题定位为数据可信度问题；当前外部自动采集仍显示归因相关失败。",
-        "nextAction": "在私有 analytics 中开启 human / bot 维度，重新校准漏斗。"
-      },
-      {
-        "area": "robots 分级策略",
-        "risk": "训练型爬虫、搜索型爬虫和 SEO 爬虫不能一刀切。",
-        "publicEvidence": "历史站的策略价值在于分级，而不是单纯阻断。",
-        "nextAction": "保留搜索型入口，限制训练型和价格情报型抓取。"
-      },
-      {
-        "area": "WAF 与价格情报",
-        "risk": "伪装浏览器的价格抓取不一定服从 robots。",
-        "publicEvidence": "当前第三方失败与脚本复杂度支持先做域名治理。",
-        "nextAction": "用 WAF/边缘规则做验证，再观察失败数和归因稳定性。"
-      }
-    ],
-    "diagnosticBacklog": [
-      {
-        "priority": "P0",
-        "item": "LCP 可观测性",
-        "evidence": "8 个路由-视口样本均未产出 LCP。",
-        "acceptance": "homepage、product-detail、cart、checkout 四条路径双视口连续产出 LCP。"
-      },
-      {
-        "priority": "P0",
-        "item": "第三方失败域名治理",
-        "evidence": "首页与 PDP 均出现高失败数。",
-        "acceptance": "按域名记录 owner、用途、保留理由和失败预算。"
-      },
-      {
-        "priority": "P0",
-        "item": "JS 路由预算",
-        "evidence": "首页与 PDP 脚本体积均处高位。",
-        "acceptance": "把非关键脚本延后，并建立路由阈值。"
-      },
-      {
-        "priority": "P0",
-        "item": "DOM 模板裁剪",
-        "evidence": "首页与 PDP 节点规模均处高位。",
-        "acceptance": "拆出首屏内外模块，并复采节点数。"
-      },
-      {
-        "priority": "P1",
-        "item": "PDP 运行时错误",
-        "evidence": "代表性 PDP 有 console/page error。",
-        "acceptance": "错误数、失败请求和脚本初始化顺序同步下降。"
-      },
-      {
-        "priority": "P1",
-        "item": "图片 alt 缺口",
-        "evidence": "商品详情图片存在可访问性缺失。",
-        "acceptance": "PDP 图像 alt 覆盖率进入发布门槛。"
-      },
-      {
-        "priority": "P1",
-        "item": "srcset 与格式策略",
-        "evidence": "首页与 PDP 图片格式覆盖低且缺失响应式信息。",
-        "acceptance": "统一图片 wrapper，复采格式与 srcset。"
-      },
-      {
-        "priority": "P1",
-        "item": "首屏懒加载误用",
-        "evidence": "above-fold 图片仍存在 lazy 风险。",
-        "acceptance": "首屏关键图改为 eager / high priority。"
-      },
-      {
-        "priority": "P1",
-        "item": "iframe 与脚本标签预算",
-        "evidence": "PDP iframe 和 script tag 面积偏大。",
-        "acceptance": "按功能分组删减或延迟。"
-      },
-      {
-        "priority": "P1",
-        "item": "归因组件去重",
-        "evidence": "历史站曾识别多类重复或未知第三方。",
-        "acceptance": "同一用途只保留一个 source of truth。"
-      },
-      {
-        "priority": "P1",
-        "item": "PDP watchlist 扩采",
-        "evidence": "10 条 PDP watchlist 已完成双视口首轮采集。",
-        "acceptance": "继续完成至少 3 次同口径复采，并按模板、SKU 类型、价格带分组。"
-      },
-      {
-        "priority": "P2",
-        "item": "cart / checkout 覆盖",
-        "evidence": "cart 与 checkout 已进入默认采集和 2026-06-17 watchlist route pack。",
-        "acceptance": "下一步区分登录/未登录、空购物车/有商品、cookie 分段状态。"
-      },
-      {
-        "priority": "P2",
-        "item": "搜索数据补源",
-        "evidence": "当前自然搜索明细为空。",
-        "acceptance": "引入独立搜索源后再恢复搜索叙事。"
-      },
-      {
-        "priority": "P2",
-        "item": "竞品矩阵刷新",
-        "evidence": "竞品复采二轮（2026-06-17、06-18）已归档：6 站、18 个公开页面、24 个视口；最高 3P 失败 42（babybrezza pdp/mobile），最高 JS 1000KB。",
-        "acceptance": "下一步补多次复采、入口参数、checkout 状态和脚本 owner/用途/预算表后，才恢复分值化对标。"
-      },
-      {
-        "priority": "P2",
-        "item": "实验看板",
-        "evidence": "旧收益承诺已降级。",
-        "acceptance": "每个修复项绑定实验、复采、回滚和 owner。"
-      }
-    ],
-    "competitorMatrix": [
-      {
-        "dimension": "爬虫分级",
-        "momcozy": "需与竞品复采对账",
-        "reference": "竞品复采 2 轮后显示 6/6 robots 可达，5/6 有 sitemap，5/6 有命名 bot policy。",
-        "lesson": "分开训练型、搜索型、SEO 型和价格情报型抓取。",
-        "recollectStatus": {
-          "state": "in_progress",
-          "summary": "竞品 robots 首轮摘要已完成；仍需把 Momcozy 自站 robots 分层和 crawl 日志一起对账。",
-          "owner": "采集团队",
-          "dueBy": "2026-06-22",
-          "actions": [
-            "补 Momcozy robots 分层样本",
-            "把 GPTBot / Googlebot / AdsBot / Ahrefs / Semrush 口径做成对账表",
-            "把 crawl 日志与 robots 策略联动"
-          ],
-          "evidence": [
-            "competitor-recollect-2026-06-18",
-            "5/6 competitor robots ok",
-            "5/6 named bot policies"
-          ]
-        }
-      },
-      {
-        "dimension": "PDP 行动路径",
-        "momcozy": "首轮已扩采，复采已启动",
-        "reference": "竞品复采 2 轮均显示 6/6 PDP 可达，5/6 cart 可达；Elvie cart 公开 URL 返回 404。",
-        "lesson": "先扩 PDP 队列，再判断模板级问题。",
-        "recollectStatus": {
-          "state": "in_progress",
-          "summary": "自站 watchlist 与竞品 PDP/cart 复采已对齐；仍缺至少 3 次复采、cookie/登录状态和入口参数分段。",
-          "owner": "增长负责人",
-          "dueBy": "2026-06-24",
-          "actions": [
-            "复跑 Momcozy 高风险 PDP 子集",
-            "复跑 6 个竞品 PDP/cart 样本",
-            "补 cookie / 登录 / UTM 分段",
-            "把不可公开到达 cart 标为链路 caveat"
-          ],
-          "evidence": [
-            "2026-06-17 watchlist session",
-            "competitor-recollect-2026-06-18",
-            "6/6 competitor PDP reachable",
-            "5/6 competitor cart reachable"
-          ]
-        }
-      },
-      {
-        "dimension": "第三方脚本治理",
-        "momcozy": "高优先级，不能用行业负担稀释",
-        "reference": "竞品复采二轮最高 3P 失败 42，最高 JS 1000KB；Momcozy watchlist 最高 3P 失败 92、JS 2212KB。",
-        "lesson": "保留必要归因，延后非关键组件。",
-        "recollectStatus": {
-          "state": "in_progress",
-          "summary": "竞品脚本失败映射已补复采；Momcozy 高风险仍更尖锐，下一步必须落到脚本 owner、用途、预算和加载时机。",
-          "owner": "前端负责人",
-          "dueBy": "2026-06-28",
-          "actions": [
-            "导出 Momcozy 失败域名 kill-list",
-            "给竞品复采样本建立脚本风险参照列",
-            "把 owner / 用途 / 预算表接入执行战单"
-          ],
-          "evidence": [
-            "2026-06-17 watchlist session",
-            "competitor-recollect-2026-06-18",
-            "competitor max 3P 42",
-            "competitor max JS 1000KB"
-          ]
-        }
-      },
-      {
-        "dimension": "内容入口变现",
-        "momcozy": "暂停判断",
-        "reference": "历史站有内容型入口假设。",
-        "lesson": "当前搜索明细为空，必须先补数据源。",
-        "recollectStatus": {
-          "state": "todo",
-          "summary": "先补独立搜索源和落地页样本。",
-          "owner": "数据负责人",
-          "dueBy": "2026-06-30",
-          "actions": [
-            "补齐独立搜索源",
-            "补入落地页样本",
-            "对齐品牌词/问题词/产品词口径"
-          ],
-          "evidence": [
-            "搜索词条覆盖表",
-            "落地页点击与转化映射",
-            "复采版本清单"
-          ]
-        }
-      }
-    ],
-    "playbookCards": [
-      {
-        "title": "PR 实验卡 1 · Hero 可观测",
-        "why": "LCP 现在不是慢，而是不可被稳定观测。",
-        "steps": [
-          "锁定首页与 PDP 的最大首屏元素",
-          "把关键图从背景或延迟结构改为可采样元素",
-          "补优先级和回退方案",
-          "复跑双视口路由采集"
-        ],
-        "gate": "连续采集均产出 LCP，且不引入布局偏移。"
-      },
-      {
-        "title": "PR 实验卡 2 · 第三方预算",
-        "why": "第三方失败会同时污染性能、归因和实验读数。",
-        "steps": [
-          "列出失败域名和 owner",
-          "标注用途：支付、评论、广告、热图、客服",
-          "非关键组件延后到用户意图后",
-          "把失败阈值加入 CI"
-        ],
-        "gate": "首页与 PDP 失败数降到预算内，且核心埋点不丢。"
-      },
-      {
-        "title": "PR 实验卡 3 · PDP 模板裁剪",
-        "why": "代表性 PDP 已复现 DOM、脚本、iframe 和图片债务。",
-        "steps": [
-          "按首屏、购买区、评论区、推荐区拆分模板",
-          "延后首屏外模块",
-          "补图像 alt 与响应式 wrapper",
-          "扩到 watchlist 队列"
-        ],
-        "gate": "PDP 节点数、脚本数、错误数和图片债务同步下降。"
-      },
-      {
-        "title": "PR 实验卡 4 · 搜索补源",
-        "why": "自然搜索明细为空时不能继续讲搜索变现。",
-        "steps": [
-          "补搜索控制台或第三方搜索源",
-          "区分品牌词、问题词、产品词",
-          "把落地页加入采集",
-          "只对可复核词组恢复建议"
-        ],
-        "gate": "搜索源有明细行，且与站内行为能对齐。"
-      },
-      {
-        "id": "EX-P0-FB-PIXEL",
-        "title": "PR 执行卡 · Facebook 双 Pixel 合并",
-        "priority": "P0",
-        "category": "归因治理",
-        "why": "connect.facebook.net/en_US/fbevents.js 在首页加载两次（script index 21 和 29），对应两个不同 Pixel ID（1207445154305002 和 838745568077400）。双 Pixel 导致转化事件被回传两次，CVR 和 ROAS 读数虚高，影响所有投放决策。",
-        "evidence": "实测：Playwright MCP 浏览器驱动，确认 fbevents.js 外部脚本加载两次；与安全扫描中的 externalScriptsWithoutSRI 记录一致。",
-        "rootCause": "两个 Pixel 来自不同来源：一个可能是 GTM 注入（Google Tag Manager），另一个可能是 Shopify theme 直接硬编码。需要 owner 确认两者的业务用途。",
-        "steps": [
-          "在 Facebook Business Manager 确认两个 Pixel ID 的归属和用途：1207445154305002 和 838745568077400",
-          "检查 GTM 容器：Admin > Workspace > Tags，搜索 Facebook Pixel tag，确认是否有两个独立 tag",
-          "检查 Shopify theme.liquid 或 layout/theme.liquid：搜索 fbq 或 fbevents，确认是否有直接硬编码的 Pixel",
-          "决策：(a) 如两个 Pixel 属于同一广告账户，在 FB Business Manager 合并为单一 Pixel；(b) 如属于不同账户（如代理商+自营），通过 FB 事件集（Dataset）统一回传",
-          "删除主题中硬编码的 fbevents 加载，仅保留 GTM 统一管理；或反之",
-          "发布后用 Facebook Pixel Helper 浏览器插件验证：首页只有一个 Pixel 触发 PageView"
-        ],
-        "gate": "首页 Facebook Pixel Helper 显示唯一 Pixel ID 触发 PageView；fbevents.js 在 Network 面板中只出现一次。",
-        "rollback": "如合并后 FB 广告数据异常，在 GTM 中回滚 Pixel tag 版本；主题文件通过 Shopify Theme 版本控制恢复。",
-        "owner": "投放负责人 + 前端负责人",
-        "estimatedEffort": "半天（确认来源 + 删除冗余 + 验证）"
-      },
-      {
-        "id": "EX-P1-TUCKGO-TITLE",
-        "title": "PR 执行卡 · TuckGo Stroller meta title 关键词优化",
-        "priority": "P1",
-        "category": "SEO/GEO 技术底座",
-        "why": "当前 meta title：「Momcozy Tuckgo Travel Stroller」（30字符）。过短且缺少关键词，导致在搜索结果中信息密度低，且 AI 引用时无法从 title 获取产品特性信号。GEO 测试中 TuckGo 在「best lightweight travel stroller 2026」查询中未出现。",
-        "evidence": "实测：Playwright 直接读取 <title> 标签，确认为 30字符；optimized title 应为 55-60 字符。",
-        "currentValue": "Momcozy Tuckgo Travel Stroller",
-        "proposedValue": "Momcozy Tuckgo Lightweight Travel Stroller – One-Hand Fold, IATA Carry-On",
-        "proposedValueLength": 73,
-        "proposedValueNote": "73字符略超60上限，可调整为：Momcozy Tuckgo Lightweight Travel Stroller – One-Hand Fold (58字符)",
-        "finalRecommended": "Momcozy Tuckgo Lightweight Travel Stroller – One-Hand Fold",
-        "finalRecommendedLength": 58,
-        "steps": [
-          "Shopify Admin > Online Store > Products > 搜索 TuckGo",
-          "点击产品进入编辑页",
-          "滚动到底部 SEO 部分（Search engine listing preview）",
-          "点击 Edit website SEO",
-          "修改 Page title 字段为：Momcozy Tuckgo Lightweight Travel Stroller – One-Hand Fold",
-          "保存（Save）",
-          "用 Google Search Console > URL Inspection > Request Indexing 触发重新抓取（可选，非必须）"
-        ],
-        "gate": "在 Google Search Console 或 Google 搜索结果中，TuckGo 产品页标题显示为新内容；或用 curl -s https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller | grep -i \"<title>\"  确认标签内容。",
-        "rollback": "在 Shopify SEO 字段中恢复原标题；变更无风险。",
-        "owner": "SEO 负责人 / 电商产品负责人",
-        "estimatedEffort": "10分钟（直接在 Shopify 后台修改）"
-      },
-      {
-        "id": "EX-P1-CHECKOUT-CSP",
-        "title": "PR 执行卡 · Checkout 页 Content-Security-Policy 加固",
-        "priority": "P1",
-        "category": "安全",
-        "why": "当前 CSP 仅有 block-all-mixed-content；frame-ancestors none；upgrade-insecure-requests，缺少 script-src 指令。Magecart 风格攻击可在不违反现有 CSP 的情况下执行注入代码（只需利用任意一个已加载的第三方脚本作为载体）。checkout 页是最高价值攻击目标（含支付信息）。",
-        "evidence": "安全扫描实测：全站 CSP 头均无 script-src；checkout 页有 45-46 次第三方失败 + 3 个 console error；46 个 pageErrors。",
-        "shopifyConstraint": "Shopify 标准 checkout 的 CSP 由 Shopify 平台控制，商家无法直接修改。以下方案针对 Shopify 可控部分（主题 layout 和自定义 checkout extensibility）。",
-        "steps": [
-          "【阶段1 - 立即可做】向 Shopify Plus / Shopify 账户团队申请 Checkout Extensibility 权限（如尚未开启）",
-          "【阶段1 - 立即可做】审查 GTM 容器：确认 checkout 页面触发的 tag 列表，删除所有非支付必要的 tag（热图、录屏、弹窗类）",
-          "【阶段1 - 立即可做】在 theme.liquid 的 checkout 相关 section 中，用 Liquid 条件判断去掉非交易脚本：{% unless template == \"checkout\" %}...{% endunless %}",
-          "【阶段2 - 1周内】在 Shopify Admin > Online Store > Preferences > Content Security Policy（如有）中配置脚本来源白名单",
-          "【阶段2 - 1周内】对于 Shopify Plus 用户：使用 Checkout UI Extensions 替代主题注入脚本，Shopify 会为 Extensions 提供更严格的 sandbox",
-          "【阶段3 - 持续】建立月度 CSP 违规报告：通过 report-uri.com 或 Sentry 收集 CSP violation 事件，及时发现新注入"
-        ],
-        "gate": "用 curl -I https://momcozy.com/checkout 确认响应头 Content-Security-Policy 包含 script-src 指令；或用 Google Chrome DevTools Security 面板验证 CSP 策略。",
-        "rollback": "CSP 变更如导致功能破坏（支付组件加载失败），在 GTM 版本控制中回滚 tag；主题文件通过 Shopify theme 版本恢复。",
-        "owner": "Checkout 负责人 + 前端负责人",
-        "estimatedEffort": "阶段1：半天；阶段2：2-3天（需 Shopify Plus 权限确认）"
-      }
-    ],
-    "roadmap": [
-      {
-        "phase": "Sprint 1",
-        "title": "证据恢复",
-        "focus": "恢复模块、口径边界、二级导航和安全扫描。",
-        "gate": "私密页完整写入真实经营明细，但不泄露密钥、路径和原始端点。"
-      },
-      {
-        "phase": "Sprint 2",
-        "title": "路由扩采与复采",
-        "focus": "PDP watchlist、cart 和 checkout 已进入 collector；下一步补 KOL landing 与至少 3 次复采。",
-        "gate": "每条路径都有桌面/移动样本、复采次数、入口类型和失败预算。"
-      },
-      {
-        "phase": "Sprint 3",
-        "title": "工程修复",
-        "focus": "LCP、第三方、JS、DOM、图片与可访问性。",
-        "gate": "每项修复都有复采和回滚记录。"
-      },
-      {
-        "phase": "Sprint 4",
-        "title": "实验验收",
-        "focus": "把经营结果和技术证据并列展示，同时保留口径 caveat。",
-        "gate": "技术改善与经营观察分开归档。"
-      }
-    ]
-  },
   "competitorRecollectPlan": {
     "goal": "从 6 个竞品扩展至 10 个竞品（新增 eufy、Freemie、Medela、BEABA），基于 GEO 侦查数据覆盖 AI 推荐中与 Momcozy 最常共同出现的品牌",
     "owner": "采集团队 + 前端负责人 + 数据负责人 + 增长负责人",
@@ -914,7 +439,9 @@
           "区分必须同步加载、可延后、可删除",
           "给每类脚本设失败预算"
         ],
-        "gate": "没有 owner 的域名不得进入默认加载路径；若 Momcozy 失败高于竞品复采上限，必须给出保留理由。"
+        "gate": "没有 owner 的域名不得进入默认加载路径；若 Momcozy 失败高于竞品复采上限，必须给出保留理由。",
+        "status": "pending",
+        "sprint": "now"
       },
       {
         "window": "3 天",
@@ -928,7 +455,9 @@
           "每路由至少 3 次采样",
           "记录 JS/DOM/3P/LCP/error/image debt"
         ],
-        "gate": "不再用单条 PDP 代表全站 PDP；自站与竞品复采证据必须升级成多次复采与分组排序。"
+        "gate": "不再用单条 PDP 代表全站 PDP；自站与竞品复采证据必须升级成多次复采与分组排序。",
+        "status": "pending",
+        "sprint": "now"
       },
       {
         "window": "7 天",
@@ -940,7 +469,9 @@
           "首屏外模块延迟",
           "复采 LCP 与 CLS"
         ],
-        "gate": "homepage 与 PDP 双视口连续产出 LCP，且 CLS 不恶化。"
+        "gate": "homepage 与 PDP 双视口连续产出 LCP，且 CLS 不恶化。",
+        "status": "pending",
+        "sprint": "now"
       },
       {
         "window": "14 天",
@@ -952,7 +483,9 @@
           "设回滚阈值",
           "区分技术改善与收入因果"
         ],
-        "gate": "没有实验账本的收益结论不得进入决策页。"
+        "gate": "没有实验账本的收益结论不得进入决策页。",
+        "status": "pending",
+        "sprint": "next"
       },
       {
         "window": "30 天",
@@ -964,7 +497,9 @@
           "补自然搜索关键词与落地页",
           "复核币种和窗口"
         ],
-        "gate": "SEO、渠道预算和收益归因只在补源后恢复判断。"
+        "gate": "SEO、渠道预算和收益归因只在补源后恢复判断。",
+        "status": "pending",
+        "sprint": "later"
       },
       {
         "window": "1 周",
@@ -977,7 +512,9 @@
           "同步更新 meta description：加入 'lightweight stroller for travel, compact folding' 等关键词",
           "验收：Google Rich Results Test 确认 title 长度 55-60 字符"
         ],
-        "gate": "Rich Results Test 通过；Google Search Console → URL Inspection 触发重新索引"
+        "gate": "Rich Results Test 通过；Google Search Console → URL Inspection 触发重新索引",
+        "status": "pending",
+        "sprint": "now"
       },
       {
         "window": "1 周",
@@ -990,7 +527,9 @@
           "同时检查 theme.liquid 是否有硬编码的 Pixel 代码与 Shopify 内置 Pixel 重复",
           "保留一个 Pixel，删除另一个，确保归因数据不被分裂"
         ],
-        "gate": "下次采集首页 thirdPartyFailures 应下降；第三方治理脚本审计确认 fbevents.js 只加载 1 次"
+        "gate": "下次采集首页 thirdPartyFailures 应下降；第三方治理脚本审计确认 fbevents.js 只加载 1 次",
+        "status": "pending",
+        "sprint": "now"
       },
       {
         "window": "2 周",
@@ -1003,9 +542,18 @@
           "在 S12 Pro / M5 Smart PDP 添加保险报销标注（HSA/FSA Eligible 标识）",
           "提交新页面 URL 到 Google Search Console 触发索引"
         ],
-        "gate": "Perplexity 重测 10 个问题，保险和职场场景中 Momcozy 出现频率比基线 0/2 提升"
+        "gate": "Perplexity 重测 10 个问题，保险和职场场景中 Momcozy 出现频率比基线 0/2 提升",
+        "status": "pending",
+        "sprint": "next"
       }
-    ]
+    ],
+    "executionSummary": {
+      "total": 8,
+      "pending": 8,
+      "in_progress": 0,
+      "done": 0,
+      "lastUpdated": "2026-06-19"
+    }
   },
   "thirdPartyGovernance": {
     "summary": "第三方治理从“删不删脚本”改为“谁负责、为何保留、何时加载、失败多少就回滚”。当前 Momcozy watchlist 最高第三方失败 92，高于竞品复采二轮最高 42，因此默认加载路径必须进入预算制。",

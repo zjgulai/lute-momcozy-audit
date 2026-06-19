@@ -26,18 +26,28 @@ npm run serve   # local preview at http://localhost:8080
 - Node.js 22+
 - Chromium (installed automatically by `npx playwright install --with-deps chromium`)
 
-## Pages
+## Production Platform
 
-| Canonical route | Generated from | Description |
-|---|---|---|
-| `/` | `scripts/build-history-site.mjs` | Overview — private-business storyline, operating KPIs, evidence chain, and execution plan |
-| `/metrics.html` | `scripts/build-history-site.mjs` | Metrics — operating KPI caveats plus route-aware technical metrics |
-| `/forensics.html` | `scripts/build-history-site.mjs` | Forensics — evidence trail, third-party failure analysis, and audit limits |
-| `/trends.html` | `scripts/build-history-site.mjs` | Trends — latest route-aware collection and methodology caveats |
-| `/cross-audit.html` | `scripts/build-history-site.mjs` | Cross-audit — contradictions, final audit, strategy matrix, and execution orders |
-| `/404.html` | `scripts/build-history-site.mjs` | Not-found page |
+**Primary URL**: https://shopify.lute-tlz-dddd.top  
+**Platform repo**: [lute-momcozy-platform](https://github.com/zjgulai/lute-momcozy-platform) — Next.js 16, 9 pages, auto-deployed on every push to main.
 
-Slashless aliases such as `/metrics`, `/forensics`, and `/trends` may work through the local/static server. The `.html` routes above are the source-of-truth routes for documentation, testing, and release identity checks.
+The Next.js platform is the production front-end. This repo (`lute-momcozy-audit`) is the **data source** — it runs collection, analysis scripts, and CI that feeds data to the platform.
+
+## Legacy Static Site Pages
+
+The `_site/` directory (built by `scripts/build-history-site.mjs`) generates a static fallback site deployed to GitHub Pages. The 9 routes are:
+
+| Route | Description |
+|---|---|
+| `/` | Overview — SCQA storyline + 8-problem diagnosis |
+| `/metrics.html` | Metrics — 30-indicator dictionary + P3/P5 actions |
+| `/forensics.html` | Forensics — risk attribution + G5-G11 content |
+| `/trends.html` | Trends — 7 sessions + LCP methodology caveat |
+| `/cross-audit.html` | Cross-audit — P7 SEO/GEO + hard conclusions |
+| `/competitors.html` | Competitors — 10 brands GEO landscape + tech benchmark |
+| `/framework.html` | 360 Framework — G1-G11 coverage matrix |
+| `/collection.html` | Collection management — sessions + commands |
+| `/execution.html` | Execution orders — Sprint Now/Next/Later grouped |
 
 ## Data Architecture
 

@@ -231,39 +231,57 @@ function competitorRiskRankingRows(data) {
 }
 
 function valueScreenRows(data) {
-  const matrix = legacyData(data).competitorMatrix || [];
   const verdictByDimension = {
     "第三方脚本治理": {
       decision: "补回主线",
       reason: "Momcozy 第三方失败 92 vs 竞品新上限 23（eufy，10竞品数据），超标 4.0x；重脚本不是品类宿命（Medela JS仅176KB）。",
+      evidence: "10竞品采集 2026-06-19",
+      lesson: "设失败预算；找 owner；分加载时机",
       action: "进入 kill-list、owner、加载时机和失败预算。"
     },
     "PDP 行动路径": {
       decision: "补回主线",
-      reason: "6/6 竞品 PDP 可达，Momcozy 已有 10 条 PDP watchlist，下一步应该按模板/入口分组排序。",
+      reason: "10竞品 PDP 大部分可达，Momcozy 已有 10 条 PDP watchlist，下一步应该按模板/入口分组排序。",
+      evidence: "G9/G7采集 + P2 漏斗后端失血证据",
+      lesson: "信任信号和 CTA 首屏是主要摩擦",
       action: "高风险 PDP 复跑，并补 KOL/UTM landing。"
     },
     "爬虫分级": {
       decision: "条件补回",
-      reason: "5/6 竞品有命名 bot policy，但 Momcozy bot share 仍缺 owner 聚合证据。",
+      reason: "竞品已部分部署bot防护（503），Momcozy bot share 仍缺 owner 聚合证据。",
+      evidence: "3竞品503 + bot-evidence missing",
+      lesson: "只作为归因证据缺口，不输出机器人占比",
       action: "只作为归因证据缺口，不输出机器人占比。"
     },
     "内容入口变现": {
       decision: "继续冻结",
       reason: "当前自然搜索明细为空，不能恢复 SEO 收益或内容预算结论。",
+      evidence: "naturalSearchRows = 0",
+      lesson: "先补搜索源、落地页和订单/加购映射",
       action: "先补搜索源、落地页和订单/加购映射。"
     }
   };
-  return matrix.map((item) => ({
-    dimension: item.dimension,
-    evidence: item.reference,
-    lesson: item.lesson,
-    ...(verdictByDimension[item.dimension] || {
-      decision: "暂不恢复",
-      reason: "证据不足以改变当前资源排序。",
-      action: "等待下一轮复采。"
-    })
-  }));
+  const matrix = legacyData(data).competitorMatrix || [];
+  const source = matrix.length > 0
+    ? matrix.map((item) => ({
+        dimension: item.dimension,
+        evidence: item.reference,
+        lesson: item.lesson,
+        ...(verdictByDimension[item.dimension] || {
+          decision: "暂不恢复",
+          reason: "证据不足以改变当前资源排序。",
+          action: "等待下一轮复采。"
+        })
+      }))
+    : Object.entries(verdictByDimension).map(([dimension, v]) => ({
+        dimension,
+        evidence: v.evidence,
+        lesson: v.lesson,
+        decision: v.decision,
+        reason: v.reason,
+        action: v.action
+      }));
+  return source;
 }
 
 export function finalAuditData(data) {
@@ -523,6 +541,14 @@ export function trafficAttributionSection(data) {
     <td>${escapeHtml(item.currentCheck)}</td>
     <td>${escapeHtml(item.nextProof)}</td>
   </tr>`).join("");
+  const tableHtml = rows
+    ? `<div class="cross-table-wrap" tabindex="0">
+        <table class="cross-table">
+          <thead><tr><th>归因驱动</th><th>历史信号</th><th>当前校验</th><th>可执行校验动作</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`
+    : `<p class="evidence-note">归因质量治理已整合至 P5 归因失灵诊断（指标口径页），不再单独列表。</p>`;
   return `<section class="section section--gray" id="traffic-attribution">
     <div class="container">
       <div class="section__head">
@@ -530,12 +556,7 @@ export function trafficAttributionSection(data) {
         <h2 class="section__title">先修归因可信度，再决定预算和 SEO 动作</h2>
         <p class="section__sub">历史站拆过流量来源，价值在于提醒团队不要只看总访问量。当前自然搜索明细为空，第三方失败又会污染广告、评论、客服和实验归因；因此本段只保留可执行的归因治理动作，不再沿用旧窗口下的收益判断。</p>
       </div>
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>归因驱动</th><th>历史信号</th><th>当前校验</th><th>可执行校验动作</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
+      ${tableHtml}
     </div>
   </section>`;
 }
