@@ -148,11 +148,16 @@ export function nav(active) {
     ["cross-audit.html", "V · 决策矩阵", "cross"],
     ["competitors.html", "VI · 竞品对比", "competitors"]
   ];
+  const extraLinks = [
+    ["framework.html", "VII · 360 框架", "framework"],
+    ["collection.html", "VIII · 采集管理", "collection"],
+    ["execution.html", "IX · 执行战单", "execution"],
+  ];
   return `<nav class="side-nav" aria-label="Momcozy 洞察报告导航">
     <a href="index.html#hero" class="side-nav__brand">路特 AI <span>×</span><br>Momcozy</a>
     <div class="side-nav__kicker">Momcozy 经营洞察</div>
     <div class="side-nav__status" aria-label="报告状态">
-      <div class="side-stat"><strong>6</strong><span>主页面</span></div>
+      <div class="side-stat"><strong>9</strong><span>主页面</span></div>
       <div class="side-stat"><strong>KPI</strong><span>真实写入</span></div>
       <div class="side-stat"><strong>noindex</strong><span>访问边界</span></div>
     </div>
@@ -160,6 +165,12 @@ export function nav(active) {
       <div class="side-nav__label">主报告</div>
       <div class="side-nav__main">
         ${links.map(([href, label, key], index) => `<a href="${href}" class="side-nav__link${active === key ? " side-nav__link--active" : ""}"><span>${label}</span><small>0${index + 1}</small></a>`).join("")}
+      </div>
+    </div>
+    <div class="side-nav__group">
+      <div class="side-nav__label">框架 &amp; 操作</div>
+      <div class="side-nav__main">
+        ${extraLinks.map(([href, label, key], index) => `<a href="${href}" class="side-nav__link${active === key ? " side-nav__link--active" : ""}"><span>${label}</span><small>0${index + 7}</small></a>`).join("")}
       </div>
     </div>
     <p class="side-nav__foot">真实金额与 KPI 已写入；密钥、服务器地址、私有路径和原始数据端点仍被排除。</p>

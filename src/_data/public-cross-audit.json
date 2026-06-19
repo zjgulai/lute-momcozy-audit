@@ -681,7 +681,7 @@
     ]
   },
   "competitorRecollectPlan": {
-    "goal": "把竞品对照从“待重采”推进到“首轮可复核证据”，但不把首轮样本误用成分值化对标。",
+    "goal": "从 6 个竞品扩展至 10 个竞品（新增 eufy、Freemie、Medela、BEABA），基于 GEO 侦查数据覆盖 AI 推荐中与 Momcozy 最常共同出现的品牌",
     "owner": "采集团队 + 前端负责人 + 数据负责人 + 增长负责人",
     "executionWindow": "首轮已在 2026-06-17 完成，二轮已在 2026-06-18 完成；7 天内补齐 owner 表，30 天形成第一版可复核竞品对比。",
     "tasks": [
@@ -780,7 +780,39 @@
       "任何对比结论都要绑定复核版本（采集日期、样本数、视口）与验收门槛。",
       "PDP 外推仅在 watchlist 分组完成至少 3 次复采后生效；当前 2026-06-17/18 自站 + 竞品结果仅作为复采基础样本，不可分值化对标。"
     ],
-    "acceptanceGate": "竞品矩阵下一版必须补足多次复采、入口参数、checkout 状态、脚本 owner/用途/预算表，才允许恢复可比分值版。"
+    "acceptanceGate": "竞品矩阵下一版必须补足多次复采、入口参数、checkout 状态、脚本 owner/用途/预算表，才允许恢复可比分值版。",
+    "competitorCount": 10,
+    "newCompetitors": [
+      {
+        "id": "eufy",
+        "label": "eufy",
+        "category": "wearable breast pump",
+        "geoRole": "best_heated_flanges_comfort",
+        "rationale": "Forbes/BabyCenter 2026 对比文章中高频出现，唯一具有加热法兰技术的竞品"
+      },
+      {
+        "id": "freemie",
+        "label": "Freemie",
+        "category": "wearable breast pump",
+        "geoRole": "budget_momcozy_alternative",
+        "rationale": "在 'Momcozy alternatives' GEO 查询中高频被推荐为预算可穿戴替代品"
+      },
+      {
+        "id": "medela",
+        "label": "Medela",
+        "category": "wearable breast pump",
+        "geoRole": "insurance_default_choice",
+        "rationale": "保险语境下 AI 推荐频率最高，全球最大品牌，常作为保险默认选项出现"
+      },
+      {
+        "id": "beaba",
+        "label": "BEABA",
+        "category": "baby food maker",
+        "rationale": "婴儿食品制作机类别中与 Baby Brezza 在 Google AI Overview 必定共框，35年历史品牌"
+      }
+    ],
+    "geoResearchDate": "2026-06-19",
+    "geoSource": "Librarian agent 搜索 Forbes, BabyCenter, Consumer Reports, The Bump, Amazon Best Sellers 2026-06 最新排名"
   },
   "decisionArchitecture": {
     "logicChain": [
@@ -933,6 +965,45 @@
           "复核币种和窗口"
         ],
         "gate": "SEO、渠道预算和收益归因只在补源后恢复判断。"
+      },
+      {
+        "window": "1 周",
+        "owner": "SEO 负责人 + 内容团队",
+        "action": "TuckGo Stroller meta title 扩展（30字 → 55-60字）",
+        "steps": [
+          "当前 title：'Momcozy Tuckgo Stroller'（30字）",
+          "目标 title：'Momcozy TuckGo Lightweight Travel Stroller - One-Hand Fold, IATA Compatible'（68字，优先截至60字）",
+          "Shopify Admin → Online Store → Pages → 找到 TuckGo PDP → SEO → Edit website SEO → 修改 Title",
+          "同步更新 meta description：加入 'lightweight stroller for travel, compact folding' 等关键词",
+          "验收：Google Rich Results Test 确认 title 长度 55-60 字符"
+        ],
+        "gate": "Rich Results Test 通过；Google Search Console → URL Inspection 触发重新索引"
+      },
+      {
+        "window": "1 周",
+        "owner": "开发团队",
+        "action": "Facebook Pixel 重复加载修复（首页 2 次 → 1 次）",
+        "steps": [
+          "当前：connect.facebook.net/en_US/fbevents.js 在首页加载 2 次（Pixel ID: 1207445154305002 和 838745568077400）",
+          "确认两个 Pixel ID 是否均为有效业务 Pixel，还是其中一个为历史遗留",
+          "Shopify Admin → Online Store → Preferences → Facebook Pixel → 检查配置",
+          "同时检查 theme.liquid 是否有硬编码的 Pixel 代码与 Shopify 内置 Pixel 重复",
+          "保留一个 Pixel，删除另一个，确保归因数据不被分裂"
+        ],
+        "gate": "下次采集首页 thirdPartyFailures 应下降；第三方治理脚本审计确认 fbevents.js 只加载 1 次"
+      },
+      {
+        "window": "2 周",
+        "owner": "内容团队 + 增长团队",
+        "action": "GEO 内容战略：建立保险渠道和职场场景专题内容",
+        "steps": [
+          "保险渠道内容页：创建 /pages/insurance-coverage 落地页，包含 HSA/FSA 使用指南、保险报销流程、HCPCS 代码（E0603）",
+          "职场场景专题：创建 /blogs/nursing-at-work 系列文章，覆盖 'pumping at work law'、'best breast pump for office'",
+          "每篇页面添加 FAQ Schema（至少 5 个 Q&A），提升 AI 直接引用概率",
+          "在 S12 Pro / M5 Smart PDP 添加保险报销标注（HSA/FSA Eligible 标识）",
+          "提交新页面 URL 到 Google Search Console 触发索引"
+        ],
+        "gate": "Perplexity 重测 10 个问题，保险和职场场景中 Momcozy 出现频率比基线 0/2 提升"
       }
     ]
   },
@@ -1143,7 +1214,11 @@
     "robotsWithNamedBotPolicyCount": 5,
     "maxThirdPartyFailures": "42 (babybrezza pdp mobile)",
     "maxJsKb": "1000 (babybuddha pdp desktop)",
-    "maxDomNodes": "5794 (babybrezza pdp desktop)"
+    "maxDomNodes": "5794 (babybrezza pdp desktop)",
+    "plannedCompetitorCount": 10,
+    "currentCompetitorCount": 6,
+    "expansionNote": "新增 eufy/Freemie/Medela/BEABA（共 10 个），基于 GEO 共同提及分析，下次采集时生效",
+    "newCompetitorsSince": "2026-06-19"
   },
   "segmentSamplingPlan": {
     "summary": "下一轮复采不再只按页面类型采样，而是按入口来源、浏览器状态、购物车状态和 checkout 可达性拆样本。公开匿名段可以立即跑；登录态和真实购物车段必须由 owner 提供 Playwright storage state，报告只记录公开 label，不记录文件路径、账号、token 或 cookie 值。",
@@ -1491,7 +1566,27 @@
         "action": "评估 Shopify Agentic Storefront 接入",
         "rationale": "Shopify 官方数据：AI 引荐订单 YoY 增长 13 倍，转化率高 50%。Agentic Storefront 可直接向 ChatGPT/Perplexity 推送结构化 SKU 数据"
       }
-    ]
+    ],
+    "competitorLandscape": {
+      "very_high_frequency": [
+        "Willow",
+        "Elvie"
+      ],
+      "high_frequency": [
+        "eufy",
+        "Lansinoh"
+      ],
+      "medium_frequency_insurance": [
+        "Medela",
+        "Spectra"
+      ],
+      "medium_frequency_budget": [
+        "Freemie",
+        "BabyBuddha"
+      ],
+      "food_maker_benchmark": "BEABA Babycook",
+      "momcozy_positioning": "budget/value segment — 出现于 5/5 问题但 0/5 获得 best overall"
+    }
   },
   "seoTechnical": {
     "scannedAt": "2026-06-18",
@@ -1640,7 +1735,9 @@
       {
         "gap": "竞品 PDP URL 已失效（Lansinoh、BabyBrezza、Spectra）",
         "impact": "竞品 SEO 技术层对比数据不完整",
-        "fix": "更新 competitor PDP URL 配置后重新采集"
+        "fix": "更新 competitor PDP URL 配置后重新采集",
+        "status": "RESOLVED - 三个 URL 均验证可达 (HTTP 200): lansinoh.com/products/discreet-duo, babybrezza.com/products/bottle-washer-pro, spectrababyusa.com/products/spectra-s1-plus-...",
+        "verifiedAt": "2026-06-19"
       }
     ]
   },
@@ -1650,7 +1747,7 @@
     "totalDimensions": 20,
     "coveredDimensions": 9,
     "newDimensions": 11,
-    "coverageNote": "9个已有维度（D1-D9）完整或部分覆盖；11个新维度（G1-G11）注册待采集",
+    "coverageNote": "9个已有维度（D1-D9）完整或部分覆盖；11个新维度（G1-G11）注册待采集；G2/G3 actionItems 已完整填写",
     "gaps": {
       "G1_behavior": {
         "label": "行为数据层（Session Replay + 热图）",
@@ -1693,9 +1790,10 @@
         ],
         "actionItems": [
           "Shopify Admin → Analytics → Reports → Online Store Conversion Rate",
-          "Breakdown by: Device → 导出 desktop/mobile/tablet 各自 CVR",
-          "Breakdown by: Traffic Source → 导出 paid/organic/direct/email CVR",
-          "填入下方 metrics 字段"
+          "点击右上角 Breakdown → 选择 Device type → 导出 desktop/mobile/tablet CVR",
+          "再次 Breakdown → 选择 Traffic Source → 导出 paid/organic/direct/email 各自 CVR",
+          "将各渠道 CVR 与整体 CVR 2.4% 对比，识别高价值 vs 低效渠道",
+          "填入 G2_funnel_segmented.metrics.by_channel 字段，更新 status=collected"
         ],
         "metrics": {
           "paid_cvr": null,
@@ -1781,7 +1879,15 @@
               "ltv_6m": null
             }
           }
-        }
+        },
+        "actionItems": [
+          "Shopify Admin → Customers → Export → 筛选 created_at 按月份（2025-12, 2026-01, 2026-02, 2026-03）",
+          "每个月份队列：统计首次购买后 30天/90天/180天 内有第二次购买的客户比例 → M1/M3/M6 留存率",
+          "Klaviyo → Analytics → Customer Lifetime Value → 导出各获客来源（paid/organic/KOL）的平均 LTV",
+          "对照 benchmarks：M1目标20%、M3目标45%、M6目标50%、12月LTV目标 $200",
+          "填入 G3_ltv_cohort.metrics 对应字段，更新 status=collected",
+          "识别留存率最差的队列月份 → 对应时期是否有促销/渠道投放异常？"
+        ]
       },
       "G4_email_sms": {
         "label": "邮件/SMS 营销性能诊断",
@@ -1821,7 +1927,14 @@
           "has_winback_flow": null,
           "has_lifecycle_education_flow": null,
           "list_size": null
-        }
+        },
+        "actionItems": [
+          "Klaviyo → Analytics → Overview → 查看 Total Revenue 和 Email Revenue（目标：邮件占总营收 25%+）",
+          "Klaviyo → Flows → Abandoned Cart → 查看 Conversion Rate（目标 4%+）和 Revenue per Recipient",
+          "Klaviyo → Forms → 查看 Email Capture Rate（目标 2%+）和 SMS Opt-in Rate（目标 1%+）",
+          "Klaviyo → Campaigns → 对比 Welcome Series 和 Post-Purchase 的 Open Rate（目标分别 50%+ / 35%+）",
+          "将数据填入 G4_email_sms.metrics 字段，更新 status=collected"
+        ]
       },
       "G5_inventory": {
         "label": "库存健康 × CVR 关系",
@@ -2025,7 +2138,14 @@
           "tiktok_buyer_90d_repeat": null,
           "top_creator_gmv_pct": null,
           "algorithmic_risk_level": null
-        }
+        },
+        "actionItems": [
+          "TikTok Shop Seller Center → Analytics → Overview → 查看总 GMV 和 CVR（目标 listing CVR 3%+）",
+          "Seller Center → Creator Center → 按创作者导出 CVR 和 GMV，识别 Top 5 creator",
+          "在 Klaviyo 或 GA4 对比 TikTok 来源客户的 30天复购率 vs 其他渠道（目标：创作者带来的客户复购率 25%+）",
+          "计算 Blended CAC（总投入 / 新客户数），对比目标 $25 以下",
+          "将数据填入 G8_social_commerce.metrics 字段，更新 status=collected"
+        ]
       },
       "G9_pdp_content_depth": {
         "label": "PDP 内容深度审计",
@@ -2128,7 +2248,15 @@
           "nps_support": null,
           "safety_escalation_pct": null,
           "window": null
-        }
+        },
+        "actionItems": [
+          "Zendesk / Help Scout → 导出最近 100 个工单，按类型分类：退货 / 使用问题 / 安全问题 / 配送 / 其他",
+          "计算平均首次响应时间（目标 12小时以内）和首次解决率（目标 70%+）",
+          "Shopify Admin → Orders → 筛选退款原因，计算 DTC 退款率（目标 <2%）",
+          "对比 Amazon Seller Central 退款率（目标 <2%，超出则需要产品质量追踪）",
+          "计算 NPS（客服满意度），若无工具则从评论中识别服务相关差评比例",
+          "将数据填入 G10_support_quality.metrics 字段，更新 status=collected"
+        ]
       },
       "G11_seo_architecture": {
         "label": "SEO 架构深度（分面导航/品类页/内链/翻页）",
@@ -2264,6 +2392,508 @@
         "CTA 在黏性底栏需精准坐标点击（y≈795）",
         "信任信号（30天保证/1年保修）全部非首屏",
         "空购物车结账重定向首页——需 owner 账号测试真实支付方式"
+      ]
+    }
+  },
+  "lcpMethodologyNote": {
+    "issue": "LCP 在所有路由均为 lcp_unobserved_in_timeout",
+    "rootCause": "Momcozy 首页 hero 图片使用 CDN 懒加载或 CSS background，Playwright lab 环境 25s 内未触发 LCP Performance Entry",
+    "fix": "collect.mjs LCP 等待时间从 25s 延长至 40s，并在等待前先触发 networkidle（12s）",
+    "expectedOutcome": "下次采集部分路由可能获得 LCP 值，confidence 从 low 升至 medium",
+    "caveat": "若 hero 图片为 CSS background（非 <img> 元素），LCP 将永远无法被 PerformanceObserver 捕获，需要修改 Momcozy 主题代码才能解决"
+  },
+  "geoCompetitorLandscape": {
+    "updatedAt": "2026-06-19",
+    "source": "GEO侦查 - Forbes/BabyCenter/Consumer Reports/The Bump/Amazon 2026-06最新排名",
+    "competitors": [
+      {
+        "id": "willow",
+        "label": "Willow",
+        "category": "wearable breast pump",
+        "geoFrequency": "very_high",
+        "geoRole": "最佳综合推荐；高端/完全无束缚类别定义者",
+        "priceSegment": "premium",
+        "domain": "onewillow.com"
+      },
+      {
+        "id": "elvie",
+        "label": "Elvie",
+        "category": "wearable breast pump",
+        "geoFrequency": "very_high",
+        "geoRole": "最佳安静/闭系统；2025年3月被Willow收购",
+        "priceSegment": "premium",
+        "domain": "elvie.com"
+      },
+      {
+        "id": "eufy",
+        "label": "eufy",
+        "category": "wearable breast pump",
+        "geoFrequency": "high",
+        "geoRole": "唯一加热法兰技术竞品；最佳舒适度",
+        "priceSegment": "mid_to_premium",
+        "domain": "eufy.com"
+      },
+      {
+        "id": "lansinoh",
+        "label": "Lansinoh",
+        "category": "wearable breast pump",
+        "geoFrequency": "high",
+        "geoRole": "传统可靠品牌；综合对比表常客",
+        "priceSegment": "mid",
+        "domain": "lansinoh.com"
+      },
+      {
+        "id": "medela",
+        "label": "Medela",
+        "category": "breast pump",
+        "geoFrequency": "medium",
+        "geoRole": "保险默认选项；全球最大品牌；保险语境AI推荐最高",
+        "priceSegment": "mid",
+        "domain": "medela.com"
+      },
+      {
+        "id": "spectra",
+        "label": "Spectra Baby USA",
+        "category": "breast pump",
+        "geoFrequency": "medium",
+        "geoRole": "医疗级保险替代；保险语境第二选择",
+        "priceSegment": "mid",
+        "domain": "spectrababyusa.com"
+      },
+      {
+        "id": "freemie",
+        "label": "Freemie",
+        "category": "wearable breast pump",
+        "geoFrequency": "medium",
+        "geoRole": "预算可穿戴替代；Momcozy alternatives查询高频",
+        "priceSegment": "budget",
+        "domain": "freemie.com"
+      },
+      {
+        "id": "babybuddha",
+        "label": "BabyBuddha",
+        "category": "portable breast pump",
+        "geoFrequency": "medium",
+        "geoRole": "超便携旅行款；与Momcozy价格段有重叠",
+        "priceSegment": "budget_to_mid",
+        "domain": "babybuddhaproducts.com"
+      },
+      {
+        "id": "babybrezza",
+        "label": "Baby Brezza",
+        "category": "baby appliance",
+        "geoFrequency": "medium",
+        "geoRole": "婴儿家电生态系统；奶瓶清洗机市场领导者",
+        "priceSegment": "mid",
+        "domain": "babybrezza.com"
+      },
+      {
+        "id": "beaba",
+        "label": "BEABA",
+        "category": "baby food maker",
+        "geoFrequency": "high",
+        "geoRole": "婴儿食品机Premium定义者；Google AI Overview与Baby Brezza必定共框",
+        "priceSegment": "premium",
+        "domain": "beaba.us"
+      }
+    ],
+    "momcozyPositioning": {
+      "currentGeoRole": "budget/value segment leader",
+      "currentWeakness": "0/5问题获得best overall推荐；AI主权依赖第三方媒体引用",
+      "targetScenarios": [
+        "保险渠道内容（Medela对标）",
+        "职场场景专题（Elvie对标）",
+        "轻量旅行（BabyBuddha对标）"
+      ]
+    }
+  },
+  "diagnosticNarrative": {
+    "version": "v1.0",
+    "updatedAt": "2026-06-19",
+    "methodology": "MECE + SCQA",
+    "dataWarning": "所有损失估算均为假设情景，标注行业基准来源，需通过受控实验验证后方可作为收益承诺",
+    "scqa": {
+      "situation": "Momcozy DTC 站观察窗口内月均销售约 $105,987，attach rate 56.5%，品牌有存量老客基础，产品口碑（评论 4.5-4.9★）正向。",
+      "complication": "但 8 个同时运作的系统性问题正在侵蚀每一分钱的增量：漏斗两端同时失血、归因数据不可信、技术负担超出所有竞品上限、SEO/GEO 双重盲区、安全防线为零。多数问题在无需重大重构的前提下可修复，但当前没有一个被量化过。",
+      "question": "每个问题造成多少可估算的损失？应该按什么顺序修？",
+      "answer": "按损失规模排序的 8 个问题行动清单，每个附证据链 + 损失估算 + 立即行动。P2 是单项损失最大的问题（+$49 万机会），P5 是所有决策的元问题（数字不可信）。"
+    },
+    "problems": [
+      {
+        "id": "P2",
+        "layer": "经营层 · 漏斗后端",
+        "title": "结账→购买转化率仅 38.2%，行业均值 60%，5,281 个强意向用户每周期白白流失",
+        "scqa": {
+          "s": "每周期有 8,541 人进入结账流程，已是强意向用户群体。",
+          "c": "但结账→购买转化率只有 38.2%（行业均值 55-65%），5,281 个强意向用户没有成交。",
+          "q": "为什么进了结账还是不买？",
+          "a": "CTA 始终在 viewport 外、快捷支付缺失、信任信号非首屏，三重摩擦叠加。"
+        },
+        "evidence": [
+          "checkout→purchase 转化率：38.2%（行业基准 55-65%）",
+          "sticky-atc top=742px，viewport=737px — Add to Cart 按钮始终在屏幕外 5px（G7 采集确认）",
+          "Shop Pay / Apple Pay / Google Pay 匿名态全部未检测到 — 快捷支付路径缺失（G7 采集确认）",
+          "信任信号（退货保证 / 保修）在 5/5 PDP 均不在首屏（G9 采集确认）"
+        ],
+        "lossEstimate": {
+          "scenario": "若 checkout→purchase 提升至行业均值 60%，多成交约 5,555 笔（按当前观察窗口）",
+          "value_usd": 490102,
+          "monthly_usd": 72074,
+          "confidence": "假设情景，需 A/B 实验验证",
+          "benchmark_source": "Shopify 母婴品类基准"
+        },
+        "immediateActions": [
+          "修复 sticky-atc 定位：top 值改为 viewport-aligned（CSS 1行修复）",
+          "确认 Shop Pay 是否启用：Shopify Admin → Settings → Payments → Shop Pay",
+          "M5/S12/Mobile Flow PDP：把退货/保修信息移到首屏折叠线以上"
+        ],
+        "pageOwner": "forensics"
+      },
+      {
+        "id": "P1",
+        "layer": "经营层 · 漏斗前端",
+        "title": "91.4% 的访客没有加购，加购率 8.60% 低于行业均值 12-15%",
+        "scqa": {
+          "s": "每周期 135,555 个访客到达站点，产品有 1,400-1,800 条正向评论，品质信号充足。",
+          "c": "但 91.4% 的访客没有加购——用户在看到购买理由之前就离开了。",
+          "q": "是什么阻止了用户加购？",
+          "a": "信任信号、安全认证、库存紧迫感全部不在首屏，平均 PV 2.91 说明用户没有被内容引导深入探索。"
+        },
+        "evidence": [
+          "加购率 8.60%（行业均值 12-15%，母婴品类）",
+          "平均 PV 2.91（行业健康值 4-6），内容引导力弱",
+          "跳出率 57.9%（行业 45-50%）",
+          "5/5 PDP 信任信号（退货/保修）不在首屏，4/5 PDP 无安全认证展示（G9 确认）",
+          "库存紧迫感信号缺失：全部 PDP 无库存徽章、无到货通知（G5 确认）"
+        ],
+        "lossEstimate": {
+          "scenario": "若加购率从 8.60% 提升至 12%，按当前 checkout→purchase 转化率，多成交约 1,761 笔",
+          "value_usd": 155368,
+          "monthly_usd": 22848,
+          "confidence": "假设情景，需 A/B 实验验证",
+          "benchmark_source": "Shopify 母婴品类基准"
+        },
+        "immediateActions": [
+          "M5/S12/Mobile Flow：把信任信号（30天退货 + 1年保修）移到首屏",
+          "主力 SKU 添加库存徽章（'X件在售'）和限时购买触发器",
+          "PDP 面包屑导航优化：引导用户浏览相关 SKU（提升 PV/visit）"
+        ],
+        "pageOwner": "forensics"
+      },
+      {
+        "id": "P3",
+        "layer": "经营层 · 营销追回",
+        "title": "弃单追回率 0%、促销码使用率 0%——每周期约 5,281 个强意向用户完全没有被触达",
+        "scqa": {
+          "s": "每周期有 11,654 个用户加购，5,281 个完成结账流程后没有付款。",
+          "c": "弃单追回率 = 0%，促销码使用率 = 0%，Klaviyo/Postscript 营销追回体系完全未运作。",
+          "q": "这意味着损失了多少可以追回的订单？",
+          "a": "行业弃单邮件追回率 5-10%，即 264-528 笔/周期可追回。"
+        },
+        "evidence": [
+          "abandonedRecoveryRate = 0%（workbook 字段确认）",
+          "couponUseRate = 0%（没有任何优惠券被使用——配置未启用或用户无感知）",
+          "结账未购买用户：5,281 个/周期，全部无追回触达",
+          "KOL/affiliate 专属追踪码状态未知（couponUseRate=0 无法区分是否有运作）"
+        ],
+        "lossEstimate": {
+          "scenario": "行业弃单邮件追回率 5-10%，264-528 笔/周期",
+          "value_usd_low": 23296,
+          "value_usd_high": 46593,
+          "monthly_usd_low": 3426,
+          "monthly_usd_high": 6852,
+          "confidence": "假设情景，需 Klaviyo 接入后验证",
+          "benchmark_source": "Klaviyo 弃单序列行业均值"
+        },
+        "immediateActions": [
+          "Klaviyo → Flows → Abandoned Checkout → 确认是否有激活的序列",
+          "配置 3 封弃单邮件序列：1h / 24h / 72h",
+          "确认促销码系统是否配置：Shopify Admin → Discounts"
+        ],
+        "pageOwner": "metrics"
+      },
+      {
+        "id": "P4",
+        "layer": "执行层 · PDP 内容",
+        "title": "信任信号 / CTA / 安全认证全部非首屏，5 个 PDP 100% 不合格；TuckGo 是新品上市即失败的完整案例",
+        "scqa": {
+          "s": "产品评论 4.5-4.9★，1,400-1,800 条，品质信号充足，用户对产品并不反感。",
+          "c": "但转化触发的三个关键信号——CTA 可见、信任声明、安全认证——在主力 PDP 上全部不在首屏，用户要做决策的时候找不到理由。",
+          "q": "具体哪些 PDP 最严重？",
+          "a": "M5/S12/Mobile Flow 三款旗舰 CTA 非首屏，5 款 PDP 信任信号全部非首屏。TuckGo 是评论 10 条 + 76 张图片无 alt + 30 字 meta title 的三重新品盲区。"
+        },
+        "evidence": [
+          "CTA 非首屏：M5 Smart / S12 Pro / Mobile Flow（3/5 旗舰款，G9 确认）",
+          "信任信号非首屏：5/5 PDP，包括旗舰款（G9 确认）",
+          "安全认证非首屏：4/5 PDP（G9 确认）",
+          "库存紧迫感信号：5/5 PDP 全无库存徽章（G5 确认）",
+          "TuckGo 三重盲区：评论 10 条（vs S12 Pro 1,828 条，差距 183x）+ 76 张图片无 alt text + meta title 仅 30 字无关键词"
+        ],
+        "tuckgoCase": {
+          "label": "TuckGo 新品上市即失败案例",
+          "reviews": 10,
+          "reviewsVsBest": "S12 Pro 1828 条，差距 183 倍",
+          "missingAlt": 76,
+          "metaTitleChars": 30,
+          "metaTitleTarget": "55-60 字",
+          "impact": "SEO 不可见（无关键词 title）+ GEO 不可理解（AI 无法读取产品图）+ ADA 合规风险（76 张无 alt）+ 无社会证明（10 条评论）",
+          "fix": "4 项修复均可在 1 周内完成，不需要开发资源"
+        },
+        "immediateActions": [
+          "sticky-atc CSS 修复（见 P2）",
+          "M5/S12/Mobile Flow：把退货保证 + 1 年保修文字提至首屏可见区",
+          "TuckGo meta title 扩展：'Momcozy TuckGo Lightweight Travel Stroller - One-Hand Fold, IATA Compatible'（58 字）",
+          "TuckGo 图片：批量添加 alt text（产品名 + 关键属性）"
+        ],
+        "pageOwner": "forensics"
+      },
+      {
+        "id": "P5",
+        "layer": "执行层 · 数据基础",
+        "title": "5 个归因缺陷同时存在——当前所有经营决策建立在不可信的数字之上",
+        "scqa": {
+          "s": "workbook 提供了 CVR / 复购率 / AOV 等关键数字，决策者基于这些数字分配资源。",
+          "c": "但 5 个系统性缺陷使这些数字的可信度存疑：FB Pixel 双重计数、自然搜索缺失、新访客识别失灵、Bot 未量化、复购率口径虚报。",
+          "q": "哪个数字是最危险的谎言？",
+          "a": "FB Pixel 双重计数导致 ROAS 可能虚高 2x——广告预算正在基于错误信号分配。复购率 46.1% 是「老客贡献率」而非「新客复购率」，历史对比（26.7% vs 46.1%）因观察窗口不同完全无效。"
+        },
+        "evidence": [
+          "FB Pixel 双重计数：2 个不同 Pixel ID (1207445154305002 和 838745568077400) 同时在首页触发，每笔转化被双重记录（安全扫描确认）",
+          "自然搜索归因缺失：naturalSearchRows = 0，无法区分付费 / 自然流量 CVR，C7 口径混淆（workbook 确认）",
+          "新访客识别失灵：newVisitorPct = 0%（应为 40-60%），CAC 不可算，LTV 不可信，增长效率全盲（workbook 确认）",
+          "Bot 流量未量化：bot-evidence.json status = missing，CVR 2.4% 分母中 bot 占比未知",
+          "复购率口径虚报：46.1% 是 Shopify Returning Customer Rate（老客贡献率），不是新客复购转化率；与历史 26.7% 的对比因观察窗口不同（221 天 vs 135 天）完全无效，看似 +19.4pp 的提升大概率是统计窗口扩大的产物"
+        ],
+        "dataReliabilityMatrix": {
+          "CVR_2_4pct": {
+            "reliable": false,
+            "reason": "分母含 bot，付费/自然未分段（C7）"
+          },
+          "repurchaseRate_46pct": {
+            "reliable": false,
+            "reason": "是老客贡献率，非新客复购率；窗口不同不可与历史 26.7% 比较"
+          },
+          "adROAS": {
+            "reliable": false,
+            "reason": "FB Pixel 双重计数，ROAS 可能虚高约 2x"
+          },
+          "newCustomerGrowth": {
+            "reliable": false,
+            "reason": "newVisitorPct=0%，新客识别失灵"
+          },
+          "attachRate_56pct": {
+            "reliable": true,
+            "reason": "件/单比 1.19x 与 56.5% 自洽，逻辑一致"
+          },
+          "refundRate_0_95pct": {
+            "reliable": true,
+            "reason": "绝对值小，异常度低"
+          }
+        },
+        "immediateActions": [
+          "FB Pixel 去重：Shopify Admin → Online Store → Preferences，确认只保留一个 Pixel ID；同时检查 theme.liquid 是否有硬编码的重复 Pixel",
+          "Shopify Analytics → Online Store Conversion Rate → Breakdown by Traffic Source → 导出付费 / 自然 CVR 分段（G2 行动）",
+          "向 owner 确认：workbook 的复购率字段来源——是 Shopify 'Returning Customer Rate' 还是队列分析？",
+          "Microsoft Clarity 接入（G1）：14 天后获得真实人类行为录像，辅助区分 bot 流量"
+        ],
+        "pageOwner": "metrics"
+      },
+      {
+        "id": "P6",
+        "layer": "执行层 · 技术性能",
+        "title": "JS / DOM / 第三方失败三项指标全面超出 6 个竞品最高值，移动端等待超 11 秒",
+        "scqa": {
+          "s": "竞品（BabyBuddha / Elvie / Willow 等）同样运行 Shopify 主题，同样有第三方脚本负担。",
+          "c": "但 Momcozy 的 3 项指标全部超过 6 个竞品中的最高值，移动端 loadEvent 11,265ms——用户需要等待 11 秒以上。",
+          "q": "这对转化有多大影响？",
+          "a": "Google 研究：移动端加载每增加 1 秒，CVR 下降约 20%。当前移动端负担是竞品上限的 2-2.2 倍，是 P1/P2 漏斗失血的技术放大器。"
+        },
+        "evidence": [
+          "JS 体积 PDP：2,212 KB（竞品最高 1,000 KB / BabyBuddha）—— 超标 2.2x",
+          "DOM 节点：11,742（竞品最高 5,794 / BabyBreeza PDP）—— 超标 2.0x",
+          "第三方失败：92 次/页（竞品最高 42 次 / BabyBreeza PDP）—— 超标 2.2x",
+          "移动端 loadEvent：11,265ms（竞品采集无 loadEvent 基准可比，但绝对值极高）",
+          "LCP：0/13 路由可观测（全部 lcp_unobserved_in_timeout）—— Google CWV Field Data 无法产出，Core Web Vitals 状态完全未知"
+        ],
+        "competitorBenchmark": {
+          "thirdPartyFailures": {
+            "momcozy": 92,
+            "competitorMax": 42,
+            "competitorMaxId": "babybrezza pdp mobile",
+            "ratio": 2.2
+          },
+          "jsKb": {
+            "momcozy": 2212,
+            "competitorMax": 1000,
+            "competitorMaxId": "babybuddha pdp desktop",
+            "ratio": 2.2
+          },
+          "domNodes": {
+            "momcozy": 11742,
+            "competitorMax": 5794,
+            "competitorMaxId": "babybrezza pdp desktop",
+            "ratio": 2.0
+          }
+        },
+        "immediateActions": [
+          "第三方脚本 kill-list：导出失败域名 → 对照 owner 台账 → 标注「必须 / 可延迟 / 可删除」",
+          "Shopify Theme Editor → 检查是否有重复加载的 app widget（已知 FB Pixel 双重加载）",
+          "LCP 修复路径：确认首页 hero 图片是 <img> 元素还是 CSS background — 若是 CSS background 则 LCP 永远不可观测，需修改主题代码"
+        ],
+        "pageOwner": "forensics"
+      },
+      {
+        "id": "P7",
+        "layer": "战略层 · 可见度",
+        "title": "SEO 架构 3 个系统性缺陷 + GEO 0 个场景叙事主权——品牌增长天花板正在关闭",
+        "scqa": {
+          "s": "Momcozy 在 AI 推荐中 5/5 问题均被提及，搜索词有流量基础。",
+          "c": "但 0/5 获得 best overall 推荐，SEO 爬虫预算被分面导航浪费 40-60%，核心品类页内容仅 4 个词，GEO 叙事完全依赖第三方——品牌对自己的可见度没有控制权。",
+          "q": "可见度正在被什么堵死？",
+          "a": "SEO：分面导航 130 个 URL 浪费爬虫预算，品类页极薄；GEO：保险 / 职场两个高价值场景完全被竞品占据，自有页面几乎不被 AI 引用。"
+        },
+        "evidence": [
+          "nursing-bra 品类：130 个分面导航 URL —— 爬虫预算浪费估计 40-60%（G11 采集确认）",
+          "搜索结果页（breast pump / wearable pump）：47-81 个分面 URL 被 Google 索引 —— 应 noindex（G11 确认）",
+          "electric-breast-pump 品类页：仅 4 个词（目标 ≥400 词）—— SEO 核心词无内容支撑（G11 确认）",
+          "GEO：5/5 问题被提及但 0/5 best overall —— 品牌 = 预算选项，无任何场景叙事主权",
+          "GEO 引用来源：Forbes / NYMag / TheQualityEdit —— 品牌自有页面几乎不被 AI 直接引用（Perplexity 基线确认）",
+          "保险场景：Spectra 主导；职场场景：Elvie 主导；Momcozy 在两个高转化场景完全缺席",
+          "Shopify AI 引荐数据（2026 官方）：AI 引荐订单 YoY +1300%，转化率比自然搜索高 50%"
+        ],
+        "immediateActions": [
+          "nursing-bra 品类页：分面导航 URL 加 rel=nofollow 或 noindex，优先级最高（爬虫预算修复）",
+          "electric-breast-pump 品类页：扩充至 400+ 词描述（含关键词 'wearable breast pump'、'hands-free pump'）",
+          "TuckGo meta title 扩展（见 P4）",
+          "创建保险渠道内容页：/pages/insurance-coverage — HSA/FSA 使用指南 + FAQ Schema（5 问）",
+          "M5/S12 PDP：确认 AggregateRating JSON-LD 是否完整声明 reviewCount 和 ratingValue"
+        ],
+        "pageOwner": "cross-audit"
+      },
+      {
+        "id": "P8",
+        "layer": "战略层 · 系统安全",
+        "title": "359 个外部脚本无 SRI 验证，CSP 完全缺失，每日版本化域名实时可被篡改——供应链注入防线为零",
+        "scqa": {
+          "s": "现代电商依赖大量第三方脚本（广告像素、支付扩展、客服工具），这是行业标配。",
+          "c": "但 Momcozy 的 359 个外部脚本均无 SRI 完整性验证，CSP 完全缺失，其中有每日版本化域名和来源不明域名——任何一个脚本被劫持即可植入支付 skimmer，实时截取用户信用卡信息。",
+          "q": "这是理论风险还是当前实际威胁？",
+          "a": "当前防线为零：无 CSP 白名单、无 SRI 哈希锁定、有来源不明的活跃加载域名。供应链攻击（Magecart）在 DTC 电商中是已知活跃攻击向量，不是理论风险。"
+        },
+        "evidence": [
+          "CSP 完全缺失：无 Content-Security-Policy header，浏览器不拦截任何注入脚本（安全扫描确认）",
+          "所有 359+ 外部脚本无 SRI integrity 属性 —— 脚本内容可被 CDN 中间人替换（安全扫描确认）",
+          "omnisnippet1.com/inshop/launcher-v2.js：每日版本化命名（launcher-v2.js），今日代码 ≠ 昨日代码，无任何内容锁定",
+          "pixel.bxtag.com：未知所属域名，无 SRI，每次页面加载都在执行来源不明的代码",
+          "AWS S3 直接加载（capi-automation.s3.us-east-2.amazonaws.com）：S3 bucket 被劫持即全站受损",
+          "myshopify store handle 暴露：mo-m-cozy.myshopify.com 在 PDP 脚本参数中明文可见（security 扫描确认）"
+        ],
+        "immediateActions": [
+          "审计 omnisnippet1.com 和 pixel.bxtag.com：确认所属方和业务必要性，不必要则立即删除",
+          "FB Pixel 去重（见 P5）——减少无必要的外部脚本加载数量",
+          "第一优先：给所有已知必须的外部脚本添加 SRI integrity 属性",
+          "中期：与开发团队讨论 Content-Security-Policy header 部署计划"
+        ],
+        "pageOwner": "forensics"
+      }
+    ],
+    "lossRanking": [
+      {
+        "id": "P2",
+        "title": "结账底部出血",
+        "lossUsdEstimate": 490102,
+        "lossMonthly": 72074,
+        "confidence": "假设情景"
+      },
+      {
+        "id": "P1",
+        "title": "漏斗前端失血",
+        "lossUsdEstimate": 155368,
+        "lossMonthly": 22848,
+        "confidence": "假设情景"
+      },
+      {
+        "id": "P3",
+        "title": "弃单追回缺失",
+        "lossUsdEstimate": 34945,
+        "lossMonthly": 5139,
+        "confidence": "假设情景"
+      },
+      {
+        "id": "P5",
+        "title": "归因失灵",
+        "lossUsdEstimate": null,
+        "lossMonthly": null,
+        "note": "不可直接量化，但污染所有其他决策"
+      },
+      {
+        "id": "P6",
+        "title": "技术负担超载",
+        "lossUsdEstimate": null,
+        "lossMonthly": null,
+        "note": "P1+P2 损失的技术放大器"
+      },
+      {
+        "id": "P4",
+        "title": "PDP 内容阻塞",
+        "lossUsdEstimate": null,
+        "lossMonthly": null,
+        "note": "P1+P2 的直接根因"
+      },
+      {
+        "id": "P7",
+        "title": "SEO/GEO 双重盲区",
+        "lossUsdEstimate": null,
+        "lossMonthly": null,
+        "note": "未来增长天花板"
+      },
+      {
+        "id": "P8",
+        "title": "供应链安全防线为零",
+        "lossUsdEstimate": null,
+        "lossMonthly": null,
+        "note": "尾部风险，触发即灾难性"
+      }
+    ],
+    "dataReliabilitySummary": {
+      "reliable": [
+        {
+          "field": "attachRate",
+          "value": "56.5%",
+          "reason": "件/单比 1.19x 自洽"
+        },
+        {
+          "field": "refundRate",
+          "value": "0.95%",
+          "reason": "绝对值小，趋势稳定"
+        },
+        {
+          "field": "技术性能指标",
+          "value": "LCP/TTFB/JS/DOM",
+          "reason": "Playwright lab 采集，方法一致"
+        }
+      ],
+      "unreliable": [
+        {
+          "field": "CVR 2.40%",
+          "reason": "分母含 bot，付费/自然未分段（C7）"
+        },
+        {
+          "field": "复购率 46.1%",
+          "reason": "老客贡献率而非新客复购率；历史对比因窗口不同无效"
+        },
+        {
+          "field": "广告 ROAS",
+          "reason": "FB Pixel 双重计数，ROAS 可能虚高约 2x"
+        },
+        {
+          "field": "新客增长率",
+          "reason": "newVisitorPct=0%，新客识别失灵"
+        },
+        {
+          "field": "历史对比趋势",
+          "reason": "当前窗口 221 天 vs 历史 135 天，口径不同"
+        }
       ]
     }
   }

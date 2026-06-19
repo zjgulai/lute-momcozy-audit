@@ -3,9 +3,12 @@ import path from "node:path";
 
 import {page} from "./layout.mjs";
 import {
+  collectionBody,
   competitorsBody,
   crossAuditBody,
+  executionBody,
   forensicsBody,
+  frameworkBody,
   metricsBody,
   overviewBody,
   trendsBody
@@ -39,4 +42,7 @@ export function writeHistoryPages({outputDir, data, session}) {
   writePage(outputDir, "trends.html", "IV · 趋势证据 — Momcozy 洞察报告", "trends", trendsBody(data, session), metaDescription);
   writePage(outputDir, "cross-audit.html", "V · 决策矩阵 — Momcozy 洞察报告", "cross", crossAuditBody(data), metaDescription);
   writePage(outputDir, "competitors.html", "VI · 竞品对比 — Momcozy 洞察报告", "competitors", competitorsBody(data), metaDescription);
+  writePage(outputDir, "framework.html", "VII · 360 框架全景 — Momcozy 洞察报告", "framework", frameworkBody(data), metaDescription);
+  writePage(outputDir, "collection.html", "VIII · 采集管理 — Momcozy 洞察报告", "collection", collectionBody(data, session), metaDescription);
+  writePage(outputDir, "execution.html", "IX · 执行战单 — Momcozy 洞察报告", "execution", executionBody(data), metaDescription);
 }
