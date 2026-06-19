@@ -235,7 +235,7 @@ function valueScreenRows(data) {
   const verdictByDimension = {
     "第三方脚本治理": {
       decision: "补回主线",
-      reason: "Momcozy 第三方失败 92 vs 竞品上限 42，差距足以改变 P0 排序。",
+      reason: "Momcozy 第三方失败 92 vs 竞品新上限 23（eufy，10竞品数据），超标 4.0x；重脚本不是品类宿命（Medela JS仅176KB）。",
       action: "进入 kill-list、owner、加载时机和失败预算。"
     },
     "PDP 行动路径": {
@@ -875,7 +875,7 @@ export function competitorDecisionSection(data) {
         <p class="section__sub">Momcozy 已经高过竞品上限。继续讨论“是否有问题”会浪费时间；下一步要把竞品上限变成脚本预算、PDP 复采队列和回滚条件。</p>
       </div>
       <div class="route-grid">
-        <div class="route-card"><h3>第三方失败预算</h3><p>总第三方失败不得继续高于竞品上限 42；保留超过上限的脚本必须有 owner、用途和不可替代理由。</p></div>
+        <div class="route-card"><h3>第三方失败预算</h3><p>总第三方失败不得继续高于竞品上限 23（eufy，10竞品新基准）；保留超过上限的脚本必须有 owner、用途和不可替代理由。</p></div>
         <div class="route-card"><h3>PDP 模板队列</h3><p>M5、Mobile Flow、S12 Pro 等高风险 PDP 先复跑，不再用单 PDP 或首页数据代表商品详情页。</p></div>
         <div class="route-card"><h3>竞品对比边界</h3><p>当前样本只支持公开页面技术上限，不支持收入、SEO、真实 checkout 或品牌胜负结论。</p></div>
       </div>
