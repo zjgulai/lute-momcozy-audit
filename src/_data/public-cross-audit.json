@@ -2116,7 +2116,8 @@
           "abandonedRecoveryRate = 0%（workbook 字段确认）",
           "couponUseRate = 0%（没有任何优惠券被使用——配置未启用或用户无感知）",
           "结账未购买用户：5,281 个/周期，全部无追回触达",
-          "KOL/affiliate 专属追踪码状态未知（couponUseRate=0 无法区分是否有运作）"
+          "KOL/affiliate 专属追踪码状态未知（couponUseRate=0 无法区分是否有运作）",
+          "财务数据（2025-11~2026-05）：月均销售 $862万，按弃单率 26.7% × 行业追回率 7.5% 估算，每月可追回 $17.3万——当前追回率 0% 意味着全部放弃"
         ],
         "lossEstimate": {
           "scenario": "行业弃单邮件追回率 5-10%，264-528 笔/周期",
@@ -2125,7 +2126,11 @@
           "monthly_usd_low": 3426,
           "monthly_usd_high": 6852,
           "confidence": "假设情景，需 Klaviyo 接入后验证",
-          "benchmark_source": "Klaviyo 弃单序列行业均值"
+          "benchmark_source": "Klaviyo 弃单序列行业均值",
+          "financialDataBacked": true,
+          "monthlyPotentialUsd": 172678,
+          "annualPotentialUsd": 2072132,
+          "dataSource": "Shopify 7个月财务明细，月均销售额 $862万"
         },
         "immediateActions": [
           "Klaviyo → Flows → Abandoned Checkout → 确认是否有激活的序列",
@@ -2184,7 +2189,9 @@
           "自然搜索归因缺失：naturalSearchRows = 0，无法区分付费 / 自然流量 CVR，C7 口径混淆（workbook 确认）",
           "新访客识别失灵：newVisitorPct = 0%（应为 40-60%），CAC 不可算，LTV 不可信，增长效率全盲（workbook 确认）",
           "Bot 流量未量化：bot-evidence.json status = missing，CVR 2.4% 分母中 bot 占比未知",
-          "复购率口径虚报：46.1% 是 Shopify Returning Customer Rate（老客贡献率），不是新客复购转化率；与历史 26.7% 的对比因观察窗口不同（221 天 vs 135 天）完全无效，看似 +19.4pp 的提升大概率是统计窗口扩大的产物"
+          "复购率口径虚报：46.1% 是 Shopify Returning Customer Rate（老客贡献率），不是新客复购转化率；与历史 26.7% 的对比因观察窗口不同（221 天 vs 135 天）完全无效，看似 +19.4pp 的提升大概率是统计窗口扩大的产物",
+          "财务数据：7个月广告费 $7,426万，月均 $1,061万。FB Pixel 双重计数已确认，保守估计 5% 归因丢失 = 每月 $53万 广告费无法正确归因",
+          "财务数据：99% 的订单伴随 >30% 折扣（月均促销折扣 $1,050万），意味着 CVR 2.4% 是大幅打折条件下的转化，无折扣条件下的真实 CVR 未知"
         ],
         "dataReliabilityMatrix": {
           "CVR_2_4pct": {
@@ -2218,7 +2225,15 @@
           "向 owner 确认：workbook 的复购率字段来源——是 Shopify 'Returning Customer Rate' 还是队列分析？",
           "Microsoft Clarity 接入（G1）：14 天后获得真实人类行为录像，辅助区分 bot 流量"
         ],
-        "pageOwner": "metrics"
+        "pageOwner": "metrics",
+        "lossEstimate": {
+          "scenario": "FB Pixel 归因丢失（5% 保守估计）：每月 $53万广告费无法归因，导致投放策略基于错误信号分配资源",
+          "monthlyLossUsd": 530449,
+          "annualLossUsd": 6365394,
+          "confidence": "假设情景，FB Pixel 双重计数已确认，5% 为保守估计",
+          "dataSource": "Shopify 7个月财务明细",
+          "financialDataBacked": true
+        }
       },
       {
         "id": "P6",
@@ -2236,7 +2251,9 @@
           "Medela JS 仅 176KB — 母婴品类全球最大品牌比 Momcozy 轻 12.6x，证明'重脚本'不是品类宿命",
           "Freemie（Momcozy 的预算替代竞品）DOM 仅 1,090：用户选 Freemie 因为便宜，但 Freemie 网站比 Momcozy 快 10x",
           "3 个竞品（Spectra/BEABA/BabyBreeza）PDP 返回 503——已部署 bot 防护；Momcozy 无任何防护，价格情报爬虫可自由采集",
-          "移动端 loadEvent 11,265ms——用户等待超 11 秒（竞品无同口径基准可比，但绝对值极高）"
+          "移动端 loadEvent 11,265ms——用户等待超 11 秒（竞品无同口径基准可比，但绝对值极高）",
+          "财务数据：2月广告率降至 103%（vs 1月 132%），净利率从 25.7% 跳至 86.2%——广告率每降 10pp 净利率约提升 25pp，是所有指标中最直接的利润杠杆",
+          "财务数据：欧洲（法/德/英）广告率 101-102%，美国 135.6%，差距 34pp。月均美国广告费 $384万，若广告率降至 EU 水平，月均可节省 $131万"
         ],
         "competitorBenchmark": {
           "thirdPartyFailures": {
@@ -2269,6 +2286,10 @@
             "momcozy": 2212,
             "ratio": 12.6,
             "insight": "全球最大母婴品牌Medela仅用176KB JS，重脚本不是品类宿命"
+          },
+          "financialContext": {
+            "implication": "Momcozy 超出竞品上限的 3P 失败（92 vs 23 次）导致广告脚本持续失败，归因数据污染，广告系统无法优化投放 → 广告效率低下 → 广告率居高不下",
+            "monthlyAdWaste": 530449
           }
         },
         "immediateActions": [
@@ -2281,7 +2302,8 @@
           "eufy是Momcozy技术负担最接近的竞品（DOM 6966），但仍是Momcozy的1.7x",
           "Freemie（预算替代）DOM仅1090，网站比Momcozy快10倍，'便宜'竞品在体验上反而占优",
           "Medela JS仅176KB，颠覆'母婴品类必然重脚本'的假设",
-          "3P失败超出竞品上限从2.2x升级为4.0x（用10竞品数据重算）"
+          "3P失败超出竞品上限从2.2x升级为4.0x（用10竞品数据重算）",
+          "月度数据证明：11-12月广告率141-145%时净亏损，2-3月广告率降至103-107%时净利率86-94%——技术负担（3P失败92次）是广告率无法压缩的结构性原因之一"
         ]
       },
       {
@@ -2301,7 +2323,9 @@
           "GEO：5/5 问题被提及但 0/5 best overall —— 品牌 = 预算选项，无任何场景叙事主权",
           "GEO 引用来源：Forbes / NYMag / TheQualityEdit —— 品牌自有页面几乎不被 AI 直接引用（Perplexity 基线确认）",
           "保险场景：Spectra 主导；职场场景：Elvie 主导；Momcozy 在两个高转化场景完全缺席",
-          "Shopify AI 引荐数据（2026 官方）：AI 引荐订单 YoY +1300%，转化率比自然搜索高 50%"
+          "Shopify AI 引荐数据（2026 官方）：AI 引荐订单 YoY +1300%，转化率比自然搜索高 50%",
+          "财务数据：非US销售已占 55.4%（$3,345万）。欧洲广告率仅 101%，比美国低 34pp；若美国通过 SEO/GEO 将广告率降至 EU 水平，月均节省广告费 $131万（年化 $1,568万）",
+          "财务数据：HU（匈牙利）毛利率 166.3% / 广告率 66%，IE（爱尔兰）毛利率 141% / 广告率 80%——低竞争欧洲小市场具有极高效率，GEO 内容投资回报率最高"
         ],
         "immediateActions": [
           "nursing-bra 品类页：分面导航 URL 加 rel=nofollow 或 noindex，优先级最高（爬虫预算修复）",
@@ -2310,7 +2334,15 @@
           "创建保险渠道内容页：/pages/insurance-coverage — HSA/FSA 使用指南 + FAQ Schema（5 问）",
           "M5/S12 PDP：确认 AggregateRating JSON-LD 是否完整声明 reviewCount 和 ratingValue"
         ],
-        "pageOwner": "cross-audit"
+        "pageOwner": "cross-audit",
+        "lossEstimate": {
+          "scenario": "若美国市场通过 SEO/GEO 将广告率从 135.6% 降至 EU 水平 101.4%，每月节省广告费",
+          "monthlyPotentialUsd": 1306933,
+          "annualPotentialUsd": 15683196,
+          "confidence": "假设情景，需 SEO/GEO 内容投入 + 执行周期 6-12 个月",
+          "dataSource": "Shopify 7个月财务明细",
+          "financialDataBacked": true
+        }
       },
       {
         "id": "P8",
@@ -2851,5 +2883,289 @@
         "summary": "等待 G2 分渠道 CVR + Search Console"
       }
     }
-  ]
+  ],
+  "financialEvidence": {
+    "source": "Momcozy Shopify 独立站财务数据",
+    "file": "raw_data/momcozy_shopify202512-202605.xlsx",
+    "windowMonths": 7,
+    "window": "2025-11 → 2026-05",
+    "dataRows": 87475,
+    "dataNote": "SKU×月×国家明细，含完整 P&L（销售→采购→广告→折扣→毛利→净利）",
+    "caveat": "所有财务测算为假设情景，基于历史数据推算，需实验验证后方可作为决策承诺",
+    "summary": {
+      "totalSalesUsd": 60361739,
+      "totalSalesUsdFormatted": "$6,036万",
+      "monthlyAvgSalesUsd": 8623105,
+      "monthlyAvgSalesFormatted": "$862万/月",
+      "totalQty": 736088,
+      "totalNetMargin": 22728489,
+      "netMarginRate": 37.7,
+      "totalAdSpend": 74262915,
+      "adToSalesRate": 123.0,
+      "totalDiscount": 73523208,
+      "discountToSalesRate": 121.8,
+      "highDiscountOrderShare": 99.0,
+      "insight": "净利率 37.7% 建立在 99% 高折扣率和 123% 广告/销售比之上——广告费是第一利润杠杆"
+    },
+    "monthlyTrend": [
+      {
+        "month": "202511",
+        "salesUsd": 9419834,
+        "netMarginRate": -0.9,
+        "adRate": 141.9,
+        "note": "战略性亏损期，冲量积累评论"
+      },
+      {
+        "month": "202512",
+        "salesUsd": 8260590,
+        "netMarginRate": -46.0,
+        "adRate": 145.6,
+        "note": "最大亏损月，广告效率最低"
+      },
+      {
+        "month": "202601",
+        "salesUsd": 7428930,
+        "netMarginRate": 25.7,
+        "adRate": 132.5,
+        "note": "复苏期"
+      },
+      {
+        "month": "202602",
+        "salesUsd": 8163805,
+        "netMarginRate": 86.2,
+        "adRate": 103.1,
+        "note": "利润跃升，广告率降至103%"
+      },
+      {
+        "month": "202603",
+        "salesUsd": 10350008,
+        "netMarginRate": 94.5,
+        "adRate": 106.7,
+        "note": "最佳月：销售额最高 + 净利率94.5%"
+      },
+      {
+        "month": "202604",
+        "salesUsd": 6635444,
+        "netMarginRate": 31.9,
+        "adRate": 122.5,
+        "note": "低谷期"
+      },
+      {
+        "month": "202605",
+        "salesUsd": 10103127,
+        "netMarginRate": 57.0,
+        "adRate": 113.2,
+        "note": "强劲回升"
+      }
+    ],
+    "keyInsight_adLeverage": {
+      "title": "广告率每降 10pp = 净利率提升约 25pp",
+      "evidence": "2月广告率从1月132%降至103%，净利率从25.7%跳至86.2%",
+      "implication": "广告归因质量是最直接的利润杠杆，第三方脚本失败导致的归因损失具有真实财务代价"
+    },
+    "topProducts": [
+      {
+        "spu": "BS03全自动清洗消毒器",
+        "salesUsd": 10762501,
+        "qty": 33853,
+        "avgPriceUsd": 318,
+        "marginRate": 61.6,
+        "adRate": 130.1,
+        "role": "流量主机，配件利润入口"
+      },
+      {
+        "spu": "BS03洗涤块",
+        "salesUsd": 1004651,
+        "qty": 39034,
+        "avgPriceUsd": 26,
+        "marginRate": 173.3,
+        "role": "刀片耗材，高毛利复购"
+      },
+      {
+        "spu": "M6吸奶器",
+        "salesUsd": 3216234,
+        "qty": 12834,
+        "avgPriceUsd": 251,
+        "marginRate": 160.9,
+        "role": "稳定主力"
+      },
+      {
+        "spu": "M5 Smart吸奶器",
+        "salesUsd": 1276866,
+        "qty": 5966,
+        "avgPriceUsd": 214,
+        "marginRate": 210.6,
+        "role": "新星，2-4月爆发，最高毛利率"
+      },
+      {
+        "spu": "M5吸奶器",
+        "salesUsd": 2679686,
+        "qty": 13309,
+        "avgPriceUsd": 201,
+        "marginRate": 136.2,
+        "trend": "急剧衰退（$713K→$10K）",
+        "role": "末期清库"
+      },
+      {
+        "spu": "S系列组合配件",
+        "salesUsd": 239934,
+        "qty": 9029,
+        "avgPriceUsd": 27,
+        "marginRate": 271.6,
+        "role": "配件高毛利"
+      }
+    ],
+    "categoryMatrix": [
+      {
+        "cat1": "电子电器",
+        "salesUsd": 31540182,
+        "marginRate": 104.2,
+        "adRate": 123.8,
+        "note": "销售主力"
+      },
+      {
+        "cat1": "配件",
+        "salesUsd": 3737817,
+        "marginRate": 194.6,
+        "adRate": 124.7,
+        "note": "隐藏利润奶牛，配件毛利率最高达314%"
+      },
+      {
+        "cat1": "母婴电器",
+        "salesUsd": 6115410,
+        "marginRate": 117.5,
+        "adRate": 112.0,
+        "note": "高效品类"
+      },
+      {
+        "cat1": "服纺",
+        "salesUsd": 6573081,
+        "marginRate": 113.8,
+        "adRate": 126.6,
+        "note": "走量但广告贵"
+      },
+      {
+        "cat1": "家纺",
+        "salesUsd": 6056588,
+        "marginRate": 83.1,
+        "adRate": 120.7,
+        "note": "表现偏弱"
+      }
+    ],
+    "geoAnalysis": {
+      "usSalesUsd": 26907439,
+      "usShare": 44.6,
+      "nonUsSalesUsd": 33454300,
+      "nonUsShare": 55.4,
+      "insight": "非US已超过US（55.4% vs 44.6%），且欧洲广告效率远高于美国",
+      "countries": [
+        {
+          "country": "US",
+          "salesUsd": 26907439,
+          "marginRate": 105.8,
+          "adRate": 135.6,
+          "note": "广告率最高，竞争激烈"
+        },
+        {
+          "country": "FR",
+          "salesUsd": 6208200,
+          "marginRate": 123.5,
+          "adRate": 101.5,
+          "note": "高效市场"
+        },
+        {
+          "country": "DE",
+          "salesUsd": 4802303,
+          "marginRate": 109.8,
+          "adRate": 101.7,
+          "note": "高效市场"
+        },
+        {
+          "country": "UK",
+          "salesUsd": 3109053,
+          "marginRate": 129.8,
+          "adRate": 100.9,
+          "note": "最高效主流市场"
+        },
+        {
+          "country": "SG",
+          "salesUsd": 458485,
+          "marginRate": 143.8,
+          "adRate": 82.5,
+          "note": "极高效小市场"
+        },
+        {
+          "country": "HU",
+          "salesUsd": 245916,
+          "marginRate": 166.3,
+          "adRate": 66.0,
+          "note": "最高毛利率"
+        }
+      ],
+      "euVsUsAdGap": 34.2
+    },
+    "financialArguments": {
+      "P3_cartRecovery": {
+        "problemId": "P3",
+        "title": "弃单追回缺失 = 每月 $17.3万 可追回收入被白白放弃",
+        "calculation": "月均销售 $862万 × 弃单率 26.7% × 行业追回率 7.5%",
+        "monthlyPotentialUsd": 172678,
+        "annualPotentialUsd": 2072132,
+        "currentRecoveryRate": 0.0,
+        "benchmarkRecoveryRate": "5-10%（Klaviyo 行业均值）",
+        "confidence": "假设情景，基于行业基准"
+      },
+      "P5_adAttributionLoss": {
+        "problemId": "P5",
+        "title": "广告归因失真 = 每月 $53万 广告费打水漂",
+        "calculation": "月均广告费 $1,061万 × 保守估计 5% 归因丢失（3P失败92次/页）",
+        "monthlyAdSpend": 10608988,
+        "estimatedLossRate": 0.05,
+        "monthlyLossUsd": 530449,
+        "annualLossUsd": 6365394,
+        "keyEvidence": "FB Pixel双重计数 + 3P失败92次 → 每次失败=一次归因污染",
+        "confidence": "假设情景，FB Pixel双重计数已确认，5%归因丢失为保守估计"
+      },
+      "P6_euAdEfficiency": {
+        "problemId": "P6",
+        "title": "欧洲广告效率优势 = 美国若达到EU水平，月均节省 $130万广告费",
+        "usMonthlyAdSpend": 3843920,
+        "usAdRate": 135.6,
+        "euAvgAdRate": 101.4,
+        "adRateGap": 34.2,
+        "potentialMonthlySavingUsd": 1306933,
+        "potentialAnnualSavingUsd": 15683196,
+        "evidence": "2月广告率降至103%，净利率从25%跳至86%，证明广告率是利润核心杠杆",
+        "confidence": "假设情景，EU效率基于历史数据，美国广告率降低路径需SEO/GEO协同"
+      },
+      "P7_geoUnderspend": {
+        "problemId": "P7",
+        "title": "GEO/SEO 投入不足 = 欧洲 $3,345万 销售额的增长天花板未被突破",
+        "euTotalSalesUsd": 33454300,
+        "euMonthlyAvgUsd": 4779186,
+        "euShare": 55.4,
+        "euAdEfficiencyAdvantage": "广告率比美国低 34pp，相同广告投入下净利高约 25-30pp",
+        "lostOpportunityNote": "保险渠道/职场场景两个高价值场景中 Momcozy 缺席，这两个场景集中在欧美市场",
+        "confidence": "基于实际财务数据，GEO改善潜力为定性估计"
+      },
+      "BS03_ltvModel": {
+        "title": "BS03 剃刀+刀片模式：单机月均带动耗材消费 $4.24",
+        "bs03UnitsSold": 33853,
+        "bladeRevenue7m": 1004651,
+        "bladePerUnit7m": 29.7,
+        "bladeMonthlyPerUnit": 4.24,
+        "bladeMarginRate": 173.3,
+        "insight": "BS03主机毛利率仅61.6%，但洗涤块毛利率173.3%。每增加1台BS03存量 = 每月 $4.24 × 173.3% = $7.34 净利贡献",
+        "missingData": "G3 LTV 队列数据缺失，无法确认真实复购率，是当前最大业务盲区"
+      },
+      "discountStructure": {
+        "title": "99% 订单高折扣 = 当前 CVR 2.4% 是打折条件下的结果，自然流量真实 CVR 更低",
+        "highDiscountOrderShare": 99.0,
+        "avgDiscountRate": 121.8,
+        "implication": "C7 口径问题比已知更严重：不仅付费/自然流量混淆，有折扣/无折扣的 CVR 差异也未被计量",
+        "monthlyDiscountUsd": 10503316,
+        "note": "促销折扣每月 $1,050万，高于月均广告费。折扣是隐性的获客成本，应与广告费合并看待真实 CAC"
+      }
+    }
+  }
 }
