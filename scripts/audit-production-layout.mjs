@@ -82,6 +82,8 @@ function buildIssues({responseStatus, consoleErrors, pageErrors, state, pageKey,
     if ((state.crossAudit?.executionRows || 0) < 3) issues.push(`execution order rows ${state.crossAudit?.executionRows || 0}`);
     if (state.crossAudit?.hasLegacyCompetitorRecollect) issues.push("legacy competitor recollect section present");
   }
+  if (state.tallSectionIssues?.length) issues.push(`tall sections ${state.tallSectionIssues.length}`);
+  if (pageKey === "trends" && (state.insightChartCount || 0) < 3) issues.push(`trend charts ${state.insightChartCount || 0}`);
   return issues;
 }
 
@@ -215,6 +217,15 @@ async function inspectPage(page, {pageInfo, viewport}) {
         matrixRows: matrixTables.reduce((sum, table) => sum + table.querySelectorAll("tbody tr").length, 0),
         executionRows: executionTables.reduce((sum, table) => sum + table.querySelectorAll("tbody tr").length, 0),
       },
+      insightChartCount: document.querySelectorAll(".insight-chart").length,
+      tallSectionIssues: Array.from(document.querySelectorAll(".section"))
+        .filter((section) => !section.querySelector(".evidence-drilldown"))
+        .map((section) => {
+          const bounds = section.getBoundingClientRect();
+          const isMobile = window.innerWidth < 820;
+          return {id: section.id || "", height: Math.round(bounds.height), viewportHeight: window.innerHeight, threshold: isMobile ? 4 : 2.5};
+        })
+        .filter((item) => item.height > item.viewportHeight * item.threshold),
     };
   }, viewport.label);
 

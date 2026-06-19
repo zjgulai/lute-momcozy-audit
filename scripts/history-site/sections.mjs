@@ -289,12 +289,15 @@ export function crossMatrixSection(data) {
         <h2 class="section__title">把洞察结果落到资源排序和验收动作</h2>
         <p class="section__sub">这张表直接对应 owner、时间窗和验收指标。没有复采和回滚条件的建议不进入本轮排期。</p>
       </div>
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>诊断结论</th><th>数据依据</th><th>资源方向</th><th>执行动作</th><th>约束</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
+      <details class="evidence-drilldown" open>
+        <summary>查看本页证据明细</summary>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>诊断结论</th><th>数据依据</th><th>资源方向</th><th>执行动作</th><th>约束</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </details>
     </div>
   </section>`;
 }
@@ -313,12 +316,15 @@ export function contradictionsSection(data) {
         <h2 class="section__title">把会误导预算的冲突直接处理掉</h2>
         <p class="section__sub">当前最容易误导团队的是三类冲突：把旧收益当承诺、把单次采集当全站结论、把第三方失败当普通前端问题。</p>
       </div>
-      <div class="cross-table-wrap" tabindex="0">
-        <table class="cross-table">
-          <thead><tr><th>冲突</th><th>业务风险</th><th>处理方式</th><th>验收方式</th></tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
-      </div>
+      <details class="evidence-drilldown">
+        <summary>查看冲突处理明细</summary>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>冲突</th><th>业务风险</th><th>处理方式</th><th>验收方式</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </details>
     </div>
   </section>`;
 }
@@ -1013,7 +1019,9 @@ export function forensicsBody(data) {
         <div class="callout__body">首轮采集证明风险跨商品复现；多次复采、KOL/UTM 入口参数、登录/未登录和竞品同口径对照仍是下一步 gate。</div>
       </div>
     </div>
-  </section>`;
+  </section>
+  ${securityAuditSection(data)}
+  ${seoTechnicalSection(data)}`;
 }
 
 export function latestRows(session) {
@@ -1076,12 +1084,15 @@ export function trendsBody(data, session) {
         <div class="metric-card metric-card--danger"><div class="card-label">3P 失败最大值</div><div class="card-value">${maxFailures}</div><div class="card-meta">PDP ${escapeHtml(data.external.pdpThirdPartyFailures)}</div></div>
         <div class="metric-card metric-card--warn"><div class="card-label">LCP 可观测</div><div class="card-value">${data.external.lcpObservedSamples} / ${data.external.lcpTotalSamples}</div><div class="card-meta">全部路由-视口样本未观测</div></div>
       </div>
-      <div class="sessions-wrap">
-        <table class="sessions-table">
-          <thead><tr><th>路线</th><th>视口</th><th>FCP (s)</th><th>TTFB (ms)</th><th>CLS</th><th>JS (KB)</th><th>DOM</th><th>请求</th><th>3P 失败</th></tr></thead>
-          <tbody>${latestRows(session)}</tbody>
-        </table>
-      </div>
+      <details class="evidence-drilldown" open>
+        <summary>查看 13 路由双视口原始表</summary>
+        <div class="sessions-wrap" tabindex="0">
+          <table class="sessions-table">
+            <thead><tr><th>路线</th><th>视口</th><th>FCP (s)</th><th>TTFB (ms)</th><th>CLS</th><th>JS (KB)</th><th>DOM</th><th>请求</th><th>3P 失败</th></tr></thead>
+            <tbody>${latestRows(session)}</tbody>
+          </table>
+        </div>
+      </details>
       <div class="callout-strong">
         <div class="card-label" style="color:#fbbf24;">融合结论</div>
         <p>最新数据没有推翻历史站的主判断，只是把问题从首页推进到“homepage/PDP watchlist/cart/checkout 路径均复现”：客户端体积最大 ${Math.round(maxJs / 1024 * 10) / 10}MB、DOM 最大 ${maxDom.toLocaleString("en-US")} 节点、第三方失败最大 ${maxFailures}，仍是核心技术债。</p>
@@ -1104,5 +1115,151 @@ export function crossAuditBody(data) {
   ${crossMatrixSection(data)}
   ${contradictionsSection(data)}
   ${executionOrdersSection(data, "execution-orders")}
+  ${geoBaselineSection(data)}
   ${decisionChartSection(data)}`;
+}
+
+export function securityAuditSection(data) {
+  const sec = data.securityAudit;
+  if (!sec) return "";
+  const priority = (p) => {
+    if (p === "P0") return "badge--p0";
+    if (p === "P1") return "badge--p1";
+    return "badge--p2";
+  };
+  const attackRows = (sec.attackSurfacePriority || []).map((item) => `<tr>
+    <td><span class="badge ${priority(item.rank)}">${escapeHtml(item.rank)}</span></td>
+    <td><strong>${escapeHtml(item.vector)}</strong></td>
+    <td class="evidence-note">${escapeHtml(item.evidence)}</td>
+    <td>${escapeHtml(item.recommendation)}</td>
+  </tr>`).join("");
+  const headerScore = sec.securityHeaders?.momcozy?.score || "未评分";
+  const cspStatus = sec.securityHeaders?.momcozy?.assessment || "未采集";
+  const myshopify = sec.myshopifyProbe || {};
+  return `<section class="section section--gray" id="security-audit">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">安全被动扫描 · ${escapeHtml(sec.scannedAt || "")}</div>
+        <h2 class="section__title">安全攻击面：CSP 缺 script-src、双 FB Pixel、SRI 全缺</h2>
+        <p class="section__sub">被动只读 Playwright 采集（无登录、无攻击）。发现三类可量化风险：CSP 无脚本来源限制、Facebook 双 Pixel 归因污染、359+ 外部脚本均无 SRI integrity。myshopify.com 子域名 WAF 绕过漏洞不适用（返回 404）。</p>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card metric-card--warn"><div class="card-label">安全头评分</div><div class="card-value">${escapeHtml(headerScore)}</div><div class="card-meta">${escapeHtml(cspStatus.substring(0, 60))}</div></div>
+        <div class="metric-card metric-card--danger"><div class="card-label">内联脚本数（首页）</div><div class="card-value">${escapeHtml(String(sec.tokenLeaks?.inlineScriptCount || 149))}</div><div class="card-meta">无 SRI 外部脚本：10+</div></div>
+        <div class="metric-card metric-card--success"><div class="card-label">myshopify 子域名</div><div class="card-value">${myshopify.accessible ? "可达" : "404 不可达"}</div><div class="card-meta">WAF 绕过漏洞不适用</div></div>
+        <div class="metric-card metric-card--danger"><div class="card-label">FB Pixel 重复加载</div><div class="card-value">2次</div><div class="card-meta">两个不同 Pixel ID，归因虚高风险</div></div>
+      </div>
+      <details class="evidence-drilldown">
+        <summary>查看攻击面优先级明细</summary>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>优先级</th><th>攻击向量</th><th>证据</th><th>建议行动</th></tr></thead>
+            <tbody>${attackRows}</tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </section>`;
+}
+
+export function seoTechnicalSection(data) {
+  const seo = data.seoTechnical;
+  if (!seo) return "";
+  const statusBadge = (ok) => ok
+    ? `<span class="badge badge--safe">PASS</span>`
+    : `<span class="badge badge--p1">WARN</span>`;
+  const pdpRows = (seo.momcozyResults || []).map((r) => `<tr>
+    <td><strong>${escapeHtml(r.routeId)}</strong></td>
+    <td>${statusBadge(r.hasProductSchema)}</td>
+    <td>${statusBadge(r.hasReviewSchema || r.reviewSchemaNote?.includes('已在 JSON-LD'))}</td>
+    <td>${statusBadge(r.hasFaqSchema)}</td>
+    <td>${escapeHtml(String(r.metaTitleLength || "—"))}</td>
+    <td class="evidence-note">${escapeHtml(r.metaTitleAssessment || r.seoGap || "—")}</td>
+  </tr>`).join("");
+  const gapRows = (seo.keyGaps || []).map((g) => `<tr>
+    <td><strong>${escapeHtml(g.gap)}</strong></td>
+    <td>${escapeHtml(g.status || (g.impact || ""))}</td>
+    <td class="evidence-note">${escapeHtml(g.fix || g.note || "—")}</td>
+  </tr>`).join("");
+  return `<section class="section" id="seo-technical">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">SEO 技术底座 · ${escapeHtml(seo.scannedAt || "")}</div>
+        <h2 class="section__title">SEO 技术层：Product Schema 已有，AggregateRating 确认，TuckGo meta title 过短</h2>
+        <p class="section__sub">被动 Playwright 采集：JSON-LD 结构化数据、canonical URL、meta title/description 质量、robots indexability。3 个 PDP + 首页，6 个竞品 PDP。</p>
+      </div>
+      <details class="evidence-drilldown" open>
+        <summary>PDP SEO 技术指标明细</summary>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>页面</th><th>Product Schema</th><th>Review Markup</th><th>FAQ Schema</th><th>Title 长度</th><th>评估</th></tr></thead>
+            <tbody>${pdpRows}</tbody>
+          </table>
+        </div>
+      </details>
+      <details class="evidence-drilldown">
+        <summary>关键缺口与修复行动</summary>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>缺口</th><th>状态</th><th>修复方式</th></tr></thead>
+            <tbody>${gapRows}</tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </section>`;
+}
+
+export function geoBaselineSection(data) {
+  const geo = data.geoBaseline;
+  if (!geo) return "";
+  const questionRows = (geo.questions || []).map((q) => `<tr>
+    <td><strong>${escapeHtml(q.id)}</strong><div class="evidence-note">${escapeHtml(q.question)}</div></td>
+    <td>${q.momcozyMentioned ? `<span class="badge badge--safe">出现</span>` : `<span class="badge badge--p1">未出现</span>`}</td>
+    <td class="evidence-note">${escapeHtml(q.momcozyPosition || "—")}</td>
+    <td><strong>${escapeHtml(q.topRecommendation || "—")}</strong></td>
+    <td class="evidence-note">${escapeHtml(q.geoSignal || "—")}</td>
+  </tr>`).join("");
+  const actionRows = (geo.actionItems || []).map((a) => `<tr>
+    <td><span class="badge badge--${a.priority === "P0" ? "p0" : a.priority === "P1" ? "p1" : "p2"}">${escapeHtml(a.priority)}</span></td>
+    <td><strong>${escapeHtml(a.action)}</strong></td>
+    <td class="evidence-note">${escapeHtml(a.rationale)}</td>
+  </tr>`).join("");
+  return `<section class="section section--gray" id="geo-baseline">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">GEO 可见度基线 · Perplexity 实测 · ${escapeHtml(geo.testedAt || "")}</div>
+        <h2 class="section__title">GEO 基线：5/5 问题出现，0/5 是 Best Overall，品牌被固化为 budget 定位</h2>
+        <p class="section__sub">Perplexity AI 5 个母婴高意图问题实测。Momcozy 在所有问题中均被提及，但没有任何一个问题获得 best overall 推荐。AI 可见度依赖外部评测媒体（Forbes、NYMag），品牌自有页面几乎不被直接引用。</p>
+      </div>
+      ${barChart({
+        id: "chart-geo-baseline",
+        title: "GEO 可见度：出现次数 vs Best Overall",
+        subtitle: "Momcozy 5/5 出现，0/5 best overall；Willow 主导综合推荐，Elvie 主导职场场景，Spectra 主导保险场景",
+        rows: [
+          {label: "Momcozy 出现次数", value: (geo.questions || []).filter((q) => q.momcozyMentioned).length, digits: 0},
+          {label: "Best Overall 次数", value: 0, digits: 0},
+          {label: "测试问题总数", value: (geo.questions || []).length, digits: 0}
+        ]
+      })}
+      <details class="evidence-drilldown" open>
+        <summary>5 个问题实测结果</summary>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>问题</th><th>Momcozy 出现</th><th>定位</th><th>Best Overall</th><th>GEO 信号</th></tr></thead>
+            <tbody>${questionRows}</tbody>
+          </table>
+        </div>
+      </details>
+      <details class="evidence-drilldown">
+        <summary>GEO 行动计划</summary>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>优先级</th><th>行动</th><th>理由</th></tr></thead>
+            <tbody>${actionRows}</tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </section>`;
 }

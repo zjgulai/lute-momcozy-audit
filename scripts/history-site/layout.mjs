@@ -73,7 +73,7 @@ export function pageStyles() {
     .badge--p0 { background: var(--danger); color: #fff; }
     .badge--p1 { background: #92400e; color: #fff; }
     .badge--p2 { background: #4b5563; color: #fff; }
-    .badge--safe { background: var(--success-light); color: var(--success); }
+    .badge--safe { background: var(--success-light); color: #0a6e35; }
     .backlog-card p { color: var(--text-secondary); font-size: 13px; line-height: 1.65; margin-top: 8px; }
     .playbook-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; }
     .playbook-card { background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
@@ -130,6 +130,12 @@ export function pageStyles() {
     @media (max-width: 1180px) { .side-nav { width: 248px; } .content-shell, .footer { margin-left: 248px; } .hero__grid { grid-template-columns: 1fr; } .section__head { grid-template-columns: 1fr; gap: 10px; } }
     @media (max-width: 820px) { .side-nav { position: relative; width: auto; min-height: 0; inset: auto; padding: 16px; } .side-nav__status { grid-template-columns: repeat(4, minmax(0, 1fr)); } .side-nav__group { padding: 10px 0; min-width: 0; } .side-nav__main { display: flex; max-width: 100%; min-width: 0; overflow-x: auto; overflow-y: hidden; gap: 8px; padding-bottom: 4px; scrollbar-width: none; } .side-nav__main::-webkit-scrollbar { display: none; } .side-nav__link { white-space: nowrap; margin: 0; flex: 0 0 auto; } .side-nav__foot { display: none; } .content-shell, .footer { margin-left: 0; } .container { padding: 0 18px; } .section { padding: 46px 0; } .hero { padding-top: 38px; } }
     @media (max-width: 560px) { .side-nav__status { grid-template-columns: repeat(2, minmax(0, 1fr)); } .metric-grid, .cross-grid, .playbook-grid { grid-template-columns: 1fr; } .section__title { font-size: 18px; } .hero__title { font-size: 40px; } .insight-chart { padding: 12px; } .insight-bar-row, .paired-metric { grid-template-columns: 1fr; gap: 6px; } .insight-bar-row__value, .paired-metric__values { text-align: left; } .sankey-svg { min-width: 680px; } }
+    .evidence-drilldown { margin-top: 18px; border: 1px solid var(--border); border-radius: 8px; background: #fff; }
+    .evidence-drilldown summary { cursor: pointer; padding: 14px 16px; color: var(--ink); font-weight: 800; font-size: 13px; list-style: none; display: flex; align-items: center; gap: 8px; }
+    .evidence-drilldown summary::-webkit-details-marker { display: none; }
+    .evidence-drilldown summary::before { content: "▶"; font-size: 9px; color: var(--text-secondary); transition: transform .15s; }
+    .evidence-drilldown[open] summary::before { transform: rotate(90deg); }
+    .evidence-drilldown > :not(summary) { margin: 0 16px 16px; }
   </style>`;
 }
 
