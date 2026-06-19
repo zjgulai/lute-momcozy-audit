@@ -1,0 +1,1642 @@
+{
+  "sessionId": "competitor-recollect-2026-06-19",
+  "observedAt": "2026-06-19",
+  "collectedBy": "Playwright public competitor sampler",
+  "methodologyVersion": "competitor-recollect-v2-2026-06",
+  "samplePolicy": "Public homepage/PDP/cart availability plus desktop/mobile page metrics. No login, add-to-cart, checkout submission, form submission, or raw request URL persistence.",
+  "competitors": [
+    {
+      "id": "willow",
+      "label": "Willow",
+      "category": "wearable breast pump",
+      "homepageUrl": "https://onewillow.com/",
+      "pdpUrl": "https://onewillow.com/products/willow-go-pump-kit",
+      "cartUrl": "https://onewillow.com/cart",
+      "robots": {
+        "status": 200,
+        "finalUrlHost": "onewillow.com",
+        "disallowCount": 50,
+        "sitemapCount": 1,
+        "blocksAllGenericBots": false,
+        "botPolicies": {
+          "gptbot": "unspecified",
+          "googlebot": "unspecified",
+          "adsbotGoogle": "limited",
+          "ahrefsbot": "unspecified",
+          "semrushbot": "unspecified"
+        }
+      },
+      "pages": [
+        {
+          "routeId": "homepage",
+          "status": 200,
+          "finalUrlHost": "onewillow.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.4,
+                "ttfb": 141,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 2819,
+                "longTasks": 0,
+                "totalRequests": 238,
+                "transferKb": 5456,
+                "jsKb": 599,
+                "thirdPartyFailures": 1,
+                "consoleErrors": 0,
+                "pageErrors": 3,
+                "loadEventMs": 1814,
+                "scriptTags": 97,
+                "iframeCount": 0,
+                "imagesTotal": 74,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 54
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.34,
+                "ttfb": 163,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 2818,
+                "longTasks": 0,
+                "totalRequests": 227,
+                "transferKb": 3160,
+                "jsKb": 598,
+                "thirdPartyFailures": 1,
+                "consoleErrors": 0,
+                "pageErrors": 3,
+                "loadEventMs": 1666,
+                "scriptTags": 97,
+                "iframeCount": 0,
+                "imagesTotal": 74,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 54
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "pdp",
+          "status": 200,
+          "finalUrlHost": "onewillow.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.39,
+                "ttfb": 195,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 3386,
+                "longTasks": 0,
+                "totalRequests": 259,
+                "transferKb": 4718,
+                "jsKb": 745,
+                "thirdPartyFailures": 2,
+                "consoleErrors": 0,
+                "pageErrors": 3,
+                "loadEventMs": 2443,
+                "scriptTags": 111,
+                "iframeCount": 0,
+                "imagesTotal": 107,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 66
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": true,
+                "reviewText": true
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.45,
+                "ttfb": 250,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 3396,
+                "longTasks": 0,
+                "totalRequests": 256,
+                "transferKb": 4426,
+                "jsKb": 745,
+                "thirdPartyFailures": 2,
+                "consoleErrors": 0,
+                "pageErrors": 3,
+                "loadEventMs": 3357,
+                "scriptTags": 111,
+                "iframeCount": 0,
+                "imagesTotal": 107,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 66
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": true,
+                "reviewText": true
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "cart",
+          "status": 200,
+          "finalUrlHost": "onewillow.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "elvie",
+      "label": "Elvie",
+      "category": "wearable breast pump",
+      "homepageUrl": "https://www.elvie.com/en-us",
+      "pdpUrl": "https://www.elvie.com/en-us/shop/elvie-pump",
+      "cartUrl": "https://www.elvie.com/en-us/cart",
+      "robots": {
+        "status": 200,
+        "finalUrlHost": "elvie.com",
+        "disallowCount": 50,
+        "sitemapCount": 1,
+        "blocksAllGenericBots": false,
+        "botPolicies": {
+          "gptbot": "unspecified",
+          "googlebot": "unspecified",
+          "adsbotGoogle": "limited",
+          "ahrefsbot": "unspecified",
+          "semrushbot": "unspecified"
+        }
+      },
+      "pages": [
+        {
+          "routeId": "homepage",
+          "status": 200,
+          "finalUrlHost": "elvie.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.64,
+                "ttfb": 113,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 2817,
+                "longTasks": 0,
+                "totalRequests": 331,
+                "transferKb": 2561,
+                "jsKb": 366,
+                "thirdPartyFailures": 15,
+                "consoleErrors": 3,
+                "pageErrors": 1,
+                "loadEventMs": 8051,
+                "scriptTags": 82,
+                "iframeCount": 1,
+                "imagesTotal": 76,
+                "imagesWebp": 16,
+                "imagesWebpPct": 21.05,
+                "missingAlt": 58
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.78,
+                "ttfb": 136,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 2816,
+                "longTasks": 0,
+                "totalRequests": 316,
+                "transferKb": 2211,
+                "jsKb": 366,
+                "thirdPartyFailures": 10,
+                "consoleErrors": 3,
+                "pageErrors": 1,
+                "loadEventMs": 7091,
+                "scriptTags": 82,
+                "iframeCount": 1,
+                "imagesTotal": 76,
+                "imagesWebp": 16,
+                "imagesWebpPct": 21.05,
+                "missingAlt": 58
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "pdp",
+          "status": 200,
+          "finalUrlHost": "elvie.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.58,
+                "ttfb": 306,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 3495,
+                "longTasks": 0,
+                "totalRequests": 411,
+                "transferKb": 3739,
+                "jsKb": 563,
+                "thirdPartyFailures": 12,
+                "consoleErrors": 3,
+                "pageErrors": 1,
+                "loadEventMs": 7220,
+                "scriptTags": 98,
+                "iframeCount": 1,
+                "imagesTotal": 137,
+                "imagesWebp": 38,
+                "imagesWebpPct": 27.74,
+                "missingAlt": 109
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.52,
+                "ttfb": 145,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 3435,
+                "longTasks": 0,
+                "totalRequests": 395,
+                "transferKb": 2833,
+                "jsKb": 565,
+                "thirdPartyFailures": 9,
+                "consoleErrors": 3,
+                "pageErrors": 1,
+                "loadEventMs": 7870,
+                "scriptTags": 98,
+                "iframeCount": 1,
+                "imagesTotal": 137,
+                "imagesWebp": 38,
+                "imagesWebpPct": 27.74,
+                "missingAlt": 109
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "cart",
+          "status": 404,
+          "finalUrlHost": "elvie.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "eufy",
+      "label": "eufy",
+      "category": "wearable breast pump",
+      "homepageUrl": "https://www.eufy.com/",
+      "pdpUrl": "https://www.eufy.com/products/t2081111",
+      "cartUrl": "https://www.eufy.com/collections/breast-pump",
+      "robots": {
+        "status": 200,
+        "finalUrlHost": "www.eufy.com",
+        "disallowCount": 101,
+        "sitemapCount": 7,
+        "blocksAllGenericBots": false,
+        "botPolicies": {
+          "gptbot": "unspecified",
+          "googlebot": "limited",
+          "adsbotGoogle": "limited",
+          "ahrefsbot": "limited",
+          "semrushbot": "unspecified"
+        }
+      },
+      "pages": [
+        {
+          "routeId": "homepage",
+          "status": 200,
+          "finalUrlHost": "www.eufy.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.76,
+                "ttfb": 166,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 5580,
+                "longTasks": 4,
+                "totalRequests": 250,
+                "transferKb": 4870,
+                "jsKb": 1936,
+                "thirdPartyFailures": 23,
+                "consoleErrors": 0,
+                "pageErrors": 13,
+                "loadEventMs": 4252,
+                "scriptTags": 112,
+                "iframeCount": 4,
+                "imagesTotal": 239,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 118
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.7,
+                "ttfb": 339,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 5497,
+                "longTasks": 4,
+                "totalRequests": 250,
+                "transferKb": 3302,
+                "jsKb": 2348,
+                "thirdPartyFailures": 23,
+                "consoleErrors": 0,
+                "pageErrors": 13,
+                "loadEventMs": 4415,
+                "scriptTags": 112,
+                "iframeCount": 4,
+                "imagesTotal": 241,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 120
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "pdp",
+          "status": 200,
+          "finalUrlHost": "www.eufy.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.97,
+                "ttfb": 366,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 6966,
+                "longTasks": 5,
+                "totalRequests": 250,
+                "transferKb": 2694,
+                "jsKb": 643,
+                "thirdPartyFailures": 15,
+                "consoleErrors": 1,
+                "pageErrors": 0,
+                "loadEventMs": 2085,
+                "scriptTags": 158,
+                "iframeCount": 6,
+                "imagesTotal": 311,
+                "imagesWebp": 1,
+                "imagesWebpPct": 0.32,
+                "missingAlt": 200
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.96,
+                "ttfb": 511,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 6878,
+                "longTasks": 4,
+                "totalRequests": 250,
+                "transferKb": 1956,
+                "jsKb": 414,
+                "thirdPartyFailures": 14,
+                "consoleErrors": 1,
+                "pageErrors": 0,
+                "loadEventMs": 4619,
+                "scriptTags": 159,
+                "iframeCount": 6,
+                "imagesTotal": 313,
+                "imagesWebp": 1,
+                "imagesWebpPct": 0.32,
+                "missingAlt": 202
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "cart",
+          "status": 200,
+          "finalUrlHost": "www.eufy.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "lansinoh",
+      "label": "Lansinoh",
+      "category": "wearable breast pump",
+      "homepageUrl": "https://lansinoh.com/",
+      "pdpUrl": "https://lansinoh.com/products/discreet-duo",
+      "cartUrl": "https://lansinoh.com/cart",
+      "robots": {
+        "status": 200,
+        "finalUrlHost": "lansinoh.com",
+        "disallowCount": 50,
+        "sitemapCount": 1,
+        "blocksAllGenericBots": false,
+        "botPolicies": {
+          "gptbot": "unspecified",
+          "googlebot": "unspecified",
+          "adsbotGoogle": "limited",
+          "ahrefsbot": "unspecified",
+          "semrushbot": "unspecified"
+        }
+      },
+      "pages": [
+        {
+          "routeId": "homepage",
+          "status": 200,
+          "finalUrlHost": "lansinoh.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 1.11,
+                "ttfb": 157,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 2564,
+                "longTasks": 1,
+                "totalRequests": 364,
+                "transferKb": 3588,
+                "jsKb": 538,
+                "thirdPartyFailures": 10,
+                "consoleErrors": 1,
+                "pageErrors": 3,
+                "loadEventMs": 2466,
+                "scriptTags": 135,
+                "iframeCount": 6,
+                "imagesTotal": 41,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 13
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": false
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 1.22,
+                "ttfb": 158,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 2568,
+                "longTasks": 1,
+                "totalRequests": 354,
+                "transferKb": 2940,
+                "jsKb": 538,
+                "thirdPartyFailures": 8,
+                "consoleErrors": 1,
+                "pageErrors": 3,
+                "loadEventMs": 2640,
+                "scriptTags": 133,
+                "iframeCount": 6,
+                "imagesTotal": 43,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 15
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": false
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "pdp",
+          "status": 200,
+          "finalUrlHost": "lansinoh.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 3.08,
+                "ttfb": 208,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 2741,
+                "longTasks": 1,
+                "totalRequests": 543,
+                "transferKb": 4325,
+                "jsKb": 691,
+                "thirdPartyFailures": 14,
+                "consoleErrors": 1,
+                "pageErrors": 2,
+                "loadEventMs": 4953,
+                "scriptTags": 149,
+                "iframeCount": 7,
+                "imagesTotal": 57,
+                "imagesWebp": 2,
+                "imagesWebpPct": 3.51,
+                "missingAlt": 2
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.96,
+                "ttfb": 143,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 2737,
+                "longTasks": 1,
+                "totalRequests": 519,
+                "transferKb": 3409,
+                "jsKb": 691,
+                "thirdPartyFailures": 10,
+                "consoleErrors": 1,
+                "pageErrors": 3,
+                "loadEventMs": 2221,
+                "scriptTags": 147,
+                "iframeCount": 7,
+                "imagesTotal": 57,
+                "imagesWebp": 2,
+                "imagesWebpPct": 3.51,
+                "missingAlt": 2
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "cart",
+          "status": 200,
+          "finalUrlHost": "lansinoh.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "freemie",
+      "label": "Freemie",
+      "category": "wearable breast pump",
+      "homepageUrl": "https://freemie.com/",
+      "pdpUrl": "https://freemie.com/products/liberty-ii-breast-pump-system",
+      "cartUrl": "https://freemie.com/cart",
+      "robots": {
+        "status": 200,
+        "finalUrlHost": "freemie.com",
+        "disallowCount": 50,
+        "sitemapCount": 1,
+        "blocksAllGenericBots": false,
+        "botPolicies": {
+          "gptbot": "unspecified",
+          "googlebot": "unspecified",
+          "adsbotGoogle": "limited",
+          "ahrefsbot": "unspecified",
+          "semrushbot": "unspecified"
+        }
+      },
+      "pages": [
+        {
+          "routeId": "homepage",
+          "status": 200,
+          "finalUrlHost": "freemie.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.21,
+                "ttfb": 141,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 1121,
+                "longTasks": 0,
+                "totalRequests": 175,
+                "transferKb": 2285,
+                "jsKb": 459,
+                "thirdPartyFailures": 3,
+                "consoleErrors": 0,
+                "pageErrors": 0,
+                "loadEventMs": 1285,
+                "scriptTags": 58,
+                "iframeCount": 1,
+                "imagesTotal": 28,
+                "imagesWebp": 5,
+                "imagesWebpPct": 17.86,
+                "missingAlt": 24
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": false
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.23,
+                "ttfb": 167,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 1124,
+                "longTasks": 0,
+                "totalRequests": 170,
+                "transferKb": 2067,
+                "jsKb": 459,
+                "thirdPartyFailures": 3,
+                "consoleErrors": 0,
+                "pageErrors": 0,
+                "loadEventMs": 1304,
+                "scriptTags": 58,
+                "iframeCount": 1,
+                "imagesTotal": 28,
+                "imagesWebp": 5,
+                "imagesWebpPct": 17.86,
+                "missingAlt": 24
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": false
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "pdp",
+          "status": 200,
+          "finalUrlHost": "freemie.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.24,
+                "ttfb": 163,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 1090,
+                "longTasks": 0,
+                "totalRequests": 231,
+                "transferKb": 2510,
+                "jsKb": 650,
+                "thirdPartyFailures": 6,
+                "consoleErrors": 0,
+                "pageErrors": 0,
+                "loadEventMs": 1279,
+                "scriptTags": 66,
+                "iframeCount": 1,
+                "imagesTotal": 19,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 7
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": false
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.26,
+                "ttfb": 195,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 1093,
+                "longTasks": 0,
+                "totalRequests": 234,
+                "transferKb": 2445,
+                "jsKb": 650,
+                "thirdPartyFailures": 10,
+                "consoleErrors": 0,
+                "pageErrors": 0,
+                "loadEventMs": 1339,
+                "scriptTags": 66,
+                "iframeCount": 1,
+                "imagesTotal": 19,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 7
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": false
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "cart",
+          "status": 200,
+          "finalUrlHost": "freemie.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "medela",
+      "label": "Medela",
+      "category": "wearable breast pump",
+      "homepageUrl": "https://www.medela.us/",
+      "pdpUrl": "https://www.medela.us/breastfeeding/products/breast-pumps/freestyle-hands-free-breast-pump",
+      "cartUrl": "https://www.medela.us/",
+      "robots": {
+        "status": 200,
+        "finalUrlHost": "www.medela.us",
+        "disallowCount": 1,
+        "sitemapCount": 1,
+        "blocksAllGenericBots": false,
+        "botPolicies": {
+          "gptbot": "unspecified",
+          "googlebot": "unspecified",
+          "adsbotGoogle": "unspecified",
+          "ahrefsbot": "unspecified",
+          "semrushbot": "unspecified"
+        }
+      },
+      "pages": [
+        {
+          "routeId": "homepage",
+          "status": 200,
+          "finalUrlHost": "www.medela.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 3.65,
+                "ttfb": 220,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 4410,
+                "longTasks": 0,
+                "totalRequests": 87,
+                "transferKb": 1314,
+                "jsKb": 176,
+                "thirdPartyFailures": 14,
+                "consoleErrors": 1,
+                "pageErrors": 0,
+                "loadEventMs": 6830,
+                "scriptTags": 18,
+                "iframeCount": 2,
+                "imagesTotal": 153,
+                "imagesWebp": 56,
+                "imagesWebpPct": 36.6,
+                "missingAlt": 112
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 2.3,
+                "ttfb": 224,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 4833,
+                "longTasks": 0,
+                "totalRequests": 90,
+                "transferKb": 937,
+                "jsKb": 176,
+                "thirdPartyFailures": 19,
+                "consoleErrors": 1,
+                "pageErrors": 0,
+                "loadEventMs": 7065,
+                "scriptTags": 18,
+                "iframeCount": 2,
+                "imagesTotal": 165,
+                "imagesWebp": 68,
+                "imagesWebpPct": 41.21,
+                "missingAlt": 119
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": false,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "pdp",
+          "status": 200,
+          "finalUrlHost": "www.medela.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 2.2,
+                "ttfb": 307,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 4512,
+                "longTasks": 1,
+                "totalRequests": 109,
+                "transferKb": 1348,
+                "jsKb": 176,
+                "thirdPartyFailures": 0,
+                "consoleErrors": 2,
+                "pageErrors": 1,
+                "loadEventMs": 5041,
+                "scriptTags": 19,
+                "iframeCount": 13,
+                "imagesTotal": 149,
+                "imagesWebp": 21,
+                "imagesWebpPct": 14.09,
+                "missingAlt": 74
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 2.78,
+                "ttfb": 258,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 4751,
+                "longTasks": 1,
+                "totalRequests": 118,
+                "transferKb": 764,
+                "jsKb": 176,
+                "thirdPartyFailures": 0,
+                "consoleErrors": 3,
+                "pageErrors": 0,
+                "loadEventMs": 6382,
+                "scriptTags": 19,
+                "iframeCount": 20,
+                "imagesTotal": 151,
+                "imagesWebp": 12,
+                "imagesWebpPct": 7.95,
+                "missingAlt": 74
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": false,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "cart",
+          "status": 200,
+          "finalUrlHost": "www.medela.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": false,
+            "reviewText": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "babybuddha",
+      "label": "BabyBuddha",
+      "category": "portable breast pump",
+      "homepageUrl": "https://babybuddhaproducts.com/",
+      "pdpUrl": "https://babybuddhaproducts.com/products/babybuddha%C2%AE-2-0-primary-portable-breast-pump",
+      "cartUrl": "https://babybuddhaproducts.com/cart",
+      "robots": {
+        "status": 200,
+        "finalUrlHost": "babybuddhaproducts.com",
+        "disallowCount": 50,
+        "sitemapCount": 1,
+        "blocksAllGenericBots": false,
+        "botPolicies": {
+          "gptbot": "unspecified",
+          "googlebot": "unspecified",
+          "adsbotGoogle": "limited",
+          "ahrefsbot": "unspecified",
+          "semrushbot": "unspecified"
+        }
+      },
+      "pages": [
+        {
+          "routeId": "homepage",
+          "status": 200,
+          "finalUrlHost": "babybuddhaproducts.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.45,
+                "ttfb": 229,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 1497,
+                "longTasks": 1,
+                "totalRequests": 356,
+                "transferKb": 3858,
+                "jsKb": 787,
+                "thirdPartyFailures": 15,
+                "consoleErrors": 2,
+                "pageErrors": 1,
+                "loadEventMs": 3581,
+                "scriptTags": 130,
+                "iframeCount": 6,
+                "imagesTotal": 69,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 33
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.32,
+                "ttfb": 179,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 1497,
+                "longTasks": 1,
+                "totalRequests": 346,
+                "transferKb": 3529,
+                "jsKb": 787,
+                "thirdPartyFailures": 15,
+                "consoleErrors": 2,
+                "pageErrors": 1,
+                "loadEventMs": 2651,
+                "scriptTags": 130,
+                "iframeCount": 6,
+                "imagesTotal": 69,
+                "imagesWebp": 0,
+                "imagesWebpPct": 0,
+                "missingAlt": 33
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "pdp",
+          "status": 200,
+          "finalUrlHost": "babybuddhaproducts.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.74,
+                "ttfb": 416,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 2134,
+                "longTasks": 1,
+                "totalRequests": 409,
+                "transferKb": 3787,
+                "jsKb": 1001,
+                "thirdPartyFailures": 16,
+                "consoleErrors": 1,
+                "pageErrors": 2,
+                "loadEventMs": 3789,
+                "scriptTags": 144,
+                "iframeCount": 6,
+                "imagesTotal": 51,
+                "imagesWebp": 1,
+                "imagesWebpPct": 1.96,
+                "missingAlt": 21
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.38,
+                "ttfb": 169,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 2064,
+                "longTasks": 1,
+                "totalRequests": 393,
+                "transferKb": 3691,
+                "jsKb": 1001,
+                "thirdPartyFailures": 16,
+                "consoleErrors": 1,
+                "pageErrors": 2,
+                "loadEventMs": 3107,
+                "scriptTags": 144,
+                "iframeCount": 6,
+                "imagesTotal": 51,
+                "imagesWebp": 1,
+                "imagesWebpPct": 1.96,
+                "missingAlt": 21
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": true
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "cart",
+          "status": 200,
+          "finalUrlHost": "babybuddhaproducts.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "spectra",
+      "label": "Spectra Baby USA",
+      "category": "breast pump",
+      "homepageUrl": "https://www.spectrababyusa.com/",
+      "pdpUrl": "https://www.spectrababyusa.com/products/spectra-s1-plus-premier-rechargeable-double-electric-breast-pump",
+      "cartUrl": "https://www.spectrababyusa.com/cart",
+      "robots": {
+        "status": 200,
+        "finalUrlHost": "www.spectrababyusa.com",
+        "disallowCount": 50,
+        "sitemapCount": 1,
+        "blocksAllGenericBots": false,
+        "botPolicies": {
+          "gptbot": "unspecified",
+          "googlebot": "unspecified",
+          "adsbotGoogle": "limited",
+          "ahrefsbot": "unspecified",
+          "semrushbot": "unspecified"
+        }
+      },
+      "pages": [
+        {
+          "routeId": "homepage",
+          "status": 200,
+          "finalUrlHost": "www.spectrababyusa.com",
+          "viewports": [
+            {
+              "label": "desktop",
+              "width": 1440,
+              "height": 900,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.25,
+                "ttfb": 189,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 1744,
+                "longTasks": 0,
+                "totalRequests": 226,
+                "transferKb": 2727,
+                "jsKb": 473,
+                "thirdPartyFailures": 1,
+                "consoleErrors": 0,
+                "pageErrors": 0,
+                "loadEventMs": 1469,
+                "scriptTags": 80,
+                "iframeCount": 1,
+                "imagesTotal": 74,
+                "imagesWebp": 4,
+                "imagesWebpPct": 5.41,
+                "missingAlt": 23
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": false
+              }
+            },
+            {
+              "label": "mobile",
+              "width": 390,
+              "height": 844,
+              "metrics": {
+                "status": 200,
+                "lcp": null,
+                "lcpNullReason": "lcp_unobserved_in_timeout",
+                "fcp": 0.23,
+                "ttfb": 157,
+                "cls": 0,
+                "tbt": 0,
+                "domNodes": 1744,
+                "longTasks": 0,
+                "totalRequests": 219,
+                "transferKb": 2454,
+                "jsKb": 473,
+                "thirdPartyFailures": 1,
+                "consoleErrors": 4,
+                "pageErrors": 0,
+                "loadEventMs": 1431,
+                "scriptTags": 80,
+                "iframeCount": 1,
+                "imagesTotal": 74,
+                "imagesWebp": 4,
+                "imagesWebpPct": 5.41,
+                "missingAlt": 23
+              },
+              "signals": {
+                "addToCartText": false,
+                "checkoutText": false,
+                "reviewText": false
+              }
+            }
+          ],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        },
+        {
+          "routeId": "pdp",
+          "status": 503,
+          "finalUrlHost": "www.spectrababyusa.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": false,
+            "reviewText": false
+          }
+        },
+        {
+          "routeId": "cart",
+          "status": 200,
+          "finalUrlHost": "www.spectrababyusa.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "beaba",
+      "label": "BEABA",
+      "category": "baby food maker",
+      "homepageUrl": "https://beaba.us/",
+      "pdpUrl": "https://beaba.us/products/babycook-neo%C2%AE-baby-food-maker-processor-1",
+      "cartUrl": "https://beaba.us/cart",
+      "robots": {
+        "status": 503,
+        "finalUrlHost": "beaba.us",
+        "disallowCount": 0,
+        "sitemapCount": 0,
+        "blocksAllGenericBots": false,
+        "botPolicies": {
+          "gptbot": "unspecified",
+          "googlebot": "unspecified",
+          "adsbotGoogle": "unspecified",
+          "ahrefsbot": "unspecified",
+          "semrushbot": "unspecified"
+        }
+      },
+      "pages": [
+        {
+          "routeId": "homepage",
+          "status": 503,
+          "finalUrlHost": "beaba.us",
+          "viewports": [],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": false,
+            "reviewText": false
+          }
+        },
+        {
+          "routeId": "pdp",
+          "status": 503,
+          "finalUrlHost": "beaba.us",
+          "viewports": [],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": false,
+            "reviewText": false
+          }
+        },
+        {
+          "routeId": "cart",
+          "status": 200,
+          "finalUrlHost": "beaba.us",
+          "viewports": [],
+          "signals": {
+            "addToCartText": true,
+            "checkoutText": true,
+            "reviewText": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "babybrezza",
+      "label": "Baby Brezza",
+      "category": "bottle washer",
+      "homepageUrl": "https://babybrezza.com/",
+      "pdpUrl": "https://babybrezza.com/products/bottle-washer-pro",
+      "cartUrl": "https://babybrezza.com/cart",
+      "robots": {
+        "status": 503,
+        "finalUrlHost": "babybrezza.com",
+        "disallowCount": 0,
+        "sitemapCount": 0,
+        "blocksAllGenericBots": false,
+        "botPolicies": {
+          "gptbot": "unspecified",
+          "googlebot": "unspecified",
+          "adsbotGoogle": "unspecified",
+          "ahrefsbot": "unspecified",
+          "semrushbot": "unspecified"
+        }
+      },
+      "pages": [
+        {
+          "routeId": "homepage",
+          "status": 503,
+          "finalUrlHost": "babybrezza.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": false,
+            "reviewText": false
+          }
+        },
+        {
+          "routeId": "pdp",
+          "status": 503,
+          "finalUrlHost": "babybrezza.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": false,
+            "reviewText": false
+          }
+        },
+        {
+          "routeId": "cart",
+          "status": 503,
+          "finalUrlHost": "babybrezza.com",
+          "viewports": [],
+          "signals": {
+            "addToCartText": false,
+            "checkoutText": false,
+            "reviewText": false
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "competitorCount": 10,
+    "sampledPageCount": 30,
+    "reachablePdpCount": 7,
+    "reachableCartCount": 8,
+    "viewportSampleCount": 30,
+    "robotsOkCount": 8,
+    "robotsWithSitemapCount": 8,
+    "robotsWithNamedBotPolicyCount": 7,
+    "maxThirdPartyFailures": {
+      "competitorId": "eufy",
+      "routeId": "homepage",
+      "viewport": "desktop",
+      "value": 23
+    },
+    "maxJsKb": {
+      "competitorId": "eufy",
+      "routeId": "homepage",
+      "viewport": "mobile",
+      "value": 2348
+    },
+    "maxDomNodes": {
+      "competitorId": "eufy",
+      "routeId": "pdp",
+      "viewport": "desktop",
+      "value": 6966
+    }
+  }
+}

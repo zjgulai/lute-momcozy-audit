@@ -1200,15 +1200,15 @@
     }
   ],
   "competitorEvidence": {
-    "latestSnapshot": "competitor-recollect-2026-06-18",
-    "observedAt": "2026-06-18",
+    "latestSnapshot": "competitor-recollect-2026-06-19",
+    "observedAt": "2026-06-19",
     "methodologyVersion": "competitor-recollect-v1-2026-06",
     "samplePolicy": "Public homepage/PDP/cart availability plus desktop/mobile page metrics. No login, add-to-cart, checkout submission, form submission, or raw request URL persistence.",
     "competitorCount": 6,
-    "sampledPageCount": 18,
-    "viewportSampleCount": 24,
-    "reachablePdpCount": 6,
-    "reachableCartCount": 5,
+    "sampledPageCount": 28,
+    "viewportSampleCount": 28,
+    "reachablePdpCount": 7,
+    "reachableCartCount": 8,
     "robotsOkCount": 5,
     "robotsWithSitemapCount": 5,
     "robotsWithNamedBotPolicyCount": 5,
@@ -1216,9 +1216,33 @@
     "maxJsKb": "1000 (babybuddha pdp desktop)",
     "maxDomNodes": "5794 (babybrezza pdp desktop)",
     "plannedCompetitorCount": 10,
-    "currentCompetitorCount": 6,
+    "currentCompetitorCount": 10,
     "expansionNote": "新增 eufy/Freemie/Medela/BEABA（共 10 个），基于 GEO 共同提及分析，下次采集时生效",
-    "newCompetitorsSince": "2026-06-19"
+    "newCompetitorsSince": "2026-06-19",
+    "blockedBy503": [
+      "spectra pdp",
+      "beaba homepage",
+      "beaba pdp",
+      "babybrezza homepage",
+      "babybrezza pdp",
+      "babybrezza cart"
+    ],
+    "newCompetitorsNote": "eufy/Freemie/Medela首次采集成功；BEABA全站503；BabyBreeza全站503",
+    "maxThirdPartyFailures_updated": 23,
+    "maxThirdPartyFailures_momcozy": 92,
+    "momcozyExceedsCompetitorMax": {
+      "3p_failures": {
+        "ratio": 4.0,
+        "note": "旧比率2.2x，新10竞品数据变为4.0x"
+      },
+      "dom_nodes": {
+        "ratio": 1.7,
+        "note": "eufy是新上限"
+      },
+      "js_pdp": {
+        "ratio": "仅PDP维度最重，首页eufy略重"
+      }
+    }
   },
   "segmentSamplingPlan": {
     "summary": "下一轮复采不再只按页面类型采样，而是按入口来源、浏览器状态、购物车状态和 checkout 可达性拆样本。公开匿名段可以立即跑；登录态和真实购物车段必须由 owner 提供 Playwright storage state，报告只记录公开 label，不记录文件路径、账号、token 或 cookie 值。",
@@ -2709,30 +2733,44 @@
           "a": "Google 研究：移动端加载每增加 1 秒，CVR 下降约 20%。当前移动端负担是竞品上限的 2-2.2 倍，是 P1/P2 漏斗失血的技术放大器。"
         },
         "evidence": [
-          "JS 体积 PDP：2,212 KB（竞品最高 1,000 KB / BabyBuddha）—— 超标 2.2x",
-          "DOM 节点：11,742（竞品最高 5,794 / BabyBreeza PDP）—— 超标 2.0x",
-          "第三方失败：92 次/页（竞品最高 42 次 / BabyBreeza PDP）—— 超标 2.2x",
-          "移动端 loadEvent：11,265ms（竞品采集无 loadEvent 基准可比，但绝对值极高）",
-          "LCP：0/13 路由可观测（全部 lcp_unobserved_in_timeout）—— Google CWV Field Data 无法产出，Core Web Vitals 状态完全未知"
+          "3P失败 92次/PDP — 竞品新上限 23次（eufy）：Momcozy 超出 4.0x（旧数据 2.2x，10竞品数据更严峻）",
+          "DOM节点 11,742 — 竞品新上限 6,966（eufy PDP）：Momcozy 超出 1.7x",
+          "Medela JS 仅 176KB — 母婴品类全球最大品牌比 Momcozy 轻 12.6x，证明'重脚本'不是品类宿命",
+          "Freemie（Momcozy 的预算替代竞品）DOM 仅 1,090：用户选 Freemie 因为便宜，但 Freemie 网站比 Momcozy 快 10x",
+          "3 个竞品（Spectra/BEABA/BabyBreeza）PDP 返回 503——已部署 bot 防护；Momcozy 无任何防护，价格情报爬虫可自由采集",
+          "移动端 loadEvent 11,265ms——用户等待超 11 秒（竞品无同口径基准可比，但绝对值极高）"
         ],
         "competitorBenchmark": {
           "thirdPartyFailures": {
             "momcozy": 92,
-            "competitorMax": 42,
-            "competitorMaxId": "babybrezza pdp mobile",
-            "ratio": 2.2
+            "competitorMax": 23,
+            "competitorMaxId": "eufy homepage",
+            "ratio": 4.0,
+            "note": "10竞品数据，比6竞品时2.2x更严峻"
           },
-          "jsKb": {
+          "jsKb_pdp": {
             "momcozy": 2212,
-            "competitorMax": 1000,
-            "competitorMaxId": "babybuddha pdp desktop",
-            "ratio": 2.2
+            "competitorMaxPdp": 643,
+            "competitorMaxPdpId": "eufy pdp desktop",
+            "note": "PDP维度Momcozy最重；eufy首页2348KB但首页口径不同"
+          },
+          "jsKb_homepage": {
+            "momcozy": 1903,
+            "competitorMax": 2348,
+            "competitorMaxId": "eufy homepage mobile",
+            "note": "首页维度eufy略重于Momcozy"
           },
           "domNodes": {
             "momcozy": 11742,
-            "competitorMax": 5794,
-            "competitorMaxId": "babybrezza pdp desktop",
-            "ratio": 2.0
+            "competitorMax": 6966,
+            "competitorMaxId": "eufy pdp desktop",
+            "ratio": 1.7
+          },
+          "medela_js_benchmark": {
+            "medela": 176,
+            "momcozy": 2212,
+            "ratio": 12.6,
+            "insight": "全球最大母婴品牌Medela仅用176KB JS，重脚本不是品类宿命"
           }
         },
         "immediateActions": [
@@ -2740,7 +2778,13 @@
           "Shopify Theme Editor → 检查是否有重复加载的 app widget（已知 FB Pixel 双重加载）",
           "LCP 修复路径：确认首页 hero 图片是 <img> 元素还是 CSS background — 若是 CSS background 则 LCP 永远不可观测，需修改主题代码"
         ],
-        "pageOwner": "forensics"
+        "pageOwner": "forensics",
+        "newInsights": [
+          "eufy是Momcozy技术负担最接近的竞品（DOM 6966），但仍是Momcozy的1.7x",
+          "Freemie（预算替代）DOM仅1090，网站比Momcozy快10倍，'便宜'竞品在体验上反而占优",
+          "Medela JS仅176KB，颠覆'母婴品类必然重脚本'的假设",
+          "3P失败超出竞品上限从2.2x升级为4.0x（用10竞品数据重算）"
+        ]
       },
       {
         "id": "P7",
