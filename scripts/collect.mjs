@@ -160,9 +160,14 @@ async function runViewport(browser, route, width, height, label) {
 
   await page.evaluate(() => window.scrollTo(0, 0));
 
+  // Wait for networkidle first to ensure CDN images have had a chance to load,
+  // then wait for LCP entry. Many Shopify hero images use CDN lazy-loading that
+  // triggers LCP only after the network has quieted down.
+  await page.waitForLoadState("networkidle", {timeout: 15_000}).catch(() => {});
+
   await page.waitForFunction(
     () => performance.getEntriesByType("largest-contentful-paint").length > 0,
-    {timeout: 25_000}
+    {timeout: 40_000}
   ).catch(() => {
     lcpTimedOut = true;
   });

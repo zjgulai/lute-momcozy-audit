@@ -189,9 +189,12 @@ async function runViewport(browser, competitor, routeId, url, width, height, lab
   const status = response?.status() || 0;
   await page.evaluate(() => window.scrollTo(0, 0)).catch(() => {});
 
+  // Wait for networkidle to let CDN images register as LCP candidates.
+  await page.waitForLoadState("networkidle", {timeout: 12_000}).catch(() => {});
+
   await page.waitForFunction(
     () => performance.getEntriesByType("largest-contentful-paint").length > 0,
-    {timeout: 20_000}
+    {timeout: 35_000}
   ).catch(() => {
     lcpTimedOut = true;
   });

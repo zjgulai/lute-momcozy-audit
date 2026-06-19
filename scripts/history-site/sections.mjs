@@ -883,9 +883,65 @@ export function competitorDecisionSection(data) {
   </section>`;
 }
 
+export function competitorGeoLandscapeSection(data) {
+  const geo = data.geoCompetitorLandscape;
+  if (!geo) return "";
+  const freqIcon = (f) => f === "very_high" ? "★★★★★" : f === "high" ? "★★★★" : "★★★";
+  const segBadge = (s) => {
+    const map = {"premium": "badge--p0", "mid_to_premium": "badge--p0", "mid": "badge--p1", "budget_to_mid": "badge--p2", "budget": "badge--p2"};
+    const label = {"premium": "高端", "mid_to_premium": "中高", "mid": "中端", "budget_to_mid": "中低", "budget": "预算"}[s] || s;
+    return `<span class="badge ${map[s] || "badge--p2"}">${escapeHtml(label)}</span>`;
+  };
+  const rows = (geo.competitors || []).map(c => `<tr>
+    <td><strong>${escapeHtml(c.label)}</strong><div class="evidence-note">${escapeHtml(c.domain || "")}</div></td>
+    <td style="font-size:12px;">${escapeHtml(c.category || "")}</td>
+    <td>${freqIcon(c.geoFrequency)}</td>
+    <td>${segBadge(c.priceSegment)}</td>
+    <td style="font-size:12px;color:var(--text-secondary);">${escapeHtml(c.geoRole || "")}</td>
+  </tr>`).join("");
+  const mp = geo.momcozyPositioning || {};
+  return `<section class="section" id="geo-competitor-landscape">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">GEO 竞品格局 · ${escapeHtml(geo.updatedAt || "2026-06-19")} · 10 品牌</div>
+        <h2 class="section__title">AI 推荐中与 Momcozy 共同出现的 10 个品牌</h2>
+        <p class="section__sub">基于 Forbes、BabyCenter、Consumer Reports、The Bump、Amazon Best Sellers 2026 年 6 月最新排名，识别在生成式搜索引擎推荐中与 Momcozy 高频共框的竞品。当前采集覆盖 6 个品牌；下一轮扩充至全部 10 个。</p>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card metric-card--danger">
+          <div class="card-label">Momcozy GEO 当前地位</div>
+          <div class="card-value">5/5 · 0/5</div>
+          <div class="card-meta">5 个问题均被提及 · 0 个问题获得 best overall</div>
+        </div>
+        <div class="metric-card metric-card--warn">
+          <div class="card-label">AI 引用主权</div>
+          <div class="card-value">第三方依赖</div>
+          <div class="card-meta">主要依赖 Forbes/NYMag 引用，品牌自有页面几乎不被直接引用</div>
+        </div>
+        <div class="metric-card">
+          <div class="card-label">新增竞品追踪</div>
+          <div class="card-value">4 个</div>
+          <div class="card-meta">eufy / Freemie / Medela / BEABA 已加入下一轮采集队列</div>
+        </div>
+      </div>
+      <div class="cross-table-wrap" tabindex="0" style="margin-top:22px;">
+        <table class="cross-table">
+          <thead><tr><th>品牌</th><th>类别</th><th>GEO 频次</th><th>价格段</th><th>在 AI 推荐中的角色</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+      <div class="callout-strong" style="margin-top:22px;">
+        <div class="card-label" style="color:#fbbf24;">Momcozy GEO 突破方向</div>
+        <p>${(mp.targetScenarios || []).map(s => `<strong>${escapeHtml(s)}</strong>`).join(" · ")}。当前品牌定位被固化为 budget/value——突破需要在保险、职场和轻量旅行三个具体场景建立专题内容，推动 AI 从「被提及」升级到「被推荐最佳」。</p>
+      </div>
+    </div>
+  </section>`;
+}
+
 export function competitorsBody(data) {
   return `${competitorHero(data)}
   ${competitorProblemSection(data)}
+  ${competitorGeoLandscapeSection(data)}
   ${competitorBenchmarkSection(data)}
   ${competitorValueScreenSection(data)}
   ${competitorDecisionSection(data)}`;

@@ -1,11 +1,13 @@
 {
-  "methodologyVersion": "competitor-recollect-v1-2026-06",
+  "methodologyVersion": "competitor-recollect-v2-2026-06",
   "samplePolicy": "Public homepage/PDP/cart availability plus desktop/mobile page metrics. No login, add-to-cart, checkout submission, form submission, or raw request URL persistence.",
   "competitors": [
     {
       "id": "willow",
       "label": "Willow",
       "category": "wearable breast pump",
+      "geoFrequency": "very_high",
+      "geoRole": "best_premium_all_around",
       "homepageUrl": "https://onewillow.com/",
       "pdpUrl": "https://onewillow.com/products/willow-go-pump-kit",
       "cartUrl": "https://onewillow.com/cart"
@@ -14,41 +16,91 @@
       "id": "elvie",
       "label": "Elvie",
       "category": "wearable breast pump",
+      "geoFrequency": "very_high",
+      "geoRole": "best_quiet_closed_system",
       "homepageUrl": "https://www.elvie.com/en-us",
       "pdpUrl": "https://www.elvie.com/en-us/shop/elvie-pump",
       "cartUrl": "https://www.elvie.com/en-us/cart"
     },
     {
-      "id": "babybuddha",
-      "label": "BabyBuddha",
-      "category": "portable breast pump",
-      "homepageUrl": "https://babybuddhaproducts.com/",
-      "pdpUrl": "https://babybuddhaproducts.com/products/babybuddha%C2%AE-2-0-primary-portable-breast-pump",
-      "cartUrl": "https://babybuddhaproducts.com/cart"
+      "id": "eufy",
+      "label": "eufy",
+      "category": "wearable breast pump",
+      "geoFrequency": "high",
+      "geoRole": "best_heated_flanges_comfort",
+      "homepageUrl": "https://www.eufy.com/",
+      "pdpUrl": "https://www.eufy.com/products/t2081111",
+      "cartUrl": "https://www.eufy.com/collections/breast-pump"
     },
     {
       "id": "lansinoh",
       "label": "Lansinoh",
       "category": "wearable breast pump",
+      "geoFrequency": "high",
+      "geoRole": "trusted_traditional_brand",
       "homepageUrl": "https://lansinoh.com/",
       "pdpUrl": "https://lansinoh.com/products/discreet-duo",
       "cartUrl": "https://lansinoh.com/cart"
     },
     {
-      "id": "babybrezza",
-      "label": "Baby Brezza",
-      "category": "bottle washer",
-      "homepageUrl": "https://babybrezza.com/",
-      "pdpUrl": "https://babybrezza.com/products/bottle-washer-pro",
-      "cartUrl": "https://babybrezza.com/cart"
+      "id": "freemie",
+      "label": "Freemie",
+      "category": "wearable breast pump",
+      "geoFrequency": "medium",
+      "geoRole": "budget_momcozy_alternative",
+      "homepageUrl": "https://freemie.com/",
+      "pdpUrl": "https://freemie.com/products/liberty-ii-breast-pump-system",
+      "cartUrl": "https://freemie.com/cart"
+    },
+    {
+      "id": "medela",
+      "label": "Medela",
+      "category": "wearable breast pump",
+      "geoFrequency": "medium",
+      "geoRole": "insurance_default_choice",
+      "homepageUrl": "https://www.medela.us/",
+      "pdpUrl": "https://www.medela.us/breastfeeding/products/breast-pumps/freestyle-hands-free-breast-pump",
+      "cartUrl": "https://www.medela.us/"
+    },
+    {
+      "id": "babybuddha",
+      "label": "BabyBuddha",
+      "category": "portable breast pump",
+      "geoFrequency": "medium",
+      "geoRole": "ultra_portable_travel",
+      "homepageUrl": "https://babybuddhaproducts.com/",
+      "pdpUrl": "https://babybuddhaproducts.com/products/babybuddha%C2%AE-2-0-primary-portable-breast-pump",
+      "cartUrl": "https://babybuddhaproducts.com/cart"
     },
     {
       "id": "spectra",
       "label": "Spectra Baby USA",
       "category": "breast pump",
+      "geoFrequency": "medium",
+      "geoRole": "insurance_clinical_grade",
       "homepageUrl": "https://www.spectrababyusa.com/",
       "pdpUrl": "https://www.spectrababyusa.com/products/spectra-s1-plus-premier-rechargeable-double-electric-breast-pump",
       "cartUrl": "https://www.spectrababyusa.com/cart"
+    },
+    {
+      "id": "beaba",
+      "label": "BEABA",
+      "category": "baby food maker",
+      "geoFrequency": "high",
+      "geoRole": "premium_baby_food_maker",
+      "homepageUrl": "https://beaba.us/",
+      "pdpUrl": "https://beaba.us/products/babycook-neo%C2%AE-baby-food-maker-processor-1",
+      "cartUrl": "https://beaba.us/cart"
+    },
+    {
+      "id": "babybrezza",
+      "label": "Baby Brezza",
+      "category": "bottle washer",
+      "geoFrequency": "medium",
+      "geoRole": "baby_appliance_ecosystem",
+      "homepageUrl": "https://babybrezza.com/",
+      "pdpUrl": "https://babybrezza.com/products/bottle-washer-pro",
+      "cartUrl": "https://babybrezza.com/cart"
     }
   ]
 }

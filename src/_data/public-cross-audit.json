@@ -681,7 +681,7 @@
     ]
   },
   "competitorRecollectPlan": {
-    "goal": "把竞品对照从“待重采”推进到“首轮可复核证据”，但不把首轮样本误用成分值化对标。",
+    "goal": "从 6 个竞品扩展至 10 个竞品（新增 eufy、Freemie、Medela、BEABA），基于 GEO 侦查数据覆盖 AI 推荐中与 Momcozy 最常共同出现的品牌",
     "owner": "采集团队 + 前端负责人 + 数据负责人 + 增长负责人",
     "executionWindow": "首轮已在 2026-06-17 完成，二轮已在 2026-06-18 完成；7 天内补齐 owner 表，30 天形成第一版可复核竞品对比。",
     "tasks": [
@@ -780,7 +780,39 @@
       "任何对比结论都要绑定复核版本（采集日期、样本数、视口）与验收门槛。",
       "PDP 外推仅在 watchlist 分组完成至少 3 次复采后生效；当前 2026-06-17/18 自站 + 竞品结果仅作为复采基础样本，不可分值化对标。"
     ],
-    "acceptanceGate": "竞品矩阵下一版必须补足多次复采、入口参数、checkout 状态、脚本 owner/用途/预算表，才允许恢复可比分值版。"
+    "acceptanceGate": "竞品矩阵下一版必须补足多次复采、入口参数、checkout 状态、脚本 owner/用途/预算表，才允许恢复可比分值版。",
+    "competitorCount": 10,
+    "newCompetitors": [
+      {
+        "id": "eufy",
+        "label": "eufy",
+        "category": "wearable breast pump",
+        "geoRole": "best_heated_flanges_comfort",
+        "rationale": "Forbes/BabyCenter 2026 对比文章中高频出现，唯一具有加热法兰技术的竞品"
+      },
+      {
+        "id": "freemie",
+        "label": "Freemie",
+        "category": "wearable breast pump",
+        "geoRole": "budget_momcozy_alternative",
+        "rationale": "在 'Momcozy alternatives' GEO 查询中高频被推荐为预算可穿戴替代品"
+      },
+      {
+        "id": "medela",
+        "label": "Medela",
+        "category": "wearable breast pump",
+        "geoRole": "insurance_default_choice",
+        "rationale": "保险语境下 AI 推荐频率最高，全球最大品牌，常作为保险默认选项出现"
+      },
+      {
+        "id": "beaba",
+        "label": "BEABA",
+        "category": "baby food maker",
+        "rationale": "婴儿食品制作机类别中与 Baby Brezza 在 Google AI Overview 必定共框，35年历史品牌"
+      }
+    ],
+    "geoResearchDate": "2026-06-19",
+    "geoSource": "Librarian agent 搜索 Forbes, BabyCenter, Consumer Reports, The Bump, Amazon Best Sellers 2026-06 最新排名"
   },
   "decisionArchitecture": {
     "logicChain": [
@@ -933,6 +965,45 @@
           "复核币种和窗口"
         ],
         "gate": "SEO、渠道预算和收益归因只在补源后恢复判断。"
+      },
+      {
+        "window": "1 周",
+        "owner": "SEO 负责人 + 内容团队",
+        "action": "TuckGo Stroller meta title 扩展（30字 → 55-60字）",
+        "steps": [
+          "当前 title：'Momcozy Tuckgo Stroller'（30字）",
+          "目标 title：'Momcozy TuckGo Lightweight Travel Stroller - One-Hand Fold, IATA Compatible'（68字，优先截至60字）",
+          "Shopify Admin → Online Store → Pages → 找到 TuckGo PDP → SEO → Edit website SEO → 修改 Title",
+          "同步更新 meta description：加入 'lightweight stroller for travel, compact folding' 等关键词",
+          "验收：Google Rich Results Test 确认 title 长度 55-60 字符"
+        ],
+        "gate": "Rich Results Test 通过；Google Search Console → URL Inspection 触发重新索引"
+      },
+      {
+        "window": "1 周",
+        "owner": "开发团队",
+        "action": "Facebook Pixel 重复加载修复（首页 2 次 → 1 次）",
+        "steps": [
+          "当前：connect.facebook.net/en_US/fbevents.js 在首页加载 2 次（Pixel ID: 1207445154305002 和 838745568077400）",
+          "确认两个 Pixel ID 是否均为有效业务 Pixel，还是其中一个为历史遗留",
+          "Shopify Admin → Online Store → Preferences → Facebook Pixel → 检查配置",
+          "同时检查 theme.liquid 是否有硬编码的 Pixel 代码与 Shopify 内置 Pixel 重复",
+          "保留一个 Pixel，删除另一个，确保归因数据不被分裂"
+        ],
+        "gate": "下次采集首页 thirdPartyFailures 应下降；第三方治理脚本审计确认 fbevents.js 只加载 1 次"
+      },
+      {
+        "window": "2 周",
+        "owner": "内容团队 + 增长团队",
+        "action": "GEO 内容战略：建立保险渠道和职场场景专题内容",
+        "steps": [
+          "保险渠道内容页：创建 /pages/insurance-coverage 落地页，包含 HSA/FSA 使用指南、保险报销流程、HCPCS 代码（E0603）",
+          "职场场景专题：创建 /blogs/nursing-at-work 系列文章，覆盖 'pumping at work law'、'best breast pump for office'",
+          "每篇页面添加 FAQ Schema（至少 5 个 Q&A），提升 AI 直接引用概率",
+          "在 S12 Pro / M5 Smart PDP 添加保险报销标注（HSA/FSA Eligible 标识）",
+          "提交新页面 URL 到 Google Search Console 触发索引"
+        ],
+        "gate": "Perplexity 重测 10 个问题，保险和职场场景中 Momcozy 出现频率比基线 0/2 提升"
       }
     ]
   },
@@ -1143,7 +1214,11 @@
     "robotsWithNamedBotPolicyCount": 5,
     "maxThirdPartyFailures": "42 (babybrezza pdp mobile)",
     "maxJsKb": "1000 (babybuddha pdp desktop)",
-    "maxDomNodes": "5794 (babybrezza pdp desktop)"
+    "maxDomNodes": "5794 (babybrezza pdp desktop)",
+    "plannedCompetitorCount": 10,
+    "currentCompetitorCount": 6,
+    "expansionNote": "新增 eufy/Freemie/Medela/BEABA（共 10 个），基于 GEO 共同提及分析，下次采集时生效",
+    "newCompetitorsSince": "2026-06-19"
   },
   "segmentSamplingPlan": {
     "summary": "下一轮复采不再只按页面类型采样，而是按入口来源、浏览器状态、购物车状态和 checkout 可达性拆样本。公开匿名段可以立即跑；登录态和真实购物车段必须由 owner 提供 Playwright storage state，报告只记录公开 label，不记录文件路径、账号、token 或 cookie 值。",
@@ -1491,7 +1566,27 @@
         "action": "评估 Shopify Agentic Storefront 接入",
         "rationale": "Shopify 官方数据：AI 引荐订单 YoY 增长 13 倍，转化率高 50%。Agentic Storefront 可直接向 ChatGPT/Perplexity 推送结构化 SKU 数据"
       }
-    ]
+    ],
+    "competitorLandscape": {
+      "very_high_frequency": [
+        "Willow",
+        "Elvie"
+      ],
+      "high_frequency": [
+        "eufy",
+        "Lansinoh"
+      ],
+      "medium_frequency_insurance": [
+        "Medela",
+        "Spectra"
+      ],
+      "medium_frequency_budget": [
+        "Freemie",
+        "BabyBuddha"
+      ],
+      "food_maker_benchmark": "BEABA Babycook",
+      "momcozy_positioning": "budget/value segment — 出现于 5/5 问题但 0/5 获得 best overall"
+    }
   },
   "seoTechnical": {
     "scannedAt": "2026-06-18",
@@ -1640,7 +1735,9 @@
       {
         "gap": "竞品 PDP URL 已失效（Lansinoh、BabyBrezza、Spectra）",
         "impact": "竞品 SEO 技术层对比数据不完整",
-        "fix": "更新 competitor PDP URL 配置后重新采集"
+        "fix": "更新 competitor PDP URL 配置后重新采集",
+        "status": "RESOLVED - 三个 URL 均验证可达 (HTTP 200): lansinoh.com/products/discreet-duo, babybrezza.com/products/bottle-washer-pro, spectrababyusa.com/products/spectra-s1-plus-...",
+        "verifiedAt": "2026-06-19"
       }
     ]
   },
@@ -1650,7 +1747,7 @@
     "totalDimensions": 20,
     "coveredDimensions": 9,
     "newDimensions": 11,
-    "coverageNote": "9个已有维度（D1-D9）完整或部分覆盖；11个新维度（G1-G11）注册待采集",
+    "coverageNote": "9个已有维度（D1-D9）完整或部分覆盖；11个新维度（G1-G11）注册待采集；G2/G3 actionItems 已完整填写",
     "gaps": {
       "G1_behavior": {
         "label": "行为数据层（Session Replay + 热图）",
@@ -1693,9 +1790,10 @@
         ],
         "actionItems": [
           "Shopify Admin → Analytics → Reports → Online Store Conversion Rate",
-          "Breakdown by: Device → 导出 desktop/mobile/tablet 各自 CVR",
-          "Breakdown by: Traffic Source → 导出 paid/organic/direct/email CVR",
-          "填入下方 metrics 字段"
+          "点击右上角 Breakdown → 选择 Device type → 导出 desktop/mobile/tablet CVR",
+          "再次 Breakdown → 选择 Traffic Source → 导出 paid/organic/direct/email 各自 CVR",
+          "将各渠道 CVR 与整体 CVR 2.4% 对比，识别高价值 vs 低效渠道",
+          "填入 G2_funnel_segmented.metrics.by_channel 字段，更新 status=collected"
         ],
         "metrics": {
           "paid_cvr": null,
@@ -1781,7 +1879,15 @@
               "ltv_6m": null
             }
           }
-        }
+        },
+        "actionItems": [
+          "Shopify Admin → Customers → Export → 筛选 created_at 按月份（2025-12, 2026-01, 2026-02, 2026-03）",
+          "每个月份队列：统计首次购买后 30天/90天/180天 内有第二次购买的客户比例 → M1/M3/M6 留存率",
+          "Klaviyo → Analytics → Customer Lifetime Value → 导出各获客来源（paid/organic/KOL）的平均 LTV",
+          "对照 benchmarks：M1目标20%、M3目标45%、M6目标50%、12月LTV目标 $200",
+          "填入 G3_ltv_cohort.metrics 对应字段，更新 status=collected",
+          "识别留存率最差的队列月份 → 对应时期是否有促销/渠道投放异常？"
+        ]
       },
       "G4_email_sms": {
         "label": "邮件/SMS 营销性能诊断",
@@ -2264,6 +2370,118 @@
         "CTA 在黏性底栏需精准坐标点击（y≈795）",
         "信任信号（30天保证/1年保修）全部非首屏",
         "空购物车结账重定向首页——需 owner 账号测试真实支付方式"
+      ]
+    }
+  },
+  "lcpMethodologyNote": {
+    "issue": "LCP 在所有路由均为 lcp_unobserved_in_timeout",
+    "rootCause": "Momcozy 首页 hero 图片使用 CDN 懒加载或 CSS background，Playwright lab 环境 25s 内未触发 LCP Performance Entry",
+    "fix": "collect.mjs LCP 等待时间从 25s 延长至 40s，并在等待前先触发 networkidle（12s）",
+    "expectedOutcome": "下次采集部分路由可能获得 LCP 值，confidence 从 low 升至 medium",
+    "caveat": "若 hero 图片为 CSS background（非 <img> 元素），LCP 将永远无法被 PerformanceObserver 捕获，需要修改 Momcozy 主题代码才能解决"
+  },
+  "geoCompetitorLandscape": {
+    "updatedAt": "2026-06-19",
+    "source": "GEO侦查 - Forbes/BabyCenter/Consumer Reports/The Bump/Amazon 2026-06最新排名",
+    "competitors": [
+      {
+        "id": "willow",
+        "label": "Willow",
+        "category": "wearable breast pump",
+        "geoFrequency": "very_high",
+        "geoRole": "最佳综合推荐；高端/完全无束缚类别定义者",
+        "priceSegment": "premium",
+        "domain": "onewillow.com"
+      },
+      {
+        "id": "elvie",
+        "label": "Elvie",
+        "category": "wearable breast pump",
+        "geoFrequency": "very_high",
+        "geoRole": "最佳安静/闭系统；2025年3月被Willow收购",
+        "priceSegment": "premium",
+        "domain": "elvie.com"
+      },
+      {
+        "id": "eufy",
+        "label": "eufy",
+        "category": "wearable breast pump",
+        "geoFrequency": "high",
+        "geoRole": "唯一加热法兰技术竞品；最佳舒适度",
+        "priceSegment": "mid_to_premium",
+        "domain": "eufy.com"
+      },
+      {
+        "id": "lansinoh",
+        "label": "Lansinoh",
+        "category": "wearable breast pump",
+        "geoFrequency": "high",
+        "geoRole": "传统可靠品牌；综合对比表常客",
+        "priceSegment": "mid",
+        "domain": "lansinoh.com"
+      },
+      {
+        "id": "medela",
+        "label": "Medela",
+        "category": "breast pump",
+        "geoFrequency": "medium",
+        "geoRole": "保险默认选项；全球最大品牌；保险语境AI推荐最高",
+        "priceSegment": "mid",
+        "domain": "medela.com"
+      },
+      {
+        "id": "spectra",
+        "label": "Spectra Baby USA",
+        "category": "breast pump",
+        "geoFrequency": "medium",
+        "geoRole": "医疗级保险替代；保险语境第二选择",
+        "priceSegment": "mid",
+        "domain": "spectrababyusa.com"
+      },
+      {
+        "id": "freemie",
+        "label": "Freemie",
+        "category": "wearable breast pump",
+        "geoFrequency": "medium",
+        "geoRole": "预算可穿戴替代；Momcozy alternatives查询高频",
+        "priceSegment": "budget",
+        "domain": "freemie.com"
+      },
+      {
+        "id": "babybuddha",
+        "label": "BabyBuddha",
+        "category": "portable breast pump",
+        "geoFrequency": "medium",
+        "geoRole": "超便携旅行款；与Momcozy价格段有重叠",
+        "priceSegment": "budget_to_mid",
+        "domain": "babybuddhaproducts.com"
+      },
+      {
+        "id": "babybrezza",
+        "label": "Baby Brezza",
+        "category": "baby appliance",
+        "geoFrequency": "medium",
+        "geoRole": "婴儿家电生态系统；奶瓶清洗机市场领导者",
+        "priceSegment": "mid",
+        "domain": "babybrezza.com"
+      },
+      {
+        "id": "beaba",
+        "label": "BEABA",
+        "category": "baby food maker",
+        "geoFrequency": "high",
+        "geoRole": "婴儿食品机Premium定义者；Google AI Overview与Baby Brezza必定共框",
+        "priceSegment": "premium",
+        "domain": "beaba.us"
+      }
+    ],
+    "momcozyPositioning": {
+      "currentGeoRole": "budget/value segment leader",
+      "currentWeakness": "0/5问题获得best overall推荐；AI主权依赖第三方媒体引用",
+      "targetScenarios": [
+        "保险渠道内容（Medela对标）",
+        "职场场景专题（Elvie对标）",
+        "轻量旅行（BabyBuddha对标）"
       ]
     }
   }

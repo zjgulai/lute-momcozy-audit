@@ -42,3 +42,11 @@ export function latestSession(sessionsDir, readJsonFn = readJson) {
   if (sessions.length === 0) throw new Error("No session files found");
   return sessions[sessions.length - 1];
 }
+
+export function allSessions(sessionsDir, readJsonFn = readJson) {
+  return fs.readdirSync(sessionsDir)
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => readJsonFn(path.join(sessionsDir, file)))
+    .sort((a, b) => a.observedAt.localeCompare(b.observedAt))
+    .reverse(); // newest first
+}

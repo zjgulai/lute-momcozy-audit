@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 import {
+  allSessions,
   cleanOutput,
   copyDir,
   copyFile,
@@ -32,6 +33,9 @@ if (fs.existsSync(botEvidencePath)) {
 if (fs.existsSync(competitorsDir)) {
   publicCrossAudit.competitorSnapshot = latestSession(competitorsDir, readJson);
 }
+
+// Inject all sessions for collection management page
+publicCrossAudit._allSessions = allSessions(sessionsDir, readJson);
 
 writeHistoryPages({outputDir, data: publicCrossAudit, session});
 write404(outputDir);
