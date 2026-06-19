@@ -2809,5 +2809,47 @@
         ]
       }
     ]
-  }
+  },
+  "competitorMatrix": [
+    {
+      "dimension": "第三方脚本治理",
+      "momcozy": "92次失败（PDP max）",
+      "reference": "竞品新上限 23次（eufy），超标 4.0x；Medela 176KB 证伪宿命论",
+      "lesson": "重脚本不是行业宿命，是Momcozy的选择",
+      "recollectStatus": {
+        "state": "done",
+        "summary": "10竞品 2026-06-19 已采集"
+      }
+    },
+    {
+      "dimension": "PDP 行动路径",
+      "momcozy": "5/5 PDP 信任信号非首屏，3/5 CTA非首屏",
+      "reference": "G9 PDP内容采集 + P2 漏斗后端失血 $49万",
+      "lesson": "PDP内容是漏斗后端失血的直接根因",
+      "recollectStatus": {
+        "state": "in_progress",
+        "summary": "下一轮 PDP watchlist 复采"
+      }
+    },
+    {
+      "dimension": "爬虫分级",
+      "momcozy": "无 bot 防护，robots分级未评估",
+      "reference": "3竞品503（Spectra/BEABA/BabyBreeza）已部署bot防护",
+      "lesson": "Momcozy价格情报可被自由采集，竞品已部分反制",
+      "recollectStatus": {
+        "state": "pending",
+        "summary": "需owner logs或Clarity接入"
+      }
+    },
+    {
+      "dimension": "内容入口变现",
+      "momcozy": "naturalSearchRows=0，SEO变现结论冻结",
+      "reference": "C5 SEO变现结论必须冻结",
+      "lesson": "先补搜索源再评估SEO ROI",
+      "recollectStatus": {
+        "state": "pending",
+        "summary": "等待 G2 分渠道 CVR + Search Console"
+      }
+    }
+  ]
 }
