@@ -2940,5 +2940,376 @@
         }
       ]
     }
+  },
+  "metricDictionary": {
+    "version": "v1.0",
+    "updatedAt": "2026-06-19",
+    "categories": [
+      {
+        "id": "funnel",
+        "label": "经营漏斗指标",
+        "description": "描述用户从访问到购买的各环节转化效率，是诊断「钱从哪里漏掉」的核心层。",
+        "metrics": [
+          {
+            "id": "cvr",
+            "name": "CVR",
+            "zhName": "整体转化率",
+            "definition": "在观察窗口内，完成购买的访客占总访客的比例。",
+            "formula": "购买人数 ÷ 总访客数",
+            "currentValue": "2.40%",
+            "benchmark": "母婴 DTC 行业均值约 2.5-3.5%",
+            "caveat": "C7 口径风险：当前数字混淆了付费和自然流量，自然流量 CVR 实际更低。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "add_to_cart_rate",
+            "name": "Add-to-Cart Rate",
+            "zhName": "加购率",
+            "definition": "在观察窗口内，点击「加入购物车」的访客占总访客的比例。",
+            "formula": "加购人数 ÷ 总访客数",
+            "currentValue": "8.60%",
+            "benchmark": "母婴品类行业均值 12-15%",
+            "caveat": "低于行业均值说明漏斗前端（PDP 说服力）是主要摩擦点。",
+            "pageRef": "forensics"
+          },
+          {
+            "id": "checkout_rate",
+            "name": "Checkout Rate",
+            "zhName": "结账率",
+            "definition": "在观察窗口内，进入结账流程的访客占总访客的比例。",
+            "formula": "进入结账人数 ÷ 总访客数",
+            "currentValue": "6.30%",
+            "benchmark": "通常是加购率的 65-80%",
+            "caveat": "当前加购→结账转化为 73.3%，此环节摩擦相对较小。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "checkout_to_purchase",
+            "name": "Checkout-to-Purchase Rate",
+            "zhName": "结账→购买转化率",
+            "definition": "在结账流程中最终完成支付的用户占进入结账用户的比例。",
+            "formula": "购买人数 ÷ 进入结账人数",
+            "currentValue": "38.2%",
+            "benchmark": "行业均值 55-65%",
+            "caveat": "这是当前漏斗最大的失血点（P2），差距约 17-27pp。CTA 位置、快捷支付缺失是主因。",
+            "pageRef": "forensics"
+          },
+          {
+            "id": "cart_abandonment_rate",
+            "name": "Cart Abandonment Rate",
+            "zhName": "弃单率",
+            "definition": "加购后未完成结账的用户占加购用户的比例。",
+            "formula": "1 - (进入结账人数 ÷ 加购人数)",
+            "currentValue": "26.7%",
+            "benchmark": "行业均值 70-75%（弃单率低是正向信号）",
+            "caveat": "26.7% 远低于行业均值，说明加购用户质量高。主要摩擦在「访客→加购」而非「加购→结账」。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "abandoned_recovery_rate",
+            "name": "Abandoned Cart Recovery Rate",
+            "zhName": "弃单追回率",
+            "definition": "通过邮件/SMS 追回序列，最终完成购买的弃单用户占总弃单用户的比例。",
+            "formula": "追回购买人数 ÷ 弃单总人数",
+            "currentValue": "0%",
+            "benchmark": "行业均值 5-10%（Klaviyo 弃单序列）",
+            "caveat": "P3 核心问题：当前 Klaviyo 弃单序列完全未运作，每周期 ~$1.4-2.7 万机会损失。",
+            "pageRef": "metrics"
+          }
+        ]
+      },
+      {
+        "id": "sales",
+        "label": "销售健康指标",
+        "description": "反映实际成交质量，包括客单价、复购、附加购买率等，需结合口径说明解读。",
+        "metrics": [
+          {
+            "id": "aov",
+            "name": "AOV",
+            "zhName": "平均订单价值",
+            "definition": "观察窗口内，每笔订单的平均金额。",
+            "formula": "总销售额 ÷ 总订单数",
+            "currentValue": "$88.2",
+            "benchmark": "DTC 母婴品类均值 $80-120",
+            "caveat": "件/单比为 1.19×，说明部分订单包含多件（bundle）。Attach rate 高是 AOV 的结构性支撑。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "repurchase_rate",
+            "name": "Returning Customer Rate",
+            "zhName": "复购率（老客贡献率）",
+            "definition": "Shopify 定义：当期订单中来自历史老客户的订单占比。",
+            "formula": "老客订单数 ÷ 总订单数",
+            "currentValue": "46.1%",
+            "benchmark": "DTC 老品牌正常范围 40-60%",
+            "caveat": "⚠️ 这是「老客贡献率」，不是「新客获取后多少人回来买第二次」。历史对比（26.7% vs 46.1%）因窗口不同（135天 vs 221天）无效。新客复购曲线需 G3 LTV 队列分析。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "attach_rate",
+            "name": "Attach Rate",
+            "zhName": "附加购买率",
+            "definition": "包含 2 件及以上商品（或配件/套装）的订单占总订单的比例。",
+            "formula": "多件订单数 ÷ 总订单数",
+            "currentValue": "56.5%",
+            "benchmark": "历史 33.7%，当前明显提升",
+            "caveat": "✅ 可信指标。件/单比 1.19× 与 56.5% 自洽。说明套装/配件购买意愿强，是 AOV 的主要驱动力。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "refund_rate",
+            "name": "Refund Rate",
+            "zhName": "退款率",
+            "definition": "发生退款的订单占总订单的比例。",
+            "formula": "退款订单数 ÷ 总订单数",
+            "currentValue": "0.95%",
+            "benchmark": "DTC 母婴品类健康值 <2%",
+            "caveat": "✅ 可信指标，处于健康范围内。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "coupon_use_rate",
+            "name": "Coupon Use Rate",
+            "zhName": "优惠券使用率",
+            "definition": "使用了优惠码的订单占总订单的比例。",
+            "formula": "使用优惠码订单数 ÷ 总订单数",
+            "currentValue": "0%",
+            "benchmark": "正常 DTC 品牌通常 5-20%",
+            "caveat": "⚠️ 完全为零说明优惠码系统未配置或 KOL/affiliate 追踪码未接入，无法评估促销效果。",
+            "pageRef": "metrics"
+          }
+        ]
+      },
+      {
+        "id": "traffic",
+        "label": "流量质量指标",
+        "description": "描述访客的数量和行为质量，诊断流量来源健康度。",
+        "metrics": [
+          {
+            "id": "total_visits",
+            "name": "Total Visits",
+            "zhName": "总访次",
+            "definition": "观察窗口内网站的总访问次数（Session 数）。",
+            "formula": "直接统计",
+            "currentValue": "13.56 万次（137 非零日）",
+            "benchmark": "—",
+            "caveat": "流量窗口（137天）与销售窗口（205天）不同，不可直接合并计算 CVR。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "bounce_rate",
+            "name": "Bounce Rate",
+            "zhName": "跳出率",
+            "definition": "只浏览一个页面就离开的访问占总访问的比例。",
+            "formula": "单页访问次数 ÷ 总访问次数",
+            "currentValue": "57.9%",
+            "benchmark": "电商行业均值 45-55%",
+            "caveat": "略高于均值，与平均 PV 2.91 共同说明内容引导深度浏览的能力偏弱。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "avg_pv",
+            "name": "Avg. Page Views per Visit",
+            "zhName": "人均浏览页数",
+            "definition": "每次访问平均浏览的页面数量。",
+            "formula": "总页面浏览量 ÷ 总访问次数",
+            "currentValue": "2.91",
+            "benchmark": "健康电商网站 4-6 页",
+            "caveat": "偏低，说明 PDP 之间的内链引导和交叉销售路径不足。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "avg_stay_sec",
+            "name": "Avg. Session Duration",
+            "zhName": "平均停留时长",
+            "definition": "每次访问在网站上停留的平均秒数。",
+            "formula": "总停留秒数 ÷ 总访问次数",
+            "currentValue": "247秒（约 4.1 分钟）",
+            "benchmark": "电商均值 3-5 分钟",
+            "caveat": "单次停留时长合理，但结合低 PV 说明用户在少数页面停留较长。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "new_visitor_pct",
+            "name": "New Visitor %",
+            "zhName": "新访客占比",
+            "definition": "首次访问网站的用户占总访客的比例。",
+            "formula": "新访客数 ÷ 总访客数",
+            "currentValue": "0%",
+            "benchmark": "正常品牌 40-60%",
+            "caveat": "⚠️ 数据异常：0% 说明访客分类系统故障，无法识别新老访客。导致 CAC 不可计算，LTV 分析不可信。",
+            "pageRef": "metrics"
+          }
+        ]
+      },
+      {
+        "id": "tech",
+        "label": "前端技术性能指标",
+        "description": "通过 Playwright 自动采集的实验室（Lab）指标，反映页面加载和交互质量。",
+        "metrics": [
+          {
+            "id": "ttfb",
+            "name": "TTFB",
+            "zhName": "首字节时间",
+            "definition": "从浏览器发起请求到接收到服务器第一个字节的时间。衡量服务器响应速度。",
+            "formula": "responseStart - fetchStart（W3C Navigation Timing，含 DNS+TCP+TLS）",
+            "currentValue": "235ms（桌面）/ 216ms（移动）",
+            "benchmark": "Google 标准：<800ms 为良好，<200ms 为优秀",
+            "caveat": "✅ 当前处于良好范围，C2 结论「站点主问题不是后端慢」的主要依据。",
+            "pageRef": "forensics"
+          },
+          {
+            "id": "fcp",
+            "name": "FCP",
+            "zhName": "首次内容绘制",
+            "definition": "浏览器渲染页面上第一个 DOM 内容（文字、图片等）所需时间。",
+            "formula": "PerformanceEntry: first-contentful-paint",
+            "currentValue": "0.33s（桌面 + 移动）",
+            "benchmark": "Google 标准：<1.8s 为良好",
+            "caveat": "✅ FCP 表现优秀，但 FCP 快不等于用户感知快——LCP 才是真正的体感指标。",
+            "pageRef": "trends"
+          },
+          {
+            "id": "lcp",
+            "name": "LCP",
+            "zhName": "最大内容绘制",
+            "definition": "视口内最大可见内容元素（通常是主图或标题）完成渲染的时间，是 Google Core Web Vitals 核心指标。",
+            "formula": "PerformanceEntry: largest-contentful-paint（仅对 <img>、<video> 或背景图有 URL 的元素有效）",
+            "currentValue": "0/13 路由可观测（全部 lcp_unobserved_in_timeout）",
+            "benchmark": "Google 标准：<2.5s 为良好，>4.0s 为需要改进",
+            "caveat": "⚠️ 根因：Momcozy 首页 hero 图片使用 CSS background，浏览器不将其注册为 LCP 候选元素，导致永远无法观测。修复需要将 CSS background 改为 <img> 标签。",
+            "pageRef": "trends"
+          },
+          {
+            "id": "cls",
+            "name": "CLS",
+            "zhName": "累积布局偏移",
+            "definition": "页面加载过程中布局意外偏移的累计量，衡量视觉稳定性。",
+            "formula": "所有 layout-shift entry 的 cumulative score（排除用户交互触发的偏移）",
+            "currentValue": "0（完美）",
+            "benchmark": "Google 标准：<0.1 为良好",
+            "caveat": "✅ 布局稳定性优秀。",
+            "pageRef": "trends"
+          },
+          {
+            "id": "tbt",
+            "name": "TBT",
+            "zhName": "总阻塞时间",
+            "definition": "FCP 之后，主线程被长任务（>50ms）阻塞的总时长，影响页面交互响应速度。",
+            "formula": "所有 longtask entry 中超过 50ms 部分之和",
+            "currentValue": "0ms（实验室采集时，因第三方脚本失败导致数值失真）",
+            "benchmark": "Google 标准：<200ms 为良好",
+            "caveat": "⚠️ TBT=0 是因为大量第三方脚本失败（92次），脚本没执行所以没有阻塞。这是「故障假象」而非真实性能。",
+            "pageRef": "trends"
+          },
+          {
+            "id": "dom_nodes",
+            "name": "DOM Nodes",
+            "zhName": "DOM 节点数",
+            "definition": "页面渲染完成后 HTML 文档对象模型中的节点总数量，反映页面复杂度。",
+            "formula": "document.querySelectorAll('*').length",
+            "currentValue": "11,742（PDP watchlist 最高）",
+            "benchmark": "W3C 建议上限 1,500；Google PageSpeed 警告线 ~800",
+            "caveat": "⚠️ 超标 7.8×。直接导致：滚动卡顿、内存压力、移动端交互延迟。竞品上限 6,966（eufy），Momcozy 超出 1.7×。",
+            "pageRef": "forensics"
+          },
+          {
+            "id": "js_kb",
+            "name": "JS Payload",
+            "zhName": "JavaScript 体积",
+            "definition": "页面加载时下载的 JavaScript 总体积（KB），直接影响移动端解析时间。",
+            "formula": "所有 JS 资源的 transferSize 之和（KB）",
+            "currentValue": "2,212KB（PDP）/ 1,903KB（首页）",
+            "benchmark": "Google 推荐 <300KB；母婴竞品均值 ~600KB；Medela 176KB",
+            "caveat": "⚠️ PDP JS 是 Medela（全球最大母婴品牌）的 12.6×。移动端 loadEvent 11,265ms，用户等待超 11 秒。",
+            "pageRef": "forensics"
+          },
+          {
+            "id": "third_party_failures",
+            "name": "Third-Party Failures",
+            "zhName": "第三方脚本失败次数",
+            "definition": "页面加载过程中，外部域名的网络请求失败次数（包括 4xx/5xx/超时）。",
+            "formula": "requestfailed 事件中非主域名请求数",
+            "currentValue": "92（PDP 最高）",
+            "benchmark": "竞品新上限：23次（eufy）",
+            "caveat": "⚠️ Momcozy 超出竞品上限 4.0×（旧基准 2.2×，10竞品数据更严峻）。失败脚本可能包含归因像素、实验工具，导致数据污染。",
+            "pageRef": "forensics"
+          },
+          {
+            "id": "confidence",
+            "name": "Session Confidence",
+            "zhName": "采集置信度",
+            "definition": "评估单次 Playwright 采集数据完整性的等级，基于核心指标的 null 值数量计算。",
+            "formula": "null 指标数（LCP/FCP/TTFB 桌面+移动共6项）：0个→high，1个→medium，≥2个→low",
+            "currentValue": "low（所有 7 个 session）",
+            "benchmark": "目标 medium 或 high",
+            "caveat": "⚠️ 全部为 low 是因为 LCP 100% 不可观测（hero 图 CSS background 根因），拉低了置信度。已延长采集等待至 40s+networkidle，下次月度采集验证效果。",
+            "pageRef": "collection"
+          }
+        ]
+      },
+      {
+        "id": "marketing",
+        "label": "营销与增长指标",
+        "description": "衡量 SEO、GEO、邮件营销等增长渠道的效能，部分指标尚待数据接入。",
+        "metrics": [
+          {
+            "id": "geo_visibility",
+            "name": "GEO Visibility",
+            "zhName": "生成式引擎可见度",
+            "definition": "品牌在 AI 搜索引擎（ChatGPT / Perplexity / Google AI Overview）推荐结果中的出现率和排名质量。",
+            "formula": "手动测试：N 个高意图问题中出现次数 / 获得 best overall 推荐次数",
+            "currentValue": "5/5 问题被提及，0/5 获得 best overall",
+            "benchmark": "竞品 Willow 综合推荐主导，Elvie 职场场景主导",
+            "caveat": "品牌被 AI 固化为 budget/value，引用来源依赖第三方媒体（Forbes/NYMag），自有页面几乎不被直接引用。",
+            "pageRef": "cross-audit"
+          },
+          {
+            "id": "sri_coverage",
+            "name": "SRI Coverage",
+            "zhName": "脚本完整性验证覆盖率",
+            "definition": "外部加载的 JavaScript 脚本中，设置了 integrity（SRI hash）属性的比例。",
+            "formula": "有 integrity 属性的外链 script 数 ÷ 总外链 script 数",
+            "currentValue": "0%（359+ 个外部脚本均无 SRI）",
+            "benchmark": "目标 100%（至少覆盖支付相关脚本）",
+            "caveat": "⚠️ P8 核心证据：SRI 为零 + CSP 缺失 = 供应链注入防线为零，Magecart 攻击窗口开放。",
+            "pageRef": "forensics"
+          },
+          {
+            "id": "email_capture_rate",
+            "name": "Email Capture Rate",
+            "zhName": "邮件订阅转化率",
+            "definition": "访客中完成邮件订阅的比例，是邮件营销的入口指标。",
+            "formula": "邮件订阅人数 ÷ 总访客数",
+            "currentValue": "待采集（G4）",
+            "benchmark": "目标 0.5%+（Klaviyo 基准），最低 0.4%",
+            "caveat": "G4 邮件/SMS 维度尚未接入，需在 Klaviyo Analytics 中查看。",
+            "pageRef": "360"
+          },
+          {
+            "id": "abandoned_cart_email_cvr",
+            "name": "Abandoned Cart Email CVR",
+            "zhName": "弃单邮件追回率",
+            "definition": "收到弃单追回邮件后，最终完成购买的用户比例。",
+            "formula": "追回购买人数 ÷ 弃单邮件发送人数",
+            "currentValue": "0%（追回体系未运作）",
+            "benchmark": "Klaviyo 行业均值 4-10%",
+            "caveat": "P3 核心证据：当前每周期 ~5,281 个弃单用户完全没有被触达。",
+            "pageRef": "metrics"
+          },
+          {
+            "id": "faceted_nav_urls",
+            "name": "Faceted Navigation URLs",
+            "zhName": "分面导航 URL 数",
+            "definition": "由筛选器组合（颜色×尺寸×价格等）产生的唯一 URL 数量，影响搜索引擎爬虫预算分配。",
+            "formula": "直接统计（Playwright 采集）",
+            "currentValue": "130（nursing-bra 品类）/ 81（breast pump 搜索页）",
+            "benchmark": "建议 noindex 分面 URL，品类页保留规范 URL",
+            "caveat": "⚠️ G11 核心发现：130 个分面 URL 估计浪费爬虫预算 40-60%，核心品类词难以获得排名权重。",
+            "pageRef": "cross-audit"
+          }
+        ]
+      }
+    ]
   }
 }
