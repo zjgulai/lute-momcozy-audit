@@ -1337,6 +1337,7 @@ export function content360Section(data) {
   const g11 = gaps.G11_seo_architecture || {};
   const g5 = gaps.G5_inventory || {};
   const g6 = gaps.G6_review_ecosystem || {};
+  const g7 = gaps.G7_checkout_business || {};
 
   const g9Findings = (g9.keyFindings || []).map(f => `<li>${escapeHtml(f)}</li>`).join("");
   const g9Routes = Object.entries(g9.collectedByRoute || {}).map(([routeId, r]) => `<tr>
@@ -1360,13 +1361,34 @@ export function content360Section(data) {
 
   const g6Findings = (g6.keyFindings || []).map(f => `<li>${escapeHtml(f)}</li>`).join("");
   const g5Findings = (g5.keyFindings || []).map(f => `<li>${escapeHtml(f)}</li>`).join("");
+  const g7Findings = (g7.keyFindings || []).map(f => `<li>${escapeHtml(f)}</li>`).join("");
+
+  // G7 checkout payment methods summary
+  const g7cs = g7.collectedSignals || {};
+  const g7PayRows = [
+    {label: "Shop Pay", key: "hasShopPay", impact: "可提升转化 1.72x"},
+    {label: "Apple Pay", key: "hasApplePay", impact: "iOS 用户一键结账"},
+    {label: "Google Pay", key: "hasGooglePay", impact: "Android 用户一键结账"},
+    {label: "Klarna", key: "hasKlarna", impact: "先买后付，高 AOV 促成"},
+    {label: "Afterpay", key: "hasAfterpay", impact: "先买后付，高 AOV 促成"},
+    {label: "HSA/FSA", key: "hasHsaFsa", impact: "母婴品类核心渠道"},
+    {label: "保险支付", key: "hasInsurance", impact: "母婴品类差异化"},
+  ].map(({label, key, impact}) => {
+    const present = g7cs[key];
+    const cls = present === true ? "good" : present === false ? "bad" : "";
+    return `<tr>
+      <td><strong>${escapeHtml(label)}</strong></td>
+      <td class="${cls}">${present === true ? "✅ 已集成" : present === false ? "❌ 未检测" : "—"}</td>
+      <td style="color:var(--text-secondary);font-size:12px;">${escapeHtml(impact)}</td>
+    </tr>`;
+  }).join("");
 
   return `<section class="section" id="content-360-audit">
     <div class="container">
       <div class="section__head">
-        <div class="section__eyebrow">360 内容层首轮采集 · ${escapeHtml(g360.firstCollectionDate || "2026-06-18")} · G5/G6/G9/G11</div>
-        <h2 class="section__title">PDP 内容、评论生态、SEO 架构与库存：四个新维度首轮证据</h2>
-        <p class="section__sub">collect-360-content.mjs 首轮采集（15条路由，2条被限流）。关键发现：信任信号和 CTA 均不在首屏；分面导航浪费爬虫预算；S12 Pro 是评论最多 SKU（1828条）。</p>
+        <div class="section__eyebrow">360 内容层首轮采集 · ${escapeHtml(g360.firstCollectionDate || "2026-06-18")} · G5/G6/G7/G9/G11</div>
+        <h2 class="section__title">PDP 内容、评论生态、结账链路、SEO 架构与库存：五个维度首轮证据</h2>
+        <p class="section__sub">collect-360-content.mjs 首轮采集（15条路由，2条被限流）。关键发现：信任信号和 CTA 均不在首屏；分面导航浪费爬虫预算；S12 Pro 是评论最多 SKU（1828条）；Shop Pay / Apple Pay / Google Pay 在匿名状态未检测到。</p>
       </div>
       <div class="metric-grid">
         <div class="metric-card metric-card--danger">
@@ -1384,6 +1406,11 @@ export function content360Section(data) {
           <div class="card-value">4 字</div>
           <div class="card-meta">electric-breast-pump 品类页极薄（目标400字+）</div>
         </div>
+        <div class="metric-card metric-card--warn">
+          <div class="card-label">快捷支付覆盖</div>
+          <div class="card-value">0 / 3</div>
+          <div class="card-meta">Shop Pay / Apple Pay / Google Pay 匿名态未检测到</div>
+        </div>
         <div class="metric-card metric-card--success">
           <div class="card-label">最高评论数 SKU</div>
           <div class="card-value">1828 条</div>
@@ -1399,6 +1426,17 @@ export function content360Section(data) {
             <tbody>${g9Routes}</tbody>
           </table>
         </div>
+      </details>
+      <details class="evidence-drilldown">
+        <summary>G7 结账链路业务指标（支付方式、字段数量、运费可见性）</summary>
+        <ul style="margin:0 0 12px;padding-left:20px;color:var(--text-secondary);font-size:13px;line-height:1.8;">${g7Findings}</ul>
+        <div class="cross-table-wrap" tabindex="0">
+          <table class="cross-table">
+            <thead><tr><th>支付方式</th><th>状态</th><th>业务影响</th></tr></thead>
+            <tbody>${g7PayRows}</tbody>
+          </table>
+        </div>
+        <p style="margin:10px 0 0;font-size:12px;color:var(--text-secondary);">⚠️ 采集为匿名空购物车状态；Shop Pay / Apple Pay / Google Pay 可能仅在有商品的真实结账页出现，需要 owner storage state 复采确认。结账表单字段数：${g7cs.formFieldCount ?? "—"} 个；运费早期可见：${g7cs.shippingCostEarlyVisible ? "✅ 是" : "❌ 否"}；访客结账可用：${g7cs.guestCheckoutAvailable ? "✅ 是" : "❌ 否"}。</p>
       </details>
       <details class="evidence-drilldown">
         <summary>G11 SEO 架构明细（分面导航/品类页/内链）</summary>
@@ -1444,7 +1482,7 @@ export function operatingHealth360Section(data) {
       ${steps ? `<ol style="padding-left:16px;font-size:12px;color:var(--text-secondary);line-height:1.7;margin:8px 0 0;">${steps}</ol>` : ""}
     </div>`;
   };
-  return `<section class="section section--gray" id="operating-health-360">
+   return `<section class="section section--gray" id="operating-health-360">
     <div class="container">
       <div class="section__head">
         <div class="section__eyebrow">360 经营健康层 · G1/G2/G3/G4/G8/G10 · 待接入后台数据</div>
@@ -1463,6 +1501,328 @@ export function operatingHealth360Section(data) {
         <div class="card-label" style="color:#fbbf24;">执行优先级</div>
         <p><strong>P0 先行（G1/G2/G3）</strong>：这三项决定了当前 CVR 数字能不能被信任——完成前，所有转化率结论都带 C7 口径风险。<br><strong>P1 同步推进（G4/G8）</strong>：邮件/SMS ROI $36-40/$1，TikTok Shop 年化 GMV $30-50B，机会窗口正在关闭。</p>
       </div>
+    </div>
+  </section>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// Phase R3-1: 360 框架全景页 body — framework.html
+// ─────────────────────────────────────────────────────────────
+export function frameworkBody(data) {
+  const g360 = data.diagnosticGaps360 || {};
+  const gaps = g360.gaps || {};
+  const total = g360.totalDimensions || 20;
+  const covered = g360.coveredDimensions || 9;
+  const version = g360.frameworkVersion || "v2.0";
+
+  const layerDefs = [
+    {key: "A", label: "后台数据层", desc: "需 Shopify Analytics / Klaviyo / 第三方工具授权"},
+    {key: "B", label: "社交商务层", desc: "TikTok Shop / Instagram Shop 数据"},
+    {key: "C", label: "技术可采集层", desc: "Playwright 自动采集，无需账号授权"},
+  ];
+
+  const statusIcon = (status) => {
+    if (status === "collected") return "✅";
+    if (status === "partial") return "⚠️";
+    return "⏳";
+  };
+  const statusLabel = (status) => {
+    if (status === "collected") return "已采集";
+    if (status === "partial") return "部分";
+    return "待采集";
+  };
+
+  const gapRows = Object.entries(gaps).map(([key, gap]) => {
+    const priClass = gap.priority === "P0" ? "badge--p0" : gap.priority === "P1" ? "badge--p1" : "badge--p2";
+    return `<tr>
+      <td><strong>${escapeHtml(key.replace("_", " "))}</strong></td>
+      <td>${escapeHtml(gap.label || "")}</td>
+      <td><span class="badge ${priClass}">${escapeHtml(gap.priority || "")}</span></td>
+      <td>${statusIcon(gap.status)} <span style="font-size:12px;color:var(--text-secondary);">${escapeHtml(statusLabel(gap.status))}</span></td>
+      <td style="font-size:12px;color:var(--text-secondary);">${escapeHtml(gap.dataSource || "")}</td>
+      <td style="font-size:12px;color:var(--text-secondary);">${escapeHtml(gap.impactEstimate || "").substring(0, 60)}${(gap.impactEstimate || "").length > 60 ? "…" : ""}</td>
+    </tr>`;
+  }).join("");
+
+  const layerCards = layerDefs.map(({key, label, desc}) => {
+    const layerGaps = Object.values(gaps).filter(g => g.layer === key);
+    const collectedCount = layerGaps.filter(g => g.status === "collected" || g.status === "partial").length;
+    return `<div class="metric-card">
+      <div class="card-label">${escapeHtml(label)}</div>
+      <div class="card-value">${collectedCount} / ${layerGaps.length}</div>
+      <div class="card-meta">${escapeHtml(desc)}</div>
+    </div>`;
+  }).join("");
+
+  return `<section class="hero" id="hero">
+    <div class="container">
+      <span class="hero__badge">VII · 360 框架全景 · ${escapeHtml(version)}</span>
+      <h1 class="hero__title">诊断框架全景：<br><span class="hl">20 维度，${covered} 已覆盖。</span></h1>
+      <p class="hero__lead">从前端性能、内部经营到安全攻击面、GEO 可见度——完整的 360° 诊断框架覆盖状态。当前版本已覆盖 ${covered}/${total} 维度，${total - covered} 个维度进入待采集队列。</p>
+    </div>
+  </section>
+  <section class="section" id="framework-overview">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">框架版本 ${escapeHtml(version)} · 更新于 ${escapeHtml(g360.lastUpdated || "2026-06-19")}</div>
+        <h2 class="section__title">覆盖率总览：${covered} 维度已建立证据，${total - covered} 维度等待数据接入</h2>
+        <p class="section__sub">框架分三个数据层：技术可采集层（Playwright 直采，无需授权）、后台数据层（需账号）、社交商务层（需平台授权）。</p>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="card-label">框架总维度</div>
+          <div class="card-value">${total}</div>
+          <div class="card-meta">D1-D9 原有 + G1-G11 新增</div>
+        </div>
+        <div class="metric-card metric-card--success">
+          <div class="card-label">已建立证据</div>
+          <div class="card-value">${covered}</div>
+          <div class="card-meta">含性能/安全/GEO/SEO/内容五层</div>
+        </div>
+        <div class="metric-card metric-card--warn">
+          <div class="card-label">待接入后台数据</div>
+          <div class="card-value">${total - covered}</div>
+          <div class="card-meta">G1/G2/G3/G4/G8/G10 需账号授权</div>
+        </div>
+        ${layerCards}
+      </div>
+      <div class="cross-table-wrap" tabindex="0" style="margin-top:22px;">
+        <table class="cross-table">
+          <thead><tr><th>维度 ID</th><th>名称</th><th>优先级</th><th>状态</th><th>数据来源</th><th>业务影响（摘要）</th></tr></thead>
+          <tbody>${gapRows}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section class="section section--gray" id="framework-next">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">下一步接入路径</div>
+        <h2 class="section__title">待采集维度的接入优先级与操作路径</h2>
+        <p class="section__sub">P0 维度（G1/G2/G3）直接影响当前 CVR 结论的可信度，应最先接入；P1 维度（G4/G8）对应最大增量机会窗口。</p>
+      </div>
+      <div class="backlog-grid">
+        ${Object.values(gaps).filter(g => g.status === "not_started" && g.priority === "P0").map(g => {
+          const priClass = "badge--p0";
+          const steps = (g.actionItems || []).slice(0, 3).map(s => `<li>${escapeHtml(s)}</li>`).join("");
+          return `<div class="backlog-card">
+            <div><span class="badge badge--p1">待采集</span> <span class="badge ${priClass}">${escapeHtml(g.priority || "")}</span></div>
+            <h3>${escapeHtml(g.label)}</h3>
+            <p>${escapeHtml(g.impactEstimate || "")}</p>
+            ${steps ? `<ol style="padding-left:16px;font-size:12px;color:var(--text-secondary);line-height:1.7;margin:8px 0 0;">${steps}</ol>` : ""}
+          </div>`;
+        }).join("")}
+        ${Object.values(gaps).filter(g => g.status === "not_started" && g.priority !== "P0").map(g => {
+          const priClass = g.priority === "P1" ? "badge--p1" : "badge--p2";
+          const steps = (g.actionItems || []).slice(0, 2).map(s => `<li>${escapeHtml(s)}</li>`).join("");
+          return `<div class="backlog-card">
+            <div><span class="badge badge--p1">待采集</span> <span class="badge ${priClass}">${escapeHtml(g.priority || "")}</span></div>
+            <h3>${escapeHtml(g.label)}</h3>
+            <p>${escapeHtml(g.impactEstimate || "")}</p>
+            ${steps ? `<ol style="padding-left:16px;font-size:12px;color:var(--text-secondary);line-height:1.7;margin:8px 0 0;">${steps}</ol>` : ""}
+          </div>`;
+        }).join("")}
+      </div>
+    </div>
+  </section>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// Phase R3-2: 采集管理页 body — collection.html
+// ─────────────────────────────────────────────────────────────
+export function collectionBody(data, session) {
+  const sessions = data._sessionList || [];
+  const latestSession = data.external?.latestSession || "";
+  const confidence = data.external?.confidence || "unknown";
+  const routeCount = data.external?.routeCount || 0;
+  const g360 = data.diagnosticGaps360 || {};
+
+  const confidenceClass = confidence === "high" ? "metric-card--success" : confidence === "medium" ? "metric-card--warn" : "metric-card--danger";
+
+  const sessionRows = (data._allSessions || []).map(s => {
+    const conf = s.confidence || "low";
+    const confClass = conf === "high" ? "good" : conf === "medium" ? "warn" : "bad";
+    return `<tr>
+      <td><strong>${escapeHtml(s.sessionId || "")}</strong></td>
+      <td>${escapeHtml(s.observedAt || "")}</td>
+      <td class="${confClass}">${escapeHtml(conf)}</td>
+      <td>${(s.routes || []).length || "—"}</td>
+      <td>${(s.metrics?.lcp != null) ? `${s.metrics.lcp} ms` : "—"}</td>
+      <td style="font-size:12px;color:var(--text-secondary);">${escapeHtml(s.methodologyVersion || "v1")}</td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="6" style="color:var(--text-secondary);text-align:center;padding:24px;">session 历史从 build 时注入；当前 build 无 _allSessions 字段</td></tr>`;
+
+  return `<section class="hero" id="hero">
+    <div class="container">
+      <span class="hero__badge">VIII · 采集管理 · 最新 ${escapeHtml(latestSession)}</span>
+      <h1 class="hero__title">采集管理：<br><span class="hl">历史 + 触发 + 状态。</span></h1>
+      <p class="hero__lead">每次 Playwright 自动采集的历史记录、置信度状态、路由覆盖和下一次触发说明。月度定时采集由 collect.yml 自动触发；手动采集命令在本页列出。</p>
+    </div>
+  </section>
+  <section class="section" id="collection-status">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">当前采集状态</div>
+        <h2 class="section__title">最新采集：${escapeHtml(latestSession)}，置信度 ${escapeHtml(confidence)}</h2>
+        <p class="section__sub">v2 格式（2026-06-10 起）支持双视口、LCP、TBT、DOM 节点、JS 体积等新指标；v1 为手工采集，置信度 low，不可与 v2 直接比较。</p>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card ${confidenceClass}">
+          <div class="card-label">置信度</div>
+          <div class="card-value">${escapeHtml(confidence)}</div>
+          <div class="card-meta">基于 null 指标数量自动计算</div>
+        </div>
+        <div class="metric-card">
+          <div class="card-label">路由覆盖</div>
+          <div class="card-value">${routeCount}</div>
+          <div class="card-meta">最新 session 路由数量</div>
+        </div>
+        <div class="metric-card">
+          <div class="card-label">360 框架覆盖</div>
+          <div class="card-value">${g360.coveredDimensions || 0} / ${g360.totalDimensions || 20}</div>
+          <div class="card-meta">当前已建立证据维度</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section--gray" id="collection-history">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">采集历史</div>
+        <h2 class="section__title">所有历史 Session 一览</h2>
+        <p class="section__sub">v1 session（2026-05-17 及之前）为手工采集，置信度 low，不含 mobile block；v2 session 自动化双视口。</p>
+      </div>
+      <div class="sessions-wrap">
+        <table class="sessions-table">
+          <thead><tr><th>Session ID</th><th>采集时间</th><th>置信度</th><th>路由数</th><th>LCP (desktop)</th><th>格式版本</th></tr></thead>
+          <tbody>${sessionRows}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="collection-commands">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">采集命令</div>
+        <h2 class="section__title">手动触发 / 定时 CI 说明</h2>
+        <p class="section__sub">每月 1 日 UTC 02:00 由 collect.yml 自动触发；需配置 GitHub Secret AUDIT_TARGET_URL。</p>
+      </div>
+      <div class="route-grid">
+        <div class="route-card">
+          <h3>标准主趋势采集</h3>
+          <p>采集首页 + 代表性 PDP + cart + checkout，写入 src/_data/sessions/YYYY-MM-DD.json。</p>
+          <p><code style="font-size:12px;background:#f4f4f6;padding:4px 8px;border-radius:4px;">AUDIT_TARGET_URL=https://momcozy.com npm run collect</code></p>
+        </div>
+        <div class="route-card">
+          <h3>PDP Watchlist 采集</h3>
+          <p>使用扩展路由配置采集 10 个 PDP + 首页 + cart + checkout，用于 watchlist 深度分析。</p>
+          <p><code style="font-size:12px;background:#f4f4f6;padding:4px 8px;border-radius:4px;">AUDIT_ROUTE_CONFIG=config/collection-routes-pdp-watchlist.json AUDIT_TARGET_URL=https://momcozy.com npm run collect</code></p>
+        </div>
+        <div class="route-card">
+          <h3>分段复采（公开匿名段）</h3>
+          <p>写入 src/_data/segment-sessions/，不污染主趋势 latest session。需指定 AUDIT_SESSION_DATE 和 AUDIT_SESSION_LABEL。</p>
+          <p><code style="font-size:12px;background:#f4f4f6;padding:4px 8px;border-radius:4px;">AUDIT_OUTPUT_DIR=src/_data/segment-sessions AUDIT_SESSION_LABEL=r1 npm run collect</code></p>
+        </div>
+        <div class="route-card">
+          <h3>360 内容维度采集</h3>
+          <p>专用脚本采集 G5-G11 内容层维度（PDP 内容深度、评论生态、SEO 架构等）。</p>
+          <p><code style="font-size:12px;background:#f4f4f6;padding:4px 8px;border-radius:4px;">AUDIT_TARGET_URL=https://momcozy.com node scripts/collect-360-content.mjs</code></p>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// Phase R3-3: 执行战单页 body — execution.html
+// ─────────────────────────────────────────────────────────────
+export function executionBody(data) {
+  const decision = decisionData(data);
+  const orders = decision.executionOrders || [];
+  const hardConclusions = decision.hardConclusions || [];
+  const approvedCount = hardConclusions.filter(c => !String(c.title || "").startsWith("不批准")).length;
+  const frozenCount = hardConclusions.length - approvedCount;
+
+  const orderCards = orders.map((o, i) => {
+    const steps = (o.steps || []).map(s => `<li>${escapeHtml(s)}</li>`).join("");
+    return `<div class="playbook-card">
+      <div class="playbook-card__head">
+        <h3>${escapeHtml(o.action || `执行战单 ${i + 1}`)}</h3>
+        <p>时间窗口：${escapeHtml(o.window || "—")} · 负责人：${escapeHtml(o.owner || "—")}</p>
+      </div>
+      <div class="playbook-card__body">
+        ${steps ? `<ol>${steps}</ol>` : ""}
+        ${o.gate ? `<div class="playbook-gate">验收门槛：${escapeHtml(o.gate)}</div>` : ""}
+      </div>
+    </div>`;
+  }).join("");
+
+  const conclusionRows = hardConclusions.map(c => {
+    const isFreeze = String(c.title || "").startsWith("不批准");
+    const statusClass = isFreeze ? "bad" : "good";
+    const statusLabel = isFreeze ? "❄️ 冻结" : "✅ 批准";
+    return `<tr>
+      <td class="${statusClass}"><strong>${statusLabel}</strong></td>
+      <td>${escapeHtml(c.title || "")}</td>
+      <td style="font-size:12px;color:var(--text-secondary);">${escapeHtml(c.reason || c.evidence || "")}</td>
+    </tr>`;
+  }).join("");
+
+  return `<section class="hero" id="hero">
+    <div class="container">
+      <span class="hero__badge">IX · 执行战单 · ${orders.length} 条</span>
+      <h1 class="hero__title">执行战单：<br><span class="hl">批准 ${approvedCount}，冻结 ${frozenCount}，推进 ${orders.length}。</span></h1>
+      <p class="hero__lead">硬结论 → 执行战单 → 验收门槛。本页集中展示所有已批准的执行项、冻结项和对应的验收标准。每条战单绑定负责人和时间窗口。</p>
+    </div>
+  </section>
+  <section class="section" id="execution-summary">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">战单总览</div>
+        <h2 class="section__title">已批准 ${approvedCount} 条硬结论，${orders.length} 条执行战单待推进</h2>
+        <p class="section__sub">冻结项（不批准）需要先解决数据口径或补充证据，才能进入执行。执行战单必须绑定 owner 和复采验收。</p>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-card metric-card--success">
+          <div class="card-label">批准结论</div>
+          <div class="card-value">${approvedCount}</div>
+          <div class="card-meta">可立即进入执行流程</div>
+        </div>
+        <div class="metric-card metric-card--warn">
+          <div class="card-label">冻结结论</div>
+          <div class="card-value">${frozenCount}</div>
+          <div class="card-meta">等待数据口径确认</div>
+        </div>
+        <div class="metric-card">
+          <div class="card-label">执行战单</div>
+          <div class="card-value">${orders.length}</div>
+          <div class="card-meta">含时间窗口和验收门槛</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section" id="hard-conclusions-detail">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">硬结论明细</div>
+        <h2 class="section__title">批准 / 冻结决策一览</h2>
+      </div>
+      <div class="cross-table-wrap" tabindex="0">
+        <table class="cross-table">
+          <thead><tr><th>状态</th><th>结论</th><th>依据摘要</th></tr></thead>
+          <tbody>${conclusionRows}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <section class="section section--gray" id="execution-orders-detail">
+    <div class="container">
+      <div class="section__head">
+        <div class="section__eyebrow">执行战单明细</div>
+        <h2 class="section__title">${orders.length} 条战单：步骤 + 验收门槛</h2>
+        <p class="section__sub">每条战单完成后必须通过复采验收——不能只靠主观判断，需要数据证明指标变化方向符合预期。</p>
+      </div>
+      <div class="playbook-grid">${orderCards}</div>
     </div>
   </section>`;
 }

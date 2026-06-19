@@ -172,7 +172,7 @@ test("cross audit sidebar only exposes primary report pages", async ({page}) => 
   expect(result.anchorHrefs).toEqual([]);
   expect(result.anchorLabels).toEqual([]);
   expect(result.ctaCount).toBe(0);
-  expect(result.mainLinks).toEqual(["I · 总览01", "II · 指标口径02", "III · 风险归因03", "IV · 趋势证据04", "V · 决策矩阵05", "VI · 竞品对比06"]);
+  expect(result.mainLinks).toEqual(["I · 总览01", "II · 指标口径02", "III · 风险归因03", "IV · 趋势证据04", "V · 决策矩阵05", "VI · 竞品对比06", "VII · 360 框架07", "VIII · 采集管理08", "IX · 执行战单09"]);
 });
 
 test("report sections match the page structure contract without sidebar attachments", async ({page}) => {
