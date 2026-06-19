@@ -1,0 +1,109 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - heading "锤子商城" [level=1] [ref=e4]:
+      - link "锤子商城":
+        - /url: //www.smartisan.com
+    - list [ref=e13]:
+      - listitem [ref=e14] [cursor=pointer]: 在线商城
+      - listitem [ref=e15] [cursor=pointer]: 坚果 R2
+      - listitem [ref=e16] [cursor=pointer]: Smartisan TNT go
+      - listitem [ref=e17] [cursor=pointer]: 坚果 TNT 工作站
+      - listitem [ref=e18] [cursor=pointer]: Smartisan OS
+      - listitem [ref=e19] [cursor=pointer]: 欢喜云
+      - listitem [ref=e20] [cursor=pointer]: 论坛
+      - listitem [ref=e21] [cursor=pointer]: 开发者支持
+      - listitem [ref=e22] [cursor=pointer]: 荣誉与奖项
+  - generic [ref=e25]:
+    - generic [ref=e26]:
+      - list [ref=e27]:
+        - listitem [ref=e28]: 服务
+      - generic [ref=e29]:
+        - text: ¥起 ¥起 ¥起 ¥起 ¥起 ¥起
+        - list [ref=e30]:
+          - listitem [ref=e31]:
+            - generic [ref=e33] [cursor=pointer]:
+              - img [ref=e34]
+              - generic [ref=e35]: 保修服务
+          - listitem [ref=e36]:
+            - generic [ref=e38] [cursor=pointer]:
+              - img [ref=e39]
+              - generic [ref=e40]: 在线客服
+          - listitem [ref=e41]:
+            - generic [ref=e43] [cursor=pointer]:
+              - img [ref=e44]
+              - generic [ref=e45]: 服务政策
+          - listitem [ref=e46]:
+            - generic [ref=e48] [cursor=pointer]:
+              - img [ref=e49]
+              - generic [ref=e50]: 发起售后
+          - listitem [ref=e51]:
+            - generic [ref=e53] [cursor=pointer]:
+              - img [ref=e54]
+              - generic [ref=e55]: 维修门店
+          - listitem [ref=e56]:
+            - generic [ref=e58] [cursor=pointer]:
+              - img [ref=e59]
+              - generic [ref=e60]: 自助服务
+    - generic [ref=e63]:
+      - button [ref=e64] [cursor=pointer]
+      - textbox [ref=e65]
+  - generic [ref=e68]:
+    - generic [ref=e69]:
+      - list:
+        - listitem [ref=e70]:
+          - heading "订单服务" [level=3] [ref=e71]
+          - generic [ref=e72]:
+            - link "购买指南" [ref=e73] [cursor=pointer]:
+              - /url: //www.smartisan.com/support/#/instruction
+            - link "送货政策" [ref=e74] [cursor=pointer]:
+              - /url: //www.smartisan.com/support/#/delivery
+        - listitem [ref=e75]:
+          - heading "服务支持" [level=3] [ref=e76]
+          - generic [ref=e77]:
+            - link "自助服务" [ref=e78] [cursor=pointer]:
+              - /url: //www.smartisan.com/service/#/
+            - link "维修门店" [ref=e79] [cursor=pointer]:
+              - /url: //www.smartisan.com/support/#/servicelist
+        - listitem [ref=e80]:
+          - heading "媒体中心" [level=3] [ref=e81]
+          - generic [ref=e82]:
+            - link "新闻动态" [ref=e83] [cursor=pointer]:
+              - /url: //www.smartisan.com/pr/news-center
+            - link "官方视频" [ref=e84] [cursor=pointer]:
+              - /url: //www.smartisan.com/pr/videos
+            - link "图片资源" [ref=e85] [cursor=pointer]:
+              - /url: //www.smartisan.com/pr/pictures
+        - listitem [ref=e86]:
+          - heading "关注我们" [level=3] [ref=e87]
+          - generic [ref=e88]:
+            - link "新浪微博" [ref=e89] [cursor=pointer]:
+              - /url: https://weibo.com/u/5579377466
+            - generic [ref=e90] [cursor=pointer]: 官方微信
+            - link "荣誉奖项" [ref=e91] [cursor=pointer]:
+              - /url: //www.smartisan.com/support/#/awards
+      - link "N 在线帮助" [ref=e94] [cursor=pointer]:
+        - /url: //www.smartisan.com/support/#/self-service
+        - text: "N"
+        - generic [ref=e95]: 在线帮助
+    - generic [ref=e96]:
+      - list [ref=e97]:
+        - listitem [ref=e98]: Copyright © 2020 smartisan.com 版权所有
+        - listitem [ref=e99]:
+          - link "锤子商城隐私政策" [ref=e100] [cursor=pointer]:
+            - /url: //resource.smartisan.com/docs/smartisan_policy_cn.html
+        - listitem [ref=e101]:
+          - link "锤子商城用户协议" [ref=e102] [cursor=pointer]:
+            - /url: //resource.smartisan.com/docs/smartisan_agreement_cn.html
+        - listitem [ref=e103]:
+          - link "资质证照" [ref=e104] [cursor=pointer]:
+            - /url: //resource.smartisan.com/docs/smartisan_enterprise_certs_cn.html
+      - list:
+        - listitem [ref=e105]:
+          - link "京 ICP 备 19048576 号 - 1" [ref=e106] [cursor=pointer]:
+            - /url: http://beian.miit.gov.cn
+        - listitem [ref=e107]:
+          - link "京公网安备 11010802033469号" [ref=e108] [cursor=pointer]:
+            - /url: http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802033469
+        - listitem [ref=e109]:
+          - link "京食药网食备 202010031" [ref=e110] [cursor=pointer]:
+            - /url: http://scjgj.beijing.gov.cn/cxfw/201911/t20191118_513430.html?name=T_WLSPJYBA&id=169

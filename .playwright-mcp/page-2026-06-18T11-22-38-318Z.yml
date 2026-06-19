@@ -1,0 +1,393 @@
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - navigation "主导航" [ref=e7]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - link "Perplexity" [ref=e11] [cursor=pointer]:
+            - /url: /
+            - img "Perplexity" [ref=e14]
+          - button "Collapse sidebar" [ref=e17] [cursor=pointer]:
+            - img [ref=e18]
+        - generic [ref=e23]:
+          - generic [ref=e26]:
+            - link "新建" [ref=e27] [cursor=pointer]:
+              - /url: /
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                - generic:
+                  - generic:
+                    - generic: 新建
+                  - generic: ⌘K
+          - generic [ref=e30]:
+            - link "Computer" [ref=e31] [cursor=pointer]:
+              - /url: /computer/tasks
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 Computer":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: Computer
+          - generic [ref=e35]:
+            - link "空间" [ref=e36] [cursor=pointer]:
+              - /url: /spaces
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 空间":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: 空间
+          - generic [ref=e40]:
+            - link "工件" [ref=e41] [cursor=pointer]:
+              - /url: /computer/artifacts
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 工件":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: 工件
+          - generic [ref=e43]:
+            - generic [ref=e45]:
+              - link "自定义" [ref=e46] [cursor=pointer]:
+                - /url: /computer/connectors
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button "折叠自定义" [expanded]:
+                        - generic:
+                          - img
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic: 自定义
+            - generic [ref=e48]:
+              - generic [ref=e49]:
+                - link "连接器" [ref=e50] [cursor=pointer]:
+                  - /url: /computer/connectors
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 连接器
+              - generic [ref=e51]:
+                - link "技能" [ref=e52] [cursor=pointer]:
+                  - /url: /computer/skills
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 技能
+              - generic [ref=e53]:
+                - link "工作流" [ref=e54] [cursor=pointer]:
+                  - /url: /computer/workflows
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 工作流
+          - generic [ref=e55]:
+            - generic [ref=e57]:
+              - link "历史" [ref=e58] [cursor=pointer]:
+                - /url: /library
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button "折叠历史" [expanded]:
+                        - generic:
+                          - img
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic: 历史
+            - generic [ref=e61]:
+              - link "affordable wearable breast pump under 200 dollars" [ref=e62] [cursor=pointer]:
+                - /url: /search/72cfad52-b14a-4c46-b429-916c4c4f2d68
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: affordable wearable breast pump under 200 dollars
+                  - button "会话操作" [ref=e66] [cursor=pointer]:
+                    - img [ref=e69]
+        - button "登录" [ref=e80] [cursor=pointer]:
+          - generic [ref=e81]:
+            - generic [ref=e83]:
+              - img [ref=e86]
+              - generic [ref=e89]: 登录
+            - generic:
+              - img
+    - main [ref=e91]:
+      - generic [ref=e94]:
+        - generic:
+          - generic:
+            - tablist "答案模式选项卡" [ref=e96]:
+              - tab "答案" [selected] [ref=e97] [cursor=pointer]:
+                - img [ref=e98]
+                - text: 答案
+              - tab "链接" [ref=e100] [cursor=pointer]:
+                - img [ref=e101]
+                - text: 链接
+              - tab "图片" [ref=e103] [cursor=pointer]:
+                - img [ref=e104]
+                - text: 图片
+            - generic [ref=e106]:
+              - button "会话操作" [ref=e264] [cursor=pointer]:
+                - img [ref=e267]
+              - button "分享" [ref=e108] [cursor=pointer]:
+                - img [ref=e110]
+                - generic [ref=e112]: 分享
+              - button "下载 Comet" [ref=e115] [cursor=pointer]:
+                - img [ref=e117]
+                - generic [ref=e119]: 下载 Comet
+        - generic [ref=e122]:
+          - tabpanel "答案" [ref=e132]:
+            - generic [ref=e133]:
+              - generic [ref=e138]:
+                - generic:
+                  - button "编辑查询":
+                    - generic:
+                      - generic:
+                        - img
+                  - button "复制查询":
+                    - generic:
+                      - generic:
+                        - img
+                - heading "affordable wearable breast pump under 200 dollars" [level=1] [ref=e144]:
+                  - generic [ref=e146]: affordable wearable breast pump under 200 dollars
+              - generic [ref=e147]:
+                - generic [ref=e273]:
+                  - paragraph [ref=e277]:
+                    - text: The
+                    - strong [ref=e278]: MomMed S21
+                    - text: is widely considered the best affordable wearable breast pump under $200, priced at around
+                    - strong [ref=e279]: $100
+                    - text: . It’s reliable, quiet, and consistently high-performing for both occasional and daily use, with excellent warranty support and easy-to-find replacement parts.
+                    - generic [ref=e285] [cursor=pointer]:
+                      - generic [ref=e286]: genuinelactation
+                      - generic [ref=e287]: "+1"
+                  - heading "Top budget wearable pumps under $200:" [level=2] [ref=e291]
+                  - generic [ref=e294]:
+                    - generic [ref=e295]:
+                      - table [ref=e297]:
+                        - rowgroup [ref=e298]:
+                          - row "Pump Price Key Features" [ref=e299]:
+                            - columnheader "Pump" [ref=e300]
+                            - columnheader "Price" [ref=e301]
+                            - columnheader "Key Features" [ref=e302]
+                        - rowgroup [ref=e303]:
+                          - row "MomMed S21 ~$100 Quiet, reliable, great warranty, replacement parts available genuinelactation +1" [ref=e304]:
+                            - cell "MomMed S21" [ref=e305]:
+                              - strong [ref=e306]: MomMed S21
+                            - cell "~$100" [ref=e307]
+                            - cell "Quiet, reliable, great warranty, replacement parts available genuinelactation +1" [ref=e308]:
+                              - text: Quiet, reliable, great warranty, replacement parts available
+                              - generic [ref=e314] [cursor=pointer]:
+                                - generic [ref=e315]: genuinelactation
+                                - generic [ref=e316]: "+1"
+                          - row "NCVI S32 ~$60 Best value; quiet & efficient (same as overpriced Lansinoh Discreet Duo) The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e317]:
+                            - cell "NCVI S32" [ref=e318]:
+                              - strong [ref=e319]: NCVI S32
+                            - cell "~$60" [ref=e320]
+                            - cell "Best value; quiet & efficient (same as overpriced Lansinoh Discreet Duo) The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e321]:
+                              - text: Best value; quiet & efficient (same as overpriced Lansinoh Discreet Duo)
+                              - generic "The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e324]:
+                                - link "genuinelactation" [ref=e326] [cursor=pointer]:
+                                  - /url: https://www.genuinelactation.com/blog-for-breastfeeding-families/the-best-budget-friendly-wearable-breast-pumps-for-2025-top-picks-and-honest-reviews
+                                  - generic [ref=e329]: genuinelactation
+                          - row "Phanpy E Joy ~$70 Smart features, low price, reliable for occasional use The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e330]:
+                            - cell "Phanpy E Joy" [ref=e331]:
+                              - strong [ref=e332]: Phanpy E Joy
+                            - cell "~$70" [ref=e333]
+                            - cell "Smart features, low price, reliable for occasional use The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e334]:
+                              - text: Smart features, low price, reliable for occasional use
+                              - generic "The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e337]:
+                                - link "genuinelactation" [ref=e339] [cursor=pointer]:
+                                  - /url: https://www.genuinelactation.com/blog-for-breastfeeding-families/the-best-budget-friendly-wearable-breast-pumps-for-2025-top-picks-and-honest-reviews
+                                  - generic [ref=e342]: genuinelactation
+                          - row "Horigen E4 ~$80 Zomee Fit dupe, double-sealed flange, excellent warranty The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e343]:
+                            - cell "Horigen E4" [ref=e344]:
+                              - strong [ref=e345]: Horigen E4
+                            - cell "~$80" [ref=e346]
+                            - cell "Zomee Fit dupe, double-sealed flange, excellent warranty The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e347]:
+                              - text: Zomee Fit dupe, double-sealed flange, excellent warranty
+                              - generic "The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e350]:
+                                - link "genuinelactation" [ref=e352] [cursor=pointer]:
+                                  - /url: https://www.genuinelactation.com/blog-for-breastfeeding-families/the-best-budget-friendly-wearable-breast-pumps-for-2025-top-picks-and-honest-reviews
+                                  - generic [ref=e355]: genuinelactation
+                          - row "MomCozy S12 Pro ~$129 Improved motor durability (4+ months), user-friendly The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e356]:
+                            - cell "MomCozy S12 Pro" [ref=e357]:
+                              - strong [ref=e358]: MomCozy S12 Pro
+                            - cell "~$129" [ref=e359]
+                            - cell "Improved motor durability (4+ months), user-friendly The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e360]:
+                              - text: Improved motor durability (4+ months), user-friendly
+                              - generic "The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e363]:
+                                - link "genuinelactation" [ref=e365] [cursor=pointer]:
+                                  - /url: https://www.genuinelactation.com/blog-for-breastfeeding-families/the-best-budget-friendly-wearable-breast-pumps-for-2025-top-picks-and-honest-reviews
+                                  - generic [ref=e368]: genuinelactation
+                          - row "Idaho Jones Wearable ~$100 Dual functionality (connects to traditional pump), colored parts for wear detection The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e369]:
+                            - cell "Idaho Jones Wearable" [ref=e370]:
+                              - strong [ref=e371]: Idaho Jones Wearable
+                            - cell "~$100" [ref=e372]
+                            - cell "Dual functionality (connects to traditional pump), colored parts for wear detection The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e373]:
+                              - text: Dual functionality (connects to traditional pump), colored parts for wear detection
+                              - generic "The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e376]:
+                                - link "genuinelactation" [ref=e378] [cursor=pointer]:
+                                  - /url: https://www.genuinelactation.com/blog-for-breastfeeding-families/the-best-budget-friendly-wearable-breast-pumps-for-2025-top-picks-and-honest-reviews
+                                  - generic [ref=e381]: genuinelactation
+                          - row "Baby Bliss Pump ~$169 Gentle suction, ideal for sensitive nipples/nerve pain The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e382]:
+                            - cell "Baby Bliss Pump" [ref=e383]:
+                              - strong [ref=e384]: Baby Bliss Pump
+                            - cell "~$169" [ref=e385]
+                            - cell "Gentle suction, ideal for sensitive nipples/nerve pain The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e386]:
+                              - text: Gentle suction, ideal for sensitive nipples/nerve pain
+                              - generic "The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e389]:
+                                - link "genuinelactation" [ref=e391] [cursor=pointer]:
+                                  - /url: https://www.genuinelactation.com/blog-for-breastfeeding-families/the-best-budget-friendly-wearable-breast-pumps-for-2025-top-picks-and-honest-reviews
+                                  - generic [ref=e394]: genuinelactation
+                          - row "Eufy E10 ~$169 App controls, wide suction/cycle speeds, durable build The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e395]:
+                            - cell "Eufy E10" [ref=e396]:
+                              - strong [ref=e397]: Eufy E10
+                            - cell "~$169" [ref=e398]
+                            - cell "App controls, wide suction/cycle speeds, durable build The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e399]:
+                              - text: App controls, wide suction/cycle speeds, durable build
+                              - generic "The Best Budget-Friendly Wearable Breast Pumps for 2025" [ref=e402]:
+                                - link "genuinelactation" [ref=e404] [cursor=pointer]:
+                                  - /url: https://www.genuinelactation.com/blog-for-breastfeeding-families/the-best-budget-friendly-wearable-breast-pumps-for-2025-top-picks-and-honest-reviews
+                                  - generic [ref=e407]: genuinelactation
+                      - generic [ref=e408]:
+                        - button "复制表格" [ref=e410] [cursor=pointer]:
+                          - img [ref=e413]
+                        - button "下载 CSV" [ref=e417] [cursor=pointer]:
+                          - img [ref=e420]
+                    - paragraph [ref=e423]:
+                      - text: The
+                      - strong [ref=e424]: NCVI S32
+                      - text: at ~$60 is the cheapest option that still delivers excellent performance. If you want brand recognition, the
+                      - strong [ref=e425]: MomCozy M5
+                      - text: is also popular for affordability and good suction.
+                      - generic [ref=e431] [cursor=pointer]:
+                        - generic [ref=e432]: genuinelactation
+                        - generic [ref=e433]: "+1"
+                    - paragraph [ref=e434]: All of these are readily available on Amazon, Walmart, and major baby retailers.
+                - generic [ref=e435]:
+                  - generic [ref=e436]:
+                    - button "分享" [ref=e437] [cursor=pointer]:
+                      - img [ref=e440]
+                    - button "下载" [ref=e443] [cursor=pointer]:
+                      - img [ref=e446]
+                    - button "拷贝" [ref=e449] [cursor=pointer]:
+                      - img [ref=e452]
+                    - button "重写会话" [ref=e455] [cursor=pointer]:
+                      - img [ref=e458]
+                    - button "10 个来源" [ref=e462] [cursor=pointer]:
+                      - generic [ref=e464]:
+                        - img [ref=e465]
+                        - img [ref=e466]
+                        - generic [ref=e468]:
+                          - img [ref=e471]
+                          - img [ref=e475]
+                          - img [ref=e479]
+                        - text: 10 个来源
+                  - generic [ref=e482]:
+                    - generic [ref=e484]:
+                      - button "有用" [ref=e485] [cursor=pointer]:
+                        - img [ref=e488]
+                      - button "没有帮助" [ref=e491] [cursor=pointer]:
+                        - img [ref=e494]
+                    - button "更多操作" [ref=e498] [cursor=pointer]:
+                      - img [ref=e501]
+                - generic [ref=e505]:
+                  - generic [ref=e510]: 后续提问
+                  - generic [ref=e511]:
+                    - button "How do these wearable pumps compare to hospital-grade pumps" [ref=e512] [cursor=pointer]:
+                      - img [ref=e514]
+                      - generic [ref=e517]: How do these wearable pumps compare to hospital-grade pumps
+                    - button "Which of these pumps has the easiest parts to clean and sterilize" [ref=e518] [cursor=pointer]:
+                      - img [ref=e520]
+                      - generic [ref=e523]: Which of these pumps has the easiest parts to clean and sterilize
+                    - button "Are there specific features to look for if I have sensitive nipples" [ref=e524] [cursor=pointer]:
+                      - img [ref=e526]
+                      - generic [ref=e529]: Are there specific features to look for if I have sensitive nipples
+                    - button "Do these pumps work effectively if I have a large bust or specific flange size needs" [ref=e530] [cursor=pointer]:
+                      - img [ref=e532]
+                      - generic [ref=e535]: Do these pumps work effectively if I have a large bust or specific flange size needs
+                    - button "How long is the typical battery life for the MomMed S21 vs MomCozy S12 Pro" [ref=e536] [cursor=pointer]:
+                      - img [ref=e538]
+                      - generic [ref=e541]: How long is the typical battery life for the MomMed S21 vs MomCozy S12 Pro
+          - generic [ref=e169]:
+            - generic [ref=e171]:
+              - textbox [ref=e172]:
+                - paragraph [ref=e173]
+              - generic: 提出后续问题
+            - generic [ref=e175]:
+              - button "添加文件或工具" [ref=e176] [cursor=pointer]:
+                - img [ref=e179]
+              - button "搜索" [pressed] [ref=e185] [cursor=pointer]:
+                - img [ref=e187]
+                - generic [ref=e189]:
+                  - text: 搜索
+                  - img [ref=e192]
+            - generic [ref=e194]:
+              - button "模型" [ref=e196] [cursor=pointer]:
+                - generic [ref=e197]: 模型
+                - img [ref=e199]
+              - button "听写" [ref=e543] [cursor=pointer]:
+                - img [ref=e546]
+              - button "提交" [disabled]:
+                - generic:
+                  - generic:
+                    - img
+  - dialog [ref=e218]:
+    - generic [ref=e222]:
+      - generic [ref=e223]:
+        - generic [ref=e224]: 在下方注册以解锁 Perplexity 的全部潜力
+        - generic [ref=e225]:
+          - text: 继续即表示您同意我们的
+          - link "隐私政策" [ref=e226] [cursor=pointer]:
+            - /url: https://www.perplexity.com/hub/legal/privacy-policy
+          - text: 。
+      - generic [ref=e227]:
+        - button "返回首页" [ref=e229] [cursor=pointer]:
+          - img [ref=e231]
+          - generic [ref=e233]: 返回首页
+        - generic [ref=e235]:
+          - generic [ref=e236]:
+            - button "继续使用Google" [ref=e237] [cursor=pointer]:
+              - img [ref=e239]
+              - generic [ref=e241]: 继续使用Google
+            - button "继续使用 Apple" [ref=e243] [cursor=pointer]:
+              - img [ref=e245]
+              - generic [ref=e247]: 继续使用 Apple
+          - generic [ref=e250]:
+            - generic [ref=e252]:
+              - textbox "输入您的电子邮件" [active] [ref=e257]
+              - generic [ref=e258]:
+                - button "继续使用电子邮件" [disabled]:
+                  - generic: 继续使用电子邮件
+            - button "单点登录（SSO）" [ref=e260] [cursor=pointer]:
+              - generic [ref=e261]: 单点登录（SSO）

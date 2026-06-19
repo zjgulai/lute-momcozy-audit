@@ -1,0 +1,361 @@
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - navigation "主导航" [ref=e7]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - link "Perplexity" [ref=e11] [cursor=pointer]:
+            - /url: /
+            - img "Perplexity" [ref=e14]
+          - button "Collapse sidebar" [ref=e17] [cursor=pointer]:
+            - img [ref=e18]
+        - generic [ref=e23]:
+          - generic [ref=e26]:
+            - link "新建" [ref=e27] [cursor=pointer]:
+              - /url: /
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                - generic:
+                  - generic:
+                    - generic: 新建
+                  - generic: ⌘K
+          - generic [ref=e30]:
+            - link "Computer" [ref=e31] [cursor=pointer]:
+              - /url: /computer/tasks
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 Computer":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: Computer
+          - generic [ref=e35]:
+            - link "空间" [ref=e36] [cursor=pointer]:
+              - /url: /spaces
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 空间":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: 空间
+          - generic [ref=e40]:
+            - link "工件" [ref=e41] [cursor=pointer]:
+              - /url: /computer/artifacts
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 工件":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: 工件
+          - generic [ref=e43]:
+            - generic [ref=e45]:
+              - link "自定义" [ref=e46] [cursor=pointer]:
+                - /url: /computer/connectors
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button "折叠自定义" [expanded]:
+                        - generic:
+                          - img
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic: 自定义
+            - generic [ref=e48]:
+              - generic [ref=e49]:
+                - link "连接器" [ref=e50] [cursor=pointer]:
+                  - /url: /computer/connectors
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 连接器
+              - generic [ref=e51]:
+                - link "技能" [ref=e52] [cursor=pointer]:
+                  - /url: /computer/skills
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 技能
+              - generic [ref=e53]:
+                - link "工作流" [ref=e54] [cursor=pointer]:
+                  - /url: /computer/workflows
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 工作流
+          - generic [ref=e55]:
+            - generic [ref=e57]:
+              - link "历史" [ref=e58] [cursor=pointer]:
+                - /url: /library
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button "折叠历史" [expanded]:
+                        - generic:
+                          - img
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic: 历史
+            - generic [ref=e61]:
+              - link "best breast pump covered by insurance 2026" [ref=e62] [cursor=pointer]:
+                - /url: /search/618d598c-5075-405a-aade-5233a05ac2a7
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: best breast pump covered by insurance 2026
+                  - button "会话操作" [ref=e66] [cursor=pointer]:
+                    - img [ref=e69]
+        - button "登录" [ref=e80] [cursor=pointer]:
+          - generic [ref=e81]:
+            - generic [ref=e83]:
+              - img [ref=e86]
+              - generic [ref=e89]: 登录
+            - generic:
+              - img
+    - main [ref=e91]:
+      - generic [ref=e94]:
+        - generic:
+          - generic:
+            - tablist "答案模式选项卡" [ref=e96]:
+              - tab "答案" [selected] [ref=e97] [cursor=pointer]:
+                - img [ref=e98]
+                - text: 答案
+              - tab "链接" [ref=e100] [cursor=pointer]:
+                - img [ref=e101]
+                - text: 链接
+              - tab "图片" [ref=e103] [cursor=pointer]:
+                - img [ref=e104]
+                - text: 图片
+            - generic [ref=e106]:
+              - button "会话操作" [ref=e264] [cursor=pointer]:
+                - img [ref=e267]
+              - button "分享" [ref=e108] [cursor=pointer]:
+                - img [ref=e110]
+                - generic [ref=e112]: 分享
+              - button "下载 Comet" [ref=e115] [cursor=pointer]:
+                - img [ref=e117]
+                - generic [ref=e119]: 下载 Comet
+        - generic [ref=e122]:
+          - tabpanel "答案" [ref=e132]:
+            - generic [ref=e133]:
+              - generic [ref=e138]:
+                - generic:
+                  - button "编辑查询":
+                    - generic:
+                      - generic:
+                        - img
+                  - button "复制查询":
+                    - generic:
+                      - generic:
+                        - img
+                - heading "best breast pump covered by insurance 2026" [level=1] [ref=e144]:
+                  - generic [ref=e146]: best breast pump covered by insurance 2026
+              - generic [ref=e147]:
+                - generic [ref=e276]:
+                  - paragraph [ref=e277]:
+                    - text: For most people in the U.S., the
+                    - strong [ref=e278]: best insurance-covered breast pump
+                    - text: in 2026 is still the
+                    - strong [ref=e279]: Spectra S1 Plus
+                    - text: because it is widely recommended as a top overall pump and is commonly available through insurance suppliers.
+                    - generic [ref=e285] [cursor=pointer]:
+                      - generic [ref=e286]: aeroflowbreastpumps
+                      - generic [ref=e287]: "+1"
+                  - heading "Best pick" [level=2] [ref=e288]
+                  - list [ref=e289]:
+                    - listitem [ref=e290]:
+                      - paragraph [ref=e291]:
+                        - strong [ref=e292]: Spectra S1 Plus
+                        - text: ": best all-around choice if you want strong suction, reliable performance, and a pump that many insurance providers or DME suppliers carry."
+                        - generic [ref=e298] [cursor=pointer]:
+                          - generic [ref=e299]: nytimes
+                          - generic [ref=e300]: "+1"
+                  - heading "Good alternatives" [level=2] [ref=e301]
+                  - list [ref=e302]:
+                    - listitem [ref=e303]:
+                      - paragraph [ref=e304]:
+                        - strong [ref=e305]: Medela Freestyle
+                        - text: ": a good option if you want something easy to use and portable, and it is also listed among pumps available through insurance channels."
+                        - generic [ref=e311] [cursor=pointer]:
+                          - generic [ref=e312]: forbes
+                          - generic [ref=e313]: "+1"
+                    - listitem [ref=e314]:
+                      - paragraph [ref=e315]:
+                        - strong [ref=e316]: Elvie Pump
+                        - text: ": a premium wearable option if you care more about convenience and hands-free pumping than lowest price."
+                        - generic [ref=e322] [cursor=pointer]:
+                          - generic [ref=e323]: forbes
+                          - generic [ref=e324]: "+1"
+                    - listitem [ref=e325]:
+                      - paragraph [ref=e326]:
+                        - strong [ref=e327]: Momcozy M5
+                        - text: ": a lower-cost wearable option if you want something more budget-friendly and discreet."
+                        - generic "Best Wearable Breast Pumps 2026" [ref=e330]:
+                          - link "forbes" [ref=e332] [cursor=pointer]:
+                            - /url: https://www.forbes.com/sites/forbes-personal-shopper/article/best-wearable-breast-pump/
+                            - generic [ref=e335]: forbes
+                  - heading "What matters most" [level=2] [ref=e336]
+                  - paragraph [ref=e337]:
+                    - text: Insurance coverage usually depends less on the “best” pump and more on which models your plan’s supplier carries. If you want the safest bet, choose a pump that is both highly rated and widely listed by insurance suppliers, then confirm whether your plan covers a standard electric pump, a wearable pump, or only a specific list of models.
+                    - generic [ref=e343] [cursor=pointer]:
+                      - generic [ref=e344]: eufy
+                      - generic [ref=e345]: "+1"
+                  - heading "Practical recommendation" [level=2] [ref=e346]
+                  - list [ref=e347]:
+                    - listitem [ref=e348]:
+                      - paragraph [ref=e349]:
+                        - text: If you want the
+                        - strong [ref=e350]: best overall value
+                        - text: ": Spectra S1 Plus."
+                        - generic "The 6 Best Breast Pumps of 2026 | Reviews by Wirecutter" [ref=e353]:
+                          - link "nytimes" [ref=e355] [cursor=pointer]:
+                            - /url: https://www.nytimes.com/wirecutter/reviews/best-breast-pumps/
+                            - generic [ref=e358]: nytimes
+                    - listitem [ref=e359]:
+                      - paragraph [ref=e360]:
+                        - text: If you want
+                        - strong [ref=e361]: hands-free convenience
+                        - text: ": Elvie Pump or Momcozy M5."
+                        - generic "Best Wearable Breast Pumps 2026" [ref=e364]:
+                          - link "forbes" [ref=e366] [cursor=pointer]:
+                            - /url: https://www.forbes.com/sites/forbes-personal-shopper/article/best-wearable-breast-pump/
+                            - generic [ref=e369]: forbes
+                    - listitem [ref=e370]:
+                      - paragraph [ref=e371]:
+                        - text: If you want
+                        - strong [ref=e372]: ease of use
+                        - text: ": Medela Freestyle."
+                        - generic [ref=e378] [cursor=pointer]:
+                          - generic [ref=e379]: aeroflowbreastpumps
+                          - generic [ref=e380]: "+1"
+                  - paragraph [ref=e381]:
+                    - text: For a 2026 insurance claim, the best move is to check your plan’s approved supplier list first, because that determines whether the “best” pump is actually available at no cost.
+                    - generic [ref=e387] [cursor=pointer]:
+                      - generic [ref=e388]: eufy
+                      - generic [ref=e389]: "+1"
+                - generic [ref=e390]:
+                  - generic [ref=e391]:
+                    - button "分享" [ref=e392] [cursor=pointer]:
+                      - img [ref=e395]
+                    - button "下载" [ref=e398] [cursor=pointer]:
+                      - img [ref=e401]
+                    - button "拷贝" [ref=e404] [cursor=pointer]:
+                      - img [ref=e407]
+                    - button "重写会话" [ref=e410] [cursor=pointer]:
+                      - img [ref=e413]
+                    - button "10 个来源" [ref=e417] [cursor=pointer]:
+                      - generic [ref=e419]:
+                        - img [ref=e420]
+                        - img [ref=e421]
+                        - generic [ref=e423]:
+                          - img [ref=e426]
+                          - img [ref=e430]
+                          - img [ref=e434]
+                        - text: 10 个来源
+                  - generic [ref=e437]:
+                    - generic [ref=e439]:
+                      - button "有用" [ref=e440] [cursor=pointer]:
+                        - img [ref=e443]
+                      - button "没有帮助" [ref=e446] [cursor=pointer]:
+                        - img [ref=e449]
+                    - button "更多操作" [ref=e453] [cursor=pointer]:
+                      - img [ref=e456]
+                - generic [ref=e460]:
+                  - generic [ref=e465]: 后续提问
+                  - generic [ref=e466]:
+                    - button "How to check which pumps my insurance supplier carries" [ref=e467] [cursor=pointer]:
+                      - img [ref=e469]
+                      - generic [ref=e472]: How to check which pumps my insurance supplier carries
+                    - button "Difference between Spectra S1 and S2 insurance coverage" [ref=e473] [cursor=pointer]:
+                      - img [ref=e475]
+                      - generic [ref=e478]: Difference between Spectra S1 and S2 insurance coverage
+                    - button "Tips for comparing wearable versus traditional breast pumps" [ref=e479] [cursor=pointer]:
+                      - img [ref=e481]
+                      - generic [ref=e484]: Tips for comparing wearable versus traditional breast pumps
+                    - button "Common obstacles when ordering a pump through insurance" [ref=e485] [cursor=pointer]:
+                      - img [ref=e487]
+                      - generic [ref=e490]: Common obstacles when ordering a pump through insurance
+                    - button "Do insurance plans cover wearable pump upgrades in 2026" [ref=e491] [cursor=pointer]:
+                      - img [ref=e493]
+                      - generic [ref=e496]: Do insurance plans cover wearable pump upgrades in 2026
+          - generic [ref=e169]:
+            - generic [ref=e171]:
+              - textbox [ref=e172]:
+                - paragraph [ref=e173]
+              - generic: 提出后续问题
+            - generic [ref=e175]:
+              - button "添加文件或工具" [ref=e176] [cursor=pointer]:
+                - img [ref=e179]
+              - button "搜索" [pressed] [ref=e185] [cursor=pointer]:
+                - img [ref=e187]
+                - generic [ref=e189]:
+                  - text: 搜索
+                  - img [ref=e192]
+            - generic [ref=e194]:
+              - button "模型" [ref=e196] [cursor=pointer]:
+                - generic [ref=e197]: 模型
+                - img [ref=e199]
+              - button "听写" [ref=e498] [cursor=pointer]:
+                - img [ref=e501]
+              - button "提交" [disabled]:
+                - generic:
+                  - generic:
+                    - img
+  - dialog [ref=e218]:
+    - generic [ref=e222]:
+      - generic [ref=e223]:
+        - generic [ref=e224]: 在下方注册以解锁 Perplexity 的全部潜力
+        - generic [ref=e225]:
+          - text: 继续即表示您同意我们的
+          - link "隐私政策" [ref=e226] [cursor=pointer]:
+            - /url: https://www.perplexity.com/hub/legal/privacy-policy
+          - text: 。
+      - generic [ref=e227]:
+        - button "返回首页" [ref=e229] [cursor=pointer]:
+          - img [ref=e231]
+          - generic [ref=e233]: 返回首页
+        - generic [ref=e235]:
+          - generic [ref=e236]:
+            - button "继续使用Google" [ref=e237] [cursor=pointer]:
+              - img [ref=e239]
+              - generic [ref=e241]: 继续使用Google
+            - button "继续使用 Apple" [ref=e243] [cursor=pointer]:
+              - img [ref=e245]
+              - generic [ref=e247]: 继续使用 Apple
+          - generic [ref=e250]:
+            - generic [ref=e252]:
+              - textbox "输入您的电子邮件" [active] [ref=e257]
+              - generic [ref=e258]:
+                - button "继续使用电子邮件" [disabled]:
+                  - generic: 继续使用电子邮件
+            - button "单点登录（SSO）" [ref=e260] [cursor=pointer]:
+              - generic [ref=e261]: 单点登录（SSO）

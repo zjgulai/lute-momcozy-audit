@@ -132,30 +132,66 @@ async function collectReviewSignals(page) {
 // G9: PDP 内容深度
 // ─────────────────────────────────────────────────────────────
 async function collectContentDepth(page) {
+  // Scroll to trigger lazy loading before extracting content
+  await page.evaluate(() => window.scrollTo(0, 400));
+  await page.waitForTimeout(800);
+  await page.evaluate(() => window.scrollTo(0, 900));
+  await page.waitForTimeout(800);
+  await page.evaluate(() => window.scrollTo(0, 1400));
+  await page.waitForTimeout(600);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.waitForTimeout(400);
+
   return page.evaluate(() => {
-    // 产品描述文案字数（去除导航/评论/推荐区域）
-    const descEl = document.querySelector(
-      '.product__description, .product-description, [class*="product-detail__description"], ' +
-      '.rte, [data-product-description], .product__content'
-    );
-    const descText = descEl ? descEl.innerText : "";
-    const wordCount = descText.split(/\s+/).filter(w => w.length > 1).length;
+    // Strategy 1: DOM selector-based extraction
+    const descSelectors = [
+      ".product__description",
+      ".product-single__description",
+      "[data-product-description]",
+      ".product-description",
+      ".rte:not(nav .rte)",
+      ".product__content",
+      "[class*='ProductDescription']",
+      "[class*='product-info__description']",
+    ];
+    let descText = "";
+    for (const sel of descSelectors) {
+      const el = document.querySelector(sel);
+      if (el && el.innerText.trim().length > 50) {
+        descText = el.innerText.trim();
+        break;
+      }
+    }
 
-    // 视频内容
+    // Strategy 2: Visible paragraphs after scroll (Momcozy uses lazy JS render)
+    if (!descText || descText.split(/\s+/).filter(w => w.length > 2).length < 30) {
+      const visibleParas = Array.from(document.querySelectorAll("p, li, .feature-text, [class*='feature'], [class*='benefit']"))
+        .filter(el => {
+          const r = el.getBoundingClientRect();
+          return r.height > 0 && el.innerText.trim().length > 20;
+        })
+        .map(el => el.innerText.trim())
+        .join(" ");
+      if (visibleParas.length > descText.length) {
+        descText = visibleParas;
+      }
+    }
+
+    const wordCount = descText.split(/\s+/).filter(w => w.length > 2).length;
+
     const hasVideo = !!(
-      document.querySelector('video') ||
+      document.querySelector("video") ||
       document.querySelector('iframe[src*="youtube"], iframe[src*="vimeo"], iframe[src*="youtu.be"]') ||
-      document.querySelector('[data-youtube], [data-video]')
+      document.querySelector("[data-youtube], [data-video]")
     );
 
-    // 尺寸/年龄指南
     const bodyText = document.body.innerText;
     const hasSizingGuide = /size\s?guide|sizing\s+guide|flange\s+(size|guide)|age\s+guide|measurement|fit\s+guide|which\s+size/i.test(bodyText);
-
-    // 安全/认证内容
     const hasSafetyCerts = /bpa[- ]?free|cpsc|fda\s+(cleared|approved|registered)|astm|rohs|phthalate[- ]?free|food[- ]?grade\s+silicone|ce\s+(mark|certified)|ul\s+(listed|certified)/i.test(bodyText);
+    const hasKlarna = /klarna/i.test(bodyText);
+    const hasAfterpay = /afterpay/i.test(bodyText);
+    const hasHsaFsa = /hsa|fsa/i.test(bodyText);
 
-    // FAQ 数量（JSON-LD FAQPage 或展开的 FAQ 组件）
     const jsonLdFaq = Array.from(document.querySelectorAll('script[type="application/ld+json"]')).reduce((acc, s) => {
       try {
         const d = JSON.parse(s.textContent);
@@ -168,16 +204,11 @@ async function collectContentDepth(page) {
       } catch {}
       return acc;
     }, 0);
-    const domFaqCount = document.querySelectorAll('details > summary, .faq-question, [class*="faq__question"], [class*="accordion__title"]').length;
+    const domFaqCount = document.querySelectorAll("details > summary, .faq-question, [class*='faq__question'], [class*='accordion__title']").length;
     const faqCount = Math.max(jsonLdFaq, domFaqCount);
 
-    // 变体信息
-    const variantSelectors = document.querySelectorAll(
-      'select[name*="option"], .variant-wrapper select, [class*="product-form"] select'
-    );
-    const variantSwatches = document.querySelectorAll(
-      '.swatch, [class*="swatch"], [data-option-value], [class*="variant-swatch"]'
-    );
+    const variantSelectors = document.querySelectorAll('select[name*="option"], .variant-wrapper select, [class*="product-form"] select');
+    const variantSwatches = document.querySelectorAll("[data-option-value], [class*='swatch']");
     const variantCount = Math.max(variantSelectors.length, variantSwatches.length > 0 ? variantSwatches.length : 0);
 
     // 加购按钮首屏可见
@@ -205,6 +236,9 @@ async function collectContentDepth(page) {
       hasVideo,
       hasSizingGuide,
       hasSafetyCerts,
+      hasKlarna,
+      hasAfterpay,
+      hasHsaFsa,
       faqCount,
       variantCount,
       ctaAboveFold,
@@ -455,7 +489,7 @@ async function main() {
     };
 
     try {
-      const response = await page.goto(url, {waitUntil: "domcontentloaded", timeout: 30000});
+      const response = await page.goto(url, {waitUntil: "load", timeout: 45000});
       routeResult.httpStatus = response ? response.status() : null;
 
       if (!response || response.status() >= 400) {
@@ -465,7 +499,8 @@ async function main() {
         continue;
       }
 
-      await page.waitForTimeout(2000);
+      // Wait for JS to fully render (Momcozy uses heavy lazy JS — networkidle never fires due to 3P failures)
+      await page.waitForTimeout(5000);
 
       // G11: SEO 架构（所有路由都采集）
       routeResult.seoArchitecture = await collectSeoArchitecture(page);

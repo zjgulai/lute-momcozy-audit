@@ -1,0 +1,411 @@
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - navigation "主导航" [ref=e7]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - link "Perplexity" [ref=e11] [cursor=pointer]:
+            - /url: /
+            - img "Perplexity" [ref=e14]
+          - button "Collapse sidebar" [ref=e17] [cursor=pointer]:
+            - img [ref=e18]
+        - generic [ref=e23]:
+          - generic [ref=e26]:
+            - link "新建" [ref=e27] [cursor=pointer]:
+              - /url: /
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                - generic:
+                  - generic:
+                    - generic: 新建
+                  - generic: ⌘K
+          - generic [ref=e30]:
+            - link "Computer" [ref=e31] [cursor=pointer]:
+              - /url: /computer/tasks
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 Computer":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: Computer
+          - generic [ref=e35]:
+            - link "空间" [ref=e36] [cursor=pointer]:
+              - /url: /spaces
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 空间":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: 空间
+          - generic [ref=e40]:
+            - link "工件" [ref=e41] [cursor=pointer]:
+              - /url: /computer/artifacts
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 工件":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: 工件
+          - generic [ref=e43]:
+            - generic [ref=e45]:
+              - link "自定义" [ref=e46] [cursor=pointer]:
+                - /url: /computer/connectors
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button "折叠自定义" [expanded]:
+                        - generic:
+                          - img
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic: 自定义
+            - generic [ref=e48]:
+              - generic [ref=e49]:
+                - link "连接器" [ref=e50] [cursor=pointer]:
+                  - /url: /computer/connectors
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 连接器
+              - generic [ref=e51]:
+                - link "技能" [ref=e52] [cursor=pointer]:
+                  - /url: /computer/skills
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 技能
+              - generic [ref=e53]:
+                - link "工作流" [ref=e54] [cursor=pointer]:
+                  - /url: /computer/workflows
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 工作流
+          - generic [ref=e55]:
+            - generic [ref=e57]:
+              - link "历史" [ref=e58] [cursor=pointer]:
+                - /url: /library
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button "折叠历史" [expanded]:
+                        - generic:
+                          - img
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic: 历史
+            - generic [ref=e61]:
+              - link "Momcozy vs Willow breast pump comparison 2026" [ref=e62] [cursor=pointer]:
+                - /url: /search/c5897b9d-a75a-4ca7-a17b-7e6648dbac33
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic: Momcozy vs Willow breast pump comparison 2026
+                  - button "会话操作" [ref=e66] [cursor=pointer]:
+                    - img [ref=e69]
+        - button "登录" [ref=e80] [cursor=pointer]:
+          - generic [ref=e81]:
+            - generic [ref=e83]:
+              - img [ref=e86]
+              - generic [ref=e89]: 登录
+            - generic:
+              - img
+    - main [ref=e91]:
+      - generic [ref=e94]:
+        - generic:
+          - generic:
+            - tablist "答案模式选项卡" [ref=e96]:
+              - tab "答案" [selected] [ref=e97] [cursor=pointer]:
+                - img [ref=e98]
+                - text: 答案
+              - tab "链接" [ref=e100] [cursor=pointer]:
+                - img [ref=e101]
+                - text: 链接
+              - tab "图片" [ref=e103] [cursor=pointer]:
+                - img [ref=e104]
+                - text: 图片
+            - generic [ref=e106]:
+              - button "会话操作" [ref=e264] [cursor=pointer]:
+                - img [ref=e267]
+              - button "分享" [ref=e108] [cursor=pointer]:
+                - img [ref=e110]
+                - generic [ref=e112]: 分享
+              - button "下载 Comet" [ref=e115] [cursor=pointer]:
+                - img [ref=e117]
+                - generic [ref=e119]: 下载 Comet
+        - generic [ref=e122]:
+          - tabpanel "答案" [ref=e132]:
+            - generic [ref=e133]:
+              - generic [ref=e138]:
+                - generic:
+                  - button "编辑查询":
+                    - generic:
+                      - generic:
+                        - img
+                  - button "复制查询":
+                    - generic:
+                      - generic:
+                        - img
+                - heading "Momcozy vs Willow breast pump comparison 2026" [level=1] [ref=e144]:
+                  - generic [ref=e146]: Momcozy vs Willow breast pump comparison 2026
+              - generic [ref=e147]:
+                - generic [ref=e276]:
+                  - paragraph [ref=e277]:
+                    - text: "Willow is the better pick if you want stronger tech, easier cleaning, and a more premium wearable experience; Momcozy is usually the better value if you want a lower price and solid everyday performance. In 2026, the most useful split is: Willow for convenience and app-based features, Momcozy for affordability and simplicity."
+                    - generic [ref=e283] [cursor=pointer]:
+                      - generic [ref=e284]: thequalityedit
+                      - generic [ref=e285]: "+2"
+                  - heading "Main differences" [level=2] [ref=e286]
+                  - generic [ref=e287]:
+                    - table [ref=e289]:
+                      - rowgroup [ref=e290]:
+                        - row "Category Willow Momcozy" [ref=e291]:
+                          - columnheader "Category" [ref=e292]
+                          - columnheader "Willow" [ref=e293]
+                          - columnheader "Momcozy" [ref=e294]
+                      - rowgroup [ref=e295]:
+                        - 'row "Price Higher-priced; Willow Go was listed at $349.99. thequalityedit +1 Lower-priced; the M5 was listed around $189.99–$199.99. Willow Go vs Momcozy M5: Which Wearable Breast Pump ..." [ref=e296]':
+                          - cell "Price" [ref=e297]
+                          - cell "Higher-priced; Willow Go was listed at $349.99. thequalityedit +1" [ref=e298]:
+                            - text: Higher-priced; Willow Go was listed at $349.99.
+                            - generic [ref=e304] [cursor=pointer]:
+                              - generic [ref=e305]: thequalityedit
+                              - generic [ref=e306]: "+1"
+                          - 'cell "Lower-priced; the M5 was listed around $189.99–$199.99. Willow Go vs Momcozy M5: Which Wearable Breast Pump ..." [ref=e307]':
+                            - text: Lower-priced; the M5 was listed around $189.99–$199.99.
+                            - 'generic "Willow Go vs Momcozy M5: Which Wearable Breast Pump ..." [ref=e310]':
+                              - link "breastpumpshub" [ref=e312] [cursor=pointer]:
+                                - /url: https://breastpumpshub.com/willow-go-vs-momcozy-m5/
+                                - generic [ref=e315]: breastpumpshub
+                        - 'row "Tech Better app connectivity, tracking, and control. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5 No app connection on the M5, so it is less tech-forward. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e316]':
+                          - cell "Tech" [ref=e317]
+                          - 'cell "Better app connectivity, tracking, and control. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e318]':
+                            - text: Better app connectivity, tracking, and control.
+                            - 'generic "The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e321]':
+                              - link "thequalityedit" [ref=e323] [cursor=pointer]:
+                                - /url: https://www.thequalityedit.com/articles/best-breast-pump
+                                - generic [ref=e326]: thequalityedit
+                          - 'cell "No app connection on the M5, so it is less tech-forward. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e327]':
+                            - text: No app connection on the M5, so it is less tech-forward.
+                            - 'generic "The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e330]':
+                              - link "thequalityedit" [ref=e332] [cursor=pointer]:
+                                - /url: https://www.thequalityedit.com/articles/best-breast-pump
+                                - generic [ref=e335]: thequalityedit
+                        - 'row "Battery Longer battery life; one review said it lasted about 3 sessions. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5 Shorter battery life; one review cited 100–120 minutes. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e336]':
+                          - cell "Battery" [ref=e337]
+                          - 'cell "Longer battery life; one review said it lasted about 3 sessions. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e338]':
+                            - text: Longer battery life; one review said it lasted about 3 sessions.
+                            - 'generic "The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e341]':
+                              - link "thequalityedit" [ref=e343] [cursor=pointer]:
+                                - /url: https://www.thequalityedit.com/articles/best-breast-pump
+                                - generic [ref=e346]: thequalityedit
+                          - 'cell "Shorter battery life; one review cited 100–120 minutes. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e347]':
+                            - text: Shorter battery life; one review cited 100–120 minutes.
+                            - 'generic "The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e350]':
+                              - link "thequalityedit" [ref=e352] [cursor=pointer]:
+                                - /url: https://www.thequalityedit.com/articles/best-breast-pump
+                                - generic [ref=e355]: thequalityedit
+                        - 'row "Cleaning Five of six parts are dishwasher safe on the Willow Go. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5 M5 is hand-wash only in that review. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e356]':
+                          - cell "Cleaning" [ref=e357]
+                          - 'cell "Five of six parts are dishwasher safe on the Willow Go. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e358]':
+                            - text: Five of six parts are dishwasher safe on the Willow Go.
+                            - 'generic "The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e361]':
+                              - link "thequalityedit" [ref=e363] [cursor=pointer]:
+                                - /url: https://www.thequalityedit.com/articles/best-breast-pump
+                                - generic [ref=e366]: thequalityedit
+                          - 'cell "M5 is hand-wash only in that review. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e367]':
+                            - text: M5 is hand-wash only in that review.
+                            - 'generic "The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e370]':
+                              - link "thequalityedit" [ref=e372] [cursor=pointer]:
+                                - /url: https://www.thequalityedit.com/articles/best-breast-pump
+                                - generic [ref=e375]: thequalityedit
+                        - 'row "Comfort Very strong comfort and discreet wearability. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5 Also comfortable and wearable, with a “baby mouth” design. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e376]':
+                          - cell "Comfort" [ref=e377]
+                          - 'cell "Very strong comfort and discreet wearability. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e378]':
+                            - text: Very strong comfort and discreet wearability.
+                            - 'generic "The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e381]':
+                              - link "thequalityedit" [ref=e383] [cursor=pointer]:
+                                - /url: https://www.thequalityedit.com/articles/best-breast-pump
+                                - generic [ref=e386]: thequalityedit
+                          - 'cell "Also comfortable and wearable, with a “baby mouth” design. The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e387]':
+                            - text: Also comfortable and wearable, with a “baby mouth” design.
+                            - 'generic "The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e390]':
+                              - link "thequalityedit" [ref=e392] [cursor=pointer]:
+                                - /url: https://www.thequalityedit.com/articles/best-breast-pump
+                                - generic [ref=e395]: thequalityedit
+                        - 'row "Overall value Best if you want premium features. thequalityedit +1 Best if budget matters more. Willow Go vs Momcozy M5: Which Wearable Breast Pump ..." [ref=e396]':
+                          - cell "Overall value" [ref=e397]
+                          - cell "Best if you want premium features. thequalityedit +1" [ref=e398]:
+                            - text: Best if you want premium features.
+                            - generic [ref=e404] [cursor=pointer]:
+                              - generic [ref=e405]: thequalityedit
+                              - generic [ref=e406]: "+1"
+                          - 'cell "Best if budget matters more. Willow Go vs Momcozy M5: Which Wearable Breast Pump ..." [ref=e407]':
+                            - text: Best if budget matters more.
+                            - 'generic "Willow Go vs Momcozy M5: Which Wearable Breast Pump ..." [ref=e410]':
+                              - link "breastpumpshub" [ref=e412] [cursor=pointer]:
+                                - /url: https://breastpumpshub.com/willow-go-vs-momcozy-m5/
+                                - generic [ref=e415]: breastpumpshub
+                    - generic [ref=e416]:
+                      - button "复制表格" [ref=e418] [cursor=pointer]:
+                        - img [ref=e421]
+                      - button "下载 CSV" [ref=e425] [cursor=pointer]:
+                        - img [ref=e428]
+                  - heading "Which to choose" [level=2] [ref=e431]
+                  - paragraph [ref=e432]:
+                    - text: Choose
+                    - strong [ref=e433]: Willow
+                    - text: if you pump often, care about app tracking, and want a pump that feels more polished and easier to live with day to day. Consumer Reports also included multiple Willow and Momcozy models among the leading wearable pumps, with top scores emphasizing setup, operation, noise, and ease of cleaning.
+                    - generic "Best Wearable Breast Pumps of 2026" [ref=e436]:
+                      - link "consumerreports" [ref=e438] [cursor=pointer]:
+                        - /url: https://www.consumerreports.org/babies-kids/breast-pumps/best-wearable-breast-pumps-a1673013704/
+                        - generic [ref=e441]: consumerreports
+                  - paragraph [ref=e442]:
+                    - text: Choose
+                    - strong [ref=e443]: Momcozy
+                    - text: if you want a more affordable wearable pump that still performs well and fits comfortably into a normal routine. In side-by-side testing of the Willow Go and Momcozy M5, the two were close on pumping performance and wearability, but Willow pulled ahead on technology and cleanup.
+                    - 'generic "The Breast Pump Throwdown: Willow Go Vs. Momcozy''s M5" [ref=e446]':
+                      - link "thequalityedit" [ref=e448] [cursor=pointer]:
+                        - /url: https://www.thequalityedit.com/articles/best-breast-pump
+                        - generic [ref=e451]: thequalityedit
+                  - heading "Practical takeaway" [level=2] [ref=e452]
+                  - paragraph [ref=e453]:
+                    - text: If your budget allows, Willow is the safer “buy once, use a lot” option. If you want the best mix of price and performance, Momcozy is the more practical choice.
+                    - generic [ref=e459] [cursor=pointer]:
+                      - generic [ref=e460]: breastpumpshub
+                      - generic [ref=e461]: "+1"
+                  - paragraph [ref=e462]:
+                    - text: "A simple rule:"
+                    - strong [ref=e463]: Willow for convenience, Momcozy for value
+                    - text: .
+                    - generic [ref=e469] [cursor=pointer]:
+                      - generic [ref=e470]: breastpumpshub
+                      - generic [ref=e471]: "+1"
+                - generic [ref=e472]:
+                  - generic [ref=e473]:
+                    - button "分享" [ref=e474] [cursor=pointer]:
+                      - img [ref=e477]
+                    - button "下载" [ref=e480] [cursor=pointer]:
+                      - img [ref=e483]
+                    - button "拷贝" [ref=e486] [cursor=pointer]:
+                      - img [ref=e489]
+                    - button "重写会话" [ref=e492] [cursor=pointer]:
+                      - img [ref=e495]
+                    - button "10 个来源" [ref=e499] [cursor=pointer]:
+                      - generic [ref=e501]:
+                        - img [ref=e502]
+                        - img [ref=e503]
+                        - generic [ref=e505]:
+                          - img [ref=e508]
+                          - img [ref=e512]
+                          - img [ref=e516]
+                        - text: 10 个来源
+                  - generic [ref=e519]:
+                    - generic [ref=e521]:
+                      - button "有用" [ref=e522] [cursor=pointer]:
+                        - img [ref=e525]
+                      - button "没有帮助" [ref=e528] [cursor=pointer]:
+                        - img [ref=e531]
+                    - button "更多操作" [ref=e535] [cursor=pointer]:
+                      - img [ref=e538]
+                - generic [ref=e542]:
+                  - generic [ref=e547]: 后续提问
+                  - generic [ref=e548]:
+                    - button "How does the suction power compare between Willow Go and Momcozy M5" [ref=e549] [cursor=pointer]:
+                      - img [ref=e551]
+                      - generic [ref=e554]: How does the suction power compare between Willow Go and Momcozy M5
+                    - button "Which wearable pump is quieter for pumping at work or on the go" [ref=e555] [cursor=pointer]:
+                      - img [ref=e557]
+                      - generic [ref=e560]: Which wearable pump is quieter for pumping at work or on the go
+                    - button "What are the main cleaning challenges with hand-wash only pumps like M5" [ref=e561] [cursor=pointer]:
+                      - img [ref=e563]
+                      - generic [ref=e566]: What are the main cleaning challenges with hand-wash only pumps like M5
+                    - button "Are there replacement parts compatibility differences between the two brands" [ref=e567] [cursor=pointer]:
+                      - img [ref=e569]
+                      - generic [ref=e572]: Are there replacement parts compatibility differences between the two brands
+                    - button "How do the pumping output results compare in independent tests" [ref=e573] [cursor=pointer]:
+                      - img [ref=e575]
+                      - generic [ref=e578]: How do the pumping output results compare in independent tests
+          - generic [ref=e169]:
+            - generic [ref=e171]:
+              - textbox [ref=e172]:
+                - paragraph [ref=e173]
+              - generic: 提出后续问题
+            - generic [ref=e175]:
+              - button "添加文件或工具" [ref=e176] [cursor=pointer]:
+                - img [ref=e179]
+              - button "搜索" [pressed] [ref=e185] [cursor=pointer]:
+                - img [ref=e187]
+                - generic [ref=e189]:
+                  - text: 搜索
+                  - img [ref=e192]
+            - generic [ref=e194]:
+              - button "模型" [ref=e196] [cursor=pointer]:
+                - generic [ref=e197]: 模型
+                - img [ref=e199]
+              - button "听写" [ref=e580] [cursor=pointer]:
+                - img [ref=e583]
+              - button "提交" [disabled]:
+                - generic:
+                  - generic:
+                    - img
+  - dialog [ref=e218]:
+    - generic [ref=e222]:
+      - generic [ref=e223]:
+        - generic [ref=e224]: 在下方注册以解锁 Perplexity 的全部潜力
+        - generic [ref=e225]:
+          - text: 继续即表示您同意我们的
+          - link "隐私政策" [ref=e226] [cursor=pointer]:
+            - /url: https://www.perplexity.com/hub/legal/privacy-policy
+          - text: 。
+      - generic [ref=e227]:
+        - button "返回首页" [ref=e229] [cursor=pointer]:
+          - img [ref=e231]
+          - generic [ref=e233]: 返回首页
+        - generic [ref=e235]:
+          - generic [ref=e236]:
+            - button "继续使用Google" [ref=e237] [cursor=pointer]:
+              - img [ref=e239]
+              - generic [ref=e241]: 继续使用Google
+            - button "继续使用 Apple" [ref=e243] [cursor=pointer]:
+              - img [ref=e245]
+              - generic [ref=e247]: 继续使用 Apple
+          - generic [ref=e250]:
+            - generic [ref=e252]:
+              - textbox "输入您的电子邮件" [active] [ref=e257]
+              - generic [ref=e258]:
+                - button "继续使用电子邮件" [disabled]:
+                  - generic: 继续使用电子邮件
+            - button "单点登录（SSO）" [ref=e260] [cursor=pointer]:
+              - generic [ref=e261]: 单点登录（SSO）

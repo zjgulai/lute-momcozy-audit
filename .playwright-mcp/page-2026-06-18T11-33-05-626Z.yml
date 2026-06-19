@@ -1,0 +1,1242 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#MainContent"
+  - generic [ref=e3]:
+    - generic [ref=e7]:
+      - button "close" [ref=e9] [cursor=pointer]:
+        - generic: close
+      - paragraph [ref=e14]:
+        - strong [ref=e15]: 🔥
+        - text: Big Summer Deals-
+        - strong [ref=e16]: Up To 60% OFF !
+        - text: "|"
+        - link "Shop Now !" [ref=e17] [cursor=pointer]:
+          - /url: https://momcozy.com/pages/prime-big-deal-days
+      - button "close" [ref=e19] [cursor=pointer]:
+        - generic: close
+    - banner [ref=e20]:
+      - navigation "Primary" [ref=e23]:
+        - link "momcozy home" [ref=e25] [cursor=pointer]:
+          - /url: /
+          - img [ref=e26]
+        - generic [ref=e35]:
+          - link "search" [ref=e36] [cursor=pointer]:
+            - /url: /search
+            - img [ref=e37]
+          - link "link" [ref=e39] [cursor=pointer]:
+            - /url: /cart
+            - img [ref=e40]
+          - button "open menu" [ref=e43] [cursor=pointer]:
+            - img [ref=e44]
+    - main [ref=e46]:
+      - navigation "breadcrumbs" [ref=e53]:
+        - list [ref=e54]:
+          - listitem [ref=e55]:
+            - link "Home" [ref=e56] [cursor=pointer]:
+              - /url: /
+            - text: ">"
+          - listitem [ref=e57]:
+            - link "Baby Stroller" [ref=e58] [cursor=pointer]:
+              - /url: /collections/baby-stroller
+            - text: ">"
+          - listitem [ref=e59]:
+            - generic "Momcozy Tuckgo Travel Stroller" [ref=e60]
+      - generic [ref=e65]:
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - generic [ref=e69]:
+              - generic [ref=e71]:
+                - img "Momcozy Tuckgo Travel Stroller" [ref=e74]
+                - img [ref=e77]
+                - img [ref=e80]
+                - img [ref=e83]
+                - img [ref=e86]
+                - img [ref=e89]
+                - img [ref=e92]
+                - img [ref=e95]
+                - img [ref=e98]
+              - button "Previous" [ref=e99] [cursor=pointer]:
+                - img [ref=e100]
+              - button "Next" [ref=e102] [cursor=pointer]:
+                - img [ref=e103]
+            - generic:
+              - generic: NEW
+            - button "Click to enlarge" [ref=e105] [cursor=pointer]:
+              - img [ref=e107]
+              - generic: Click to enlarge
+          - generic [ref=e109]:
+            - generic [ref=e111]:
+              - img "Momcozy Tuckgo Travel Stroller" [ref=e114]
+              - img "Momcozy Tuckgo Travel Stroller" [ref=e117]
+              - img "Momcozy Tuckgo Travel Stroller" [ref=e120]
+              - img "Momcozy Tuckgo Travel Stroller" [ref=e123]
+              - img "Momcozy Tuckgo Travel Stroller" [ref=e126]
+              - img "Momcozy Tuckgo Travel Stroller" [ref=e129]
+              - img "Momcozy Tuckgo Travel Stroller" [ref=e132]
+              - img "Momcozy Tuckgo Travel Stroller" [ref=e135]
+              - img "Momcozy Tuckgo Travel Stroller" [ref=e138]
+            - button "Previous"
+            - button "Next"
+        - generic [ref=e141]:
+          - heading "Momcozy Tuckgo Travel Stroller" [level=1] [ref=e142]
+          - link "Rated 5.0 out of 5 stars (5) Click to scroll to reviews" [ref=e144] [cursor=pointer]:
+            - /url: "#t4s-tab-reviewtemplate--20507184890054__main"
+            - button "Rated 5.0 out of 5 stars (5) Click to scroll to reviews" [ref=e148]:
+              - generic [ref=e150]:
+                - img [ref=e152]
+                - img [ref=e159]
+                - generic [ref=e165]: Rated 5.0 out of 5 stars
+              - generic [ref=e166]: (5)
+              - generic [ref=e167]: Click to scroll to reviews
+          - generic [ref=e168]:
+            - generic [ref=e169]: $249.99 USD
+            - iframe [ref=e172]:
+              - button "Starting at $23.88/ month or as low as 0% APR. Learn more" [ref=f78e2]:
+                - generic [ref=f78e9] [cursor=pointer]:
+                  - generic [ref=f78e13]:
+                    - text: Starting at $23.88/mo
+                    - generic [ref=f78e14]: month
+                    - text: or as low as 0% APR.
+                  - paragraph [ref=f78e15]:
+                    - generic [ref=f78e17]:
+                      - text: Learn more
+                      - generic [ref=f78e18]: Learn more
+            - generic [ref=e173]:
+              - generic [ref=e174]: Or with
+              - img [ref=e175]
+              - generic [ref=e186]: or with
+              - img "klarna" [ref=e187]
+          - generic [ref=e191]:
+            - generic [ref=e192]:
+              - generic [ref=e193]:
+                - paragraph [ref=e194]:
+                  - generic [ref=e195]: SAVE
+                  - generic [ref=e196]: 20%
+                - paragraph [ref=e197]: "with Code: BDPD20"
+              - img [ref=e199]
+              - img [ref=e202]
+            - button "Copy Code" [ref=e205] [cursor=pointer]
+          - generic [ref=e207]:
+            - generic [ref=e209]: Carry-On Compatible
+            - generic [ref=e211]: Lightweight & Foldable
+            - generic [ref=e213]: 3-Position Recline
+            - generic [ref=e215]: 4-Wheel Suspension
+          - generic:
+            - paragraph
+          - generic [ref=e219]:
+            - generic [ref=e220]:
+              - generic [ref=e221]:
+                - button "Decrease quantity" [ref=e222] [cursor=pointer]
+                - spinbutton "Quantity" [ref=e223]: "1"
+                - button "Increase quantity" [ref=e224] [cursor=pointer]
+              - button "Add to cart $249.99 USD" [ref=e225] [cursor=pointer]:
+                - generic [ref=e227]: Add to cart
+                - generic [ref=e230]: $249.99 USD
+            - generic [ref=e232] [cursor=pointer]:
+              - generic:
+                - generic:
+                  - link "More payment options":
+                    - /url: "#"
+            - generic [ref=e233]: 4 Interest-free payments with Afterpay or Klarna
+            - generic [ref=e234]:
+              - link "Add to Wishlist" [ref=e235] [cursor=pointer]:
+                - /url: /products/momcozy-tuckgo-lightweight-stroller
+                - generic [ref=e236]:
+                  - img
+                - generic [ref=e237]: Add to Wishlist
+              - link "Compare" [ref=e238] [cursor=pointer]:
+                - /url: /products/momcozy-tuckgo-lightweight-stroller
+                - generic [ref=e239]:
+                  - img
+                - generic [ref=e240]: Compare
+          - generic [ref=e241]: 40 People are viewing this right now
+          - generic [ref=e245]:
+            - link "Description" [ref=e247] [cursor=pointer]:
+              - /url: "#t4s-tab-destemplate--20507184890054__main"
+              - generic [ref=e248]: Description
+            - link "Key Features & Benefits" [ref=e251] [cursor=pointer]:
+              - /url: "#t4s_tab_tab_html_eJqPNV"
+              - generic [ref=e252]: Key Features & Benefits
+          - generic [ref=e254]:
+            - generic [ref=e255]:
+              - text: 
+              - generic [ref=e256]:
+                - paragraph [ref=e257]: Fast Shipping FREE AVAILABLE
+                - text: Order today for delivery in as little as Monday, 22nd June.
+            - generic [ref=e258]:
+              - text: 
+              - generic [ref=e259]:
+                - paragraph [ref=e260]: 30 Days Guarantee Learn more
+                - text: We stand behind our products. If you don’t love it, exchanges and returns are available in 30 days.
+            - generic [ref=e261]:
+              - text: 
+              - generic [ref=e262]:
+                - paragraph [ref=e263]: 1 Year Warranty Learn more
+                - text: At least 1 Year* Warranty Guarantee Policy
+            - generic [ref=e264]:
+              - text: 
+              - generic [ref=e265]:
+                - paragraph [ref=e266]: Ways to Pay
+                - img "american express" [ref=e267]
+                - img "apple pay" [ref=e268]
+                - img "discover" [ref=e269]
+                - img "google pay" [ref=e270]
+                - img "jcb" [ref=e271]
+                - img "klarna-pay-later" [ref=e272]
+                - img "maestro" [ref=e273]
+                - img "master" [ref=e274]
+                - img "paypal" [ref=e275]
+                - img "shopify pay" [ref=e276]
+                - img "visa" [ref=e277]
+                - img "afterpay" [ref=e278]
+          - generic [ref=e279]:
+            - generic [ref=e280]: "Share:"
+            - generic [ref=e282]:
+              - link "Share on Facebook" [ref=e284] [cursor=pointer]:
+                - /url: https://www.facebook.com/sharer/sharer.php?u=https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller
+              - link "Share on Twitter" [ref=e287] [cursor=pointer]:
+                - /url: http://twitter.com/share?text=Momcozy%20Tuckgo%20Travel%20Stroller&url=https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller
+              - link "Share on Pinterest" [ref=e290] [cursor=pointer]:
+                - /url: "http://pinterest.com/pin/create/button/?url=https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller&media=http: //momcozy.com/cdn/shop/files/tuckgo-lightweight-stroller.jpg?crop=center&height=1024&v=1773202640&width=1024&description=Momcozy%20Tuckgo%20Travel%20Stroller"
+              - link "Share on Email" [ref=e293] [cursor=pointer]:
+                - /url: "mailto: ?subject=Momcozy%20Tuckgo%20Travel%20Stroller&body=https://momcozy.com/products/momcozy-tuckgo-lightweight-stroller"
+      - region "Shoppable videos" [ref=e296]:
+        - generic [ref=e303]:
+          - generic [ref=e304]:
+            - group "1 / 6" [ref=e305]:
+              - generic [ref=e306] [cursor=pointer]:
+                - img [ref=e308]:
+                  - img [ref=e310]
+                - img [ref=e314]
+            - group "2 / 6" [ref=e318]:
+              - generic [ref=e319] [cursor=pointer]:
+                - img [ref=e321]:
+                  - img [ref=e323]
+                - img [ref=e327]
+            - group "3 / 6" [ref=e331]:
+              - generic [ref=e332] [cursor=pointer]:
+                - img [ref=e334]:
+                  - img [ref=e336]
+                - img [ref=e340]
+            - group "4 / 6" [ref=e344]:
+              - generic [ref=e345] [cursor=pointer]:
+                - img [ref=e347]:
+                  - img [ref=e349]
+                - img [ref=e353]
+            - group "5 / 6" [ref=e357]:
+              - generic [ref=e358] [cursor=pointer]:
+                - img [ref=e360]:
+                  - img [ref=e362]
+                - img [ref=e366]
+            - group "6 / 6" [ref=e370]:
+              - generic [ref=e371] [cursor=pointer]:
+                - img [ref=e373]:
+                  - img [ref=e375]
+                - img [ref=e379]
+          - button "Next slide" [ref=e383]:
+            - img "Next" [ref=e384] [cursor=pointer]
+      - generic [ref=e387]:
+        - generic [ref=e388]:
+          - heading "Momcozy Tuckgo Travel Stroller" [level=1] [ref=e389]
+          - paragraph [ref=e391]: Tucks Anywhere. Rolls Everywhere.
+        - tabpanel [ref=e395]:
+          - generic [ref=e399] [cursor=pointer]:
+            - generic:
+              - img
+      - generic [ref=e404]:
+        - heading "See It Transform" [level=2] [ref=e405]
+        - generic [ref=e406]:
+          - generic [ref=e409]:
+            - group "1 / 2" [ref=e410]:
+              - generic [ref=e414]:
+                - generic [ref=e415]: Opened
+                - generic [ref=e416]: 35" long x 17" wide x 40" tall
+            - group "2 / 2" [ref=e417]:
+              - generic [ref=e421]:
+                - generic [ref=e422]: Folded
+                - generic [ref=e423]: 20" long x 17" wide x 8" tall
+          - list [ref=e427]:
+            - listitem [ref=e428] [cursor=pointer]:
+              - generic [ref=e429]: Opened
+            - listitem [ref=e430] [cursor=pointer]:
+              - generic [ref=e431]: Folded
+      - generic [ref=e440]:
+        - generic [ref=e446]:
+          - text: Grab it,
+          - text: go anywhere.
+        - generic [ref=e452]:
+          - text: Tucks into the trunk,
+          - text: no hassle.
+        - generic [ref=e458]:
+          - text: Fits overhead,
+          - text: ready for takeoff.
+      - generic [ref=e461]:
+        - heading "Designed for Your Safety & Convenience" [level=2] [ref=e462]
+        - generic [ref=e468]:
+          - generic [ref=e474]: Wide-Stance Stability Chassis
+          - generic [ref=e479]:
+            - generic [ref=e480]:
+              - text: Independent 4-Wheel
+              - text: Suspension
+            - generic [ref=e481]:
+              - text: Absorbs every bump for a stable,
+              - text: smooth ride
+          - generic [ref=e485]:
+            - generic:
+              - generic [ref=e486]:
+                - text: Foot-Operated
+                - text: Safety Brakes
+              - generic [ref=e487]: Quick, effortless stops you can trust
+          - generic [ref=e492]:
+            - generic [ref=e493]:
+              - text: 5-Point Safety
+              - text: Harness
+            - generic [ref=e494]:
+              - text: Secure protection
+              - text: with maximum
+              - text: comfort
+      - generic [ref=e497]:
+        - heading "Keep Every Journey Comfy for Your Little One." [level=2] [ref=e498]
+        - generic [ref=e504]:
+          - generic [ref=e510]: Spacious Seat with Room to Grow (13.39"x19.69")
+          - generic [ref=e516]:
+            - text: 3-position adjustable seat
+            - text: Sit, Relax, Nap
+          - generic [ref=e522]:
+            - text: Adjustable footrest
+            - text: Grows with your child
+          - generic [ref=e527]:
+            - generic [ref=e528]: 3-position adjustable canopy
+            - generic [ref=e529]: All-weather protection
+          - generic [ref=e534]:
+            - generic [ref=e535]:
+              - text: Removable dual-layer
+              - text: padding
+            - generic [ref=e536]:
+              - text: Up to 80% reduced
+              - text: bacterial risk
+      - tabpanel [ref=e543]:
+        - generic [ref=e547] [cursor=pointer]:
+          - generic:
+            - img
+      - generic [ref=e554]: What's in the Box？
+      - generic [ref=e559]:
+        - heading "Frequently Asked Questions" [level=2] [ref=e562]
+        - generic [ref=e565]:
+          - generic [ref=e566]:
+            - generic [ref=e568]:
+              - heading "01 What are the folded dimensions? Will it fit in an overhead bin?" [level=3] [ref=e569] [cursor=pointer]:
+                - generic [ref=e570]: "01"
+                - text: What are the folded dimensions? Will it fit in an overhead bin?
+                - img [ref=e573]
+              - paragraph [ref=e577]: When folded, the TuckGo Lightweight Stroller measures 20 × 17 × 8 inches. Its folded size meets IATA carry-on guidelines and is designed to fit in the overhead compartments of most major airlines. However, we recommend checking with your airline before travel, as carry-on policies may vary.
+            - heading "02 How do you fold the TuckGo Lightweight Stroller?" [level=3] [ref=e580] [cursor=pointer]:
+              - generic [ref=e581]: "02"
+              - text: How do you fold the TuckGo Lightweight Stroller?
+              - img [ref=e584]
+            - heading "03 Is the fabric safe for my baby’s sensitive skin?" [level=3] [ref=e588] [cursor=pointer]:
+              - generic [ref=e589]: "03"
+              - text: Is the fabric safe for my baby’s sensitive skin?
+              - img [ref=e592]
+            - heading "04 What is the weight limit of the TuckGo Lightweight Stroller?" [level=3] [ref=e596] [cursor=pointer]:
+              - generic [ref=e597]: "04"
+              - text: What is the weight limit of the TuckGo Lightweight Stroller?
+              - img [ref=e600]
+          - generic [ref=e602] [cursor=pointer]: Show More
+      - region "Custom content section" [ref=e604]:
+        - generic [ref=e606]:
+          - generic [ref=e609]:
+            - heading "How Customers Say About" [level=2] [ref=e610]
+            - paragraph [ref=e611]: MAKE LOVE THIS LOOK
+          - region "Rated 5.0 out of 5 stars Based on 5 reviews" [ref=e617]:
+            - generic [ref=e618]:
+              - generic [ref=e620]:
+                - generic [ref=e621]:
+                  - generic [ref=e623]:
+                    - generic [ref=e624]:
+                      - generic [ref=e625]: "5.0"
+                      - generic [ref=e627]:
+                        - img [ref=e629]
+                        - img [ref=e636]
+                        - generic [ref=e642]: Rated 5.0 out of 5 stars
+                    - generic [ref=e643]: Based on 5 reviews
+                  - generic [ref=e646]:
+                    - generic [ref=e647]:
+                      - generic [ref=e648]: "5"
+                      - generic [ref=e650]:
+                        - img [ref=e651]
+                        - generic [ref=e653]: Rated out of 5 stars
+                    - generic [ref=e656]: "5"
+                    - generic [ref=e657]: "Total 5 star reviews: 5"
+                    - generic [ref=e658]:
+                      - generic [ref=e659]: "4"
+                      - generic [ref=e661]:
+                        - img [ref=e662]
+                        - generic [ref=e664]: Rated out of 5 stars
+                    - generic [ref=e666]: "0"
+                    - generic [ref=e667]: "Total 4 star reviews: 0"
+                    - generic [ref=e668]:
+                      - generic [ref=e669]: "3"
+                      - generic [ref=e671]:
+                        - img [ref=e672]
+                        - generic [ref=e674]: Rated out of 5 stars
+                    - generic [ref=e676]: "0"
+                    - generic [ref=e677]: "Total 3 star reviews: 0"
+                    - generic [ref=e678]:
+                      - generic [ref=e679]: "2"
+                      - generic [ref=e681]:
+                        - img [ref=e682]
+                        - generic [ref=e684]: Rated out of 5 stars
+                    - generic [ref=e686]: "0"
+                    - generic [ref=e687]: "Total 2 star reviews: 0"
+                    - generic [ref=e688]:
+                      - generic [ref=e689]: "1"
+                      - generic [ref=e691]:
+                        - img [ref=e692]
+                        - generic [ref=e694]: Rated out of 5 stars
+                    - generic [ref=e696]: "0"
+                    - generic [ref=e697]: "Total 1 star reviews: 0"
+                - generic [ref=e698]:
+                  - generic [ref=e700]:
+                    - strong [ref=e701]: 100%
+                    - text: would recommend this product
+                  - region "Carousel of customer-uploaded media. Press left and right arrows to navigate. Press enter or space to open more details." [ref=e704]:
+                    - generic [ref=e705]:
+                      - text: 
+                      - group [ref=e706]:
+                        - list [ref=e708]:
+                          - listitem [ref=e709]:
+                            - generic [ref=e710]:
+                              - text: 
+                              - button "Customer-uploaded video. Click to see more details." [ref=e711] [cursor=pointer]:
+                                - img "Customer-uploaded video. Click to see more details." [ref=e712]
+                          - listitem [ref=e713]:
+                            - generic [ref=e714]:
+                              - text: 
+                              - button "Customer-uploaded video. Click to see more details." [ref=e715] [cursor=pointer]:
+                                - img "Customer-uploaded video. Click to see more details." [ref=e716]
+                          - listitem [ref=e717]:
+                            - generic [ref=e718]:
+                              - text: 
+                              - 'button "Customer-uploaded image. Click to see more details. The image represents: A cardboard box for a MomCozy travel stroller sitting on what appears to be a chair or surface, with product packaging showing an illustration of the stroller" [ref=e719] [cursor=pointer]':
+                                - 'img "Customer-uploaded image. Click to see more details. The image represents: A cardboard box for a MomCozy travel stroller sitting on what appears to be a chair or surface, with product packaging showing an illustration of the stroller" [ref=e720]'
+                          - listitem [ref=e721]:
+                            - generic [ref=e722]:
+                              - text: 
+                              - 'button "Customer-uploaded image. Click to see more details. The image represents: Open car trunk containing a folded stroller and a large gray tote bag" [ref=e723] [cursor=pointer]':
+                                - 'img "Customer-uploaded image. Click to see more details. The image represents: Open car trunk containing a folded stroller and a large gray tote bag" [ref=e724]'
+                          - listitem [ref=e725]:
+                            - generic [ref=e726]:
+                              - text: 
+                              - 'button "Customer-uploaded image. Click to see more details. The image represents: A man standing behind a baby stroller in a parking lot next to a vehicle, with shopping carts visible in the background" [ref=e727] [cursor=pointer]':
+                                - 'img "Customer-uploaded image. Click to see more details. The image represents: A man standing behind a baby stroller in a parking lot next to a vehicle, with shopping carts visible in the background" [ref=e728]'
+                          - listitem [ref=e729]:
+                            - generic [ref=e730]:
+                              - text: 
+                              - button "Customer-uploaded video. Click to see more details." [ref=e731] [cursor=pointer]:
+                                - img "Customer-uploaded video. Click to see more details." [ref=e732]
+                          - listitem [ref=e733]:
+                            - generic [ref=e734]:
+                              - text: 
+                              - button [ref=e735] [cursor=pointer]:
+                                - img [ref=e736]
+                          - listitem [ref=e737]:
+                            - generic [ref=e738]:
+                              - text: 
+                              - button [ref=e739] [cursor=pointer]:
+                                - img [ref=e740]
+                      - button "" [ref=e743] [cursor=pointer]
+                    - generic [ref=e744]: Slide 1 selected
+                - generic [ref=e748]:
+                  - heading "Reviews Summary Generated by AI from 100 most recent customer reviews Last updated 3 months ago" [level=2] [ref=e749]:
+                    - generic [ref=e750]: Reviews Summary
+                    - tooltip "Generated by AI from 100 most recent customer reviews Last updated 3 months ago" [ref=e751] [cursor=pointer]:
+                      - img [ref=e754]
+                      - generic:
+                        - generic: Generated by AI from 100 most recent customer reviews
+                        - generic: Last updated 3 months ago
+                  - generic [ref=e756]: Customers say this stroller is incredibly lightweight and compact, making it perfect for travel and everyday use. Many appreciate how easily it folds with one hand and fits in car trunks or airplane overhead bins. The smooth-rolling wheels handle various terrains well, from sidewalks to grass, and users love the 360-degree maneuverability. Parents find the one-click fold mechanism convenient, especially when carrying a baby. The seat reclines fully flat for naps, and the large extendable canopy provides excellent sun protection. Many reviews mention the included accessories like the rain cover, snack tray, cup holder, and carrying bag as valuable additions. The storage basket underneath accommodates essentials, though some wish it were larger. Common feedback includes praise for the sturdy construction and comfortable padding. However, several customers note the seat doesn't sit completely upright, keeping children in a slight recline. Some mention the cup holder feels flimsy and detaches easily. A few users found it heavier than expected for a "lightweight" stroller, though most still consider it manageable. The canopy occasionally rests too close to children's faces when fully extended, and the harness straps could be more substantial for active toddlers.
+                  - button "Read More" [ref=e757] [cursor=pointer]
+              - tablist [ref=e760]:
+                - tab "Reviews (5) (tab expanded)" [selected] [ref=e761] [cursor=pointer]:
+                  - text: Reviews
+                  - generic [ref=e762]: (5)
+                  - generic [ref=e763]: (tab expanded)
+                - tab "Questions (2) (tab collapsed)" [ref=e764] [cursor=pointer]:
+                  - text: Questions
+                  - generic [ref=e765]: (2)
+                  - generic [ref=e766]: (tab collapsed)
+              - tabpanel "Reviews" [ref=e768]:
+                - generic [ref=e770]:
+                  - generic [ref=e771]:
+                    - button " Filters" [ref=e772] [cursor=pointer]:
+                      - generic [ref=e773]: 
+                      - generic [ref=e774]: Filters
+                    - region " Filters"
+                    - link " Write a Review (Opens in a new window)" [ref=e776] [cursor=pointer]:
+                      - /url: https://okendo.reviews/?subscriberId=fd7a9ef8-afae-47de-a7c1-4ca9730e4d32&productId=shopify-8818132975814&locale=en
+                      - text:  Write a Review
+                      - generic [ref=e777]: (Opens in a new window)
+                  - generic [ref=e778]:
+                    - generic [ref=e779]: 5 reviews
+                    - generic [ref=e781]:
+                      - text: Sort
+                      - combobox "Sort" [ref=e782] [cursor=pointer]:
+                        - option "Most Recent"
+                        - option "Oldest"
+                        - option "Most Helpful"
+                        - option "Photos & Videos"
+                        - option "Highest Rating" [selected]
+                        - option "Lowest Rating"
+                        - option "Least Helpful"
+                  - generic [ref=e783]:
+                    - list [ref=e784]:
+                      - listitem [ref=e785]:
+                        - generic [ref=e786]:
+                          - generic [ref=e787]:
+                            - generic [ref=e789]:
+                              - generic [ref=e791]:
+                                - strong [ref=e792]: AC
+                                - img "Profile picture for Alexandria C." [ref=e793]
+                              - strong [ref=e796]: Alexandria C.
+                            - text: 
+                            - generic [ref=e797]:
+                              - generic [ref=e799]:
+                                - link [ref=e800] [cursor=pointer]:
+                                  - /url: //momcozy.com/products/momcozy-tuckgo-lightweight-stroller?variant=45624324194502
+                                  - img [ref=e801]
+                                - generic [ref=e802]:
+                                  - generic [ref=e803]: Reviewing
+                                  - link "View Momcozy Tuckgo Travel Stroller" [ref=e804] [cursor=pointer]:
+                                    - /url: //momcozy.com/products/momcozy-tuckgo-lightweight-stroller?variant=45624324194502
+                                    - text: Momcozy Tuckgo Travel Stroller
+                              - generic [ref=e806]:  I recommend this product
+                          - generic [ref=e807]:
+                            - generic [ref=e810]:
+                              - generic [ref=e811]:
+                                - generic [ref=e813]:
+                                  - img [ref=e815]
+                                  - img [ref=e822]
+                                  - generic [ref=e828]: Rated 5 out of 5 stars
+                                - generic [ref=e829]: 1 month ago
+                              - heading "Cozydad review 🙌🏼" [level=2] [ref=e830]
+                              - generic [ref=e831]:
+                                - paragraph [ref=e832]: ✨ClickGo Stroller - Swapping out the cozies✨
+                                - paragraph [ref=e833]: I had my husband do the review since he’s the stay at home parent with our baby. He loves this stroller. He likes how compact it is and the bag. He likes the space it gives him in trunk. We set it up in the target parking lot in less then 20 minutes, super easy to figure out and connect everything. It is a little small for tall people (he’s 6’2, I’m 5’4) but very convenient if you need to do a quick trip. Very smooth to push with one hand and a decent sized basket for a few items. Perfect stroller for trips where you want to carry less items and just go. Straps are easy to adjust. Reclines almost flat for babies to sleep comfortably. The foot area also moves flat down or up so babies feet doesn’t dangle. I was able to fold with one hand while holding baby. We had a good time playing with it.
+                              - button "Read More Read more about this review" [ref=e834] [cursor=pointer]:
+                                - text: Read More
+                                - generic [ref=e835]: Read more about this review
+                            - generic [ref=e836]:
+                              - generic [ref=e838]:
+                                - generic [ref=e839]:
+                                  - text: 
+                                  - button "Customer-uploaded video. Click to see more details." [ref=e840] [cursor=pointer]:
+                                    - img "Customer-uploaded video. Click to see more details." [ref=e841]
+                                - generic [ref=e842]:
+                                  - text: 
+                                  - button "Customer-uploaded video. Click to see more details." [ref=e843] [cursor=pointer]:
+                                    - img "Customer-uploaded video. Click to see more details." [ref=e844]
+                                - generic [ref=e845]:
+                                  - text: 
+                                  - button "Customer-uploaded video. Click to see more details." [ref=e846] [cursor=pointer]:
+                                    - img "Customer-uploaded video. Click to see more details." [ref=e847]
+                                - button "+ 4 more" [ref=e849] [cursor=pointer]
+                              - text:       
+                            - generic [ref=e852]:
+                              - text: Was this helpful?
+                              - generic [ref=e853]:
+                                - button " Yes, this review from Alexandria C. was helpful. 0 people voted yes" [ref=e854] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: Yes, this review from Alexandria C. was helpful.
+                                    - text: "0"
+                                    - generic: people voted yes
+                                - button " No, this review from Alexandria C. was not helpful. 0 people voted no" [ref=e855] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: No, this review from Alexandria C. was not helpful.
+                                    - text: "0"
+                                    - generic: people voted no
+                      - listitem [ref=e856]:
+                        - generic [ref=e857]:
+                          - generic [ref=e858]:
+                            - generic [ref=e860]:
+                              - strong [ref=e863]: "N"
+                              - strong [ref=e866]: Nichole
+                            - text: 
+                            - generic [ref=e867]:
+                              - generic [ref=e869]:
+                                - link [ref=e870] [cursor=pointer]:
+                                  - /url: //momcozy.com/products/momcozy-tuckgo-lightweight-stroller?variant=45624324194502
+                                  - img [ref=e871]
+                                - generic [ref=e872]:
+                                  - generic [ref=e873]: Reviewing
+                                  - link "View Momcozy Tuckgo Travel Stroller" [ref=e874] [cursor=pointer]:
+                                    - /url: //momcozy.com/products/momcozy-tuckgo-lightweight-stroller?variant=45624324194502
+                                    - text: Momcozy Tuckgo Travel Stroller
+                              - generic [ref=e876]:  I recommend this product
+                          - generic [ref=e877]:
+                            - generic [ref=e880]:
+                              - generic [ref=e881]:
+                                - generic [ref=e883]:
+                                  - img [ref=e885]
+                                  - img [ref=e892]
+                                  - generic [ref=e898]: Rated 5 out of 5 stars
+                                - generic [ref=e899]: 2 months ago
+                              - heading "5 Stars" [level=2] [ref=e900]
+                              - paragraph [ref=e902]: Wow so amazing
+                            - generic [ref=e903]:
+                              - img "Verified by Shop app" [ref=e906]
+                              - generic [ref=e909]:
+                                - text: Was this helpful?
+                                - generic [ref=e910]:
+                                  - button " Yes, this review from Nichole was helpful. 0 people voted yes" [ref=e911] [cursor=pointer]:
+                                    - text: 
+                                    - generic:
+                                      - generic: Yes, this review from Nichole was helpful.
+                                      - text: "0"
+                                      - generic: people voted yes
+                                  - button " No, this review from Nichole was not helpful. 1 person voted no" [ref=e912] [cursor=pointer]:
+                                    - text: 
+                                    - generic:
+                                      - generic: No, this review from Nichole was not helpful.
+                                      - text: "1"
+                                      - generic: person voted no
+                      - listitem [ref=e913]:
+                        - generic [ref=e914]:
+                          - generic [ref=e915]:
+                            - generic [ref=e917]:
+                              - generic [ref=e919]:
+                                - strong [ref=e920]: GS
+                                - img "Profile picture for Gloria S." [ref=e921]
+                              - strong [ref=e924]: Gloria S.
+                            - text: 
+                            - generic [ref=e925]:
+                              - generic [ref=e927]:
+                                - link [ref=e928] [cursor=pointer]:
+                                  - /url: //momcozy.com/products/momcozy-tuckgo-lightweight-stroller?variant=45624324194502
+                                  - img [ref=e929]
+                                - generic [ref=e930]:
+                                  - generic [ref=e931]: Reviewing
+                                  - link "View Momcozy Tuckgo Travel Stroller" [ref=e932] [cursor=pointer]:
+                                    - /url: //momcozy.com/products/momcozy-tuckgo-lightweight-stroller?variant=45624324194502
+                                    - text: Momcozy Tuckgo Travel Stroller
+                              - generic [ref=e934]:  I recommend this product
+                          - generic [ref=e935]:
+                            - generic [ref=e938]:
+                              - generic [ref=e939]:
+                                - generic [ref=e941]:
+                                  - img [ref=e943]
+                                  - img [ref=e950]
+                                  - generic [ref=e956]: Rated 5 out of 5 stars
+                                - generic [ref=e957]: 3 months ago
+                              - heading "Ideal Travel Stroller ?C Compact, Sturdy, and Easy to Use" [level=2] [ref=e958]
+                              - generic [ref=e959]:
+                                - paragraph [ref=e960]: The Momcozy TuckGo Lightweight Stroller has been a game-changer for our family. Its one-hand fold mechanism is incredibly convenient, collapsing the stroller down to compact 20 x 17 x 8 inches—perfect for fitting into our car trunk or even an airplane's overhead bin. Despite weighing just 14.4 lbs, it feels sturdy and maneuvers smoothly, thanks to the all-wheel suspension that absorbs bumps on uneven surfaces.
+                                - paragraph [ref=e961]: The multi-stage extendable canopy with UPF50+ protection provides excellent sun shielding, and the adjustable seat recline (from 106° to 143°) with a comfy footrest ensures our child stays comfortable, whether sitting up or napping. The spacious seat offers a 14-inch width and 20-inch backrest height, giving our little one plenty of room to grow.
+                                - paragraph [ref=e962]: I also appreciate the large 33L underseat storage basket, which easily holds all our essentials for a day out. Overall, this stroller masterfully combines functionality, durability, and portability, making it perfect for both daily use and travel.
+                              - button "Read More Read more about this review" [ref=e963] [cursor=pointer]:
+                                - text: Read More
+                                - generic [ref=e964]: Read more about this review
+                            - generic [ref=e967]:
+                              - text: Was this helpful?
+                              - generic [ref=e968]:
+                                - button " Yes, this review from Gloria S. was helpful. 1 person voted yes" [ref=e969] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: Yes, this review from Gloria S. was helpful.
+                                    - text: "1"
+                                    - generic: person voted yes
+                                - button " No, this review from Gloria S. was not helpful. 0 people voted no" [ref=e970] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: No, this review from Gloria S. was not helpful.
+                                    - text: "0"
+                                    - generic: people voted no
+                      - listitem [ref=e971]:
+                        - generic [ref=e972]:
+                          - generic [ref=e973]:
+                            - generic [ref=e975]:
+                              - generic [ref=e977]:
+                                - strong [ref=e978]: RR
+                                - img "Profile picture for Rodrigo R." [ref=e979]
+                              - strong [ref=e982]: Rodrigo R.
+                            - text: 
+                            - generic [ref=e983]:
+                              - generic [ref=e985]:
+                                - link [ref=e986] [cursor=pointer]:
+                                  - /url: //momcozy.com/products/momcozy-tuckgo-lightweight-stroller?variant=45624324194502
+                                  - img [ref=e987]
+                                - generic [ref=e988]:
+                                  - generic [ref=e989]: Reviewing
+                                  - link "View Momcozy Tuckgo Travel Stroller" [ref=e990] [cursor=pointer]:
+                                    - /url: //momcozy.com/products/momcozy-tuckgo-lightweight-stroller?variant=45624324194502
+                                    - text: Momcozy Tuckgo Travel Stroller
+                              - generic [ref=e992]:  I recommend this product
+                          - generic [ref=e993]:
+                            - generic [ref=e996]:
+                              - generic [ref=e997]:
+                                - generic [ref=e999]:
+                                  - img [ref=e1001]
+                                  - img [ref=e1008]
+                                  - generic [ref=e1014]: Rated 5 out of 5 stars
+                                - generic [ref=e1015]: 3 months ago
+                              - heading "Great for traveling" [level=2] [ref=e1016]
+                              - paragraph [ref=e1018]: Excellent stroller, it fits as a carry on in the plane. Don??t have any issues when traveling and as an everyday stroller is perfect. Doesn??t take up too much space in the trunk.
+                            - generic [ref=e1021]:
+                              - text: Was this helpful?
+                              - generic [ref=e1022]:
+                                - button " Yes, this review from Rodrigo R. was helpful. 0 people voted yes" [ref=e1023] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: Yes, this review from Rodrigo R. was helpful.
+                                    - text: "0"
+                                    - generic: people voted yes
+                                - button " No, this review from Rodrigo R. was not helpful. 0 people voted no" [ref=e1024] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: No, this review from Rodrigo R. was not helpful.
+                                    - text: "0"
+                                    - generic: people voted no
+                      - listitem [ref=e1025]:
+                        - generic [ref=e1026]:
+                          - generic [ref=e1027]:
+                            - generic [ref=e1029]:
+                              - strong [ref=e1032]: M
+                              - strong [ref=e1035]: McKenna
+                            - text: 
+                            - generic [ref=e1036]:
+                              - generic [ref=e1038]:
+                                - link [ref=e1039] [cursor=pointer]:
+                                  - /url: //momcozy.com/products/momcozy-tuckgo-lightweight-stroller?variant=45624324194502
+                                  - img [ref=e1040]
+                                - generic [ref=e1041]:
+                                  - generic [ref=e1042]: Reviewing
+                                  - link "View Momcozy Tuckgo Travel Stroller" [ref=e1043] [cursor=pointer]:
+                                    - /url: //momcozy.com/products/momcozy-tuckgo-lightweight-stroller?variant=45624324194502
+                                    - text: Momcozy Tuckgo Travel Stroller
+                              - generic [ref=e1045]:  I recommend this product
+                          - generic [ref=e1046]:
+                            - generic [ref=e1049]:
+                              - generic [ref=e1050]:
+                                - generic [ref=e1052]:
+                                  - img [ref=e1054]
+                                  - img [ref=e1061]
+                                  - generic [ref=e1067]: Rated 5 out of 5 stars
+                                - generic [ref=e1068]: 3 months ago
+                              - heading "Highly recommend." [level=2] [ref=e1069]
+                              - paragraph [ref=e1071]: I absolutely love this stroller. It folds up super small. Was fantastic to take on an airplane. The maneuverability is spectacular. My baby loves it. It takes little to no time to adjust it for my toddler and comes with all the extras. The suspension is awesome and takes on any terrain. It lays down and make its so much more
+                            - generic [ref=e1072]:
+                              - generic [ref=e1075]:
+                                - text: 
+                                - 'button "Customer-uploaded image. Click to see more details. The image represents: Momcozy stroller accessories including snack tray, rain cover, and cup holder in packaging on a tiled floor next to a red door" [ref=e1076] [cursor=pointer]':
+                                  - 'img "Customer-uploaded image. Click to see more details. The image represents: Momcozy stroller accessories including snack tray, rain cover, and cup holder in packaging on a tiled floor next to a red door" [ref=e1077]'
+                              - text: 
+                            - generic [ref=e1080]:
+                              - text: Was this helpful?
+                              - generic [ref=e1081]:
+                                - button " Yes, this review from McKenna was helpful. 0 people voted yes" [ref=e1082] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: Yes, this review from McKenna was helpful.
+                                    - text: "0"
+                                    - generic: people voted yes
+                                - button " No, this review from McKenna was not helpful. 0 people voted no" [ref=e1083] [cursor=pointer]:
+                                  - text: 
+                                  - generic:
+                                    - generic: No, this review from McKenna was not helpful.
+                                    - text: "0"
+                                    - generic: people voted no
+                    - generic:
+                      - alert:
+                        - generic: Loading...
+                      - alert:
+                        - generic: Loading...
+                  - status [ref=e1084]
+              - generic:
+                - tabpanel "Questions"
+      - generic [ref=e1088]:
+        - heading "You may also like" [level=2] [ref=e1092]
+        - generic [ref=e1094]:
+          - generic [ref=e1096]:
+            - generic [ref=e1098]:
+              - generic [ref=e1099]:
+                - generic [ref=e1100]:
+                  - 'img "Translation missing: en.Momcozy Portable Stroller Fan" [ref=e1101]'
+                  - img "Momcozy Portable Stroller Fan" [ref=e1102]
+                - generic [ref=e1103]:
+                  - generic [ref=e1104]: After Code
+                  - generic [ref=e1105]: $29.99
+                  - generic [ref=e1106]: $23.99
+                - link "Momcozy Portable Stroller Fan" [ref=e1107] [cursor=pointer]:
+                  - /url: /products/usb-rechargeable-handheld-cooling-fan-for-travel
+              - generic [ref=e1108]:
+                - generic [ref=e1109]:
+                  - generic [ref=e1114]:
+                    - generic [ref=e1116]:
+                      - img [ref=e1118]
+                      - img [ref=e1125]
+                      - generic [ref=e1131]: 评分4.9星（满分5星）
+                    - generic [ref=e1132]: (378)
+                  - generic [ref=e1133]:
+                    - heading "Momcozy Portable Stroller Fan" [level=2] [ref=e1134]:
+                      - link "Momcozy Portable Stroller Fan" [ref=e1135] [cursor=pointer]:
+                        - /url: /products/usb-rechargeable-handheld-cooling-fan-for-travel
+                    - link "Add to Wishlist" [ref=e1136] [cursor=pointer]:
+                      - /url: /products/usb-rechargeable-handheld-cooling-fan-for-travel
+                      - img [ref=e1138]
+                  - generic [ref=e1140]: $29.99 USD
+                - generic [ref=e1141]:
+                  - generic [ref=e1142]: 8000mAh Battery Lasting up to 27 Hours
+                  - generic [ref=e1143]: 360° Adjustable Airflow
+                  - generic [ref=e1144]: Baby-Safe <5mm Protective Cover
+                  - generic [ref=e1145]: Flexible Tripod for Strollers, Cribs & Car Seats
+            - generic [ref=e1147]:
+              - generic [ref=e1148]:
+                - generic [ref=e1149]:
+                  - 'img "Translation missing: en.Momcozy Stroller Organizer - All-in-One Cup Holder &amp; Pet Strollers" [ref=e1150]'
+                  - 'img "Momcozy stroller organizer dimensions: beige with black accents, adjustable strap, easy cleaning, and additional hooks." [ref=e1151]'
+                - generic:
+                  - generic: "-12%"
+                - generic [ref=e1152]:
+                  - generic [ref=e1153]: After Code
+                  - generic [ref=e1154]: $26.99
+                  - generic [ref=e1155]: $21.59
+                - link "Momcozy Stroller Organizer - All-in-One Cup Holder & Pet Strollers" [ref=e1156] [cursor=pointer]:
+                  - /url: /products/momcozy-stroller-organizer-with-cup-holders
+              - generic [ref=e1158]:
+                - generic [ref=e1163]:
+                  - generic [ref=e1165]:
+                    - img [ref=e1167]
+                    - img [ref=e1174]
+                    - generic [ref=e1180]: 评分4.7星（满分5星）
+                  - generic [ref=e1181]: (1,168)
+                - generic [ref=e1182]:
+                  - heading "Momcozy Stroller Organizer - All-in-One Cup Holder & Pet Strollers" [level=2] [ref=e1183]:
+                    - link "Momcozy Stroller Organizer - All-in-One Cup Holder & Pet Strollers" [ref=e1184] [cursor=pointer]:
+                      - /url: /products/momcozy-stroller-organizer-with-cup-holders
+                  - link "Add to Wishlist" [ref=e1185] [cursor=pointer]:
+                    - /url: /products/momcozy-stroller-organizer-with-cup-holders
+                    - img [ref=e1187]
+                - generic [ref=e1189]: From $26.99 USD
+            - generic [ref=e1192]:
+              - generic [ref=e1193]:
+                - generic [ref=e1194]:
+                  - 'img "Translation missing: en.A white tall bin named momcozy is in the center with four beige legs and an opening on top, the background is white" [ref=e1195]'
+                  - img "White Momcozy Triple-Seal diaper pail with wooden legs, shown with an iF Design Award 2026 logo" [ref=e1196]
+                - generic:
+                  - generic: Hot
+                - generic [ref=e1197]:
+                  - generic [ref=e1198]: After Code
+                  - generic [ref=e1199]: $89.99
+                  - generic [ref=e1200]: $71.99
+                - link "Momcozy Triple-Seal Diaper Pail" [ref=e1201] [cursor=pointer]:
+                  - /url: /products/momcozy-triple-seal-diaper-pail
+              - generic [ref=e1202]:
+                - generic [ref=e1203]:
+                  - generic [ref=e1208]:
+                    - generic [ref=e1210]:
+                      - img [ref=e1212]
+                      - img [ref=e1219]
+                      - generic [ref=e1225]: 评分4.8星（满分5星）
+                    - generic [ref=e1226]: (19)
+                  - generic [ref=e1227]:
+                    - heading "Momcozy Triple-Seal Diaper Pail" [level=2] [ref=e1228]:
+                      - link "Momcozy Triple-Seal Diaper Pail" [ref=e1229] [cursor=pointer]:
+                        - /url: /products/momcozy-triple-seal-diaper-pail
+                    - link "Add to Wishlist" [ref=e1230] [cursor=pointer]:
+                      - /url: /products/momcozy-triple-seal-diaper-pail
+                      - img [ref=e1232]
+                  - generic [ref=e1234]: $89.99 USD
+                - generic [ref=e1235]:
+                  - generic [ref=e1236]: Triple-Seal Odor Control
+                  - generic [ref=e1237]: Large Opening & Clear Lid
+                  - generic [ref=e1238]: Patented Clamp Bag Seal
+                  - generic [ref=e1239]: Child Safety Lock & Easy Cleaning
+            - generic [ref=e1241]:
+              - generic [ref=e1242]:
+                - generic [ref=e1243]:
+                  - 'img "Translation missing: en.Momcozy ChangeGo Baby Stroller" [ref=e1244]'
+                  - img "Momcozy ChangeGo Baby Stroller" [ref=e1245]
+                - generic [ref=e1246]:
+                  - generic [ref=e1247]: After Code
+                  - generic [ref=e1248]: $699.99
+                  - generic [ref=e1249]: $559.99
+                - link "Momcozy ChangeGo Baby Stroller" [ref=e1250] [cursor=pointer]:
+                  - /url: /products/momcozy-changego-baby-stroller
+              - generic [ref=e1251]:
+                - generic [ref=e1252]:
+                  - generic [ref=e1257]:
+                    - generic [ref=e1259]:
+                      - img [ref=e1261]
+                      - img [ref=e1268]
+                      - generic [ref=e1274]: 评分4.7星（满分5星）
+                    - generic [ref=e1275]: (138)
+                  - generic [ref=e1276]:
+                    - heading "Momcozy ChangeGo Baby Stroller" [level=2] [ref=e1277]:
+                      - link "Momcozy ChangeGo Baby Stroller" [ref=e1278] [cursor=pointer]:
+                        - /url: /products/momcozy-changego-baby-stroller
+                    - link "Add to Wishlist" [ref=e1279] [cursor=pointer]:
+                      - /url: /products/momcozy-changego-baby-stroller
+                      - img [ref=e1281]
+                  - generic [ref=e1283]: $699.99 USD
+                - generic [ref=e1284]:
+                  - generic [ref=e1285]: 23 Configurations
+                  - generic [ref=e1286]: Smooth Ride
+                  - generic [ref=e1287]: Adjustable Handlebar
+                  - generic [ref=e1288]: Comfortable
+            - generic [ref=e1290]:
+              - generic [ref=e1291]:
+                - generic [ref=e1292]:
+                  - img [ref=e1293]
+                  - img [ref=e1294]
+                - generic [ref=e1295]:
+                  - generic [ref=e1296]: After Code
+                  - generic [ref=e1297]: $159.99
+                  - generic [ref=e1298]: $127.99
+                - link [ref=e1299] [cursor=pointer]:
+                  - /url: /products/momcozy-2-in-1-electric-baby-swing
+              - generic [ref=e1300]:
+                - generic [ref=e1301]:
+                  - generic [ref=e1306]:
+                    - generic [ref=e1308]:
+                      - img [ref=e1310]
+                      - img [ref=e1317]
+                      - generic [ref=e1323]: 评分4.8星（满分5星）
+                    - generic [ref=e1324]: (70)
+                  - generic [ref=e1325]:
+                    - heading [level=2] [ref=e1326]:
+                      - link [ref=e1327] [cursor=pointer]:
+                        - /url: /products/momcozy-2-in-1-electric-baby-swing
+                        - text: Momcozy 2-in-1 Electric Baby Swing
+                    - link [ref=e1328] [cursor=pointer]:
+                      - /url: /products/momcozy-2-in-1-electric-baby-swing
+                      - img [ref=e1330]
+                  - generic [ref=e1332]: $159.99 USD
+                - generic [ref=e1333]:
+                  - generic [ref=e1334]: Dual-Arm Support
+                  - generic [ref=e1335]: Parent-Inspired Swing Motions
+                  - generic [ref=e1336]: Comfortable Seat
+                  - generic [ref=e1337]: Doubles as a Stationary Seat
+            - generic [ref=e1339]:
+              - generic [ref=e1340]:
+                - generic [ref=e1341]:
+                  - img [ref=e1342]
+                  - img [ref=e1343]
+                - generic [ref=e1344]:
+                  - generic [ref=e1345]: After Code
+                  - generic [ref=e1346]: $229.99
+                  - generic [ref=e1347]: $183.99
+                - link [ref=e1348] [cursor=pointer]:
+                  - /url: /products/momcozy-cocosway-3d-motion-electric-baby-swing
+              - generic [ref=e1349]:
+                - generic [ref=e1350]:
+                  - generic [ref=e1355]:
+                    - generic [ref=e1357]:
+                      - img [ref=e1359]
+                      - img [ref=e1366]
+                      - generic [ref=e1372]: 评分4.9星（满分5星）
+                    - generic [ref=e1373]: (129)
+                  - generic [ref=e1374]:
+                    - heading [level=2] [ref=e1375]:
+                      - link [ref=e1376] [cursor=pointer]:
+                        - /url: /products/momcozy-cocosway-3d-motion-electric-baby-swing
+                        - text: Momcozy CocoSway 3D-Motion Electric Baby Swing
+                    - link [ref=e1377] [cursor=pointer]:
+                      - /url: /products/momcozy-cocosway-3d-motion-electric-baby-swing
+                      - img [ref=e1379]
+                  - generic [ref=e1381]: $229.99 USD
+                - generic [ref=e1382]:
+                  - generic [ref=e1383]: Patented 3D Swing Tech
+                  - generic [ref=e1384]: 6 swing motions
+                  - generic [ref=e1385]: 180° rotatable seat
+                  - generic [ref=e1386]: 5-point harness
+            - generic [ref=e1388]:
+              - generic [ref=e1389]:
+                - generic [ref=e1390]:
+                  - img [ref=e1391]
+                  - img [ref=e1392]
+                - generic:
+                  - generic: "-9%"
+                - generic [ref=e1393]:
+                  - generic [ref=e1394]: After Code
+                  - generic [ref=e1395]: $299.99
+                  - generic [ref=e1396]: $239.99
+                - link [ref=e1397] [cursor=pointer]:
+                  - /url: /products/momcozy-dinerpal-high-chair
+              - generic [ref=e1398]:
+                - generic [ref=e1399]:
+                  - generic [ref=e1404]:
+                    - generic [ref=e1406]:
+                      - img [ref=e1408]
+                      - img [ref=e1415]
+                      - generic [ref=e1421]: 评分4.7星（满分5星）
+                    - generic [ref=e1422]: (164)
+                  - generic [ref=e1423]:
+                    - heading [level=2] [ref=e1424]:
+                      - link [ref=e1425] [cursor=pointer]:
+                        - /url: /products/momcozy-dinerpal-high-chair
+                        - text: Momcozy DinerPal High Chair
+                    - link [ref=e1426] [cursor=pointer]:
+                      - /url: /products/momcozy-dinerpal-high-chair
+                      - img [ref=e1428]
+                  - generic [ref=e1430]:
+                    - insertion [ref=e1431]: $299.99 USD
+                    - deletion [ref=e1432]: $329.99 USD
+                - generic [ref=e1433]:
+                  - generic [ref=e1434]: 5 Modes
+                  - generic [ref=e1435]: Safety Design
+                  - generic [ref=e1436]: Lifelong Use
+                  - generic [ref=e1437]: Ease of Cleaning
+            - generic [ref=e1439]:
+              - generic [ref=e1440]:
+                - generic [ref=e1441]:
+                  - img [ref=e1442]
+                  - img [ref=e1443]
+                - generic [ref=e1444]:
+                  - generic [ref=e1445]: After Code
+                  - generic [ref=e1446]: $29.99
+                  - generic [ref=e1447]: $23.99
+                - link [ref=e1448] [cursor=pointer]:
+                  - /url: /products/momcozy-clip-on-4-speed-stroller-fan
+              - generic [ref=e1450]:
+                - generic [ref=e1455]:
+                  - generic [ref=e1457]:
+                    - img [ref=e1459]
+                    - img [ref=e1466]
+                    - generic [ref=e1472]: 评分4.9星（满分5星）
+                  - generic [ref=e1473]: (141)
+                - generic [ref=e1474]:
+                  - heading [level=2] [ref=e1475]:
+                    - link [ref=e1476] [cursor=pointer]:
+                      - /url: /products/momcozy-clip-on-4-speed-stroller-fan
+                      - text: Momcozy Clip-On 4-Speed Stroller Fan
+                  - link [ref=e1477] [cursor=pointer]:
+                    - /url: /products/momcozy-clip-on-4-speed-stroller-fan
+                    - img [ref=e1479]
+                - generic [ref=e1481]: $29.99 USD
+          - list [ref=e1483]:
+            - listitem "Page dot 1" [ref=e1484] [cursor=pointer]
+            - listitem "Page dot 2" [ref=e1485] [cursor=pointer]
+    - contentinfo [ref=e1486]:
+      - generic [ref=e1490]:
+        - generic [ref=e1493]:
+          - heading "OUR LATEST ACTIVITIES" [level=3]
+        - link "Footer image link" [ref=e1497] [cursor=pointer]:
+          - /url: /pages/2026-mothers-day
+          - img "Footer image link" [ref=e1498]
+        - link "Three women standing together with text encouraging support for maternal care professionals on a pink background." [ref=e1502] [cursor=pointer]:
+          - /url: /pages/medical-advisory-board
+          - img "Three women standing together with text encouraging support for maternal care professionals on a pink background." [ref=e1503]
+        - link "Woman holding a baby on a couch with 'Cozy by You' branding in the background." [ref=e1507] [cursor=pointer]:
+          - /url: /pages/brand-day
+          - img "Woman holding a baby on a couch with 'Cozy by You' branding in the background." [ref=e1508]
+        - link "Woman in fencing gear with text 'More Than A Mom' and 'momcozy' on a pink background" [ref=e1512] [cursor=pointer]:
+          - /url: /blogs/news/nada-hafez-as-a-pregnant-olympian
+          - img "Woman in fencing gear with text 'More Than A Mom' and 'momcozy' on a pink background" [ref=e1513]
+        - link "Momcozy holiday joy box under a Christmas tree" [ref=e1517] [cursor=pointer]:
+          - /url: /pages/2024-cozy-holiday
+          - img "Momcozy holiday joy box under a Christmas tree" [ref=e1518]
+        - link "Momcozy x Babylist baby stroller with mothers" [ref=e1522] [cursor=pointer]:
+          - /url: /blogs/news/nikki-mudarris-momcozy-babylist-influencer-shower
+          - img "Momcozy x Babylist baby stroller with mothers" [ref=e1523]
+      - generic [ref=e1527]:
+        - generic [ref=e1530]:
+          - generic:
+            - text: JOIN IN
+            - text: OUR NEWSLETTER
+          - paragraph: Be among the first to receive updates on our latest products, product innovations, and exclusive offers.
+        - generic [ref=e1534]:
+          - generic [ref=e1538]:
+            - textbox "Your email address" [ref=e1540]
+            - button "Subscribe" [ref=e1542] [cursor=pointer]:
+              - generic [ref=e1543]: Subscribe
+          - paragraph: Sign up now for sale alerts & special offers.
+        - generic [ref=e1551]:
+          - img "Momcozy logo" [ref=e1553]
+          - paragraph:
+            - text: ROOT Technology Ltd.
+            - text: "1580 N Logan St Ste 660, #30327,"
+            - text: Denver, CO 80203-1994, USA
+            - text: Phone：
+            - text: "US: +1 619 848 0676"
+            - text: "UK: +44 845 351 1671"
+            - text: "FR: +33 805 980 337"
+            - text: "ES: +34 930 343 248"
+            - text: "DE: +49 211 860 89101"
+            - text: "WhatsApp: +1 619 848 0676"
+            - text: support@momcozy.com
+          - generic [ref=e1556]:
+            - link "Follow on Facebook" [ref=e1558] [cursor=pointer]:
+              - /url: https://www.facebook.com/Momcozy4u
+            - link "Follow on Instagram" [ref=e1561] [cursor=pointer]:
+              - /url: https://www.instagram.com/momcozy/
+            - link "Follow on Pinterest" [ref=e1564] [cursor=pointer]:
+              - /url: https://www.pinterest.com/momcozy/
+            - link "Follow on YouTube" [ref=e1567] [cursor=pointer]:
+              - /url: https://www.youtube.com/momcozy/
+            - link "Follow on Tiktok" [ref=e1570] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@momcozyofficial
+        - generic [ref=e1575]:
+          - generic [ref=e1577]: About Us
+          - list [ref=e1580]:
+            - listitem [ref=e1581]:
+              - link "Our Story" [ref=e1582] [cursor=pointer]:
+                - /url: /pages/our-story
+            - listitem [ref=e1583]:
+              - link "Contact Us" [ref=e1584] [cursor=pointer]:
+                - /url: /pages/contact-us
+            - listitem [ref=e1585]:
+              - link "Momcozy Care Program" [ref=e1586] [cursor=pointer]:
+                - /url: /pages/momcozy-care-program
+            - listitem [ref=e1587]:
+              - link "Momcozy Membership Program" [ref=e1588] [cursor=pointer]:
+                - /url: /pages/momcozy-membership-program
+            - listitem [ref=e1589]:
+              - link "Growth Empowerment Program" [ref=e1590] [cursor=pointer]:
+                - /url: /pages/momcozy-growth-empowerment-program
+        - generic [ref=e1592]:
+          - generic [ref=e1594]: Services
+          - list [ref=e1597]:
+            - listitem [ref=e1598]:
+              - link "FAQs" [ref=e1599] [cursor=pointer]:
+                - /url: /pages/faq
+            - listitem [ref=e1600]:
+              - link "How To Size Guide" [ref=e1601] [cursor=pointer]:
+                - /url: /pages/how-to-size-guide
+            - listitem [ref=e1602]:
+              - link "Become an Affiliate" [ref=e1603] [cursor=pointer]:
+                - /url: /pages/momcozy-affiliate-program
+            - listitem [ref=e1604]:
+              - link "Get Pumps Via Insurance" [ref=e1605] [cursor=pointer]:
+                - /url: /pages/insurance-partners-in-us
+            - listitem [ref=e1606]:
+              - link "Where To Buy" [ref=e1607] [cursor=pointer]:
+                - /url: /pages/retailer
+            - listitem [ref=e1608]:
+              - link "Become a Dealer" [ref=e1609] [cursor=pointer]:
+                - /url: https://momcozy.com/pages/become-a-dealer
+        - generic [ref=e1611]:
+          - generic [ref=e1613]: Help
+          - list [ref=e1616]:
+            - listitem [ref=e1617]:
+              - link "Privacy Policy" [ref=e1618] [cursor=pointer]:
+                - /url: https://app.cozyinnov.com/app/privacy/?client=1&isShowCountry=show
+            - listitem [ref=e1619]:
+              - link "Terms & Conditions" [ref=e1620] [cursor=pointer]:
+                - /url: /pages/terms-conditions
+            - listitem [ref=e1621]:
+              - link "Payment Methods" [ref=e1622] [cursor=pointer]:
+                - /url: /pages/payment-methods
+            - listitem [ref=e1623]:
+              - link "Shipping & Delivery" [ref=e1624] [cursor=pointer]:
+                - /url: /pages/shipping-delivery
+            - listitem [ref=e1625]:
+              - link "Warranty Policy" [ref=e1626] [cursor=pointer]:
+                - /url: /pages/warranty-policy
+            - listitem [ref=e1627]:
+              - link "Order Tracking" [ref=e1628] [cursor=pointer]:
+                - /url: https://momcozy.com/apps/aftership
+        - generic [ref=e1630]:
+          - generic [ref=e1632]: Blog
+          - list [ref=e1635]:
+            - listitem [ref=e1636]:
+              - link "Breastfeeding" [ref=e1637] [cursor=pointer]:
+                - /url: /blogs/breastfeeding
+            - listitem [ref=e1638]:
+              - link "News" [ref=e1639] [cursor=pointer]:
+                - /url: /blogs/news
+            - listitem [ref=e1640]:
+              - link "Babycare" [ref=e1641] [cursor=pointer]:
+                - /url: /blogs/babycare
+            - listitem [ref=e1642]:
+              - link "Momcare" [ref=e1643] [cursor=pointer]:
+                - /url: /blogs/momcare
+            - listitem [ref=e1644]:
+              - link "Pregnancy" [ref=e1645] [cursor=pointer]:
+                - /url: /blogs/pregnancy
+            - listitem [ref=e1646]:
+              - link "Challenges" [ref=e1647] [cursor=pointer]:
+                - /url: /blogs/challenges
+            - listitem [ref=e1648]:
+              - link "Headlines" [ref=e1649] [cursor=pointer]:
+                - /url: /blogs/headlines
+            - listitem [ref=e1650]:
+              - link "Baby Milestones" [ref=e1651] [cursor=pointer]:
+                - /url: /blogs/baby-milestones
+        - generic [ref=e1653]:
+          - generic [ref=e1655]: Tools
+          - list [ref=e1658]:
+            - listitem [ref=e1659]:
+              - link "Baby Name Generator" [ref=e1660] [cursor=pointer]:
+                - /url: /pages/baby-name-generator
+            - listitem [ref=e1661]:
+              - link "Ovulation Calculator" [ref=e1662] [cursor=pointer]:
+                - /url: /pages/ovulation-calculator
+            - listitem [ref=e1663]:
+              - link "Pregnancy Weight Calculator" [ref=e1664] [cursor=pointer]:
+                - /url: /pages/pregnancy-weight-gain-calculator
+            - listitem [ref=e1665]:
+              - link "Chinese Gender Predictor" [ref=e1666] [cursor=pointer]:
+                - /url: /pages/chinese-gender-predictor-calculator-and-chart
+            - listitem [ref=e1667]:
+              - link "Due Date Calculator" [ref=e1668] [cursor=pointer]:
+                - /url: /pages/due-date-calculator
+            - listitem [ref=e1669]:
+              - link "IVF Due Date Calculator" [ref=e1670] [cursor=pointer]:
+                - /url: /pages/ivf-due-date-calculator
+            - listitem [ref=e1671]:
+              - link "First Year Baby Cost Calculator" [ref=e1672] [cursor=pointer]:
+                - /url: /pages/first-year-baby-cost-calculator
+            - listitem [ref=e1673]:
+              - link "Child Height Predictor" [ref=e1674] [cursor=pointer]:
+                - /url: /pages/child-height-predictor
+      - generic [ref=e1683]:
+        - generic [ref=e1687]:
+          - button "English" [ref=e1689] [cursor=pointer]:
+            - generic [ref=e1690]: English
+          - button "United States USD" [ref=e1693] [cursor=pointer]:
+            - generic [ref=e1694]:
+              - img "United States" [ref=e1695]
+              - generic [ref=e1696]: USD
+        - generic [ref=e1701]: All Rights Reserved © 2026 Momcozy.
+        - generic [ref=e1705]:
+          - img "american express" [ref=e1706]
+          - img "apple pay" [ref=e1707]
+          - img "discover" [ref=e1708]
+          - img "google pay" [ref=e1709]
+          - img "jcb" [ref=e1710]
+          - img "klarna" [ref=e1711]
+          - img "maestro" [ref=e1712]
+          - img "master" [ref=e1713]
+          - img "paypal" [ref=e1714]
+          - img "shopify pay" [ref=e1715]
+          - img "visa" [ref=e1716]
+          - img "after pay" [ref=e1717]
+          - img "amazon payments" [ref=e1718]
+  - button "Close menu, categories"
+  - region "Add to cart" [ref=e1719]:
+    - generic [ref=e1720]:
+      - generic [ref=e1721]:
+        - img "Momcozy Tuckgo Travel Stroller" [ref=e1723]
+        - generic [ref=e1724]:
+          - generic [ref=e1725]: Momcozy Tuckgo Travel Stroller
+          - generic [ref=e1726]: $249.99
+      - generic [ref=e1727]:
+        - generic [ref=e1728]:
+          - button "Decrease quantity" [ref=e1729] [cursor=pointer]
+          - spinbutton "Quantity" [ref=e1731]: "1"
+          - button "Increase quantity" [ref=e1732] [cursor=pointer]
+        - button "Add to cart" [ref=e1734] [cursor=pointer]
+  - generic:
+    - generic:
+      - generic [ref=e1736]:
+        - iframe [ref=e1737]:
+          - button "关闭来自公司的消息" [ref=f73e4] [cursor=pointer]:
+            - img [ref=f73e5]
+        - iframe [ref=e1738]:
+          - button "Chat Now" [ref=f74e5] [cursor=pointer]
+      - iframe [ref=e1739]:
+        - button "打开消息传送窗口" [ref=f75e5] [cursor=pointer]:
+          - img [ref=f75e7]
+          - img [ref=f75e10]

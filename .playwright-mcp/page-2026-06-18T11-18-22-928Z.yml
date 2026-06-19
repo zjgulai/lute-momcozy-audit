@@ -1,0 +1,214 @@
+- generic [ref=e1]:
+  - generic [ref=e5]:
+    - navigation "主导航" [ref=e7]:
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - link "Perplexity" [ref=e11] [cursor=pointer]:
+            - /url: /
+            - img "Perplexity" [ref=e14]
+          - button "Collapse sidebar" [ref=e17] [cursor=pointer]:
+            - img [ref=e18]
+        - generic [ref=e23]:
+          - generic [ref=e26]:
+            - link "新建" [ref=e27] [cursor=pointer]:
+              - /url: /
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                - generic:
+                  - generic:
+                    - generic: 新建
+                  - generic: ⌘K
+          - generic [ref=e30]:
+            - link "Computer" [ref=e31] [cursor=pointer]:
+              - /url: /computer/tasks
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 Computer":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: Computer
+          - generic [ref=e35]:
+            - link "空间" [ref=e36] [cursor=pointer]:
+              - /url: /spaces
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 空间":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: 空间
+          - generic [ref=e40]:
+            - link "工件" [ref=e41] [cursor=pointer]:
+              - /url: /computer/artifacts
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - button "展开 工件":
+                      - generic:
+                        - img
+                  - generic:
+                    - img
+                - generic:
+                  - generic:
+                    - generic: 工件
+          - generic [ref=e43]:
+            - generic [ref=e45]:
+              - link "自定义" [ref=e46] [cursor=pointer]:
+                - /url: /computer/connectors
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button "折叠自定义" [expanded]:
+                        - generic:
+                          - img
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic: 自定义
+            - generic [ref=e48]:
+              - generic [ref=e49]:
+                - link "连接器" [ref=e50] [cursor=pointer]:
+                  - /url: /computer/connectors
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 连接器
+              - generic [ref=e51]:
+                - link "技能" [ref=e52] [cursor=pointer]:
+                  - /url: /computer/skills
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 技能
+              - generic [ref=e53]:
+                - link "工作流" [ref=e54] [cursor=pointer]:
+                  - /url: /computer/workflows
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic: 工作流
+          - generic [ref=e55]:
+            - generic [ref=e57]:
+              - link "历史" [ref=e58] [cursor=pointer]:
+                - /url: /library
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - button "折叠历史" [expanded]:
+                        - generic:
+                          - img
+                    - generic:
+                      - img
+                  - generic:
+                    - generic:
+                      - generic: 历史
+            - generic [ref=e61]: 没有最近的会话
+        - button "登录" [ref=e70] [cursor=pointer]:
+          - generic [ref=e71]:
+            - generic [ref=e73]:
+              - img [ref=e76]
+              - generic [ref=e79]: 登录
+            - generic:
+              - img
+    - main [ref=e81]:
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - link "发现" [ref=e85] [cursor=pointer]:
+            - /url: /discover
+            - generic [ref=e86]: 发现
+          - link "金融" [ref=e87] [cursor=pointer]:
+            - /url: /finance
+            - generic [ref=e88]: 金融
+          - link "健康" [ref=e89] [cursor=pointer]:
+            - /url: /health
+            - generic [ref=e90]: 健康
+          - link "学术" [ref=e91] [cursor=pointer]:
+            - /url: /academic
+            - generic [ref=e92]: 学术
+          - link "专利" [ref=e93] [cursor=pointer]:
+            - /url: /patents
+            - generic [ref=e94]: 专利
+        - generic [ref=e99]:
+          - generic:
+            - generic:
+              - img "Perplexity" [ref=e102]
+              - generic:
+                - generic:
+                  - generic:
+                    - img
+                  - generic:
+                    - img "Perplexity Computer"
+          - generic [ref=e113]:
+            - generic [ref=e115]:
+              - textbox [active] [ref=e116]:
+                - paragraph [ref=e117]
+              - generic:
+                - generic: 问任何事情...
+            - generic [ref=e119]:
+              - button "添加文件或工具" [ref=e120] [cursor=pointer]:
+                - img [ref=e123]
+              - generic [ref=e126]:
+                - button "搜索" [pressed] [ref=e129] [cursor=pointer]:
+                  - img [ref=e131]
+                  - generic [ref=e133]:
+                    - text: 搜索
+                    - img [ref=e136]
+                - button "Computer" [ref=e141] [cursor=pointer]:
+                  - img [ref=e143]
+                  - generic [ref=e145]: Computer
+            - generic [ref=e146]:
+              - button "模型" [ref=e148] [cursor=pointer]:
+                - generic [ref=e149]: 模型
+                - img [ref=e151]
+              - button "听写" [ref=e155] [cursor=pointer]:
+                - img [ref=e158]
+              - button "使用语音模式" [ref=e161] [cursor=pointer]:
+                - img [ref=e164]
+          - generic [ref=e168]:
+            - button "搜索任何内容 从最可信的来源获取快速准确的答案。" [ref=e170] [cursor=pointer]:
+              - generic [ref=e171]:
+                - img [ref=e172]
+                - generic [ref=e174]: 搜索任何内容
+              - generic [ref=e175]: 从最可信的来源获取快速准确的答案。
+            - button "使用 Computer 高效完成工作 新 将项目交给我们，全天候获得精致可靠的交付成果。" [ref=e177] [cursor=pointer]:
+              - generic [ref=e178]:
+                - img [ref=e179]
+                - generic [ref=e181]: 使用 Computer 高效完成工作
+                - generic [ref=e183]: 新
+              - generic [ref=e184]: 将项目交给我们，全天候获得精致可靠的交付成果。
+  - listbox "Typeahead menu"
+  - dialog "Cookie 政策" [ref=e185]:
+    - generic [ref=e186]:
+      - heading "Cookie 政策" [level=2] [ref=e187]
+      - paragraph [ref=e188]: 我们及我们的合作伙伴使用 Cookie、像素、SDK、API 以及服务器到服务器集成。Perplexity 不会使用这些技术在我们的服务上出售第三方广告。Perplexity 会使用它们来衡量我们在第三方合作伙伴网站上的广告效果，并改进我们的服务。如果您在未调整设置的情况下继续使用 Perplexity，即表示您同意使用这些技术。
+    - generic [ref=e189]:
+      - img [ref=e190]
+      - generic [ref=e192]: Cookie 政策
+    - generic [ref=e193]: 我们及我们的合作伙伴使用 Cookie、像素、SDK、API 以及服务器到服务器集成。Perplexity 不会使用这些技术在我们的服务上出售第三方广告。Perplexity 会使用它们来衡量我们在第三方合作伙伴网站上的广告效果，并改进我们的服务。如果您在未调整设置的情况下继续使用 Perplexity，即表示您同意使用这些技术。
+    - generic [ref=e194]:
+      - button "拒绝可选项" [ref=e195] [cursor=pointer]:
+        - generic [ref=e196]: 拒绝可选项
+      - button "知道了" [ref=e198] [cursor=pointer]:
+        - generic [ref=e199]: 知道了
