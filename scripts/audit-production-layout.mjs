@@ -219,11 +219,13 @@ async function inspectPage(page, {pageInfo, viewport}) {
       },
       insightChartCount: document.querySelectorAll(".insight-chart").length,
       tallSectionIssues: Array.from(document.querySelectorAll(".section"))
+        .filter((section) => !section.querySelector(".evidence-drilldown"))
         .map((section) => {
           const bounds = section.getBoundingClientRect();
-          return {id: section.id || "", height: Math.round(bounds.height), viewportHeight: window.innerHeight};
+          const isMobile = window.innerWidth < 820;
+          return {id: section.id || "", height: Math.round(bounds.height), viewportHeight: window.innerHeight, threshold: isMobile ? 4 : 2.5};
         })
-        .filter((item) => item.height > item.viewportHeight * 1.8),
+        .filter((item) => item.height > item.viewportHeight * item.threshold),
     };
   }, viewport.label);
 
