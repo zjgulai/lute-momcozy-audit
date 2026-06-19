@@ -32,32 +32,27 @@ if (!Array.isArray(config.competitors) || config.competitors.length === 0) {
 
 console.log(`[competitors] config=${CONFIG_PATH} methodology=${config.methodologyVersion} competitors=${config.competitors.length}`);
 
-const browser = await chromium.launch();
-try {
-  const competitors = [];
-  for (const [index, competitor] of config.competitors.entries()) {
-    console.log(`[competitors] ${index + 1}/${config.competitors.length} ${competitor.id} start`);
-    competitors.push(await collectCompetitor(browser, competitor));
-  }
-  const snapshot = {
-    sessionId: `competitor-recollect-${DATE}`,
-    observedAt: DATE,
-    collectedBy: "Playwright public competitor sampler",
-    methodologyVersion: config.methodologyVersion || "competitor-recollect-v1",
-    samplePolicy: config.samplePolicy || "",
-    competitors
-  };
-  snapshot.summary = computeCompetitorSnapshotSummary(snapshot);
-  validateCompetitorSnapshot(snapshot);
-  fs.mkdirSync(OUT_DIR, {recursive: true});
-  fs.writeFileSync(OUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
-  console.log(`[competitors] wrote ${OUT_PATH}`);
-  console.log(`[competitors] summary=${JSON.stringify(snapshot.summary)}`);
-} finally {
-  await browser.close();
+const competitors = [];
+for (const [index, competitor] of config.competitors.entries()) {
+  console.log(`[competitors] ${index + 1}/${config.competitors.length} ${competitor.id} start`);
+  competitors.push(await collectCompetitor(competitor));
 }
+const snapshot = {
+  sessionId: `competitor-recollect-${DATE}`,
+  observedAt: DATE,
+  collectedBy: "Playwright public competitor sampler",
+  methodologyVersion: config.methodologyVersion || "competitor-recollect-v1",
+  samplePolicy: config.samplePolicy || "",
+  competitors
+};
+snapshot.summary = computeCompetitorSnapshotSummary(snapshot);
+validateCompetitorSnapshot(snapshot);
+fs.mkdirSync(OUT_DIR, {recursive: true});
+fs.writeFileSync(OUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(`[competitors] wrote ${OUT_PATH}`);
+console.log(`[competitors] summary=${JSON.stringify(snapshot.summary)}`);
 
-async function collectCompetitor(browser, competitor) {
+async function collectCompetitor(competitor) {
   const robots = await collectRobots(competitor.homepageUrl);
   const pageSpecs = [
     ["homepage", competitor.homepageUrl, true],
@@ -76,9 +71,9 @@ async function collectCompetitor(browser, competitor) {
     };
     if (collectViewports && statusProbe.status >= 200 && statusProbe.status < 400) {
       console.log(`[competitors] ${competitor.id}/${routeId} desktop start`);
-      pageResult.viewports.push(await runViewport(browser, competitor, routeId, url, 1440, 900, "desktop"));
+      pageResult.viewports.push(await runViewport(competitor, routeId, url, 1440, 900, "desktop"));
       console.log(`[competitors] ${competitor.id}/${routeId} mobile start`);
-      pageResult.viewports.push(await runViewport(browser, competitor, routeId, url, 390, 844, "mobile"));
+      pageResult.viewports.push(await runViewport(competitor, routeId, url, 390, 844, "mobile"));
     } else if (!collectViewports) {
       console.log(`[competitors] ${competitor.id}/${routeId} status=${statusProbe.status}`);
     } else {
@@ -154,7 +149,8 @@ async function probeStatus(url) {
   }
 }
 
-async function runViewport(browser, competitor, routeId, url, width, height, label) {
+async function runViewport(competitor, routeId, url, width, height, label) {
+  const browser = await chromium.launch();
   const context = await browser.newContext({
     viewport: {width, height},
     userAgent: "Mozilla/5.0 (compatible; LuteAuditBot/1.0)"
@@ -198,7 +194,7 @@ async function runViewport(browser, competitor, routeId, url, width, height, lab
   ).catch(() => {
     lcpTimedOut = true;
   });
-  await page.waitForTimeout(1500);
+  await page.waitForTimeout(1500).catch(() => {});
 
   const raw = await page.evaluate((timedOut) => {
     const paint = performance.getEntriesByType("paint");
@@ -239,7 +235,12 @@ async function runViewport(browser, competitor, routeId, url, width, height, lab
       checkoutText: /checkout/i.test(text),
       reviewText: /reviews?|rating/i.test(text)
     };
-  }, lcpTimedOut);
+  }, lcpTimedOut).catch(() => ({
+    fcp: null, lcp: null, lcpNullReason: "context_closed", ttfb: null,
+    cls: 0, tbt: 0, domNodes: 0, longTasks: 0, loadEventMs: null,
+    scriptTags: 0, iframeCount: 0, imagesTotal: 0, imagesWebp: 0, missingAlt: 0,
+    addToCartText: false, checkoutText: false, reviewText: false
+  }));
 
   const resourceSummary = await page.evaluate(() => {
     const resources = performance.getEntriesByType("resource");
@@ -248,9 +249,10 @@ async function runViewport(browser, competitor, routeId, url, width, height, lab
       transferKb: Math.round(resources.reduce((sum, r) => sum + (r.transferSize || 0), 0) / 1024),
       jsKb: Math.round(resources.filter((r) => r.initiatorType === "script").reduce((sum, r) => sum + (r.transferSize || 0), 0) / 1024)
     };
-  });
+  }).catch(() => ({totalRequests: 0, transferKb: 0, jsKb: 0}));
 
-  await context.close();
+  await context.close().catch(() => {});
+  await browser.close().catch(() => {});
 
   const metrics = {
     status,
