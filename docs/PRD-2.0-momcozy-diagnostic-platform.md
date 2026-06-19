@@ -386,15 +386,15 @@ Layer 3：browser-harness AI层（计划中）
 
 ## 八、TBD（待确认事项）
 
-| # | 问题 | 影响 | 期望决策方 |
-|---|---|---|---|
-| TBD-1 | **Next.js 平台是否切换为唯一出口？** 还是双轨并行？ | 影响 F1 全部需求、工程资源分配 | Owner |
-| TBD-2 | **旧站关闭时间线**：切换新平台后旧站保留多久？ | 影响运维成本与用户引导 | Owner |
-| TBD-3 | **G1/G2/G3 接入时间线**：owner 何时开始接入 Clarity/Shopify Analytics？ | P0 维度，影响 CVR 结论可信度 | Owner |
-| TBD-4 | **竞品首次采集**：4 个新竞品采集是否授权自动触发？ | 影响 F4-1 执行 | Owner |
-| TBD-5 | **GEO 内容**：保险内容页/职场专题是否由团队内容人员还是 AI 辅助生成？ | 影响 F5-3/F5-4 工程量 | Owner |
-| TBD-6 | **browser-harness**：F7 何时提上日程？需要 owner storage state | 影响 Layer 3 采集能力 | Owner + AI团队 |
-| TBD-7 | **LCP 根本修复**：若 hero 图片为 CSS background，需要修改 Momcozy 主题代码，是否在 Momcozy 技术团队的权限范围内？ | 影响 F2-4 验证结果 | Momcozy 技术团队 |
+| # | 问题 | 影响 | 期望决策方 | **状态** |
+|---|---|---|---|---|
+| TBD-1 | **Next.js 平台是否切换为唯一出口？** 还是双轨并行？ | 影响 F1 全部需求、工程资源分配 | Owner | **✅ 确认：唯一出口（2026-06-19）** |
+| TBD-2 | **旧站关闭时间线**：切换新平台后旧站保留多久？ | 影响运维成本与用户引导 | Owner | ⏳ 待确认 |
+| TBD-3 | **G1/G2/G3 接入时间线**：owner 何时开始接入 Clarity/Shopify Analytics？ | P0 维度，影响 CVR 结论可信度 | Owner | ⏳ 待确认 |
+| TBD-4 | **竞品首次采集**：4 个新竞品采集是否授权自动触发？ | 影响 F4-1 执行 | Owner | **✅ 确认：立即触发（2026-06-19）** |
+| TBD-5 | **GEO 内容**：保险内容页/职场专题是否由团队内容人员还是 AI 辅助生成？ | 影响 F5-3/F5-4 工程量 | Owner | ⏳ 待确认 |
+| TBD-6 | **browser-harness**：F7 何时提上日程？需要 owner storage state | 影响 Layer 3 采集能力 | Owner + AI团队 | ⏳ 待确认 |
+| TBD-7 | **LCP 根本修复**：若 hero 图片为 CSS background，需要修改 Momcozy 主题代码，是否在 Momcozy 技术团队的权限范围内？ | 影响 F2-4 验证结果 | Momcozy 技术团队 | ⏳ 待确认 |
 
 ---
 
