@@ -1149,56 +1149,6 @@
       }
     ]
   },
-  "pageUpdates": [
-    {
-      "page": "index.html",
-      "route": "从旧版高收益叙事改为旧基线失效、技术债仍成立、收益必须实验化。",
-      "conclusionIds": [
-        "C1",
-        "C2",
-        "C3"
-      ]
-    },
-    {
-      "page": "metrics.html",
-      "route": "从指标字典改为经营/KPI/采集一体化口径治理：完整写入真实值，同时标注口径限制。",
-      "conclusionIds": [
-        "C1",
-        "C3",
-        "C5"
-      ]
-    },
-    {
-      "page": "forensics.html",
-      "route": "从单点故障现场改为复采边界页：保留现场数据，避免把代表性 PDP 扩大成全部 PDP 收入因果。",
-      "conclusionIds": [
-        "C2",
-        "C4",
-        "C6"
-      ]
-    },
-    {
-      "page": "trends.html",
-      "route": "从 M2 首页趋势扩展为 M3 路由感知趋势，并把经营 caveat 与外部技术证据交叉呈现。",
-      "conclusionIds": [
-        "C2",
-        "C4",
-        "C6"
-      ]
-    },
-    {
-      "page": "cross-audit.html",
-      "route": "新增私密决策总表，集中呈现核心判断、支撑数据和下一步资源排序。",
-      "conclusionIds": [
-        "C1",
-        "C2",
-        "C3",
-        "C4",
-        "C5",
-        "C6"
-      ]
-    }
-  ],
   "competitorEvidence": {
     "latestSnapshot": "competitor-recollect-2026-06-19",
     "observedAt": "2026-06-19",

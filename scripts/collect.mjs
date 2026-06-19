@@ -280,10 +280,15 @@ async function runViewport(browser, route, width, height, label) {
 
 function computeConfidence(desktop, mobile) {
   if (!desktop || !mobile) return "low";
-  const nullCount = [desktop.lcp, desktop.fcp, desktop.ttfb, mobile.lcp, mobile.fcp, mobile.ttfb]
-    .filter((v) => v === null).length;
+  const allSix = [desktop.lcp, desktop.fcp, desktop.ttfb, mobile.lcp, mobile.fcp, mobile.ttfb];
+  const nullCount = allSix.filter((v) => v === null).length;
   if (nullCount === 0) return "high";
   if (nullCount <= 1) return "medium";
+  // Downgrade rule: if only LCP values are null but FCP+TTFB for both viewports are present,
+  // treat as medium — LCP unobservability is a known Shopify CSS-background limitation,
+  // not a collection failure. All other signals remain trustworthy.
+  const nonLcpNulls = [desktop.fcp, desktop.ttfb, mobile.fcp, mobile.ttfb].filter((v) => v === null).length;
+  if (nonLcpNulls === 0) return "medium";
   return "low";
 }
 
