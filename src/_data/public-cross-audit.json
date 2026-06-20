@@ -545,10 +545,66 @@
         "gate": "Perplexity 重测 10 个问题，保险和职场场景中 Momcozy 出现频率比基线 0/2 提升",
         "status": "pending",
         "sprint": "next"
+      },
+      {
+        "window": "48 小时",
+        "sprint": "now",
+        "owner": "前端开发",
+        "problemId": "P2",
+        "action": "修复 sticky-atc CTA 定位 + 确认 Shop Pay 启用",
+        "steps": [
+          "找到 Shopify Theme → theme.css 或 theme.liquid 中 .t4s-sticky-atc 的 top 属性，将其改为 calc(100vh - [按钮高度]px) 确保始终在 viewport 内",
+          "Shopify Admin → Settings → Payments → 确认 Shop Pay 是否启用（若未启用，点击启用，无需代码改动）",
+          "M5/S12/Mobile Flow PDP：在 Shopify Theme Editor 将退货保证和保修信息模块上移至首屏折叠线以上",
+          "测试：手机访问 PDP，确认 Add to Cart 按钮可见，点击后 checkout 流程正常"
+        ],
+        "gate": "手机访问 PDP 可以看到 Add to Cart；Shopify Payments 设置页显示 Shop Pay 已启用",
+        "estimatedEffortHours": 4,
+        "expectedImpact": "结账→购买转化率提升 5-15%（CTA修复），Shop Pay 可额外提升 10-20%（Shopify 官方数据）",
+        "monthlyRevenueImpact": 172678,
+        "status": "pending"
+      },
+      {
+        "window": "3 天",
+        "sprint": "now",
+        "owner": "营销负责人",
+        "problemId": "P3",
+        "action": "激活 Klaviyo 弃单追回序列（3封邮件）",
+        "steps": [
+          "Klaviyo → Flows → 搜索 'Abandoned Checkout'，若无则点击 Create Flow → 选择模板 'Abandoned Checkout'",
+          "配置序列时间节点：第1封 1小时后（提醒），第2封 24小时后（强化），第3封 72小时后（最后机会+优惠码）",
+          "第3封加入 10% 优惠码（Shopify Admin → Discounts → Create Discount Code），设置仅限弃单用户",
+          "测试：手动触发测试邮件，确认邮件到达、链接可跳转 checkout",
+          "设置 UTM 参数追踪，确认 Shopify Analytics 可区分邮件追回来源"
+        ],
+        "gate": "Klaviyo Flows 页面显示 Abandoned Checkout Flow 状态为 Live；发送测试邮件可正常接收",
+        "estimatedEffortHours": 8,
+        "expectedImpact": "弃单追回率达到 5-10%（行业均值），每月追回 $13,000-$27,000",
+        "monthlyRevenueImpact": 172678,
+        "status": "pending"
+      },
+      {
+        "window": "1 周",
+        "sprint": "now",
+        "owner": "前端开发",
+        "problemId": "P8",
+        "action": "清除未知脚本 + FB Pixel 去重 + 评估 SRI 实施",
+        "steps": [
+          "立即审计：在浏览器 Network Tab 找到 omnisnippet1.com 和 pixel.bxtag.com 的请求来源（哪个 app/脚本在调用），确认业务必要性",
+          "若 omnisnippet1.com 无明确业务用途：Shopify Admin → Apps → 找到对应 App → 卸载",
+          "FB Pixel 去重：Shopify Admin → Online Store → Preferences → Facebook Pixel → 确认只有一个 Pixel ID，删除多余的；同时检查 theme.liquid 是否有硬编码的 Pixel 代码",
+          "SRI 评估：与开发团队确认是否可为主要外部脚本（fbevents.js、gtag.js）添加 integrity 属性",
+          "记录已审计的脚本到第三方脚本台账（域名/owner/业务用途/是否必须）"
+        ],
+        "gate": "Network Tab 中 pixel.bxtag.com 和 omnisnippet1.com 不再加载（若确认可删除）；FB Pixel 只有 1 个 ID",
+        "estimatedEffortHours": 16,
+        "expectedImpact": "减少 2-5 次/页第三方失败；FB Pixel 归因数据恢复准确；消除未知代码执行风险",
+        "monthlyRevenueImpact": null,
+        "status": "pending"
       }
     ],
     "executionSummary": {
-      "total": 8,
+      "total": 11,
       "pending": 8,
       "in_progress": 0,
       "done": 0,
@@ -3167,5 +3223,225 @@
         "note": "促销折扣每月 $1,050万，高于月均广告费。折扣是隐性的获客成本，应与广告费合并看待真实 CAC"
       }
     }
+  },
+  "roiMatrix": {
+    "updatedAt": "2026-06-19",
+    "description": "每个问题按「修复难度 × 预期月化收益 × 修复时间」排序，帮助 owner 快速判断优先级",
+    "caveat": "预期收益为假设情景，基于行业基准，需 A/B 实验验证",
+    "items": [
+      {
+        "problemId": "P2",
+        "title": "修复 CTA sticky 定位 + 启用 Shop Pay",
+        "effortDays": 0.5,
+        "effortLevel": "极低",
+        "expectedMonthlyUsd": 86000,
+        "expectedMonthlyRange": "$50,000-$130,000",
+        "confidence": "中（Shopify 官方数据：Shop Pay 提升转化 72%，但基准差异大）",
+        "roi": "超高",
+        "roiScore": 10,
+        "whyNow": "CSS 1行修改，最低成本，最快见效。当前每个月有 5,281 个进入结账的用户没有完成购买"
+      },
+      {
+        "problemId": "P3",
+        "title": "激活 Klaviyo 弃单追回序列",
+        "effortDays": 1,
+        "effortLevel": "低",
+        "expectedMonthlyUsd": 20000,
+        "expectedMonthlyRange": "$13,000-$27,000",
+        "confidence": "高（Klaviyo 弃单追回 5-10% 是稳定行业数据）",
+        "roi": "高",
+        "roiScore": 9,
+        "whyNow": "1天配置，之后持续产生收益。当前每月 5,281 个弃单用户完全未被触达"
+      },
+      {
+        "problemId": "P5",
+        "title": "FB Pixel 去重（5分钟）",
+        "effortDays": 0.1,
+        "effortLevel": "极低",
+        "expectedMonthlyUsd": 530449,
+        "expectedMonthlyRange": "恢复广告归因准确性，ROAS 数字从虚高恢复真实",
+        "confidence": "高（FB Pixel 双重计数已确认，去重可立即恢复归因）",
+        "roi": "极高（不直接产生收入，但恢复决策可信度）",
+        "roiScore": 10,
+        "whyNow": "Shopify Admin → Preferences，5分钟操作，消除月均 $53万 广告费归因污染"
+      },
+      {
+        "problemId": "P4",
+        "title": "P4a：信任信号移至首屏（M5/S12/Flow）",
+        "effortDays": 1,
+        "effortLevel": "低",
+        "expectedMonthlyUsd": 30000,
+        "expectedMonthlyRange": "$20,000-$50,000",
+        "confidence": "中（信任信号首屏可见通常提升加购率 5-15%）",
+        "roi": "高",
+        "roiScore": 8,
+        "whyNow": "Shopify Theme Editor 无需代码，1天内可完成 3 个主力 SKU"
+      },
+      {
+        "problemId": "P4",
+        "title": "P4b：TuckGo meta title 扩展",
+        "effortDays": 0.2,
+        "effortLevel": "极低",
+        "expectedMonthlyUsd": null,
+        "expectedMonthlyRange": "改善新品 SEO/GEO 可见度，效果 3-6 个月后体现",
+        "confidence": "低（SEO 效果周期长）",
+        "roi": "中（长期）",
+        "roiScore": 6,
+        "whyNow": "30 字 meta title 对新品 TuckGo 的 SEO 和 GEO 双重损伤，20 分钟可修复"
+      },
+      {
+        "problemId": "P7",
+        "title": "分面导航 noindex（nursing-bra 130 个 URL）",
+        "effortDays": 2,
+        "effortLevel": "低",
+        "expectedMonthlyUsd": null,
+        "expectedMonthlyRange": "爬虫预算恢复，核心词排名改善，3-6 个月后体现",
+        "confidence": "中（分面 URL noindex 是 SEO 最佳实践）",
+        "roi": "中（长期）",
+        "roiScore": 7,
+        "whyNow": "当前 130 个分面 URL 浪费 40-60% 爬虫预算，是品类词无法获得排名的直接原因"
+      },
+      {
+        "problemId": "P8",
+        "title": "清除未知脚本 + 第三方台账",
+        "effortDays": 2,
+        "effortLevel": "低",
+        "expectedMonthlyUsd": null,
+        "expectedMonthlyRange": "消除安全风险；减少 3P 失败次数；提升页面加载速度",
+        "confidence": "高（脚本清理效果确定性高）",
+        "roi": "中（安全 + 性能双收益，难以直接量化）",
+        "roiScore": 7,
+        "whyNow": "omnisnippet1.com 每日版本化，每天都在执行来源不明的代码"
+      },
+      {
+        "problemId": "P6",
+        "title": "第三方脚本 kill-list + 失败预算治理",
+        "effortDays": 14,
+        "effortLevel": "中",
+        "expectedMonthlyUsd": 50000,
+        "expectedMonthlyRange": "$30,000-$100,000（间接，通过提升移动端体验）",
+        "confidence": "低（间接效果，需实验验证）",
+        "roi": "高但周期长",
+        "roiScore": 7,
+        "whyNow": "92次 3P 失败是所有技术问题的根源，修复后 LCP/TBT 等多项指标联动改善"
+      },
+      {
+        "problemId": "P1",
+        "title": "信任信号全面首屏化 + 库存紧迫感",
+        "effortDays": 5,
+        "effortLevel": "低-中",
+        "expectedMonthlyUsd": 25000,
+        "expectedMonthlyRange": "$15,000-$50,000",
+        "confidence": "中（信任信号和紧迫感对加购率的影响有大量研究支撑）",
+        "roi": "高",
+        "roiScore": 8,
+        "whyNow": "5个 PDP 信任信号全部非首屏，这是 P1 漏斗前端失血的直接根因"
+      }
+    ]
+  },
+  "homepageDiagnosis": {
+    "updatedAt": "2026-06-19",
+    "bounceRate": 0.579,
+    "bounceRateBenchmark": "电商均值 45-55%",
+    "bounceRateGap": "+7.9pp（偏高）",
+    "avgPv": 2.91,
+    "avgPvBenchmark": "健康电商 4-6 页",
+    "avgStaySec": 248,
+    "hypotheses": [
+      {
+        "id": "H1",
+        "title": "首页价值主张不清晰",
+        "description": "用户在 5 秒内无法理解「Momcozy 卖什么、为什么选它」，直接离开",
+        "evidence": "跳出率 57.9%，平均 PV 2.91（偏低），说明首页没有引导用户深入探索",
+        "fix": "首屏 hero section 需要明确的品类定位（如 'The #1 Wearable Breast Pump Brand'）+ 核心 USP",
+        "priority": "高"
+      },
+      {
+        "id": "H2",
+        "title": "首页到 PDP 的内链路径不清晰",
+        "description": "访客不知道应该点哪个产品，或者找不到适合自己的入口",
+        "evidence": "PV 2.91 说明用户平均只看了 2.91 个页面就离开，内链引导力弱",
+        "fix": "首页产品分类入口（按场景：职场/旅行/家庭；按产品系列：M/S/Air 系列）",
+        "priority": "中"
+      },
+      {
+        "id": "H3",
+        "title": "首页加载体验差（移动端）",
+        "description": "首页 JS 1,903KB，移动端 loadEvent 超 11 秒，用户等待超时离开",
+        "evidence": "homepageJsKb=1903，与 LCP 不可观测直接相关",
+        "fix": "需通过 G1 Clarity 录像确认是加载问题还是内容问题",
+        "priority": "需验证"
+      }
+    ],
+    "missingDiagnosis": [
+      "首页 A/B 测试记录（当前版本 vs 历史版本的跳出率对比）",
+      "首页热图（Clarity 接入后 14 天可获取）：用户点哪里、滚动到哪里停止",
+      "首页 vs 广告落地页的跳出率对比（直投 PDP 的效果 vs 经过首页的效果）"
+    ]
+  },
+  "bs03LtvDiagnosis": {
+    "updatedAt": "2026-06-19",
+    "title": "BS03 剃刀+刀片商业模式：独立站最大复购机会",
+    "hostSalesUsd": 10762501,
+    "hostUnits": 33853,
+    "hostAvgPriceUsd": 318,
+    "hostMarginRate": 61.6,
+    "bladeSalesUsd7m": 1004651,
+    "bladeUnits": 39034,
+    "bladeAvgPriceUsd": 26,
+    "bladeMarginRate": 173.3,
+    "bladePerHostUnit7m": 29.68,
+    "bladeMonthlyPerUnit": 4.24,
+    "currentLtvMonthly": 203.24,
+    "potentialInsights": [
+      "当前 33,853 台 BS03 存量，月均每台带动 $4.24 洗涤块销售 × 173.3% 毛利率 = 每台每月 $7.34 净利贡献",
+      "若复购率从当前水平提升 20pp（强化邮件/SMS 追回），月均洗涤块收入可增加约 $20万",
+      "洗涤块每盒 $26 × 39,034 盒 = 每月约 5,576 盒被购买，但 BS03 总存量 33,853 台，理论月复购率约 16.5%，远低于正常消耗品复购率 40-60%",
+      "机会：83.5% 的 BS03 存量用户没有在当期购买洗涤块 — 是用光了没有再买，还是在用其他品牌的替代品？"
+    ],
+    "actionItems": [
+      "Klaviyo 配置洗涤块补货提醒邮件序列：购机后 30 天、60 天、90 天各触发一次",
+      "PDP 底部加「为您的 BS03 补充洗涤块」cross-sell 模块",
+      "计算真实月复购率：Shopify 导出 BS03 买家名单 vs 洗涤块购买记录，交叉比对",
+      "定价策略：考虑「3盒装」bundle 提升客单价和购买频率"
+    ],
+    "missingData": "G3 LTV 队列数据：需要知道买了 BS03 的客户，在 M1/M3/M6 内有多少回来买洗涤块",
+    "pageOwner": "metrics"
+  },
+  "problemCausalChain": {
+    "updatedAt": "2026-06-19",
+    "description": "8 个问题的因果层次，帮助 owner 理解为什么某些问题的优先级高于表面损失显示的位置",
+    "rootCauses": [
+      {
+        "id": "P6",
+        "role": "技术放大器",
+        "amplifies": [
+          "P1",
+          "P2"
+        ],
+        "explanation": "JS 2,212KB 导致移动端 loadEvent 11,265ms。用户在到达 PDP 加购环节前已等待超时离开（放大 P1）；同时 3P 失败 92 次使 Shop Pay 等快捷支付无法正常加载（放大 P2）"
+      },
+      {
+        "id": "P4",
+        "role": "直接根因",
+        "causes": [
+          "P1",
+          "P2"
+        ],
+        "explanation": "信任信号/CTA/安全认证不在首屏 → 用户没有购买理由 → 加购率 8.6%（P1）。sticky-atc 定位 bug → 结账摩擦 → 结账→购买 38.2%（P2）"
+      },
+      {
+        "id": "P5",
+        "role": "数据元问题",
+        "affects": [
+          "P1",
+          "P2",
+          "P3",
+          "所有经营决策"
+        ],
+        "explanation": "FB Pixel 双重计数 → ROAS 虚高 → 广告预算基于错误信号分配 → 流量结构失真 → P1/P2 的真实根因可能被掩盖。在 P5 未修复前，所有基于 CVR 的决策都有口径风险"
+      }
+    ],
+    "readingGuide": "建议修复顺序：P5（5分钟，恢复数据可信度）→ P2-P4（1-5天，直接提升转化）→ P3（3天，追回已损失用户）→ P6（2-4周，从根本改善技术负担）→ P7/P8（战略层，1-4周）"
   }
 }
