@@ -1,5 +1,8 @@
 ---
 name: platform-reconstruction-360
+
+> **状态：已完成归档** · 归档日期: 2026-06-20 · 所有 Phase 均已实施完成
+
 description: Momcozy 诊断监控360平台完整重构计划。从静态报告站 → Next.js 动态平台，整合 browser-harness AI采集层，设计系统基于 LaunchFast+锡嘉风格融合。触发场景：「平台重构」「360平台」「Next.js 迁移」「采集计划」。
 ---
 

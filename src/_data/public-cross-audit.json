@@ -1978,7 +1978,8 @@
     "rootCause": "Momcozy 首页 hero 图片使用 CDN 懒加载或 CSS background，Playwright lab 环境 25s 内未触发 LCP Performance Entry",
     "fix": "collect.mjs LCP 等待时间从 25s 延长至 40s，并在等待前先触发 networkidle（12s）",
     "expectedOutcome": "下次采集部分路由可能获得 LCP 值，confidence 从 low 升至 medium",
-    "caveat": "若 hero 图片为 CSS background（非 <img> 元素），LCP 将永远无法被 PerformanceObserver 捕获，需要修改 Momcozy 主题代码才能解决"
+    "caveat": "若 hero 图片为 CSS background（非 <img> 元素），LCP 将永远无法被 PerformanceObserver 捕获，需要修改 Momcozy 主题代码才能解决",
+    "competitorContext": "注意：10个竞品的LCP也全部为null（lcp_unobserved_in_timeout）。这说明'LCP不可观测'是Shopify商家使用CSS background作为hero图片的行业普遍问题，不是Momcozy独有。但这不意味着Momcozy的LCP没有问题——它意味着我们无法通过当前采集方式在任何Shopify商家上获取LCP，核心Web Vitals状态仍然对所有人未知。真正的差异在于JS体积和DOM节点，这两项指标Momcozy都显著高于竞品。"
   },
   "geoCompetitorLandscape": {
     "updatedAt": "2026-06-19",
@@ -3683,5 +3684,84 @@
         "estimatedTimeToRank": "TuckGo本身需要先积累评论（当前10条），3个月评论积累+内容创建"
       }
     ]
+  },
+  "skuAnomalyAlerts": {
+    "updatedAt": "2026-06-20",
+    "alerts": [
+      {
+        "id": "ALERT_M5_SMART_DROP",
+        "severity": "HIGH",
+        "sku": "M5 Smart吸奶器",
+        "title": "最高毛利率 SKU 5月销售归零",
+        "monthlyData": {
+          "202502": 151000,
+          "202503": 588000,
+          "202504": 497000,
+          "202505": 0
+        },
+        "marginRate": 210.6,
+        "avgPriceUsd": 214,
+        "peakMonthSalesUsd": 588000,
+        "dropMonthSalesUsd": 0,
+        "dropPercent": -100,
+        "hypothesis": [
+          "库存断货（最可能）：3-4月爆发式增长 $588K→$497K 后库存耗尽",
+          "战略停售：被更新款 M5 Smart 2.0 替代，主动退市",
+          "数据截断：5月数据采集时间点问题，实际有销售"
+        ],
+        "businessImpact": "M5 Smart 是当前毛利率最高的吸奶器（210.6%）。若断货，每月损失边际利润约 $497K × 210.6% ÷ (1+210.6%) × 210.6% ≈ $340K",
+        "requiredAction": "立即确认：Shopify 后台库存状态 / 是否有补货计划 / 是否有意停售",
+        "pageOwner": "metrics"
+      }
+    ]
+  },
+  "lossSkuAnalysis": {
+    "updatedAt": "2026-06-20",
+    "source": "Shopify 2025-11~2026-05 财务数据",
+    "totalLossUsd": 576062,
+    "lossSkus": [
+      {
+        "spu": "瑜伽球（美珠）",
+        "salesUsd": 119764,
+        "marginRate": -151.9,
+        "lossUsd": 181898,
+        "category": "非核心品类",
+        "recommendation": "立即停售或极大幅削减广告。瑜伽球与Momcozy母婴品牌定位完全不符，且亏损率最高"
+      },
+      {
+        "spu": "婴儿车风扇",
+        "salesUsd": 132504,
+        "marginRate": -119.4,
+        "lossUsd": 158262,
+        "category": "非核心品类",
+        "recommendation": "停售或清库存。竞争激烈，定价策略失败，持续出血"
+      },
+      {
+        "spu": "水晶绒孕妇枕",
+        "salesUsd": 296065,
+        "marginRate": -18.6,
+        "lossUsd": 55119,
+        "category": "相关品类但亏损",
+        "recommendation": "提价或停止广告投放。规模最大（$296K），亏损率相对低，可通过提价测试弹性"
+      },
+      {
+        "spu": "纯水湿巾",
+        "salesUsd": 20006,
+        "marginRate": -315.2,
+        "lossUsd": 63055,
+        "category": "快消品",
+        "recommendation": "立即停售。-315%毛利率意味着每卖$1亏损$3.15，规模虽小但效率极差"
+      },
+      {
+        "spu": "FM03辅食机",
+        "salesUsd": 89891,
+        "marginRate": -67.9,
+        "lossUsd": 61070,
+        "category": "相关品类",
+        "recommendation": "评估产品竞争力。辅食机是母婴相关品类，但当前定价/成本结构有问题"
+      }
+    ],
+    "keyInsight": "5个亏损SKU合计损失 $576K（7个月），占总净利润 $2,272万 的 2.5%。单独看比例不大，但这些SKU持续消耗广告预算和运营资源。更关键的是：瑜伽球和婴儿车风扇与品牌定位完全无关，在GEO层面稀释了品牌的母婴专注度。",
+    "pageOwner": "metrics"
   }
 }
