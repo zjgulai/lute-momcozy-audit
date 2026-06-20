@@ -11,8 +11,23 @@
 ## 目录结构
 
 ```
-Active build source:
-scripts/build-history-site.mjs + scripts/history-site/*.mjs + src/_data/public-cross-audit.json + src/_data/sessions + history_static/assets/
+Active build sources:
+
+[PRIMARY] lute-momcozy-platform (Next.js 16)
+  生产地址: https://shopify.lute-tlz-dddd.top
+  仓库: https://github.com/zjgulai/lute-momcozy-platform
+  部署: tencent.yml 自动 build → tar → scp → rsync
+  数据来源: CI 时 checkout lute-momcozy-audit 并 cp src/_data/ → src/data/
+
+[LEGACY STATIC SITE] lute-momcozy-audit/_site/
+  由 scripts/build-history-site.mjs 生成
+  部署到 GitHub Pages（pages.yml）
+  HTML 路由: /metrics.html /forensics.html 等
+
+数据层（两个产品共用）:
+  src/_data/public-cross-audit.json  ← 主数据源（209KB）
+  src/_data/sessions/                ← 性能采集历史（7个session）
+  src/_data/competitors/             ← 竞品快照（10个竞品）
 
 src/_data/
   audit.json                  <- 最新证据快照（历史兼容数据源）
