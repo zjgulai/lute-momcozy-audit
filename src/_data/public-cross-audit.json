@@ -3443,5 +3443,245 @@
       }
     ],
     "readingGuide": "建议修复顺序：P5（5分钟，恢复数据可信度）→ P2-P4（1-5天，直接提升转化）→ P3（3天，追回已损失用户）→ P6（2-4周，从根本改善技术负担）→ P7/P8（战略层，1-4周）"
+  },
+  "competitorCommercialBenchmark": {
+    "updatedAt": "2026-06-19",
+    "source": "公开价格页面 + Amazon 评论数据 + 行业研究",
+    "caveat": "价格和评论数据来自公开渠道，可能存在时间差，需定期更新",
+    "pricingComparison": {
+      "category": "可穿戴吸奶器",
+      "momcozyActualAov": 88.2,
+      "momcozyMsrpRange": "$89-$319",
+      "momcozyDiscountRate": "99%订单含>30%折扣，实际成交价远低于MSRP",
+      "competitors": [
+        {
+          "brand": "Willow Go",
+          "msrp": 299,
+          "segment": "高端",
+          "note": "无折扣策略，价格稳定"
+        },
+        {
+          "brand": "Elvie Pump",
+          "msrp": 279,
+          "segment": "高端",
+          "note": "偶尔促销，折扣<15%"
+        },
+        {
+          "brand": "Momcozy M9",
+          "msrp": 299,
+          "segment": "中高",
+          "note": "同价位竞品，但Momcozy实际成交可能$150-180"
+        },
+        {
+          "brand": "Momcozy M6",
+          "msrp": 169,
+          "segment": "中端",
+          "note": "主力款，月销$321K"
+        },
+        {
+          "brand": "Momcozy S12 Pro",
+          "msrp": 89,
+          "segment": "预算",
+          "note": "量大价低，月均$142客单"
+        },
+        {
+          "brand": "BabyBuddha",
+          "msrp": 159,
+          "segment": "中端",
+          "note": "专注吸力，细分竞品"
+        },
+        {
+          "brand": "Freemie Liberty",
+          "msrp": 149,
+          "segment": "预算",
+          "note": "Momcozy预算替代品，网站更轻量"
+        }
+      ],
+      "keyInsight": "Momcozy MSRP $89-$299，但99%折扣率使实际AOV仅$88，意味着成交价已接近最低MSRP SKU。与Willow/Elvie的$279-$299相比，Momcozy的实际定价竞争力在$88-$150区间，而非MSRP显示的$89-$299。折扣是结构性定价，不是临时促销。"
+    },
+    "reviewVelocityComparison": {
+      "momcozy": [
+        {
+          "sku": "S12 Pro",
+          "reviewCount": 1828,
+          "rating": 4.5,
+          "note": "旗舰款，评论基础最强"
+        },
+        {
+          "sku": "M5 Smart",
+          "reviewCount": 1439,
+          "rating": 4.6,
+          "note": "老旗舰，处于产品末期"
+        },
+        {
+          "sku": "KleanPal",
+          "reviewCount": 898,
+          "rating": 4.9,
+          "note": "高评价，配件品类"
+        },
+        {
+          "sku": "TuckGo",
+          "reviewCount": 10,
+          "rating": 5.0,
+          "note": "新品上线即盲区——183倍差距"
+        }
+      ],
+      "competitorContext": [
+        {
+          "brand": "Willow Go",
+          "note": "核心款5000+评论，品牌护城河深"
+        },
+        {
+          "brand": "Elvie Pump",
+          "note": "3000+评论，高端认知稳固"
+        },
+        {
+          "brand": "Freemie",
+          "note": "1000-2000评论，细分市场稳定"
+        }
+      ],
+      "keyInsight": "Momcozy旗舰款1800条评论 vs Willow 5000+，差距2.8x。更关键是新品TuckGo仅10条评论——新品上线后缺乏评论加速机制（邮件请求评论序列、insert card、早期用户激励），导致新扩品类无法获得AI/搜索引擎流量信任。",
+      "actionableGap": "建议：TuckGo购买后第14天自动触发评论请求邮件，配合5%折扣码激励"
+    },
+    "discountStrategyComparison": {
+      "momcozy": {
+        "discountRate": "121.8%（折扣额/销售额）",
+        "highDiscountOrders": "99%",
+        "strategy": "常态化高折扣，折扣=实际定价",
+        "risk": "价格锚点失效，用户习惯等折扣购买；品牌价值感偏低（与AI固化为budget/value定位直接相关）"
+      },
+      "competitors": [
+        {
+          "brand": "Willow",
+          "strategy": "无常态折扣，节假日偶促销<15%",
+          "positioning": "高端稳定"
+        },
+        {
+          "brand": "Elvie",
+          "strategy": "罕见促销，产品自带溢价",
+          "positioning": "高端稳定"
+        },
+        {
+          "brand": "Freemie",
+          "strategy": "价格本身就低，不需要折扣",
+          "positioning": "预算透明"
+        }
+      ],
+      "keyInsight": "Momcozy的99%高折扣率是GEO品牌定位固化为'budget/value'的直接证据。AI在推荐时把折扣频率和幅度作为品牌定位信号——Momcozy的持续高折扣告诉AI'这是一个折扣品牌'，而非'性价比优质品牌'，这是GEO叙事主权缺失的商业根因。"
+    }
+  },
+  "geoTestingMethodology": {
+    "updatedAt": "2026-06-19",
+    "currentBaseline": {
+      "engine": "Perplexity",
+      "questionCount": 5,
+      "momcozyMentionRate": "5/5",
+      "bestOverallRate": "0/5",
+      "limitation": "样本量太小（5题），单一引擎，无品牌词/品类词/场景词分类"
+    },
+    "proposedFramework": {
+      "totalQuestions": 20,
+      "categories": [
+        {
+          "type": "品牌词",
+          "count": 5,
+          "examples": [
+            "Momcozy S12 Pro review",
+            "Momcozy vs Willow which is better",
+            "Momcozy breast pump problems",
+            "Is Momcozy a good brand",
+            "Momcozy M9 review 2026"
+          ],
+          "goal": "测试品牌认知深度和产品层面的AI引用准确性"
+        },
+        {
+          "type": "品类词",
+          "count": 7,
+          "examples": [
+            "best wearable breast pump 2026",
+            "best hands-free breast pump for working moms",
+            "most comfortable wearable breast pump",
+            "quietest breast pump for office",
+            "best breast pump for large breasts",
+            "best baby food maker 2026",
+            "best bottle sterilizer 2026"
+          ],
+          "goal": "测试Momcozy在品类推荐中的占位率和排名质量"
+        },
+        {
+          "type": "场景词",
+          "count": 5,
+          "examples": [
+            "breast pump covered by insurance 2026",
+            "best breast pump for traveling moms",
+            "breast pump for work from home moms",
+            "breast pump that fits in pumping bra",
+            "affordable breast pump alternatives"
+          ],
+          "goal": "测试高价值场景（保险/职场/旅行）的叙事主权"
+        },
+        {
+          "type": "竞品对比词",
+          "count": 3,
+          "examples": [
+            "Momcozy vs Elvie breast pump comparison",
+            "cheap alternative to Willow breast pump",
+            "best breast pump under $200"
+          ],
+          "goal": "测试在竞品对比搜索中的曝光质量"
+        }
+      ],
+      "enginesRequired": [
+        "Perplexity",
+        "ChatGPT (GPT-4o)",
+        "Google AI Overview"
+      ],
+      "scoringCriteria": {
+        "mention": "是否被提及（0/1）",
+        "position": "在推荐列表的排名（1-5）",
+        "bestOverall": "是否获得'best overall'或第一推荐（0/1）",
+        "citation": "引用来源类型（品牌自有页面/第三方媒体/评测站）",
+        "sentiment": "描述语气（premium/budget/reliable/avoid）"
+      }
+    },
+    "quarterlySOPTemplate": {
+      "frequency": "每季度（3月/6月/9月/12月第一周）",
+      "estimatedTime": "2小时",
+      "steps": [
+        "在无痕模式浏览器中，对20个问题×3个引擎进行测试（共60次测试）",
+        "用标准表格记录：引擎/问题/是否提及/排名/引用来源/描述词",
+        "计算本季度总体得分：mention rate/best overall rate/自有页面引用率",
+        "与上季度对比，识别改善/退化的维度",
+        "更新 geoBaseline.history 字段，触发平台重新构建",
+        "如得分较上季度下降5%+，触发GEO内容紧急干预流程"
+      ],
+      "targetKPIs": {
+        "mentionRateTarget": "20/20（100%，当前5/5，但仅单引擎）",
+        "bestOverallRateTarget": "≥5/20（25%，当前0/5）",
+        "ownPageCitationTarget": "≥3/20（15%，当前接近0%）",
+        "insuranceScenarioTarget": "在保险场景至少出现1次（当前0次）",
+        "workplaceScenarioTarget": "在职场场景至少出现1次（当前0次）"
+      }
+    },
+    "priorityContentGaps": [
+      {
+        "scenario": "保险渠道",
+        "currentGeoStatus": "Spectra主导，Momcozy缺席",
+        "contentNeeded": "创建/pages/insurance-coverage：HSA/FSA报销指南、HCPCS代码、医生处方流程、保险公司联系指引",
+        "estimatedTimeToRank": "3-6个月（内容创建后）"
+      },
+      {
+        "scenario": "职场场景",
+        "currentGeoStatus": "Elvie主导，Momcozy缺席",
+        "contentNeeded": "创建/blogs/pumping-at-work：职场泵奶法律权利、私密性技巧、推荐机型（S12 Pro/M9）、真实用户案例",
+        "estimatedTimeToRank": "2-4个月"
+      },
+      {
+        "scenario": "旅行场景",
+        "currentGeoStatus": "TuckGo是Momcozy旅行定位产品，但GEO能见度极低",
+        "contentNeeded": "TuckGo PDP内容扩展：IATA合规、折叠尺寸对比、航空公司政策、旅行收纳技巧",
+        "estimatedTimeToRank": "TuckGo本身需要先积累评论（当前10条），3个月评论积累+内容创建"
+      }
+    ]
   }
 }
