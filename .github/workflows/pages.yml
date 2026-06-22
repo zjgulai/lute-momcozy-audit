@@ -59,7 +59,7 @@ jobs:
       contents: read
     steps:
       - name: Trigger lute-momcozy-platform rebuild with latest data
-        uses: peter-evans/repository-dispatch@v3
+        uses: peter-evans/repository-dispatch@v4
         with:
           token: ${{ secrets.PLATFORM_TRIGGER_TOKEN }}
           repository: zjgulai/lute-momcozy-platform
